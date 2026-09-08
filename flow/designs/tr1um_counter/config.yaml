@@ -1,0 +1,80 @@
+# TR-1um IP62/STDLIB digital-flow validation design.
+# This design intentionally exercises DFFR, INV, NAND/NOR/XOR, clock routing,
+# reset behavior, PDN, placement, routing, STA, and KLayout streamout.
+# Uses only TR-1um_stdcell cells. ALIGN-generated cells are not in this flow.
+meta:
+  version: 3
+  flow: Classic
+  substituting_steps:
+    # GDS streamout is done by KLayout (PRIMARY_GDSII_STREAMOUT_TOOL=klayout).
+    Magic.StreamOut: null
+    Magic.WriteLEF: null
+    Magic.DRC: null
+    Magic.SpiceExtraction: null
+    Netgen.LVS: null
+    Checker.LVS: null
+    Checker.MagicDRC: null
+    Checker.IllegalOverlap: null
+    Odb.CheckDesignAntennaProperties: null
+DESIGN_NAME: tr1um_counter
+VERILOG_FILES: dir::src/tr1um_counter.v
+
+CLOCK_PORT: clk
+# NOTE: the Liberty delay tables are placeholder characterization data (cell delays
+# on the order of hundreds of ns), so this smoke test uses a relaxed 5us clock.
+# Re-tighten once TR-1um Liberty characterization is redone.
+CLOCK_PERIOD: 5000   # ns; ~200 kHz smoke-test clock for placeholder timing
+PNR_SDC_FILE: dir::constraints.sdc
+SIGNOFF_SDC_FILE: dir::constraints.sdc
+FALLBACK_SDC: dir::constraints.sdc
+
+VDD_NETS: [VDD]
+GND_NETS: [GND]
+VERILOG_POWER_DEFINE: "USE_POWER_PINS"
+
+FP_SIZING: absolute
+DIE_AREA: [0, 0, 800, 800]
+CORE_AREA: [50, 62.6, 750, 688.6]
+
+PL_TARGET_DENSITY_PCT: 20
+# RePlAce routability-driven mode diverges numerically with the access cells' OBS;
+# wirelength-driven placement is sufficient for this small design.
+PL_ROUTABILITY_DRIVEN: false
+GRT_ALLOW_CONGESTION: true
+# Clean signal routing is the baseline profile. The signoff profile enables
+# PDN explicitly through a separate overlay/configuration during closure.
+# Keep this core-only diagnostic free of power stripes.
+RUN_IRDROP_REPORT: false
+RUN_PDN: false
+RUN_CTS: false
+PDN_VOFFSET: 30
+PDN_HOFFSET: 30
+PDN_VWIDTH: 5
+PDN_HWIDTH: 5
+PDN_VPITCH: 120
+PDN_HPITCH: 120
+IO_DELAY_CONSTRAINT: 5
+OUTPUT_CAP_LOAD: 0.5
+# KLayout streamout: GDS cell geometry must MERGE into the LEF-derived master
+# cells (RenameCell default leaves the output empty).
+KLAYOUT_CONFLICT_RESOLUTION: AddToCell
+
+RUN_POST_CTS_RESIZER_TIMING: false
+RUN_POST_GRT_RESIZER_TIMING: false
+GRT_OVERFLOW_ITERS: 0
+RUN_DRT: true
+RUN_SPEF_EXTRACTION: true
+RUN_KLAYOUT_DRC: true
+RUN_POST_GPL_DESIGN_REPAIR: false
+RUN_MAGIC_STREAMOUT: false
+RUN_MAGIC_DRC: false
+RUN_LVS: false
+RUN_FILL_INSERTION: false
+ERROR_ON_DISCONNECTED_PINS: false
+PL_RESIZER_HOLD_MAX_BUFFER_PCT: 100
+GRT_RESIZER_HOLD_MAX_BUFFER_PCT: 100
+GRT_RESIZER_ALLOW_SETUP_VIOS: true
+DRT_OPT_ITERS: 64
+DRT_OR_SEED: 42
+DRT_SAVE_SNAPSHOTS: false
+DRT_SAVE_DRC_REPORT_ITERS: 1

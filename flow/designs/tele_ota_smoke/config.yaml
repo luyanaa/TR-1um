@@ -1,0 +1,83 @@
+# TR-1um mixed analog hard-macro handoff smoke.
+#
+# This configuration is intentionally fail-closed while the finalized ALIGN
+# top-level GDS/LEF are absent. Do not replace those paths with primitive LEF
+# or stale ALIGN work output. Once qualified views are installed, the same
+# MACROS object fixes u_ota at the documented location and runs the bounded
+# digital-boundary flow.
+meta:
+  version: 3
+  flow: Classic
+  substituting_steps:
+    # Magic is basic/experimental only and is not a qualified signoff path.
+    Magic.StreamOut: null
+    Magic.WriteLEF: null
+    Magic.DRC: null
+    Magic.SpiceExtraction: null
+    Netgen.LVS: null
+    Checker.LVS: null
+    Checker.MagicDRC: null
+    Checker.IllegalOverlap: null
+    OpenROAD.RepairDesignPostGPL: null
+    OpenROAD.ResizerTimingPostGRT: null
+    OpenROAD.IRDropReport: null
+    Odb.CheckDesignAntennaProperties: null
+    Odb.CheckMacroAntennaProperties: null
+    Klayout.XOR: null
+    Checker.XOR: null
+
+DESIGN_NAME: tele_ota_smoke
+VERILOG_FILES: dir::src/tele_ota_smoke.v
+
+# TELESCOPIC_OTA is a hard macro, not a standard-cell-row hierarchy.
+# The two standard-cell BUF_X1 instances are the digital boundary only.
+MACROS:
+  TELESCOPIC_OTA:
+    gds:
+      - dir::../../align_macro/3_pnr/Results/TELESCOPIC_OTA.gds
+    lef:
+      - dir::../../align_macro/3_pnr/Results/TELESCOPIC_OTA.lef
+    nl:
+      - dir::../../align_macro/TELESCOPIC_OTA.bb.v
+    instances:
+      u_ota:
+        location: [200, 200]
+        orientation: N
+
+# The macro has no qualified VDD/GND pins in the current handoff contract.
+# VDD/GND power only the standard-cell boundary buffers for this smoke.
+VDD_NETS: [VDD]
+GND_NETS: [GND]
+VERILOG_POWER_DEFINE: "USE_POWER_PINS"
+IGNORE_DISCONNECTED_MODULES: [TELESCOPIC_OTA]
+PDN_CONNECT_MACROS_TO_GRID: false
+ERROR_ON_PDN_VIOLATIONS: false
+
+FP_SIZING: absolute
+DIE_AREA: [0, 0, 1600, 1200]
+CORE_AREA: [50, 50, 1550, 1150]
+PL_TARGET_DENSITY_PCT: 20
+GRT_ALLOW_CONGESTION: true
+
+# The analog instance is fixed by MACROS.instances above.
+RUN_CTS: false
+RUN_FILL_INSERTION: false
+RUN_DRT: false
+RUN_SPEF_EXTRACTION: false
+RUN_POST_GPL_DESIGN_REPAIR: false
+RUN_POST_GRT_RESIZER_TIMING: false
+RUN_ANTENNA_REPAIR: false
+RUN_IRDROP_REPORT: false
+RUN_KLAYOUT_STREAMOUT: true
+RUN_KLAYOUT_DRC: false
+RUN_MAGIC_STREAMOUT: false
+RUN_MAGIC_DRC: false
+RUN_LVS: false
+RUN_MCSTA: false
+TIMING_VIOLATION_CORNERS: []
+HOLD_VIOLATION_CORNERS: []
+
+# Reuse the existing TR-1um smoke PDN recipe for the standard-cell boundary.
+PDN_MULTILAYER: false
+PDN_CFG: dir::../tr1um_counter/pdn_cfg.tcl
+KLAYOUT_CONFLICT_RESOLUTION: AddToCell

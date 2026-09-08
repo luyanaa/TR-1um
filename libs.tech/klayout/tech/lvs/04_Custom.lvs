@@ -82,10 +82,12 @@ end
 
 # Prefix for each device
 PREFIX_MAP = {
-    'NMOS' => 'XM',
-    'NMOSE' => 'XM',
-    'PMOS' => 'XM',
-    'DN' => 'D',
+    # SPICE parses the first letter as the element type: XM$1 is a subcircuit
+    # instance, not a MOSFET. Emit M$1 so a re-read extracted netlist retains
+    # PMOS/NMOS devices for LVS comparison.
+    'NMOS' => 'M',
+    'NMOSE' => 'M',
+    'PMOS' => 'M',
     'DP' => 'D',
     'F_CSIO' => 'XC',
     'F_RR' => 'XR',

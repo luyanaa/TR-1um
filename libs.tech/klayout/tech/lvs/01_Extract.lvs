@@ -75,3 +75,6 @@ extract_devices(diode("DN"),                          # Floating Protection
 tolerance("DN", "A", :relative => 0.05)               # 5% tolerance 
 tolerance("DN", "P", :relative => 0.05)               # 5% tolerance 
 #
+# Explicit top-level source/drain/global power contract for the powered standard-cell flow.
+connect_global(BULK, "VSS")
+connect_global(WN, "VDD")

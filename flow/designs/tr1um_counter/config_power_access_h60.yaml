@@ -1,0 +1,62 @@
+# Powered access-cell experiment overlay.
+meta:
+  version: 3
+  flow: Classic
+  substituting_steps:
+    Magic.StreamOut: null
+    Magic.WriteLEF: null
+    Magic.DRC: null
+    Magic.SpiceExtraction: null
+    Netgen.LVS: null
+    Checker.LVS: null
+    Checker.MagicDRC: null
+    Checker.IllegalOverlap: null
+    Odb.CheckDesignAntennaProperties: null
+DESIGN_NAME: tr1um_counter
+VERILOG_FILES: dir::src/tr1um_counter.v
+CLOCK_PORT: clk
+CLOCK_PERIOD: 5000
+PNR_SDC_FILE: dir::constraints.sdc
+SIGNOFF_SDC_FILE: dir::constraints.sdc
+FALLBACK_SDC: dir::constraints.sdc
+VDD_NETS: [VDD]
+GND_NETS: [GND]
+VERILOG_POWER_DEFINE: "USE_POWER_PINS"
+FP_SIZING: absolute
+DIE_AREA: [0, 0, 800, 800]
+CORE_AREA: [50, 75.6, 750, 680.4]
+PL_TARGET_DENSITY_PCT: 20
+PL_ROUTABILITY_DRIVEN: false
+GRT_ALLOW_CONGESTION: true
+RUN_IRDROP_REPORT: false
+RUN_PDN: true
+RUN_CTS: false
+RUN_POST_CTS_RESIZER_TIMING: false
+RUN_POST_GRT_RESIZER_TIMING: false
+PDN_SKIP_DPL_CHECK: true
+PDN_VOFFSET: 650
+PDN_HOFFSET: 60
+PDN_VWIDTH: 5
+PDN_HWIDTH: 5
+PDN_VPITCH: 1000
+PDN_HPITCH: 400
+IO_DELAY_CONSTRAINT: 5
+OUTPUT_CAP_LOAD: 0.5
+KLAYOUT_CONFLICT_RESOLUTION: AddToCell
+RUN_DRT: true
+RUN_SPEF_EXTRACTION: true
+RUN_KLAYOUT_DRC: true
+RUN_POST_GPL_DESIGN_REPAIR: false
+RUN_MAGIC_STREAMOUT: false
+RUN_MAGIC_DRC: false
+RUN_LVS: false
+RUN_FILL_INSERTION: false
+ERROR_ON_DISCONNECTED_PINS: true
+PL_RESIZER_HOLD_MAX_BUFFER_PCT: 100
+GRT_RESIZER_HOLD_MAX_BUFFER_PCT: 100
+GRT_RESIZER_ALLOW_SETUP_VIOS: true
+GRT_OVERFLOW_ITERS: 0
+DRT_OPT_ITERS: 64
+DRT_OR_SEED: 42
+DRT_SAVE_SNAPSHOTS: false
+DRT_SAVE_DRC_REPORT_ITERS: 1

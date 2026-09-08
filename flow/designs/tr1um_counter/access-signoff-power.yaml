@@ -1,0 +1,14 @@
+# Access signoff overlay for a powered, framed closure attempt.
+# Apply with LibreLane's config overlay mechanism or copy these values into a
+# dedicated signoff config; the zero-DRC signal baseline remains unchanged.
+RUN_IRDROP_REPORT: true
+RUN_PDN: true
+ERROR_ON_DISCONNECTED_PINS: true
+PDN_VPITCH: 400
+PDN_HPITCH: 400
+PDN_VOFFSET: 30
+PDN_HOFFSET: 30
+PDN_VWIDTH: 5
+PDN_HWIDTH: 5
+PDN_RAIL_WIDTH: 5
+PDN_SKIP_DPL_CHECK: true

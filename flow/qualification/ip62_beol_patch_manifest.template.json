@@ -1,0 +1,14 @@
+{
+  "status": "template_requires_per_cell_review",
+  "rules": {
+    "M1_width_um": 1.8,
+    "M1_spacing_um": 1.4,
+    "V1_width_um": 1.4,
+    "V1_to_GC_spacing_um": 1.2,
+    "V1_to_CO_spacing_um": 1.0,
+    "V1_spacing_um": 1.5,
+    "M1_M2_enclosure_um": 1.0,
+    "M2_spacing_um": 2.0
+  },
+  "cells": []
+}

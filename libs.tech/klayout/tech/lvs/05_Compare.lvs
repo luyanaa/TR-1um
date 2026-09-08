@@ -61,14 +61,20 @@ if NET_ONLY
     netlist.combine_devices
     puts("Done")
 else
+    # Comparison mode follows below.
+    #
 #
     reader      = RBA::NetlistSpiceReader::new(MyReader::new)
     #
     # Comparison exection (in case LPE, all comment out)
-    #
-    #
     schematic(Sch_file, reader)
-    #
+    # Flatten the finite standard-cell boundary before comparison. This keeps
+    # strict top-level power and signal connectivity while avoiding mismatches
+    # caused only by inconsistent per-cell CDL pin naming.
+    ["AND4_X1", "DFFR", "NAND2", "NAND3", "XNOR2", "XOR2"].each do |cell|
+        schematic.flatten_circuit(cell)
+        netlist.flatten_circuit(cell)
+    end
     # schematic.make_top_level_pins   # https://www.klayout.de/doc/manual/lvs_compare.html#h2-299
     #
     align
@@ -76,13 +82,17 @@ else
     schematic.combine_devices
     netlist.combine_devices
     #
+    #
     if IGNORE_TOP_PORTS_MISMATCH
         puts("Starting TR-1um LVS Comparison")
         success = compare
     else
         puts("Starting TR-1um LVS Comparison in strict port mode")
         puts("flag_missing_ports enabled: missing/mislabeled top-level ports are treated as errors")
-        success = compare && flag_missing_ports
+        # success = compare && flag_missing_ports
+        compare_result = compare
+        port_check_result = flag_missing_ports
+        success = compare_result && port_check_result
     end
     #================================================
     #------------- COMPARISON RESULTS ---------------
