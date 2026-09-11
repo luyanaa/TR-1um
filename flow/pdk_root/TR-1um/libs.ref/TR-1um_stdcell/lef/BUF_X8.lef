@@ -1,0 +1,91 @@
+MACRO BUF_X8
+  CLASS CORE ;
+  ORIGIN 0 0 ;
+  SIZE 62.100 BY 62.600 ;
+  SYMMETRY X Y ;
+  SITE TR1um_site ;
+  PIN Y
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 21.100 6.400 23.700 14.000 ;
+      LAYER M1 ;
+        RECT 21.100 36.800 23.700 51.200 ;
+      LAYER M1 ;
+        RECT 23.700 11.400 29.100 14.000 ;
+      LAYER M1 ;
+        RECT 23.700 36.800 29.100 39.400 ;
+      LAYER M1 ;
+        RECT 29.100 6.400 31.700 14.000 ;
+      LAYER M1 ;
+        RECT 29.100 36.800 31.700 51.200 ;
+      LAYER M1 ;
+        RECT 31.700 11.400 37.100 14.000 ;
+      LAYER M1 ;
+        RECT 31.700 36.800 37.100 39.400 ;
+      LAYER M1 ;
+        RECT 37.100 6.400 39.700 14.000 ;
+      LAYER M1 ;
+        RECT 37.100 36.800 39.700 51.200 ;
+      LAYER M1 ;
+        RECT 39.700 11.400 45.100 14.000 ;
+      LAYER M1 ;
+        RECT 39.700 36.800 45.100 39.400 ;
+      LAYER M1 ;
+        RECT 45.100 6.400 47.700 51.200 ;
+      LAYER M1 ;
+        RECT 47.700 27.100 52.000 30.500 ;
+    END
+  END Y
+  PIN A
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 10.100 21.600 13.500 25.000 ;
+      LAYER M1 ;
+        RECT 13.500 21.600 16.900 24.200 ;
+    END
+  END A
+  PIN VDD
+    DIRECTION INOUT ;
+    USE POWER ;
+    PORT
+      LAYER M1 ;
+        RECT 5.000 55.000 9.100 57.600 ;
+      LAYER M1 ;
+        RECT 9.100 41.000 11.700 57.600 ;
+      LAYER M1 ;
+        RECT 11.700 52.600 17.100 57.600 ;
+      LAYER M1 ;
+        RECT 17.100 41.000 19.700 57.600 ;
+      LAYER M1 ;
+        RECT 19.700 52.600 25.100 57.600 ;
+      LAYER M1 ;
+        RECT 25.100 41.000 27.700 57.600 ;
+      LAYER M1 ;
+        RECT 27.700 52.600 33.100 57.600 ;
+      LAYER M1 ;
+        RECT 33.100 41.000 35.700 57.600 ;
+      LAYER M1 ;
+        RECT 35.700 52.600 41.100 57.600 ;
+      LAYER M1 ;
+        RECT 41.100 41.000 43.700 57.600 ;
+      LAYER M1 ;
+        RECT 43.700 52.600 49.100 57.600 ;
+      LAYER M1 ;
+        RECT 49.100 41.000 51.700 57.600 ;
+      LAYER M1 ;
+        RECT 51.700 55.000 57.100 57.600 ;
+    END
+  END VDD
+  PIN GND
+    DIRECTION INOUT ;
+    USE GROUND ;
+    PORT
+      LAYER M1 ;
+        RECT 5.000 0.000 57.100 9.800 ;
+    END
+  END GND
+END BUF_X8

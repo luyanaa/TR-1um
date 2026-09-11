@@ -1,0 +1,185 @@
+MACRO DFFS
+  CLASS CORE ;
+  ORIGIN 0 0 ;
+  SIZE 100.600 BY 62.600 ;
+  SYMMETRY X Y ;
+  SITE TR1um_site ;
+  PIN SET
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 76.100 16.100 76.500 19.500 ;
+      LAYER M1 ;
+        RECT 76.500 16.100 79.100 22.750 ;
+      LAYER M1 ;
+        RECT 79.100 16.100 79.500 19.500 ;
+    END
+  END SET
+  PIN D
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 26.300 15.200 26.600 17.800 ;
+      LAYER M1 ;
+        RECT 26.300 33.000 26.600 35.600 ;
+      LAYER M1 ;
+        RECT 26.600 15.200 27.000 17.800 ;
+      LAYER M1 ;
+        RECT 26.600 21.600 27.000 25.000 ;
+      LAYER M1 ;
+        RECT 26.600 33.000 27.000 35.600 ;
+      LAYER M1 ;
+        RECT 27.000 15.200 29.600 35.600 ;
+      LAYER M1 ;
+        RECT 29.600 21.600 30.000 25.000 ;
+    END
+  END D
+  PIN Q
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 83.500 6.400 86.700 9.800 ;
+      LAYER M1 ;
+        RECT 86.700 6.400 87.100 9.800 ;
+      LAYER M1 ;
+        RECT 86.700 41.000 87.100 51.200 ;
+      LAYER M1 ;
+        RECT 87.100 6.400 87.500 9.800 ;
+      LAYER M1 ;
+        RECT 87.100 27.100 87.500 30.500 ;
+      LAYER M1 ;
+        RECT 87.100 41.000 87.500 51.200 ;
+      LAYER M1 ;
+        RECT 87.500 6.400 89.300 51.200 ;
+      LAYER M1 ;
+        RECT 89.300 6.400 90.100 43.600 ;
+      LAYER M1 ;
+        RECT 90.100 27.100 90.500 30.500 ;
+    END
+  END Q
+  PIN QB
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 75.500 6.400 78.100 13.800 ;
+      LAYER M1 ;
+        RECT 78.100 11.200 78.700 13.800 ;
+      LAYER M1 ;
+        RECT 78.700 11.200 81.300 13.800 ;
+      LAYER M1 ;
+        RECT 78.700 37.000 81.300 51.200 ;
+      LAYER M1 ;
+        RECT 81.300 11.200 81.600 13.800 ;
+      LAYER M1 ;
+        RECT 81.300 37.000 81.600 39.600 ;
+      LAYER M1 ;
+        RECT 81.600 11.200 82.000 13.800 ;
+      LAYER M1 ;
+        RECT 81.600 27.100 82.000 30.500 ;
+      LAYER M1 ;
+        RECT 81.600 37.000 82.000 39.600 ;
+      LAYER M1 ;
+        RECT 82.000 11.200 84.600 39.600 ;
+      LAYER M1 ;
+        RECT 84.600 27.100 85.000 30.500 ;
+    END
+  END QB
+  PIN CK
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 13.100 13.600 15.600 22.350 ;
+      LAYER M1 ;
+        RECT 13.100 29.000 15.600 37.200 ;
+      LAYER M1 ;
+        RECT 15.600 13.600 15.700 22.350 ;
+      LAYER M1 ;
+        RECT 15.600 27.100 15.700 37.200 ;
+      LAYER M1 ;
+        RECT 15.700 19.750 16.000 22.350 ;
+      LAYER M1 ;
+        RECT 15.700 27.100 16.000 31.600 ;
+      LAYER M1 ;
+        RECT 16.000 19.750 18.600 31.600 ;
+      LAYER M1 ;
+        RECT 18.600 27.100 19.000 30.500 ;
+    END
+  END CK
+  PIN GND
+    DIRECTION INOUT ;
+    USE GROUND ;
+    PORT
+      LAYER M1 ;
+        RECT 5.000 0.000 13.100 2.600 ;
+      LAYER M1 ;
+        RECT 13.100 0.000 15.700 9.800 ;
+      LAYER M1 ;
+        RECT 15.700 0.000 25.100 2.600 ;
+      LAYER M1 ;
+        RECT 25.100 0.000 27.700 9.800 ;
+      LAYER M1 ;
+        RECT 27.700 0.000 41.900 2.600 ;
+      LAYER M1 ;
+        RECT 41.900 0.000 44.500 9.800 ;
+      LAYER M1 ;
+        RECT 44.500 0.000 52.300 2.600 ;
+      LAYER M1 ;
+        RECT 52.300 0.000 54.900 9.800 ;
+      LAYER M1 ;
+        RECT 54.900 0.000 65.100 2.600 ;
+      LAYER M1 ;
+        RECT 65.100 0.000 67.700 9.800 ;
+      LAYER M1 ;
+        RECT 67.700 0.000 79.500 2.600 ;
+      LAYER M1 ;
+        RECT 79.500 0.000 82.100 9.800 ;
+      LAYER M1 ;
+        RECT 82.100 0.000 95.600 2.600 ;
+    END
+  END GND
+  PIN VDD
+    DIRECTION INOUT ;
+    USE POWER ;
+    PORT
+      LAYER M1 ;
+        RECT 5.000 55.000 13.100 57.600 ;
+      LAYER M1 ;
+        RECT 13.100 41.000 15.700 57.600 ;
+      LAYER M1 ;
+        RECT 15.700 55.000 25.100 57.600 ;
+      LAYER M1 ;
+        RECT 25.100 41.000 27.700 57.600 ;
+      LAYER M1 ;
+        RECT 27.700 55.000 41.900 57.600 ;
+      LAYER M1 ;
+        RECT 41.900 41.000 44.500 57.600 ;
+      LAYER M1 ;
+        RECT 44.500 55.000 49.900 57.600 ;
+      LAYER M1 ;
+        RECT 49.900 41.000 52.500 57.600 ;
+      LAYER M1 ;
+        RECT 52.500 55.000 53.900 57.600 ;
+      LAYER M1 ;
+        RECT 53.900 41.000 56.500 57.600 ;
+      LAYER M1 ;
+        RECT 56.500 55.000 66.700 57.600 ;
+      LAYER M1 ;
+        RECT 66.700 41.000 69.300 57.600 ;
+      LAYER M1 ;
+        RECT 69.300 55.000 74.700 57.600 ;
+      LAYER M1 ;
+        RECT 74.700 41.000 77.300 57.600 ;
+      LAYER M1 ;
+        RECT 77.300 55.000 82.700 57.600 ;
+      LAYER M1 ;
+        RECT 82.700 41.000 85.300 57.600 ;
+      LAYER M1 ;
+        RECT 85.300 55.000 95.600 57.600 ;
+    END
+  END VDD
+END DFFS

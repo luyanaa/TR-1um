@@ -1,0 +1,159 @@
+MACRO NAND4
+  CLASS CORE ;
+  ORIGIN 0 0 ;
+  SIZE 40.100 BY 62.600 ;
+  SYMMETRY X Y ;
+  SITE TR1um_site ;
+  PIN Y
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 13.100 41.000 13.500 51.200 ;
+      LAYER M1 ;
+        RECT 13.500 37.500 15.300 51.200 ;
+      LAYER M1 ;
+        RECT 15.300 37.500 15.700 39.300 ;
+      LAYER M1 ;
+        RECT 15.300 41.000 15.700 51.200 ;
+      LAYER M1 ;
+        RECT 15.700 37.500 21.100 39.300 ;
+      LAYER M1 ;
+        RECT 21.100 37.500 21.500 39.300 ;
+      LAYER M1 ;
+        RECT 21.100 41.000 21.500 51.200 ;
+      LAYER M1 ;
+        RECT 21.500 37.500 23.300 51.200 ;
+      LAYER M1 ;
+        RECT 23.300 37.500 23.700 39.300 ;
+      LAYER M1 ;
+        RECT 23.300 41.000 23.700 51.200 ;
+      LAYER M1 ;
+        RECT 23.700 37.500 25.100 39.300 ;
+      LAYER M1 ;
+        RECT 25.100 6.400 25.500 9.800 ;
+      LAYER M1 ;
+        RECT 25.100 37.500 25.500 39.300 ;
+      LAYER M1 ;
+        RECT 25.500 6.400 26.600 14.400 ;
+      LAYER M1 ;
+        RECT 25.500 37.500 26.600 39.300 ;
+      LAYER M1 ;
+        RECT 26.600 6.400 27.300 14.400 ;
+      LAYER M1 ;
+        RECT 26.600 27.100 27.300 30.500 ;
+      LAYER M1 ;
+        RECT 26.600 37.500 27.300 39.300 ;
+      LAYER M1 ;
+        RECT 27.300 6.400 27.700 9.800 ;
+      LAYER M1 ;
+        RECT 27.300 12.600 27.700 14.400 ;
+      LAYER M1 ;
+        RECT 27.300 27.100 27.700 30.500 ;
+      LAYER M1 ;
+        RECT 27.300 37.500 27.700 39.300 ;
+      LAYER M1 ;
+        RECT 27.700 12.600 28.200 14.400 ;
+      LAYER M1 ;
+        RECT 27.700 27.100 28.200 30.500 ;
+      LAYER M1 ;
+        RECT 27.700 37.500 28.200 39.300 ;
+      LAYER M1 ;
+        RECT 28.200 12.600 30.000 39.300 ;
+    END
+  END Y
+  PIN A
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 7.200 11.700 7.600 14.300 ;
+      LAYER M1 ;
+        RECT 7.600 11.700 9.400 18.700 ;
+      LAYER M1 ;
+        RECT 9.400 11.700 9.800 14.300 ;
+      LAYER M1 ;
+        RECT 9.400 16.900 9.800 18.700 ;
+      LAYER M1 ;
+        RECT 9.800 16.900 15.600 18.700 ;
+      LAYER M1 ;
+        RECT 15.600 16.100 19.000 19.500 ;
+    END
+  END A
+  PIN B
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 10.500 23.900 10.900 26.500 ;
+      LAYER M1 ;
+        RECT 10.900 23.900 12.700 29.800 ;
+      LAYER M1 ;
+        RECT 12.700 23.900 13.100 26.500 ;
+      LAYER M1 ;
+        RECT 12.700 28.000 13.100 29.800 ;
+      LAYER M1 ;
+        RECT 13.100 28.000 15.600 29.800 ;
+      LAYER M1 ;
+        RECT 15.600 27.100 19.000 30.500 ;
+    END
+  END B
+  PIN C
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 17.900 22.400 21.100 25.000 ;
+      LAYER M1 ;
+        RECT 21.100 21.600 24.500 25.000 ;
+    END
+  END C
+  PIN D
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 21.100 32.600 22.200 36.000 ;
+      LAYER M1 ;
+        RECT 22.200 28.400 22.700 31.000 ;
+      LAYER M1 ;
+        RECT 22.200 32.600 22.700 36.000 ;
+      LAYER M1 ;
+        RECT 22.700 28.400 24.500 36.000 ;
+      LAYER M1 ;
+        RECT 24.500 28.400 24.800 31.000 ;
+    END
+  END D
+  PIN VDD
+    DIRECTION INOUT ;
+    USE POWER ;
+    PORT
+      LAYER M1 ;
+        RECT 5.000 55.000 9.100 57.600 ;
+      LAYER M1 ;
+        RECT 9.100 41.000 11.700 57.600 ;
+      LAYER M1 ;
+        RECT 11.700 55.000 17.100 57.600 ;
+      LAYER M1 ;
+        RECT 17.100 41.000 19.700 57.600 ;
+      LAYER M1 ;
+        RECT 19.700 55.000 25.100 57.600 ;
+      LAYER M1 ;
+        RECT 25.100 41.000 27.700 57.600 ;
+      LAYER M1 ;
+        RECT 27.700 55.000 35.100 57.600 ;
+    END
+  END VDD
+  PIN GND
+    DIRECTION INOUT ;
+    USE GROUND ;
+    PORT
+      LAYER M1 ;
+        RECT 5.000 0.000 9.100 2.600 ;
+      LAYER M1 ;
+        RECT 9.100 0.000 11.700 9.800 ;
+      LAYER M1 ;
+        RECT 11.700 0.000 35.100 2.600 ;
+    END
+  END GND
+END NAND4

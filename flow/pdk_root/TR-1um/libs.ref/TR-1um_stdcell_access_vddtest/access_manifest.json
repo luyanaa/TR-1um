@@ -1,0 +1,1323 @@
+{
+  "status": "generated_pending_qualification",
+  "source_dir": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds",
+  "output_root": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest",
+  "site": "TR1um_access_site",
+  "source_height_um": 62.6,
+  "site_height_um": 75.6,
+  "row_gap_um": 12.999999999999993,
+  "excluded_non_digital": [
+    "RR$1",
+    "RS",
+    "TOP"
+  ],
+  "cells": [
+    {
+      "name": "AND2_X1",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/AND2_X1.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/AND2_X1.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/AND2_X1.lef",
+      "source_width_um": 34.6,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "B",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 17.3,
+          "y_um": 17.8
+        },
+        {
+          "pin": "B",
+          "x_um": 17.3,
+          "y_um": 28.8
+        },
+        {
+          "pin": "Y",
+          "x_um": 22.8,
+          "y_um": 34.300000000000004
+        }
+      ]
+    },
+    {
+      "name": "AND3_X1",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/AND3_X1.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/AND3_X1.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/AND3_X1.lef",
+      "source_width_um": 40.1,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "B",
+        "C",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 17.3,
+          "y_um": 28.8
+        },
+        {
+          "pin": "B",
+          "x_um": 17.3,
+          "y_um": 17.8
+        },
+        {
+          "pin": "C",
+          "x_um": 22.8,
+          "y_um": 23.3
+        },
+        {
+          "pin": "Y",
+          "x_um": 28.3,
+          "y_um": 34.300000000000004
+        }
+      ]
+    },
+    {
+      "name": "AND4_X1",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/AND4_X1.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/AND4_X1.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/AND4_X1.lef",
+      "source_width_um": 45.6,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 17.3,
+          "y_um": 17.8
+        },
+        {
+          "pin": "B",
+          "x_um": 17.3,
+          "y_um": 28.8
+        },
+        {
+          "pin": "C",
+          "x_um": 22.8,
+          "y_um": 23.3
+        },
+        {
+          "pin": "D",
+          "x_um": 22.8,
+          "y_um": 34.300000000000004
+        },
+        {
+          "pin": "Y",
+          "x_um": 33.8,
+          "y_um": 28.8
+        }
+      ]
+    },
+    {
+      "name": "BUF_X1",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/BUF_X1.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/BUF_X1.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/BUF_X1.lef",
+      "source_width_um": 29.1,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 11.8,
+          "y_um": 23.3
+        },
+        {
+          "pin": "Y",
+          "x_um": 17.3,
+          "y_um": 34.300000000000004
+        }
+      ]
+    },
+    {
+      "name": "BUF_X12",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/BUF_X12.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/BUF_X12.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/BUF_X12.lef",
+      "source_width_um": 78.60000000000001,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 11.8,
+          "y_um": 28.8
+        },
+        {
+          "pin": "Y",
+          "x_um": 61.300000000000004,
+          "y_um": 23.3
+        }
+      ]
+    },
+    {
+      "name": "BUF_X16",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/BUF_X16.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/BUF_X16.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/BUF_X16.lef",
+      "source_width_um": 106.10000000000001,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 11.8,
+          "y_um": 28.8
+        },
+        {
+          "pin": "Y",
+          "x_um": 94.3,
+          "y_um": 28.8
+        }
+      ]
+    },
+    {
+      "name": "BUF_X2",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/BUF_X2.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/BUF_X2.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/BUF_X2.lef",
+      "source_width_um": 34.6,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 11.8,
+          "y_um": 28.8
+        },
+        {
+          "pin": "Y",
+          "x_um": 22.8,
+          "y_um": 34.300000000000004
+        }
+      ]
+    },
+    {
+      "name": "BUF_X4",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/BUF_X4.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/BUF_X4.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/BUF_X4.lef",
+      "source_width_um": 45.6,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 11.8,
+          "y_um": 28.8
+        },
+        {
+          "pin": "Y",
+          "x_um": 28.3,
+          "y_um": 23.3
+        }
+      ]
+    },
+    {
+      "name": "BUF_X8",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/BUF_X8.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/BUF_X8.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/BUF_X8.lef",
+      "source_width_um": 62.1,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 11.8,
+          "y_um": 23.3
+        },
+        {
+          "pin": "Y",
+          "x_um": 50.300000000000004,
+          "y_um": 28.8
+        }
+      ]
+    },
+    {
+      "name": "CLKBUF_X1",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/CLKBUF_X1.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/CLKBUF_X1.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/CLKBUF_X1.lef",
+      "source_width_um": 51.1,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 11.8,
+          "y_um": 23.3
+        },
+        {
+          "pin": "Y",
+          "x_um": 33.8,
+          "y_um": 23.3
+        }
+      ]
+    },
+    {
+      "name": "CLKBUF_X12",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/CLKBUF_X12.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/CLKBUF_X12.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/CLKBUF_X12.lef",
+      "source_width_um": 305.40000000000003,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 28.3,
+          "y_um": 23.3
+        },
+        {
+          "pin": "Y",
+          "x_um": 286.8,
+          "y_um": 23.3
+        }
+      ]
+    },
+    {
+      "name": "CLKBUF_X16",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/CLKBUF_X16.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/CLKBUF_X16.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/CLKBUF_X16.lef",
+      "source_width_um": 392.1,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 33.8,
+          "y_um": 23.3
+        },
+        {
+          "pin": "Y",
+          "x_um": 374.8,
+          "y_um": 23.3
+        }
+      ]
+    },
+    {
+      "name": "CLKBUF_X2",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/CLKBUF_X2.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/CLKBUF_X2.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/CLKBUF_X2.lef",
+      "source_width_um": 78.60000000000001,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 17.3,
+          "y_um": 23.3
+        },
+        {
+          "pin": "Y",
+          "x_um": 61.300000000000004,
+          "y_um": 23.3
+        }
+      ]
+    },
+    {
+      "name": "CLKBUF_X4",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/CLKBUF_X4.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/CLKBUF_X4.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/CLKBUF_X4.lef",
+      "source_width_um": 128.1,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 22.8,
+          "y_um": 23.3
+        },
+        {
+          "pin": "Y",
+          "x_um": 110.8,
+          "y_um": 23.3
+        }
+      ]
+    },
+    {
+      "name": "CLKBUF_X8",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/CLKBUF_X8.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/CLKBUF_X8.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/CLKBUF_X8.lef",
+      "source_width_um": 216.1,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 28.3,
+          "y_um": 23.3
+        },
+        {
+          "pin": "Y",
+          "x_um": 198.8,
+          "y_um": 23.3
+        }
+      ]
+    },
+    {
+      "name": "DEL1",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/DEL1.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/DEL1.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/DEL1.lef",
+      "source_width_um": 51.1,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 11.8,
+          "y_um": 28.8
+        },
+        {
+          "pin": "Y",
+          "x_um": 39.300000000000004,
+          "y_um": 17.8
+        }
+      ]
+    },
+    {
+      "name": "DEL2",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/DEL2.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/DEL2.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/DEL2.lef",
+      "source_width_um": 73.10000000000001,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 11.8,
+          "y_um": 28.8
+        },
+        {
+          "pin": "Y",
+          "x_um": 61.300000000000004,
+          "y_um": 23.3
+        }
+      ]
+    },
+    {
+      "name": "DEL4",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/DEL4.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/DEL4.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/DEL4.lef",
+      "source_width_um": 117.10000000000001,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 11.8,
+          "y_um": 28.8
+        },
+        {
+          "pin": "Y",
+          "x_um": 105.3,
+          "y_um": 23.3
+        }
+      ]
+    },
+    {
+      "name": "DFFR",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/DFFR.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/DFFR.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/DFFR.lef",
+      "source_width_um": 100.60000000000001,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "CK",
+        "D",
+        "Q",
+        "QB",
+        "RST"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "CK",
+          "x_um": 17.3,
+          "y_um": 28.75
+        },
+        {
+          "pin": "D",
+          "x_um": 28.2,
+          "y_um": 22.900000000000002
+        },
+        {
+          "pin": "Q",
+          "x_um": 88.8,
+          "y_um": 28.8
+        },
+        {
+          "pin": "QB",
+          "x_um": 83.3,
+          "y_um": 28.8
+        },
+        {
+          "pin": "RST",
+          "x_um": 55.800000000000004,
+          "y_um": 23.3
+        }
+      ]
+    },
+    {
+      "name": "DFFS",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/DFFS.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/DFFS.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/DFFS.lef",
+      "source_width_um": 100.60000000000001,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "CK",
+        "D",
+        "Q",
+        "QB",
+        "SET"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "CK",
+          "x_um": 17.3,
+          "y_um": 28.8
+        },
+        {
+          "pin": "D",
+          "x_um": 28.2,
+          "y_um": 23.3
+        },
+        {
+          "pin": "Q",
+          "x_um": 88.8,
+          "y_um": 28.8
+        },
+        {
+          "pin": "QB",
+          "x_um": 83.3,
+          "y_um": 28.8
+        },
+        {
+          "pin": "SET",
+          "x_um": 77.8,
+          "y_um": 17.8
+        }
+      ]
+    },
+    {
+      "name": "INV_X1",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/INV_X1.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/INV_X1.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/INV_X1.lef",
+      "source_width_um": 29.1,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 11.8,
+          "y_um": 28.8
+        },
+        {
+          "pin": "Y",
+          "x_um": 17.3,
+          "y_um": 34.300000000000004
+        }
+      ]
+    },
+    {
+      "name": "INV_X12",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/INV_X12.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/INV_X12.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/INV_X12.lef",
+      "source_width_um": 73.10000000000001,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 11.8,
+          "y_um": 28.8
+        },
+        {
+          "pin": "Y",
+          "x_um": 55.800000000000004,
+          "y_um": 28.8
+        }
+      ]
+    },
+    {
+      "name": "INV_X16",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/INV_X16.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/INV_X16.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/INV_X16.lef",
+      "source_width_um": 89.60000000000001,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 11.8,
+          "y_um": 28.8
+        },
+        {
+          "pin": "Y",
+          "x_um": 72.3,
+          "y_um": 28.8
+        }
+      ]
+    },
+    {
+      "name": "INV_X2",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/INV_X2.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/INV_X2.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/INV_X2.lef",
+      "source_width_um": 29.1,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 11.8,
+          "y_um": 28.8
+        },
+        {
+          "pin": "Y",
+          "x_um": 17.3,
+          "y_um": 34.300000000000004
+        }
+      ]
+    },
+    {
+      "name": "INV_X4",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/INV_X4.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/INV_X4.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/INV_X4.lef",
+      "source_width_um": 40.1,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 11.8,
+          "y_um": 28.8
+        },
+        {
+          "pin": "Y",
+          "x_um": 28.3,
+          "y_um": 34.300000000000004
+        }
+      ]
+    },
+    {
+      "name": "INV_X8",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/INV_X8.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/INV_X8.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/INV_X8.lef",
+      "source_width_um": 56.6,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 11.8,
+          "y_um": 28.8
+        },
+        {
+          "pin": "Y",
+          "x_um": 39.300000000000004,
+          "y_um": 28.8
+        }
+      ]
+    },
+    {
+      "name": "MUX2",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/MUX2.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/MUX2.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/MUX2.lef",
+      "source_width_um": 62.1,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "B",
+        "S",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 44.7,
+          "y_um": 28.8
+        },
+        {
+          "pin": "B",
+          "x_um": 33.8,
+          "y_um": 28.8
+        },
+        {
+          "pin": "S",
+          "x_um": 17.3,
+          "y_um": 28.8
+        },
+        {
+          "pin": "Y",
+          "x_um": 39.300000000000004,
+          "y_um": 28.8
+        }
+      ]
+    },
+    {
+      "name": "NAND2",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/NAND2.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/NAND2.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/NAND2.lef",
+      "source_width_um": 29.1,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "B",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 11.8,
+          "y_um": 28.8
+        },
+        {
+          "pin": "B",
+          "x_um": 11.8,
+          "y_um": 17.8
+        },
+        {
+          "pin": "Y",
+          "x_um": 20.400000000000002,
+          "y_um": 32.6
+        }
+      ]
+    },
+    {
+      "name": "NAND3",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/NAND3.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/NAND3.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/NAND3.lef",
+      "source_width_um": 34.6,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "B",
+        "C",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 17.3,
+          "y_um": 28.8
+        },
+        {
+          "pin": "B",
+          "x_um": 16.5,
+          "y_um": 18.8
+        },
+        {
+          "pin": "C",
+          "x_um": 22.8,
+          "y_um": 23.25
+        },
+        {
+          "pin": "Y",
+          "x_um": 22.900000000000002,
+          "y_um": 35.6
+        }
+      ]
+    },
+    {
+      "name": "NAND4",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/NAND4.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/NAND4.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/NAND4.lef",
+      "source_width_um": 40.1,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 17.3,
+          "y_um": 17.8
+        },
+        {
+          "pin": "B",
+          "x_um": 17.3,
+          "y_um": 28.8
+        },
+        {
+          "pin": "C",
+          "x_um": 22.8,
+          "y_um": 23.3
+        },
+        {
+          "pin": "D",
+          "x_um": 22.8,
+          "y_um": 34.300000000000004
+        },
+        {
+          "pin": "Y",
+          "x_um": 28.3,
+          "y_um": 28.8
+        }
+      ]
+    },
+    {
+      "name": "NOR2",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/NOR2.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/NOR2.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/NOR2.lef",
+      "source_width_um": 29.1,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "B",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 11.8,
+          "y_um": 23.3
+        },
+        {
+          "pin": "B",
+          "x_um": 11.8,
+          "y_um": 34.300000000000004
+        },
+        {
+          "pin": "Y",
+          "x_um": 17.3,
+          "y_um": 28.8
+        }
+      ]
+    },
+    {
+      "name": "NOR3",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/NOR3.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/NOR3.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/NOR3.lef",
+      "source_width_um": 34.6,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "B",
+        "C",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 17.3,
+          "y_um": 17.8
+        },
+        {
+          "pin": "B",
+          "x_um": 17.3,
+          "y_um": 28.8
+        },
+        {
+          "pin": "C",
+          "x_um": 22.8,
+          "y_um": 23.3
+        },
+        {
+          "pin": "Y",
+          "x_um": 22.8,
+          "y_um": 34.300000000000004
+        }
+      ]
+    },
+    {
+      "name": "NOR4",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/NOR4.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/NOR4.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/NOR4.lef",
+      "source_width_um": 40.1,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 17.3,
+          "y_um": 28.8
+        },
+        {
+          "pin": "B",
+          "x_um": 17.3,
+          "y_um": 17.8
+        },
+        {
+          "pin": "C",
+          "x_um": 22.8,
+          "y_um": 34.2
+        },
+        {
+          "pin": "D",
+          "x_um": 22.8,
+          "y_um": 23.3
+        },
+        {
+          "pin": "Y",
+          "x_um": 28.3,
+          "y_um": 28.8
+        }
+      ]
+    },
+    {
+      "name": "OR2",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/OR2.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/OR2.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/OR2.lef",
+      "source_width_um": 34.6,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "B",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 17.3,
+          "y_um": 17.8
+        },
+        {
+          "pin": "B",
+          "x_um": 17.3,
+          "y_um": 28.8
+        },
+        {
+          "pin": "Y",
+          "x_um": 22.8,
+          "y_um": 34.300000000000004
+        }
+      ]
+    },
+    {
+      "name": "OR3",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/OR3.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/OR3.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/OR3.lef",
+      "source_width_um": 40.1,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "B",
+        "C",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 17.3,
+          "y_um": 17.8
+        },
+        {
+          "pin": "B",
+          "x_um": 17.3,
+          "y_um": 28.8
+        },
+        {
+          "pin": "C",
+          "x_um": 22.8,
+          "y_um": 23.3
+        },
+        {
+          "pin": "Y",
+          "x_um": 28.3,
+          "y_um": 34.300000000000004
+        }
+      ]
+    },
+    {
+      "name": "OR4",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/OR4.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/OR4.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/OR4.lef",
+      "source_width_um": 45.6,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 22.8,
+          "y_um": 23.3
+        },
+        {
+          "pin": "B",
+          "x_um": 22.8,
+          "y_um": 34.300000000000004
+        },
+        {
+          "pin": "C",
+          "x_um": 17.3,
+          "y_um": 17.8
+        },
+        {
+          "pin": "D",
+          "x_um": 17.3,
+          "y_um": 28.8
+        },
+        {
+          "pin": "Y",
+          "x_um": 28.3,
+          "y_um": 28.8
+        }
+      ]
+    },
+    {
+      "name": "XNOR2",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/XNOR2.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/XNOR2.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/XNOR2.lef",
+      "source_width_um": 45.6,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "B",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 17.3,
+          "y_um": 23.3
+        },
+        {
+          "pin": "B",
+          "x_um": 28.3,
+          "y_um": 28.8
+        },
+        {
+          "pin": "Y",
+          "x_um": 37.9,
+          "y_um": 16.8
+        }
+      ]
+    },
+    {
+      "name": "XOR2",
+      "source": "/Users/yanlu/Documents/TR-1um/STDLIB/LogicCells/gds/XOR2.gds",
+      "gds": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/flow_gds/XOR2.gds",
+      "lef": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access_vddtest/lef/XOR2.lef",
+      "source_width_um": 45.6,
+      "source_height_um": 62.6,
+      "site_height_um": 75.6,
+      "signal_pins": [
+        "A",
+        "B",
+        "Y"
+      ],
+      "power_pins": [
+        "GND",
+        "VDD"
+      ],
+      "landings": [
+        {
+          "pin": "A",
+          "x_um": 17.3,
+          "y_um": 23.3
+        },
+        {
+          "pin": "B",
+          "x_um": 28.3,
+          "y_um": 28.8
+        },
+        {
+          "pin": "Y",
+          "x_um": 35.1,
+          "y_um": 33.3
+        }
+      ]
+    }
+  ],
+  "failures": []
+}

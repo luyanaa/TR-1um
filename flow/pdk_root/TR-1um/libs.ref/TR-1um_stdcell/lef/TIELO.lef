@@ -1,0 +1,30 @@
+MACRO TIELO
+  CLASS CORE ;
+  SITE TR1um_site ;
+  ORIGIN 0 0 ;
+  SIZE 8.000 BY 62.600 ;
+  PIN LO
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 2.500 14.100 5.500 17.100 ;
+    END
+  END LO
+  PIN VDD
+    DIRECTION INOUT ;
+    USE POWER ;
+    PORT
+      LAYER M1 ;
+        RECT -1.300 60.600 9.300 62.600 ;
+    END
+  END VDD
+  PIN GND
+    DIRECTION INOUT ;
+    USE GROUND ;
+    PORT
+      LAYER M1 ;
+        RECT -1.300 -1.300 9.300 0.300 ;
+    END
+  END GND
+END TIELO

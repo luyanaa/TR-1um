@@ -1,0 +1,87 @@
+MACRO AND2_X1
+  CLASS CORE ;
+  ORIGIN 0 0 ;
+  SIZE 34.600 BY 62.600 ;
+  SYMMETRY X Y ;
+  SITE TR1um_site ;
+  PIN VDD
+    DIRECTION INOUT ;
+    USE POWER ;
+    PORT
+      LAYER M1 ;
+        RECT 5.000 55.000 9.100 57.600 ;
+      LAYER M1 ;
+        RECT 9.100 41.000 11.700 57.600 ;
+      LAYER M1 ;
+        RECT 11.700 55.000 17.100 57.600 ;
+      LAYER M1 ;
+        RECT 17.100 41.000 19.700 57.600 ;
+      LAYER M1 ;
+        RECT 19.700 55.000 29.600 57.600 ;
+    END
+  END VDD
+  PIN GND
+    DIRECTION INOUT ;
+    USE GROUND ;
+    PORT
+      LAYER M1 ;
+        RECT 5.000 0.000 17.100 2.600 ;
+      LAYER M1 ;
+        RECT 17.100 0.000 19.700 9.800 ;
+      LAYER M1 ;
+        RECT 19.700 0.000 29.600 2.600 ;
+    END
+  END GND
+  PIN Y
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 21.100 6.400 21.500 9.800 ;
+      LAYER M1 ;
+        RECT 21.100 32.600 21.500 36.000 ;
+      LAYER M1 ;
+        RECT 21.100 41.000 21.500 51.200 ;
+      LAYER M1 ;
+        RECT 21.500 6.400 22.700 13.900 ;
+      LAYER M1 ;
+        RECT 21.500 32.600 22.700 36.000 ;
+      LAYER M1 ;
+        RECT 21.500 37.500 22.700 51.200 ;
+      LAYER M1 ;
+        RECT 22.700 6.400 23.300 51.200 ;
+      LAYER M1 ;
+        RECT 23.300 6.400 23.700 9.800 ;
+      LAYER M1 ;
+        RECT 23.300 12.100 23.700 39.300 ;
+      LAYER M1 ;
+        RECT 23.300 41.000 23.700 51.200 ;
+      LAYER M1 ;
+        RECT 23.700 12.100 24.500 39.300 ;
+    END
+  END Y
+  PIN A
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 10.600 16.900 13.200 19.500 ;
+      LAYER M1 ;
+        RECT 13.200 16.900 15.600 18.700 ;
+      LAYER M1 ;
+        RECT 15.600 16.100 19.000 19.500 ;
+    END
+  END A
+  PIN B
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 14.400 32.600 15.600 35.200 ;
+      LAYER M1 ;
+        RECT 15.600 27.100 17.400 35.200 ;
+      LAYER M1 ;
+        RECT 17.400 27.100 19.000 30.500 ;
+    END
+  END B
+END AND2_X1

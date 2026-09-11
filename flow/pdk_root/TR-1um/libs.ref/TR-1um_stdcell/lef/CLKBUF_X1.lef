@@ -1,0 +1,105 @@
+MACRO CLKBUF_X1
+  CLASS CORE ;
+  ORIGIN 0 0 ;
+  SIZE 51.100 BY 62.600 ;
+  SYMMETRY X Y ;
+  SITE TR1um_site ;
+  PIN VDD
+    DIRECTION INOUT ;
+    USE POWER ;
+    PORT
+      LAYER M1 ;
+        RECT 5.000 55.000 9.100 57.600 ;
+      LAYER M1 ;
+        RECT 9.100 41.000 11.700 57.600 ;
+      LAYER M1 ;
+        RECT 11.700 55.000 17.100 57.600 ;
+      LAYER M1 ;
+        RECT 17.100 41.000 19.700 57.600 ;
+      LAYER M1 ;
+        RECT 19.700 55.000 25.100 57.600 ;
+      LAYER M1 ;
+        RECT 25.100 41.000 27.700 57.600 ;
+      LAYER M1 ;
+        RECT 27.700 55.000 33.100 57.600 ;
+      LAYER M1 ;
+        RECT 33.100 41.000 35.700 57.600 ;
+      LAYER M1 ;
+        RECT 35.700 55.000 46.100 57.600 ;
+    END
+  END VDD
+  PIN A
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 10.100 16.400 13.500 34.400 ;
+      LAYER M1 ;
+        RECT 13.500 16.400 15.700 19.000 ;
+      LAYER M1 ;
+        RECT 13.500 31.800 15.700 34.400 ;
+    END
+  END A
+  PIN GND
+    DIRECTION INOUT ;
+    USE GROUND ;
+    PORT
+      LAYER M1 ;
+        RECT 5.000 0.000 9.100 2.600 ;
+      LAYER M1 ;
+        RECT 9.100 0.000 11.700 9.800 ;
+      LAYER M1 ;
+        RECT 11.700 0.000 17.100 2.600 ;
+      LAYER M1 ;
+        RECT 17.100 0.000 19.700 9.800 ;
+      LAYER M1 ;
+        RECT 19.700 0.000 25.100 2.600 ;
+      LAYER M1 ;
+        RECT 25.100 0.000 27.700 9.800 ;
+      LAYER M1 ;
+        RECT 27.700 0.000 33.100 2.600 ;
+      LAYER M1 ;
+        RECT 33.100 0.000 35.700 9.800 ;
+      LAYER M1 ;
+        RECT 35.700 0.000 46.100 2.600 ;
+    END
+  END GND
+  PIN Y
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 21.100 6.400 23.700 14.400 ;
+      LAYER M1 ;
+        RECT 21.100 36.400 23.700 51.200 ;
+      LAYER M1 ;
+        RECT 23.700 11.800 29.100 14.400 ;
+      LAYER M1 ;
+        RECT 23.700 36.400 29.100 39.000 ;
+      LAYER M1 ;
+        RECT 29.100 6.400 31.700 14.400 ;
+      LAYER M1 ;
+        RECT 29.100 36.400 31.700 51.200 ;
+      LAYER M1 ;
+        RECT 31.700 11.800 32.100 14.400 ;
+      LAYER M1 ;
+        RECT 31.700 36.400 32.100 39.000 ;
+      LAYER M1 ;
+        RECT 32.100 11.800 32.900 14.400 ;
+      LAYER M1 ;
+        RECT 32.100 21.600 32.900 25.000 ;
+      LAYER M1 ;
+        RECT 32.100 36.400 32.900 39.000 ;
+      LAYER M1 ;
+        RECT 32.900 11.800 35.500 39.000 ;
+      LAYER M1 ;
+        RECT 35.500 11.800 37.100 14.400 ;
+      LAYER M1 ;
+        RECT 35.500 36.400 37.100 39.000 ;
+      LAYER M1 ;
+        RECT 37.100 6.400 39.700 14.400 ;
+      LAYER M1 ;
+        RECT 37.100 36.400 39.700 51.200 ;
+    END
+  END Y
+END CLKBUF_X1

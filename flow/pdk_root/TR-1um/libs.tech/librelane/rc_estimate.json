@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "status": "engineering_estimate_not_foundry_qualified",
+  "units": {
+    "length": "um",
+    "resistance": "ohm",
+    "capacitance": "pF"
+  },
+  "source_basis": [
+    {
+      "path": "openIP62/IP62/Technology/doc/OS00_\u30ea\u30d5\u30a1\u30ec\u30f3\u30b9\u30de\u30cb\u30e5\u30a2\u30eb_rev1.1.pdf",
+      "location": "pages 5 and 37-41",
+      "fact": "The open manual lists parasitic extraction as unavailable and does not provide a metal RC/PEX deck."
+    },
+    {
+      "path": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell/lef/TR-1um_tech.lef",
+      "location": "M1/M2 routing-layer statements",
+      "fact": "Derived LEF supplies sheet resistance, area capacitance, edge capacitance, and nominal routing widths."
+    }
+  ],
+  "method": {
+    "resistance": "R_per_um = sheet_resistance / nominal_routing_width",
+    "capacitance": "C_per_um = area_capacitance * nominal_routing_width + 2 * edge_capacitance",
+    "sheet_resistance_relative_spread": 0.5,
+    "capacitance_relative_spread": 0.5,
+    "spread_interpretation": "engineering sensitivity band, not a confidence interval"
+  },
+  "layers": [
+    {
+      "layer": "M1",
+      "width_um": 1.8,
+      "sheet_resistance_ohm_per_square": 0.05,
+      "capacitance_area_pf_per_um2": 3.5e-05,
+      "edge_capacitance_pf_per_um": 5e-05,
+      "resistance_ohm_per_um": 0.02777777777777778,
+      "capacitance_pf_per_um": 0.000163,
+      "capacitance_ff_per_um": 0.163,
+      "resistance_range_ohm_per_um": [
+        0.01388888888888889,
+        0.04166666666666667
+      ],
+      "capacitance_range_ff_per_um": [
+        0.0815,
+        0.2445
+      ]
+    },
+    {
+      "layer": "M2",
+      "width_um": 3.0,
+      "sheet_resistance_ohm_per_square": 0.03,
+      "capacitance_area_pf_per_um2": 1.75e-05,
+      "edge_capacitance_pf_per_um": 5e-05,
+      "resistance_ohm_per_um": 0.01,
+      "capacitance_pf_per_um": 0.0001525,
+      "capacitance_ff_per_um": 0.1525,
+      "resistance_range_ohm_per_um": [
+        0.005,
+        0.015
+      ],
+      "capacitance_range_ff_per_um": [
+        0.07625,
+        0.22875
+      ]
+    }
+  ],
+  "via": {
+    "layer": "V1",
+    "nominal_resistance_ohm": 1.0,
+    "range_ohm": [
+      0.5,
+      2.0
+    ],
+    "basis": "No via resistance is published; nominal 1 ohm is an explicit local interconnect estimate for sensitivity analysis."
+  },
+  "digital_flow_policy": {
+    "routing_layers": [
+      "M1",
+      "M2"
+    ],
+    "m3": "reserved_not_used_by_current_digital_router",
+    "timing_use": "Use nominal values for estimated RCX; evaluate the stated bands with sensitivity analysis.",
+    "tapeout_status": "not signoff-qualified without foundry RC/PEX correlation."
+  }
+}

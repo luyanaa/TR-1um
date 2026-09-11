@@ -1,0 +1,83 @@
+MACRO NAND3
+  CLASS CORE ;
+  ORIGIN 0 0 ;
+  SIZE 34.600 BY 62.600 ;
+  SYMMETRY X Y ;
+  SITE TR1um_site ;
+  PIN Y
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 7.300 6.400 9.300 39.200 ;
+      LAYER M1 ;
+        RECT 9.300 6.400 11.700 9.800 ;
+      LAYER M1 ;
+        RECT 9.300 37.200 11.700 39.200 ;
+      LAYER M1 ;
+        RECT 11.700 37.200 13.100 39.200 ;
+      LAYER M1 ;
+        RECT 13.100 37.200 15.700 51.200 ;
+      LAYER M1 ;
+        RECT 15.700 37.200 21.100 39.200 ;
+      LAYER M1 ;
+        RECT 21.100 32.600 23.700 51.200 ;
+      LAYER M1 ;
+        RECT 23.700 32.600 24.500 36.000 ;
+    END
+  END Y
+  PIN A
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 10.700 33.200 13.300 35.800 ;
+      LAYER M1 ;
+        RECT 13.300 33.200 15.600 35.200 ;
+      LAYER M1 ;
+        RECT 15.600 27.100 17.600 35.200 ;
+      LAYER M1 ;
+        RECT 17.600 27.100 19.000 30.500 ;
+    END
+  END A
+  PIN C
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 21.100 21.600 23.400 25.000 ;
+      LAYER M1 ;
+        RECT 23.400 16.950 26.000 25.000 ;
+    END
+  END C
+  PIN B
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 12.000 14.600 14.600 19.500 ;
+      LAYER M1 ;
+        RECT 14.600 16.100 19.000 19.500 ;
+    END
+  END B
+  PIN GND
+    DIRECTION INOUT ;
+    USE GROUND ;
+    PORT
+      LAYER M1 ;
+        RECT 5.000 0.000 21.100 2.600 ;
+      LAYER M1 ;
+        RECT 21.100 0.000 23.700 9.800 ;
+      LAYER M1 ;
+        RECT 23.700 0.000 29.600 2.600 ;
+    END
+  END GND
+  PIN VDD
+    DIRECTION INOUT ;
+    USE POWER ;
+    PORT
+      LAYER M1 ;
+        RECT 5.000 41.000 29.600 57.600 ;
+    END
+  END VDD
+END NAND3

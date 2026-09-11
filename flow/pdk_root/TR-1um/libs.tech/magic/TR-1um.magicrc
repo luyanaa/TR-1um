@@ -1,0 +1,106 @@
+# TR-1um Magic technology file (drawing-layer 1um CMOS, 2-metal).
+# Layers follow the TR-1um drawing-layer GDS table:
+#   AP 3/1  P+ active      AN 3/2  N+ active      AR 3/3 active (raw)
+#   GC 8/1  gate poly     SG 8/0  short gate     GR 8/2  poly resistor
+#   CO 11/0 contact        M1 13/0 metal1        V1 19/0 via1
+#   M2 20/0 metal2        WN 140/0 N-well       NW 36/0 deep N-well marker
+#   PM 35/0 P-well marker  NM 7/0 N-well marker  NF 25/0 N+ field
+#   PF 26/0 P+ field       prBoundary 235/0
+#
+# Purpose: GDS streamout (cifoutput) and basic Magic view of TR-1um drawing
+# layouts. Full DRC/LVS remain in KLayout runsets (run.drc / run.lvs).
+
+tech lambda 500
+# All dimensions are in centimicrons (100 nm) via the CIF/GDS style scaling
+# below; lambda 500 keeps Magic's internal grid at 0.5um for a 1um process.
+
+# ---------------------------------------------------------------- scales
+scalefactor 1u 1u 1u
+
+# ---------------------------------------------------------------- planes
+plane active,ndiff,pdiff,ntap,ptap,nwell,pwell,psub
+plane poly,pgate
+plane m1,via1,m2
+
+# ---------------------------------------------------------------- styles
+style "TR-1um (drawing)"
+style "TR-1um (mask)" generator mask
+
+# ---------------------------------------------------------------- aliases
+alias nwell WN
+alias ndiff AN
+alias pdiff AP
+alias contact CO
+alias metal1 M1
+alias via1 V1
+alias metal2 M2
+
+# ---------------------------------------------------------------- types
+# Primary drawing types (cifinput maps GDS into these)
+type active,AR
+type ndiff,AN
+type pdiff,AP
+type nwell,WN
+type polysilicon,GC
+type polysilicon,SG
+type polysilicon,GR
+type contact,CO
+type metal1,M1
+type via1,V1
+type metal2,M2
+type pwell,PM
+type psub,PSUB
+
+# ---------------------------------------------------------------- contacts
+contact ndiff contact metal1 1.0 1.0
+contact pdiff contact metal1 1.0 1.0
+contact polysilicon contact metal1 1.0 1.0
+contact metal1 via1 metal2 1.4 1.4
+
+# ---------------------------------------------------------------- cifoutput
+cifoutput style TR-1um
+# GDS layer assignments used when writing GDS/CIF from Magic
+calma ndiff AN b1 2 0
+calma pdiff AP b1 3 1
+calma active AR b1 3 3
+calma nwell WN b1 140 0
+calma pwell PM b1 35 0
+calma polysilicon GC b1 8 1
+calma polysilicon SG b1 8 0
+calma polysilicon GR b1 8 2
+calma contact CO b1 11 0
+calma metal1 M1 b1 13 0
+calma via1 V1 b1 19 0
+calma metal2 M2 b1 20 0
+calma prBoundary bnd 235 0
+
+# ---------------------------------------------------------------- cifinput
+cifinput style TR-1um
+layer AN b1 3 2
+layer AP b1 3 1
+layer AR b1 3 3
+layer WN b1 140 0
+layer PM b1 35 0
+layer GC b1 8 1
+layer SG b1 8 0
+layer GR b1 8 2
+layer CO b1 11 0
+layer M1 b1 13 0
+layer V1 b1 19 0
+layer M2 b1 20 0
+layer bnd 235 0
+
+# ---------------------------------------------------------------- drc
+# Full DRC stays in the KLayout runset; these rules only keep Magic's
+# interactive checker quiet for the basics.
+cifoutput true
+
+# ---------------------------------------------------------------- extractor
+# Device extraction mirrors the KLayout LVS runset device recognition:
+#   NMOS: GC over AN inside NM-side well/substrate
+#   PMOS: GC over AP inside WN
+extract style TR-1um
+fetopposite ndiff,pdiff
+fetsource ndiff,pdiff
+fetgate polysilicon
+fetsubstrate psub,nwell

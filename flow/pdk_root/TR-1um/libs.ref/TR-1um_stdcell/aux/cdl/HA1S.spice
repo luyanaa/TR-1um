@@ -1,0 +1,26 @@
+** 
+.subckt HA1S A B CO S VDD GND
+*.ipin A
+*.ipin B
+*.opin CO
+*.opin S
+MXXNDPA NDOUT A VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+MXXNDNB NDOUT A net1 GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+MXXNDPB NDOUT B VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+MXXNDNA net1 B GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+MXXIV3 CO NDOUT VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+MXXIV4 CO NDOUT GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+MXXIV1P net2 B net3 VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+MXXIV1N net2 A GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+MXXIV1 net3 A VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+MXXIV2 net2 B GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+MXXIV5 S net2 net4 VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+MXXIV6 net4 A VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+MXXIV7 S net2 GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+MXXIV8 S A net5 GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+MXXIV9 net5 B GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+MXXIV10 net4 B VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+.ends
+**.GLOBAL VDD
+**.GLOBAL GND
+**.end

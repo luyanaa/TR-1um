@@ -1,0 +1,15 @@
+MACRO RR$1
+  CLASS CORE ;
+  ORIGIN 0 0 ;
+  SIZE 42.000 BY 56.000 ;
+  SYMMETRY X Y ;
+  SITE TR1um_site ;
+  PIN GND
+    DIRECTION INOUT ;
+    USE GROUND ;
+    PORT
+      LAYER M1 ;
+        RECT -1.000 -1.000 7.000 14.300 ;
+    END
+  END GND
+END RR$1

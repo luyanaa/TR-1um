@@ -1,0 +1,83 @@
+MACRO AND3_X1
+  CLASS CORE ;
+  ORIGIN 0 0 ;
+  SIZE 40.100 BY 62.600 ;
+  SYMMETRY X Y ;
+  SITE TR1um_site ;
+  PIN VDD
+    DIRECTION INOUT ;
+    USE POWER ;
+    PORT
+      LAYER M1 ;
+        RECT 5.000 55.000 13.100 57.600 ;
+      LAYER M1 ;
+        RECT 13.100 41.000 15.700 57.600 ;
+      LAYER M1 ;
+        RECT 15.700 55.000 21.100 57.600 ;
+      LAYER M1 ;
+        RECT 21.100 41.000 23.700 57.600 ;
+      LAYER M1 ;
+        RECT 23.700 55.000 35.100 57.600 ;
+    END
+  END VDD
+  PIN GND
+    DIRECTION INOUT ;
+    USE GROUND ;
+    PORT
+      LAYER M1 ;
+        RECT 5.000 0.000 21.100 2.600 ;
+      LAYER M1 ;
+        RECT 21.100 0.000 23.700 9.800 ;
+      LAYER M1 ;
+        RECT 23.700 0.000 35.100 2.600 ;
+    END
+  END GND
+  PIN Y
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 25.100 6.400 26.600 9.800 ;
+      LAYER M1 ;
+        RECT 25.100 36.600 26.600 51.200 ;
+      LAYER M1 ;
+        RECT 26.600 6.400 27.700 51.200 ;
+      LAYER M1 ;
+        RECT 27.700 6.400 29.200 39.200 ;
+      LAYER M1 ;
+        RECT 29.200 32.600 30.000 36.000 ;
+    END
+  END Y
+  PIN A
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 10.700 33.200 13.300 35.800 ;
+      LAYER M1 ;
+        RECT 13.300 33.200 15.600 35.200 ;
+      LAYER M1 ;
+        RECT 15.600 27.100 17.600 35.200 ;
+      LAYER M1 ;
+        RECT 17.600 27.100 19.000 30.500 ;
+    END
+  END A
+  PIN C
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 16.300 21.600 24.500 25.000 ;
+    END
+  END C
+  PIN B
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 12.000 14.600 14.600 19.500 ;
+      LAYER M1 ;
+        RECT 14.600 16.100 19.000 19.500 ;
+    END
+  END B
+END AND3_X1

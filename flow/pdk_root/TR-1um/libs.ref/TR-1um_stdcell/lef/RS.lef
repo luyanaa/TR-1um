@@ -1,0 +1,7 @@
+MACRO RS
+  CLASS CORE ;
+  ORIGIN 0 0 ;
+  SIZE 23.600 BY 6.000 ;
+  SYMMETRY X Y ;
+  SITE TR1um_site ;
+END RS

@@ -1,0 +1,98 @@
+**
+.subckt DFFQU1 CK D Q VDD GND
+*.ipin CK
+*.ipin D
+*.opin Q
+XCKIV1P CKB CK VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XCKIV2P CKP CKB VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XCKIV1P1 net1 D VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XCKIV1P2 ml_ax CKP net1 VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XIV1P ml_b ml_ax VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XCKIV2P1 net3 ml_b VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XCKIV2P2 ml_ax CKB net3 VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XTFGP ml_b CKB sl_ax VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XCKIV3P1 net5 sl_b VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XCKIV3P2 sl_ax CKP net5 VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XOUTIVP Q sl_b VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XCKIV1N CKB CK GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XCKIV2N CKP CKB GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XCKIV1N2 ml_ax CKB net2 GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XCKIV1N1 net2 D GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XIV1N ml_b ml_ax GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XTFGN ml_b CKP sl_ax GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XOUTIVN Q sl_b GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XCKIV3N2 sl_ax CKB net6 GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XCKIV3N1 net6 sl_b GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XCKIV2N2 ml_ax CKP net4 GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XCKIV2N1 net4 ml_b GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XIV2P sl_b sl_ax VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XIV2N sl_b sl_ax GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+.ends
+**.GLOBAL VDD
+**.GLOBAL GND
+**.end
+** 
+.subckt FA1D1 A CO B CI S VDD GND
+*.ipin A
+*.opin CO
+*.ipin B
+*.ipin CI
+*.opin S
+XP03 n01p A VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XP04 COB B n01p VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XN04 COB B n01n GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XN03 n01n A GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XP00 n00p A VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XP01 n00p B VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XP02 COB CI n00p VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XN02 COB CI n00n GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XN01 n00n B GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XN00 n00n A GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XCOIVP CO COB VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XCOIVN CO COB GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XP05 n02p A VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XP06 n02p B VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XP08 SB COB n02p VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XN08 SB COB n02n GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XN06 n02n B GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XN05 n02n A GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XP07 n02p CI VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XN07 n02n CI GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XP09 n03p A VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XP10 n04p B n03p VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XN10 n04n B n03n GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XN09 n03n A GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XN11 SB CI n04n GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XP11 SB CI n04p VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XSIVN S SB GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XSIVP1 S SB VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+.ends
+**.GLOBAL VDD
+**.GLOBAL GND
+**.end
+** 
+.subckt HA1S A B CO S VDD GND
+*.ipin A
+*.ipin B
+*.opin CO
+*.opin S
+XXNDPA NDOUT A VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XXNDNB NDOUT A net1 GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XXNDPB NDOUT B VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XXNDNA net1 B GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XXIV3 CO NDOUT VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XXIV4 CO NDOUT GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XXIV1P net2 B net3 VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XXIV1N net2 A GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XXIV1 net3 A VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XXIV2 net2 B GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XXIV5 S net2 net4 VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XXIV6 net4 A VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XXIV7 S net2 GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XXIV8 S A net5 GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XXIV9 net5 B GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XXIV10 net4 B VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+.ends
+**.GLOBAL VDD
+**.GLOBAL GND
+**.end

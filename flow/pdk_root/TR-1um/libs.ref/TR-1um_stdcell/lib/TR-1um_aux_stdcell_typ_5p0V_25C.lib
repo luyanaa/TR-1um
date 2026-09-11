@@ -1,0 +1,40 @@
+library (TR-1um_aux_stdcell_typ_5p0V_25C) {
+  technology (cmos);
+  delay_model : table_lookup;
+  time_unit : "1ns";
+  voltage_unit : "1V";
+  capacitive_load_unit (1,pf);
+  nom_process : 1; nom_temperature : 25; nom_voltage : 5.0;
+  operating_conditions (typ) { process : 1; temperature : 25; voltage : 5.0; }
+  default_max_transition : 20.0; default_max_fanout : 10.0;
+  lu_table_template (delay_template) { variable_1 : input_net_transition; variable_2 : total_output_net_capacitance; index_1 ("0.5, 1.0, 2.0"); index_2 ("0.1, 0.5, 2.0"); }
+  lu_table_template (transition_template) { variable_1 : input_net_transition; variable_2 : total_output_net_capacitance; index_1 ("0.5, 1.0, 2.0"); index_2 ("0.1, 0.5, 2.0"); }
+  cell (HA1S) {
+    area : 197.57;
+    pin (A) { direction : input; capacitance : 0.05; }
+    pin (B) { direction : input; capacitance : 0.05; }
+    pin (S) { direction : output; function : "A ^ B"; }
+    pin (CO) { direction : output; function : "A * B"; }
+    pin (VDD) { direction : inout; }
+    pin (GND) { direction : inout; }
+  }
+  cell (FA1D1) {
+    area : 282.59;
+    pin (A) { direction : input; capacitance : 0.05; }
+    pin (B) { direction : input; capacitance : 0.05; }
+    pin (CI) { direction : input; capacitance : 0.05; }
+    pin (S) { direction : output; function : "(A ^ B) ^ CI"; }
+    pin (CO) { direction : output; function : "(A * B) + (B * CI) + (A * CI)"; }
+    pin (VDD) { direction : inout; }
+    pin (GND) { direction : inout; }
+  }
+  cell (DFFQU1) {
+    area : 4913.16;
+    ff (IQ, IQN) { clocked_on : CK; next_state : D; }
+    pin (CK) { direction : input; clock : true; capacitance : 0.05; }
+    pin (D) { direction : input; capacitance : 0.05; }
+    pin (Q) { direction : output; function : "IQ"; }
+    pin (VDD) { direction : inout; }
+    pin (GND) { direction : inout; }
+  }
+}

@@ -1,0 +1,39 @@
+** 
+.subckt FA1D1 A CO B CI S VDD GND
+*.ipin A
+*.opin CO
+*.ipin B
+*.ipin CI
+*.opin S
+MXP03 n01p A VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+MXP04 COB B n01p VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+MXN04 COB B n01n GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+MXN03 n01n A GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+MXP00 n00p A VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+MXP01 n00p B VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+MXP02 COB CI n00p VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+MXN02 COB CI n00n GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+MXN01 n00n B GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+MXN00 n00n A GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+MXCOIVP CO COB VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+MXCOIVN CO COB GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+MXP05 n02p A VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+MXP06 n02p B VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+MXP08 SB COB n02p VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+MXN08 SB COB n02n GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+MXN06 n02n B GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+MXN05 n02n A GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+MXP07 n02p CI VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+MXN07 n02n CI GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+MXP09 n03p A VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+MXP10 n04p B n03p VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+MXN10 n04n B n03n GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+MXN09 n03n A GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+MXN11 SB CI n04n GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+MXP11 SB CI n04p VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+MXSIVN S SB GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+MXSIVP1 S SB VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+.ends
+**.GLOBAL VDD
+**.GLOBAL GND
+**.end

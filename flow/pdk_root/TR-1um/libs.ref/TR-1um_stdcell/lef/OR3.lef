@@ -1,0 +1,123 @@
+MACRO OR3
+  CLASS CORE ;
+  ORIGIN 0 0 ;
+  SIZE 40.100 BY 62.600 ;
+  SYMMETRY X Y ;
+  SITE TR1um_site ;
+  PIN Y
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 25.100 6.400 25.500 9.800 ;
+      LAYER M1 ;
+        RECT 25.100 41.000 25.500 51.200 ;
+      LAYER M1 ;
+        RECT 25.500 6.400 26.600 9.800 ;
+      LAYER M1 ;
+        RECT 25.500 37.400 26.600 51.200 ;
+      LAYER M1 ;
+        RECT 26.600 6.400 27.300 9.800 ;
+      LAYER M1 ;
+        RECT 26.600 32.600 27.300 36.000 ;
+      LAYER M1 ;
+        RECT 26.600 37.400 27.300 51.200 ;
+      LAYER M1 ;
+        RECT 27.300 6.400 27.400 9.800 ;
+      LAYER M1 ;
+        RECT 27.300 32.600 27.400 36.000 ;
+      LAYER M1 ;
+        RECT 27.300 37.400 27.400 39.200 ;
+      LAYER M1 ;
+        RECT 27.300 41.000 27.400 51.200 ;
+      LAYER M1 ;
+        RECT 27.400 6.400 27.700 39.200 ;
+      LAYER M1 ;
+        RECT 27.400 41.000 27.700 51.200 ;
+      LAYER M1 ;
+        RECT 27.700 6.400 29.200 39.200 ;
+      LAYER M1 ;
+        RECT 29.200 32.600 30.000 36.000 ;
+    END
+  END Y
+  PIN A
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 12.600 21.300 15.200 23.900 ;
+      LAYER M1 ;
+        RECT 15.200 21.300 15.600 23.100 ;
+      LAYER M1 ;
+        RECT 15.600 16.100 16.400 19.500 ;
+      LAYER M1 ;
+        RECT 15.600 21.300 16.400 23.100 ;
+      LAYER M1 ;
+        RECT 16.400 16.100 18.200 23.100 ;
+      LAYER M1 ;
+        RECT 18.200 16.100 19.000 19.500 ;
+    END
+  END A
+  PIN B
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 10.400 33.100 13.000 35.700 ;
+      LAYER M1 ;
+        RECT 13.000 33.500 15.600 35.300 ;
+      LAYER M1 ;
+        RECT 15.600 27.100 16.400 30.500 ;
+      LAYER M1 ;
+        RECT 15.600 33.500 16.400 35.300 ;
+      LAYER M1 ;
+        RECT 16.400 27.100 18.200 35.300 ;
+      LAYER M1 ;
+        RECT 18.200 27.100 19.000 30.500 ;
+    END
+  END B
+  PIN C
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 21.100 21.600 21.400 25.000 ;
+      LAYER M1 ;
+        RECT 21.400 21.600 21.800 25.000 ;
+      LAYER M1 ;
+        RECT 21.400 27.100 21.800 29.700 ;
+      LAYER M1 ;
+        RECT 21.800 21.600 23.600 29.700 ;
+      LAYER M1 ;
+        RECT 23.600 21.600 24.000 25.000 ;
+      LAYER M1 ;
+        RECT 23.600 27.100 24.000 29.700 ;
+      LAYER M1 ;
+        RECT 24.000 21.600 24.500 25.000 ;
+    END
+  END C
+  PIN GND
+    DIRECTION INOUT ;
+    USE GROUND ;
+    PORT
+      LAYER M1 ;
+        RECT 5.000 0.000 13.100 2.600 ;
+      LAYER M1 ;
+        RECT 13.100 0.000 15.700 9.800 ;
+      LAYER M1 ;
+        RECT 15.700 0.000 21.100 5.000 ;
+      LAYER M1 ;
+        RECT 21.100 0.000 23.700 9.800 ;
+      LAYER M1 ;
+        RECT 23.700 0.000 35.100 2.600 ;
+    END
+  END GND
+  PIN VDD
+    DIRECTION INOUT ;
+    USE POWER ;
+    PORT
+      LAYER M1 ;
+        RECT 5.000 41.000 35.100 57.600 ;
+    END
+  END VDD
+END OR3

@@ -1,0 +1,65 @@
+MACRO INV_X1
+  CLASS CORE ;
+  ORIGIN 0 0 ;
+  SIZE 29.100 BY 62.600 ;
+  SYMMETRY X Y ;
+  SITE TR1um_site ;
+  PIN A
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 10.100 27.100 10.300 30.500 ;
+      LAYER M1 ;
+        RECT 10.300 27.100 12.900 35.500 ;
+      LAYER M1 ;
+        RECT 12.900 27.100 13.500 30.500 ;
+    END
+  END A
+  PIN VDD
+    DIRECTION INOUT ;
+    USE POWER ;
+    PORT
+      LAYER M1 ;
+        RECT 5.000 55.000 9.100 57.600 ;
+      LAYER M1 ;
+        RECT 9.100 41.000 11.700 57.600 ;
+      LAYER M1 ;
+        RECT 11.700 55.000 24.100 57.600 ;
+    END
+  END VDD
+  PIN GND
+    DIRECTION INOUT ;
+    USE GROUND ;
+    PORT
+      LAYER M1 ;
+        RECT 5.000 0.000 9.100 2.600 ;
+      LAYER M1 ;
+        RECT 9.100 0.000 11.700 9.800 ;
+      LAYER M1 ;
+        RECT 11.700 0.000 24.100 2.600 ;
+    END
+  END GND
+  PIN Y
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT 13.100 6.400 15.600 17.800 ;
+      LAYER M1 ;
+        RECT 13.100 36.900 15.600 51.200 ;
+      LAYER M1 ;
+        RECT 15.600 6.400 15.700 17.800 ;
+      LAYER M1 ;
+        RECT 15.600 32.600 15.700 51.200 ;
+      LAYER M1 ;
+        RECT 15.700 15.200 16.000 17.800 ;
+      LAYER M1 ;
+        RECT 15.700 32.600 16.000 39.500 ;
+      LAYER M1 ;
+        RECT 16.000 15.200 18.600 39.500 ;
+      LAYER M1 ;
+        RECT 18.600 32.600 19.000 36.000 ;
+    END
+  END Y
+END INV_X1

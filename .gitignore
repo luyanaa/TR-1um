@@ -24,7 +24,7 @@ flow/align_macro/3_pnr/
 flow/designs/*/runs/
 flow/designs/*/config_*_sweep_*.yaml
 flow/derived_native/
-flow/pdk_root/
+
 
 # Qualification reports are generated; retain the reusable manifest template.
 flow/qualification/*

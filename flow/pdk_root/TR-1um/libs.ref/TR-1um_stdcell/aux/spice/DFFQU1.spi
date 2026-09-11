@@ -1,0 +1,33 @@
+**
+.subckt DFFQU1 CK D Q VDD GND
+*.ipin CK
+*.ipin D
+*.opin Q
+XCKIV1P CKB CK VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XCKIV2P CKP CKB VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XCKIV1P1 net1 D VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XCKIV1P2 ml_ax CKP net1 VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XIV1P ml_b ml_ax VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XCKIV2P1 net3 ml_b VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XCKIV2P2 ml_ax CKB net3 VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XTFGP ml_b CKB sl_ax VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XCKIV3P1 net5 sl_b VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XCKIV3P2 sl_ax CKP net5 VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XOUTIVP Q sl_b VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XCKIV1N CKB CK GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XCKIV2N CKP CKB GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XCKIV1N2 ml_ax CKB net2 GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XCKIV1N1 net2 D GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XIV1N ml_b ml_ax GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XTFGN ml_b CKP sl_ax GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XOUTIVN Q sl_b GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XCKIV3N2 sl_ax CKB net6 GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XCKIV3N1 net6 sl_b GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XCKIV2N2 ml_ax CKP net4 GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XCKIV2N1 net4 ml_b GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+XIV2P sl_b sl_ax VDD VDD PMOS w=10.2u l=1u nrd=0 nrs=0 m=1
+XIV2N sl_b sl_ax GND GND NMOS w=3.4u l=1u nrd=0 nrs=0 m=1
+.ends
+**.GLOBAL VDD
+**.GLOBAL GND
+**.end
