@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "status": "blocked_drawing_drc_contact_geometry",
+  "macro": "TELESCOPIC_OTA",
+  "source": {
+    "spice": "flow/align_test/telescopic_ota.sp",
+    "align_topology": "flow/align_macro/1_topology/TELESCOPIC_OTA.verilog.json",
+    "align_primitive_lef": "flow/align_macro/3_pnr/inputs/TELESCOPIC_OTA.lef"
+  },
+  "logical_view": {
+    "path": "flow/align_macro/TELESCOPIC_OTA.bb.v",
+    "module": "TELESCOPIC_OTA",
+    "ports": [
+      "VBIASN",
+      "VBIASP1",
+      "VBIASP2",
+      "VINN",
+      "VINP",
+      "VOUTN",
+      "VOUTP",
+      "ID"
+    ],
+    "power_pins": [],
+    "power_note": "The source netlist names VDD and 0, while ALIGN's generated top-level LEF contract has no corresponding pins. The finalized top-level LEF/GDS are absent from this repository snapshot, so the first smoke uses a power-free analog instance and PDN hookup is deferred."
+  },
+  "physical_views": {
+    "gds": {
+      "path": "flow/align_test/latest/TELESCOPIC_OTA.gds",
+      "required": true,
+      "status": "generated_unqualified",
+      "qualified": false
+    },
+    "lef": {
+      "path": "flow/align_test/latest/TELESCOPIC_OTA.lef",
+      "required": true,
+      "status": "generated_unqualified",
+      "qualified": false
+    },
+    "available_primitive_lef": {
+      "path": "flow/align_macro/3_pnr/inputs/TELESCOPIC_OTA.lef",
+      "status": "not_top_level_macro",
+      "usable_for_integration": false,
+      "note": "This file contains primitive ALIGN macros and no TELESCOPIC_OTA macro declaration; it must not be substituted for the top-level LEF."
+    }
+  },
+  "instance": {
+    "name": "u_ota",
+    "location_um": [200, 200],
+    "orientation": "N",
+    "placement_status": "fixed_when_physical_views_are_available"
+  },
+  "mixed_smoke": {
+    "design": "tele_ota_smoke",
+    "rtl": "flow/designs/tele_ota_smoke/src/tele_ota_smoke.v",
+    "config": "flow/designs/tele_ota_smoke/config.yaml",
+    "macro_instance": "u_ota",
+    "standard_cell_boundary": ["u_buf_n", "u_buf_p"]
+  },
+  "signoff": {
+    "klayout_drawing_layer": "authoritative",
+    "magic": "basic_experimental_only",
+    "drc": "not_run",
+    "lvs": "not_run",
+    "tapeout_ready": false
+  },
+  "blocked_condition": "A reproducible MACROS configuration and logical contract are present, but LibreLane cannot load this handoff until a finalized top-level TELESCOPIC_OTA GDS and matching LEF are supplied at the paths above. The primitive LEF and any stale/external ALIGN work output are intentionally not used."
+}

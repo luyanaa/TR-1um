@@ -1,0 +1,168 @@
+[
+  {
+    "constraint": "PowerPorts",
+    "ports": [
+      "VDD"
+    ],
+    "propagate": true
+  },
+  {
+    "constraint": "GroundPorts",
+    "ports": [
+      "0"
+    ],
+    "propagate": true
+  },
+  {
+    "constraint": "GroupBlocks",
+    "instance_name": "X_M1_M2",
+    "instances": [
+      "M1",
+      "M2"
+    ],
+    "template_name": "SCM_NMOS",
+    "generator": {
+      "name": "MOS",
+      "parameters": null
+    },
+    "constraints": null
+  },
+  {
+    "constraint": "GroupBlocks",
+    "instance_name": "X_M10_M9",
+    "instances": [
+      "M10",
+      "M9"
+    ],
+    "template_name": "CMC_PMOS",
+    "generator": {
+      "name": "MOS",
+      "parameters": null
+    },
+    "constraints": null
+  },
+  {
+    "constraint": "GroupBlocks",
+    "instance_name": "X_M5_M6",
+    "instances": [
+      "M5",
+      "M6"
+    ],
+    "template_name": "CMC_S_NMOS_B",
+    "generator": {
+      "name": "MOS",
+      "parameters": {
+        "pattern": "ncc",
+        "parallel_wires": {
+          "DA": 1,
+          "DB": 1
+        }
+      }
+    },
+    "constraints": null
+  },
+  {
+    "constraint": "GroupBlocks",
+    "instance_name": "X_M7_M8",
+    "instances": [
+      "M7",
+      "M8"
+    ],
+    "template_name": "CMC_S_PMOS_B",
+    "generator": {
+      "name": "MOS",
+      "parameters": null
+    },
+    "constraints": null
+  },
+  {
+    "constraint": "GroupBlocks",
+    "instance_name": "X_M3_M4",
+    "instances": [
+      "M3",
+      "M4"
+    ],
+    "template_name": "DP_NMOS_B",
+    "generator": {
+      "name": "MOS",
+      "parameters": null
+    },
+    "constraints": null
+  },
+  {
+    "constraint": "SymmetricBlocks",
+    "pairs": [
+      [
+        "X_M10_M9"
+      ],
+      [
+        "X_M3_M4"
+      ],
+      [
+        "X_M5_M6"
+      ],
+      [
+        "X_M7_M8"
+      ]
+    ],
+    "direction": "V"
+  },
+  {
+    "constraint": "SymmetricNets",
+    "net1": "NET012",
+    "net2": "NET06",
+    "pins1": [
+      "X_M10_M9/DA",
+      "X_M7_M8/SB"
+    ],
+    "pins2": [
+      "X_M10_M9/DB",
+      "X_M7_M8/SA"
+    ],
+    "direction": "V"
+  },
+  {
+    "constraint": "SymmetricNets",
+    "net1": "NET014",
+    "net2": "NET8",
+    "pins1": [
+      "X_M5_M6/SB",
+      "X_M3_M4/DB"
+    ],
+    "pins2": [
+      "X_M5_M6/SA",
+      "X_M3_M4/DA"
+    ],
+    "direction": "V"
+  },
+  {
+    "constraint": "SymmetricNets",
+    "net1": "VINN",
+    "net2": "VINP",
+    "pins1": [
+      "X_M3_M4/GB",
+      "VINN"
+    ],
+    "pins2": [
+      "X_M3_M4/GA",
+      "VINP"
+    ],
+    "direction": "V"
+  },
+  {
+    "constraint": "SymmetricNets",
+    "net1": "VOUTN",
+    "net2": "VOUTP",
+    "pins1": [
+      "X_M5_M6/DA",
+      "X_M7_M8/DA",
+      "VOUTN"
+    ],
+    "pins2": [
+      "X_M5_M6/DB",
+      "X_M7_M8/DB",
+      "VOUTP"
+    ],
+    "direction": "V"
+  }
+]

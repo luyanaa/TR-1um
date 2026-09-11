@@ -1,0 +1,16 @@
+* Created by KLayout
+*** My special header ***
+
+* cell CMC_S_NMOS_B_X1_Y1
+* pin G
+* pin DA
+* pin SA
+* pin DB
+* pin SB
+* pin GND
+.SUBCKT CMC_S_NMOS_B_X1_Y1 G DA SA DB SB GND
+* device instance $1 r0 *1 20.3,3.9 NMOS
+M$1 DB G SB GND NMOS L=1u W=3.4u AS=9.52p AD=9.52p PS=12.4u PD=12.4u
+* device instance $2 r0 *1 4.3,3.9 NMOS
+M$2 DA G SA GND NMOS L=1u W=3.4u AS=9.52p AD=9.52p PS=12.4u PD=12.4u
+.ENDS CMC_S_NMOS_B_X1_Y1

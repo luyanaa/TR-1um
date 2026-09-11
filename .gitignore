@@ -16,9 +16,6 @@ flow/align_test/*.sp
 !flow/align_test/input/
 !flow/align_test/input/**
 flow/align_test/input/TELESCOPIC_OTA.placement_verilog.json
-flow/align_macro/1_topology/
-flow/align_macro/2_primitives/
-flow/align_macro/3_pnr/
 
 # LibreLane run databases, parameter sweeps, and derived PDK collateral.
 flow/designs/*/runs/
@@ -74,11 +71,6 @@ flow/signoff_test/
 # Additional local verification/scratch outputs.
 flow/tmp/
 flow/verification/
-flow/align_macro/*.source.gds
-flow/align_macro/*.extracted
-flow/align_macro/*.handoff.json
-flow/align_macro/*.bb.v
-flow/align_macro/*.cdl
 flow/char/inv_*.sp
 flow/char/nmos_*.sp
 flow/char/pmos_*.sp

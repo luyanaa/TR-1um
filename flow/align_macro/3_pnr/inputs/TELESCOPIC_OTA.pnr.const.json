@@ -1,0 +1,186 @@
+{
+  "constraints": [
+    {
+      "ports": [
+        "VDD"
+      ],
+      "propagate": true,
+      "const_name": "PowerPorts"
+    },
+    {
+      "ports": [
+        "0"
+      ],
+      "propagate": true,
+      "const_name": "GroundPorts"
+    },
+    {
+      "pairs": [
+        {
+          "type": "selfsym",
+          "block": "X_M10_M9"
+        },
+        {
+          "type": "selfsym",
+          "block": "X_M3_M4"
+        },
+        {
+          "type": "selfsym",
+          "block": "X_M5_M6"
+        },
+        {
+          "type": "selfsym",
+          "block": "X_M7_M8"
+        }
+      ],
+      "const_name": "SymmBlock",
+      "axis_dir": "V"
+    },
+    {
+      "net1": {
+        "name": "NET012",
+        "blocks": [
+          {
+            "type": "pin",
+            "name": "X_M10_M9",
+            "pin": "DA"
+          },
+          {
+            "type": "pin",
+            "name": "X_M7_M8",
+            "pin": "SB"
+          }
+        ]
+      },
+      "net2": {
+        "name": "NET06",
+        "blocks": [
+          {
+            "type": "pin",
+            "name": "X_M10_M9",
+            "pin": "DB"
+          },
+          {
+            "type": "pin",
+            "name": "X_M7_M8",
+            "pin": "SA"
+          }
+        ]
+      },
+      "const_name": "SymmNet",
+      "axis_dir": "V"
+    },
+    {
+      "net1": {
+        "name": "NET014",
+        "blocks": [
+          {
+            "type": "pin",
+            "name": "X_M5_M6",
+            "pin": "SB"
+          },
+          {
+            "type": "pin",
+            "name": "X_M3_M4",
+            "pin": "DB"
+          }
+        ]
+      },
+      "net2": {
+        "name": "NET8",
+        "blocks": [
+          {
+            "type": "pin",
+            "name": "X_M5_M6",
+            "pin": "SA"
+          },
+          {
+            "type": "pin",
+            "name": "X_M3_M4",
+            "pin": "DA"
+          }
+        ]
+      },
+      "const_name": "SymmNet",
+      "axis_dir": "V"
+    },
+    {
+      "net1": {
+        "name": "VINN",
+        "blocks": [
+          {
+            "type": "pin",
+            "name": "X_M3_M4",
+            "pin": "GB"
+          },
+          {
+            "type": "terminal",
+            "name": "VINN",
+            "pin": null
+          }
+        ]
+      },
+      "net2": {
+        "name": "VINP",
+        "blocks": [
+          {
+            "type": "pin",
+            "name": "X_M3_M4",
+            "pin": "GA"
+          },
+          {
+            "type": "terminal",
+            "name": "VINP",
+            "pin": null
+          }
+        ]
+      },
+      "const_name": "SymmNet",
+      "axis_dir": "V"
+    },
+    {
+      "net1": {
+        "name": "VOUTN",
+        "blocks": [
+          {
+            "type": "pin",
+            "name": "X_M5_M6",
+            "pin": "DA"
+          },
+          {
+            "type": "pin",
+            "name": "X_M7_M8",
+            "pin": "DA"
+          },
+          {
+            "type": "terminal",
+            "name": "VOUTN",
+            "pin": null
+          }
+        ]
+      },
+      "net2": {
+        "name": "VOUTP",
+        "blocks": [
+          {
+            "type": "pin",
+            "name": "X_M5_M6",
+            "pin": "DB"
+          },
+          {
+            "type": "pin",
+            "name": "X_M7_M8",
+            "pin": "DB"
+          },
+          {
+            "type": "terminal",
+            "name": "VOUTP",
+            "pin": null
+          }
+        ]
+      },
+      "const_name": "SymmNet",
+      "axis_dir": "V"
+    }
+  ]
+}
