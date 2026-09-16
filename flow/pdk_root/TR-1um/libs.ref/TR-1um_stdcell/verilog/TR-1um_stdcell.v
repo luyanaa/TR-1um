@@ -112,7 +112,7 @@ endmodule
 module DFFR (D, RST, QB, Q, GND, CK, VDD);
   input D, RST, QB, Q, CK;
   inout VDD, GND;
-  always @(posedge CK or negedge RST) if (!RST) Q <= 1'b0; else Q <= D; assign QB = ~Q;
+  always @(posedge CK or posedge RST) if (RST) Q <= 1'b0; else Q <= D; assign QB = ~Q;
 endmodule
 
 module DFFS (SET, D, Q, QB, CK, GND, VDD);

@@ -11,6 +11,34 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+# OpenROAD 2026-02-17 has a legacy DRT warning call site which can pass printf
+# arguments to the strict three-argument Tcl adapter.  Normal calls retain
+# their original behavior; legacy calls are rendered before forwarding.
+if {[llength [info commands ::utl::warn_strict]] == 0} {
+    rename ::utl::warn ::utl::warn_strict
+    proc ::utl::warn {args} {
+        if {[llength $args] == 2} {
+            lassign $args tool msg
+            puts stderr "\[WARNING $tool\] $msg"
+            return
+        }
+        if {[llength $args] < 3} {
+            puts stderr "\[WARNING DRT\] [join $args { }]"
+            return
+        }
+        lassign $args tool id msg
+        set format_args [lrange $args 3 end]
+        if {[llength $format_args] == 0} {
+            return [::utl::warn_strict $tool $id $msg]
+        }
+        if {[catch {set rendered [format $msg {*}$format_args]}]} {
+            set rendered "$msg [join $format_args { }]"
+        }
+        return [::utl::warn_strict $tool $id $rendered]
+    }
+}
+
 proc drt_run {i args} {
     set directory "drt-run-${i}"
     file mkdir "$::env(STEP_DIR)/$directory"
@@ -123,4 +151,5 @@ if { ![info exists ::env(DIODE_CELL)] } {
 write_views
 
 # This project flow uses the explicit GND escape route whenever DRT runs.
-source "/Users/yanlu/Documents/TR-1um/flow/librelane_override/librelane/scripts/openroad/gnd_route.tcl"
+pwd
+source "$env(PDK_ROOT)/../../flow/librelane_override/librelane/scripts/openroad/gnd_route.tcl"

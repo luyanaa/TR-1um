@@ -47,6 +47,7 @@ M1 = (13, 0)
 V1 = (19, 0)
 M2 = (20, 0)
 GC = (8, 1)
+GR = (8, 2)
 CO = (11, 0)
 M1_LABEL = (48, 0)
 M2_LABEL = (49, 0)
@@ -269,7 +270,7 @@ def process_cell(source: Path):
     cell = layout.top_cell()
     cell.transform(SHIFT)
     m1i, v1i, m2i = layer(layout, M1), layer(layout, V1), layer(layout, M2)
-    gci, coi = layer(layout, GC), layer(layout, CO)
+    gci, gri, coi = layer(layout, GC), layer(layout, GR), layer(layout, CO)
     m1li, m2li = layer(layout, M1_LABEL), layer(layout, M2_LABEL)
     boundaryi = layer(layout, BOUNDARY)
     bbox = cell.bbox()
@@ -277,7 +278,7 @@ def process_cell(source: Path):
         raise RuntimeError(f"{name}: normalized source bbox is {bbox}")
     width = bbox.width()
     m1, v1, m2 = region_for(cell, m1i), region_for(cell, v1i), region_for(cell, m2i)
-    gc, co = region_for(cell, gci), region_for(cell, coi)
+    gc, gr, co = region_for(cell, gci), region_for(cell, gri), region_for(cell, coi)
     labels, points = labelled_regions(cell, m1i, m1li)
     signals = sorted(name for name in labels if name not in POWER_NAMES)
     if not signals:
@@ -393,15 +394,27 @@ def process_cell(source: Path):
     power_m2_region = pya.Region()
     for region in power_m2.values():
         power_m2_region.insert(region)
-    obs_m1 = region_for(cell, m1i) - power_region
+    # Powered routing views expose only the dedicated M2 landings.  Treat the
+    # broad internal M1 rails as obstructions: allowing DRT to choose those M1
+    # polygons as access points can short signal metal in the real cell GDS.
+    obs_m1 = region_for(cell, m1i) if name in POWER_LANDING_CELLS else region_for(cell, m1i) - power_region
     obs_m2 = region_for(cell, m2i) - signal_region - power_m2_region
-    obs_v1 = region_for(cell, v1i)
+    # OpenROAD cannot see the FEOL GA/CO geometry when it chooses a new V1
+    # location.  A V1-layer obstruction that covers each rule-expanded FEOL
+    # region makes the abstract enforce the same edge-spacing rules as the
+    # final GDS: V1-to-GA >= 1.2um and V1-to-CO >= 1.0um.  Because the routed
+    # V1 cut itself must not overlap these expanded regions, no extra V1 half
+    # width is needed here.  GR participates in GA in the foundry DRC deck.
+    cell_area = pya.Region(pya.Box(0, 0, width, SITE_HEIGHT))
+    feol_v1_keepout = (gc.sized(V1_GC_SPACE) + gr.sized(V1_GC_SPACE) + co.sized(V1_CO_SPACE)) & cell_area
+    obs_v1 = region_for(cell, v1i) + feol_v1_keepout
+    obs_v1.merge()
     lef_path = OUT_LEF / f"{name}.lef"
     with lef_path.open("w") as fp:
         fp.write(f"MACRO {name}\n  CLASS CORE ;\n  ORIGIN 0 0 ;\n  SIZE {width * DBU:.3f} BY {SITE_HEIGHT_UM:.3f} ;\n  SYMMETRY X Y ;\n  SITE TR1um_access_site ;\n")
         if name in POWER_LANDING_CELLS:
-            emit_pin(fp, "VDD", "INOUT", "POWER", [("M1", powers["VDD"]), ("M2", power_m2["VDD"])])
-            emit_pin(fp, "GND", "INOUT", "GROUND", [("M1", powers["GND"]), ("M2", power_m2["GND"])])
+            emit_pin(fp, "VDD", "INOUT", "POWER", [("M2", power_m2["VDD"])])
+            emit_pin(fp, "GND", "INOUT", "GROUND", [("M2", power_m2["GND"])])
         else:
             emit_pin(fp, "VDD", "INOUT", "POWER", [("M1", powers["VDD"])])
             emit_pin(fp, "GND", "INOUT", "GROUND", [("M1", powers["GND"])])

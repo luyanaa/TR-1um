@@ -87,7 +87,11 @@ def main() -> None:
     region = None
     for inst in top.each_inst():
         if inst.cell.name == args.macro:
-            region = inst.dbbox().enlarged(pya.Vector(halo, halo))
+            # DEF routes and parsed rectangles are in integer database units.
+            # dbbox() is a DBox in micrometres, which made every comparison
+            # miss and silently produced "inserted 0".  Keep this halo in the
+            # same integer coordinate system as the DEF.
+            region = inst.bbox().enlarged(pya.Vector(halo, halo))
             break
     if region is None:
         raise SystemExit(f"no instance of {args.macro} under {args.top}")
@@ -123,7 +127,11 @@ def main() -> None:
             b = pya.Box(x0, y0, x1, y1)
             if b.left <= region.right and region.left <= b.right and b.bottom <= region.top and region.bottom <= b.top:
                 by_layer[layer].append(b)
-        for layer, boxes in by_layer.items():
+        # The macro exposes its routable escape pads on M2.  Its M1 shapes are
+        # internal device metal without per-shape net metadata here, so never
+        # fold arbitrary nearby M1 into a routed net.
+        for layer in ("M2",):
+            boxes = by_layer[layer]
             reg = pya.Region()
             for b in boxes:
                 reg.insert(b)

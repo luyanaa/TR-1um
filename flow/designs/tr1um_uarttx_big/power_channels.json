@@ -1,0 +1,6 @@
+{
+  "gnd_row_offset_um": -2.7,
+  "vdd_row_offset_um": 60.3,
+  "min_row_pitch_um": 75.6,
+  "vdd_trunk_inset_um": 50.0
+}
