@@ -99,13 +99,12 @@ repository also contains the `spice` and `xschem` libraries.
 - Two-metal multi-transistor ALIGN primitive generator (M1 net trunks + V1
   crossings replacing ALIGN's M3 bridge); DCL/SCM/CMC now generate valid ALIGN
   collateral with no new DRC categories.
+- The `TR-1um_MPW_template` submission contract is pinned as a git submodule
+  and integrated into the local pre-check/signoff gate.
 
 ### Planned
 
 - Add ESD device checks to DRC/LVS.
-- Use `TR-1um_MPW_template` as the tapeout submission/signoff gate (pre-check,
-  DRC, LVS, MDP; `tr_1um_` top-cell prefix and 2.5 mm chip-boundary
-  requirements).
 - Use `TR-1um_DRC_Regression_TEST` (Cat-1 through Cat-9) as the DRC
   qualification gate before release.
 - Add RC/parasitic extraction flow and collateral (OpenRCX or an equivalent

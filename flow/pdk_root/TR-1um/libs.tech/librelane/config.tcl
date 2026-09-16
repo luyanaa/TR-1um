@@ -21,12 +21,13 @@ set ::env(LIB) [dict create]
 dict set ::env(LIB) "*_typ_5p0V_25C" "$::env(PDK_ROOT)/$::env(PDK)/libs.ref/TR-1um_stdcell/lib/TR-1um_stdcell_typ_5p0V_25C.lib"
 set ::env(TECH_LEFS) [dict create]
 dict set ::env(TECH_LEFS) "*" "$::env(PDK_ROOT)/$::env(PDK)/libs.ref/TR-1um_stdcell/lef/TR-1um_tech.lef"
-set ::env(CELL_LEFS) [list "$::env(PDK_ROOT)/$::env(PDK)/libs.ref/TR-1um_stdcell/lef/TR-1um_cells.lef"]
-set ::env(CELL_GDS) "$::env(PDK_ROOT)/$::env(PDK)/libs.ref/TR-1um_stdcell/gds/TR-1um_stdcell.gds"
-set ::env(CELL_VERILOG_MODELS) "$::env(PDK_ROOT)/$::env(PDK)/libs.ref/TR-1um_stdcell/verilog/TR-1um_stdcell.v"
-set ::env(CELL_SPICE_MODELS) "$::env(PDK_ROOT)/$::env(PDK)/libs.ref/TR-1um_stdcell/spice/TR-1um_stdcell.spice"
-set ::env(CELL_CDLS) "$::env(PDK_ROOT)/$::env(PDK)/libs.ref/TR-1um_stdcell/cdl/TR-1um_stdcell.cdl"
+set ::env(CELL_LEFS) [list "$::env(PDK_ROOT)/$::env(PDK)/libs.ref/TR-1um_stdcell/lef/TR-1um_cells.lef" "$::env(PDK_ROOT)/$::env(PDK)/libs.ref/TR-1um_antenna/lef/DIODE_N_X1_native.lef"]
+set ::env(CELL_GDS) [list "$::env(PDK_ROOT)/$::env(PDK)/libs.ref/TR-1um_stdcell/gds/TR-1um_stdcell.gds" "$::env(PDK_ROOT)/$::env(PDK)/libs.ref/TR-1um_antenna/gds/DIODE_N_X1.gds"]
+set ::env(CELL_VERILOG_MODELS) [list "$::env(PDK_ROOT)/$::env(PDK)/libs.ref/TR-1um_stdcell/verilog/TR-1um_stdcell.v" "$::env(PDK_ROOT)/$::env(PDK)/libs.ref/TR-1um_antenna/verilog/DIODE_N_X1.v"]
+set ::env(CELL_SPICE_MODELS) [list "$::env(PDK_ROOT)/$::env(PDK)/libs.ref/TR-1um_stdcell/spice/TR-1um_stdcell.spice" "$::env(PDK_ROOT)/$::env(PDK)/libs.ref/TR-1um_antenna/spice/DIODE_N_X1.spice"]
+set ::env(CELL_CDLS) [list "$::env(PDK_ROOT)/$::env(PDK)/libs.ref/TR-1um_stdcell/cdl/TR-1um_stdcell.cdl" "$::env(PDK_ROOT)/$::env(PDK)/libs.ref/TR-1um_antenna/cdl/DIODE_N_X1.cdl"]
 set ::env(PLACE_SITE) TR1um_site
+set ::env(DIODE_CELL) "DIODE_N_X1/DIODE"
 set ::env(CELL_PAD_EXCLUDE) [list TIEHI TIELO]
 set ::env(FILL_CELLS) [list TIELO]
 set ::env(PDN_VERTICAL_LAYER) "M2"

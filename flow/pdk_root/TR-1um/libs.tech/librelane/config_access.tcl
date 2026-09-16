@@ -26,6 +26,7 @@ if { [info exists ::env(TR1UM_USE_BEOL_ACCESS)] && $::env(TR1UM_USE_BEOL_ACCESS)
     set ::env(STD_CELL_LIBRARY) TR-1um_stdcell
     set ::env(_TR1UM_LIBROOT) "$::env(PDK_ROOT)/$::env(PDK)/libs.ref/TR-1um_stdcell"
 }
+set ::env(_TR1UM_ANTENNA_ROOT) "$::env(PDK_ROOT)/$::env(PDK)/libs.ref/TR-1um_antenna"
 set ::env(LIB) [dict create]
 if { $::env(STD_CELL_LIBRARY) == "TR-1um_stdcell_access" } {
     dict set ::env(LIB) "*_typ_5p0V_25C" "$::env(_TR1UM_LIBROOT)/lib/TR-1um_stdcell_access_typ_5p0V_25C.lib"
@@ -35,21 +36,22 @@ if { $::env(STD_CELL_LIBRARY) == "TR-1um_stdcell_access" } {
 set ::env(TECH_LEFS) [dict create]
 if { $::env(STD_CELL_LIBRARY) == "TR-1um_stdcell_access" } {
     dict set ::env(TECH_LEFS) "*" "$::env(_TR1UM_LIBROOT)/lef/TR-1um_tech.lef"
-    set ::env(CELL_LEFS) [list "$::env(_TR1UM_LIBROOT)/lef/TR-1um_access_cells.lef"]
-    set ::env(CELL_GDS) "$::env(_TR1UM_LIBROOT)/gds/TR-1um_stdcell_access.gds"
-    set ::env(CELL_VERILOG_MODELS) "$::env(_TR1UM_LIBROOT)/verilog/TR-1um_stdcell_access.v"
-    set ::env(CELL_SPICE_MODELS) "$::env(_TR1UM_LIBROOT)/spice/TR-1um_stdcell_access.spice"
-    set ::env(CELL_CDLS) "$::env(_TR1UM_LIBROOT)/cdl/TR-1um_stdcell_access.cdl"
+    set ::env(CELL_LEFS) [list "$::env(_TR1UM_LIBROOT)/lef/TR-1um_access_cells.lef" "$::env(_TR1UM_ANTENNA_ROOT)/lef/DIODE_N_X1_access.lef"]
+    set ::env(CELL_GDS) [list "$::env(_TR1UM_LIBROOT)/gds/TR-1um_stdcell_access.gds" "$::env(_TR1UM_ANTENNA_ROOT)/gds/DIODE_N_X1.gds"]
+    set ::env(CELL_VERILOG_MODELS) [list "$::env(_TR1UM_LIBROOT)/verilog/TR-1um_stdcell_access.v" "$::env(_TR1UM_ANTENNA_ROOT)/verilog/DIODE_N_X1.v"]
+    set ::env(CELL_SPICE_MODELS) [list "$::env(_TR1UM_LIBROOT)/spice/TR-1um_stdcell_access.spice" "$::env(_TR1UM_ANTENNA_ROOT)/spice/DIODE_N_X1.spice"]
+    set ::env(CELL_CDLS) [list "$::env(_TR1UM_LIBROOT)/cdl/TR-1um_stdcell_access.cdl" "$::env(_TR1UM_ANTENNA_ROOT)/cdl/DIODE_N_X1.cdl"]
     set ::env(PLACE_SITE) TR1um_access_site
 } else {
     dict set ::env(TECH_LEFS) "*" "$::env(_TR1UM_LIBROOT)/lef/TR-1um_tech.lef"
-    set ::env(CELL_LEFS) [list "$::env(_TR1UM_LIBROOT)/lef/TR-1um_cells.lef"]
-    set ::env(CELL_GDS) "$::env(_TR1UM_LIBROOT)/gds/TR-1um_stdcell.gds"
-    set ::env(CELL_VERILOG_MODELS) "$::env(_TR1UM_LIBROOT)/verilog/TR-1um_stdcell.v"
-    set ::env(CELL_SPICE_MODELS) "$::env(_TR1UM_LIBROOT)/spice/TR-1um_stdcell.spice"
-    set ::env(CELL_CDLS) "$::env(_TR1UM_LIBROOT)/cdl/TR-1um_stdcell.cdl"
+    set ::env(CELL_LEFS) [list "$::env(_TR1UM_LIBROOT)/lef/TR-1um_cells.lef" "$::env(_TR1UM_ANTENNA_ROOT)/lef/DIODE_N_X1_native.lef"]
+    set ::env(CELL_GDS) [list "$::env(_TR1UM_LIBROOT)/gds/TR-1um_stdcell.gds" "$::env(_TR1UM_ANTENNA_ROOT)/gds/DIODE_N_X1.gds"]
+    set ::env(CELL_VERILOG_MODELS) [list "$::env(_TR1UM_LIBROOT)/verilog/TR-1um_stdcell.v" "$::env(_TR1UM_ANTENNA_ROOT)/verilog/DIODE_N_X1.v"]
+    set ::env(CELL_SPICE_MODELS) [list "$::env(_TR1UM_LIBROOT)/spice/TR-1um_stdcell.spice" "$::env(_TR1UM_ANTENNA_ROOT)/spice/DIODE_N_X1.spice"]
+    set ::env(CELL_CDLS) [list "$::env(_TR1UM_LIBROOT)/cdl/TR-1um_stdcell.cdl" "$::env(_TR1UM_ANTENNA_ROOT)/cdl/DIODE_N_X1.cdl"]
     set ::env(PLACE_SITE) TR1um_site
 }
+set ::env(DIODE_CELL) "DIODE_N_X1/DIODE"
 set ::env(GPL_CELL_PADDING) 2
 set ::env(DPL_CELL_PADDING) 1
 set ::env(CELL_PAD_EXCLUDE) [list TIEHI TIELO]

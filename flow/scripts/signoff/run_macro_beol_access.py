@@ -24,10 +24,11 @@ def main() -> int:
     parser.add_argument("--output-gds", required=True, type=Path)
     parser.add_argument("--output-lef", required=True, type=Path)
     parser.add_argument("--macro", default=None)
+    parser.add_argument("--gnd-use", choices=("SIGNAL", "GROUND"), default="SIGNAL")
     args = parser.parse_args()
 
     generator = Path(__file__).with_name("gen_macro_beol_access.py")
-    argv = [str(generator), "--input", str(args.input), "--output-gds", str(args.output_gds), "--output-lef", str(args.output_lef)]
+    argv = [str(generator), "--input", str(args.input), "--output-gds", str(args.output_gds), "--output-lef", str(args.output_lef), "--gnd-use", args.gnd_use]
     if args.macro:
         argv.extend(["--macro", args.macro])
     sys.argv = argv

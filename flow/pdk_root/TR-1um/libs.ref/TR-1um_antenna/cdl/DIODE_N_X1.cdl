@@ -1,0 +1,4 @@
+* TR-1um N-diffusion antenna diode; the substrate is global VSS.
+.SUBCKT DIODE_N_X1 DIODE VSS
+D$1 VSS DIODE DN A=21.60P P=19.2U
+.ENDS DIODE_N_X1

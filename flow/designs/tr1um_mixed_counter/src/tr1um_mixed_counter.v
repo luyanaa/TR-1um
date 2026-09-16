@@ -9,7 +9,7 @@ module tr1um_mixed_counter (
     inout  wire ANA_DB,
     inout  wire ANA_SA,
     inout  wire ANA_SB,
-    inout  wire ANA_G,
+    input  wire ANA_G,
     output wire [3:0] count,
     output wire odd,
     output wire almost_max

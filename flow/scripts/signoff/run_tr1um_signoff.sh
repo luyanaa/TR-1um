@@ -29,8 +29,9 @@ NETLIST="${3:?netlist .cir}"
 REPORT_DIR="${4:?report directory}"
 
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
-MPW_TEMPLATE="${MPW_TEMPLATE:-$HOME/Documents/TR-1um_MPW_template}"
-KLAYOUT_BIN="${KLAYOUT_BIN:-$(command -v klayout)}"
+MPW_TEMPLATE="${MPW_TEMPLATE:-$ROOT/TR-1um_MPW_template}"
+KLAYOUT_BIN="${KLAYOUT_BIN:-$(command -v klayout || true)}"
+[ -n "$KLAYOUT_BIN" ] || { echo "ERROR: klayout is unavailable; enter the LibreLane nix-shell in ~/Documents/librelane" >&2; exit 5; }
 DRC_RUNSET="${DRC_RUNSET:-$ROOT/libs.tech/klayout/tech/drc/run.drc}"
 LVS_RUNSET="${LVS_RUNSET:-$ROOT/libs.tech/klayout/tech/lvs/run.lvs}"
 MDP_RUNSET="${MDP_RUNSET:-$ROOT/libs.tech/klayout/tech/drc/run_mdp.drc}"

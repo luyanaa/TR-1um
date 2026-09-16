@@ -10,7 +10,13 @@ root = Path(__file__).resolve().parents[3]
 gds = Path(os.environ["TR1UM_FRAMED_GDS"]).resolve()
 top = os.environ.get("TR1UM_FRAMED_TOP", "tr_1um_counter")
 klayout = os.environ.get("KLAYOUT_BIN", "klayout")
-mpw = Path(os.environ.get("MPW_TEMPLATE", str(Path.home() / "Documents/TR-1um_MPW_template")))
+mpw = Path(os.environ.get("MPW_TEMPLATE", str(root / "TR-1um_MPW_template")))
+pre_check = mpw / "scripts/pre_check.py"
+if not pre_check.is_file():
+    raise FileNotFoundError(
+        f"MPW template pre-check missing: {pre_check}; "
+        "initialize the TR-1um_MPW_template submodule or set MPW_TEMPLATE"
+    )
 out = Path(os.environ.get("TR1UM_MPW_REPORT", str(root / "flow/signoff/mpw-canonical")))
 out.mkdir(parents=True, exist_ok=True)
 

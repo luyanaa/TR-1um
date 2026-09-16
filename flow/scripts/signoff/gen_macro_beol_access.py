@@ -138,6 +138,7 @@ def main() -> None:
     parser.add_argument("--output-gds", required=True, type=Path)
     parser.add_argument("--output-lef", required=True, type=Path)
     parser.add_argument("--macro", default=None, help="macro cell name (default: single top cell)")
+    parser.add_argument("--gnd-use", choices=("SIGNAL", "GROUND"), default="SIGNAL")
     args = parser.parse_args()
 
     layout = pya.Layout.new()
@@ -289,7 +290,7 @@ def main() -> None:
             # OpenROAD must treat the no-PDN escape as an ordinary routable
             # pin. disconnected_pins.py classifies GND by pin/net name, so
             # this does not weaken the ground check.
-            emit_pin(fp, "GND", "INOUT", "SIGNAL", [("M1", labels["GND"]), ("M2", gnd_region)])
+            emit_pin(fp, "GND", "INOUT", args.gnd_use, [("M1", labels["GND"]), ("M2", gnd_region)])
         fp.write("  OBS\n")
         for layer_name, region in (("M1", obs_m1), ("V1", obs_v1), ("M2", obs_m2)):
             for x0, y0, x1, y1 in region_rects(region, ox, oy):

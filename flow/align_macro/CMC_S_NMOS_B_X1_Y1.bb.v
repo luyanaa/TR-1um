@@ -4,7 +4,7 @@ module CMC_S_NMOS_B_X1_Y1 (
     inout wire DB,
     inout wire SA,
     inout wire SB,
-    inout wire G,
+    input wire G,
     inout wire GND
 );
 endmodule

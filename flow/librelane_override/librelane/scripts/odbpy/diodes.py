@@ -56,6 +56,7 @@ class DiodeInserter:
         self.diode_site = self.diode_master.getSite().getConstName()
 
         self.inserted = {}
+        self.inserted_count = 0
         self.insts_by_name = {i.getName(): i for i in self.block.getInsts()}
 
     def debug(self, msg):
@@ -150,7 +151,12 @@ class DiodeInserter:
         # Is the pin left-ish, center-ish or right-ish ?
         pos = None
 
-        if self.side_strategy == "source":
+        if self.diode_cell == "DIODE_N_X1":
+            # The TR-1um diode keeps its AN 10.8um inside the cell.  Always
+            # place it to the right of a standard cell so that this keepout
+            # faces away from the source cell and remains in the row.
+            pos = "r"
+        elif self.side_strategy == "source":
             # Always be on the side of the source
             if src_pos is not None:
                 pos = "l" if (src_pos[0] < inst_pos[0]) else "r"
@@ -169,7 +175,6 @@ class DiodeInserter:
             elif px > th_right:
                 pos = "r"
             elif src_pos is not None:
-                # Sort of middle, so put it on the side where signal is coming from
                 pos = "l" if (src_pos[0] < inst_pos[0]) else "r"
 
         if pos is None:
@@ -191,18 +196,28 @@ class DiodeInserter:
         return dx, inst_pos[1], inst_ori
 
     def place_diode_macro(self, it, px, py, src_pos=None):
-        # Scan all rows to see how close we can get to the point
+        # Keep the diode outside the macro's physical bbox.  A macro row can
+        # be split into left/right segments by the macro blockage, and the
+        # nearest row edge is not necessarily a legal diode origin once the
+        # diode width is included.
         best = None
+        macro_bbox = it.getInst().getBBox()
+        dw = self.diode_master.getWidth()
 
         for row in self.block.getRows():
             rbb = row.getBBox()
 
-            dx = max(min(rbb.xMax(), px), rbb.xMin())
+            if rbb.xMax() <= macro_bbox.xMin():
+                dx = max(rbb.xMin(), rbb.xMax() - dw)
+            elif rbb.xMin() >= macro_bbox.xMax():
+                dx = rbb.xMin()
+            else:
+                dx = max(rbb.xMin(), min(px, rbb.xMax() - dw))
+
             dy = rbb.yMin()
             do = row.getOrient()
 
-            d = abs(px - dx) + abs(py - dy)
-
+            d = abs(px - (dx + dw // 2)) + abs(py - dy)
             if (best is None) or (best[0] > d):
                 best = (d, dx, dy, do)
 
@@ -239,10 +254,14 @@ class DiodeInserter:
             diode_inst_name = f"{base_diode_inst_name}_{counter}"
 
         diode_inst = odb.dbInst_create(self.block, self.diode_master, diode_inst_name)
+        self.inserted_count += 1
 
         diode_inst.setOrient(do)
         diode_inst.setLocation(dx, dy)
-        diode_inst.setPlacementStatus("PLACED")
+        # The diode is inserted after legalization next to its source cell.
+        # Keep that row/site placement fixed so detailed placement cannot move
+        # the active into an adjacent WN region.
+        diode_inst.setPlacementStatus("FIRM")
 
         ait = diode_inst.findITerm(self.diode_pin)
         ait.connect(iterm.getNet())
@@ -363,7 +382,7 @@ def place(
     )
     di.execute()
 
-    print("Inserted", len(di.inserted), "diodes.")
+    print("Inserted", di.inserted_count, "diodes.")
 
 
 cli.add_command(place)
