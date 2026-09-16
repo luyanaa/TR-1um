@@ -50,10 +50,10 @@ supplies are on the south edge.
 The qualified reference run is `uart-big-generic-signoff-3`: OpenROAD detailed
 routing has zero violations, KLayout drawing DRC has zero hard items, all 102
 extracted instances connect to top-level VDD/VSS, and strict LVS matches. The
-official `run_IP62.drc` deck in
-`factory.symbioticeda.com/tr-1um-official-eda:ubuntu2204-ishi-kai` also reports
-zero items. Strict extraction preserves the seven-terminal DFFR model and all
-16 RST terminals are connected to VSS through the routed TIELO net.
+official `run_IP62.drc` deck, run with
+`TR1UM_OFFICIAL_EDA_IMAGE=<official-ip62-docker-image>`, also reports zero
+items. Strict extraction preserves the seven-terminal DFFR model and all 16
+RST terminals are connected to VSS through the routed TIELO net.
 
 Timing constraints remain deliberately relaxed because the current TR-1um
 Liberty data is placeholder characterization. DRC/LVS success is not timing,

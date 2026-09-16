@@ -14,7 +14,7 @@ REPORT="${3:-$(dirname "$INPUT_GDS")/${TOP}.official_ip62.lyrdb}"
 mkdir -p "$(dirname "$REPORT")"
 REPORT="$(realpath -m "$REPORT")"
 
-IMAGE="${TR1UM_OFFICIAL_EDA_IMAGE:-factory.symbioticeda.com/tr-1um-official-eda:ubuntu2204-ishi-kai}"
+IMAGE="${TR1UM_OFFICIAL_EDA_IMAGE:-}"
 DECK="${TR1UM_OFFICIAL_IP62_DECK:-/home/ishi-kai/pdk/TR-1um/libs.tech/klayout/tech/drc/run_IP62.drc}"
 INPUT_DIR="$(dirname "$INPUT_GDS")"
 OUTPUT_DIR="$(dirname "$REPORT")"
@@ -25,6 +25,11 @@ command -v docker >/dev/null || {
     echo "ERROR: docker is required for official TR-1um IP62 signoff" >&2
     exit 3
 }
+
+if [[ -z "$IMAGE" ]]; then
+    echo "ERROR: set TR1UM_OFFICIAL_EDA_IMAGE=<official-ip62-docker-image>" >&2
+    exit 4
+fi
 
 set -x
 docker run --rm \

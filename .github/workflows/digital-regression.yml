@@ -77,7 +77,17 @@ jobs:
             iverilog -V 2>&1 | grep -F "Icarus Verilog version 13.0 (devel)"
           '
 
-      - name: Run simulation, RTL-to-GDS, DRC, and LVS
+      # Official IP62 container signoff is intentionally disabled in public CI.
+      # Private-CI image placeholder:
+      # TR1UM_OFFICIAL_EDA_IMAGE: <official-ip62-docker-image>
+      - name: Disable official IP62 container signoff
+        shell: bash
+        run: |
+          set -euxo pipefail
+          echo "RUN_OFFICIAL_IP62_DRC=0" >> "$GITHUB_ENV"
+          echo "Official IP62 container signoff is disabled in public CI." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Run simulation, RTL-to-GDS, drawing DRC, and strict LVS
         shell: bash
         run: |
           set -euxo pipefail
