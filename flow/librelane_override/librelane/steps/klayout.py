@@ -315,6 +315,30 @@ class StreamOut(KLayoutStep):
             env=env,
         )
 
+        # Optional design-local geometry finishing between streamout and DRC.
+        # Compact TR-1um blocks use this to join same-potential well islands
+        # without modifying the qualified standard-cell masters.
+        postprocess = os.path.join(self.config["DESIGN_DIR"], "postprocess_gds.py")
+        if os.path.isfile(postprocess):
+            postprocessed = os.path.join(
+                self.step_dir,
+                f"{self.config['DESIGN_NAME']}.postprocessed.gds",
+            )
+            self.run_pya_script(
+                [
+                    sys.executable,
+                    postprocess,
+                    "--input",
+                    klayout_gds_out,
+                    "--output",
+                    postprocessed,
+                    "--top",
+                    self.config["DESIGN_NAME"],
+                ],
+                env=env,
+            )
+            shutil.copy(postprocessed, klayout_gds_out)
+
         # The mixed TR-1um macro has an explicit GND escape that must be
         # physically connected in the final GDS when no PDN grid is generated.
         # Apply the deterministic, DRC-checked bridge before publishing GDS.

@@ -1,0 +1,109 @@
+name: Digital RTL-to-GDS regression
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: digital-regression-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  digital-flow:
+    name: ${{ matrix.design }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix:
+        design:
+          - tr1um_alu8
+          - tr1um_busdecode
+          - tr1um_crc8
+          - tr1um_fifo4
+          - tr1um_fsm_lock
+          - tr1um_irqctrl
+          - tr1um_popcount8
+          - tr1um_pwm4
+          - tr1um_regfile4x4
+          - tr1um_spitx
+          - tr1um_uarttx_big
+
+    steps:
+      - name: Check out TR-1um flow
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@8aa03977d8d733052d78f4e008a241fd1dbf36b3 # v31.10.6
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            extra-substituters = https://nix-cache.fossi-foundation.org
+            extra-trusted-public-keys = nix-cache.fossi-foundation.org:3+K59iFwXqKsL7BNu6Guy0v+uTlwsxYQxjspXzqLYQs=
+
+      - name: Check out exact LibreLane environment
+        shell: bash
+        run: |
+          set -euxo pipefail
+          source flow/librelane-version.env
+          librelane_dir="$RUNNER_TEMP/librelane"
+          git init "$librelane_dir"
+          git -C "$librelane_dir" remote add origin "$LIBRELANE_REPOSITORY"
+          git -C "$librelane_dir" fetch --depth=1 origin "$LIBRELANE_REV"
+          git -C "$librelane_dir" checkout --detach FETCH_HEAD
+          test "$(git -C "$librelane_dir" rev-parse HEAD)" = "$LIBRELANE_REV"
+          printf '%s  %s\n' "$LIBRELANE_FLAKE_LOCK_SHA256" "$librelane_dir/flake.lock" |
+            sha256sum --check --strict
+
+      - name: Verify pinned tool versions
+        shell: bash
+        run: |
+          set -euxo pipefail
+          source flow/librelane-version.env
+          librelane_dir="$RUNNER_TEMP/librelane"
+          nix-shell "$librelane_dir" --run '
+            set -euo pipefail
+            test "$(librelane --version | head -n 1)" = "LibreLane v'"$LIBRELANE_VERSION"'"
+            openroad_version="$(openroad -version)"
+            test "${openroad_version%% *}" = "dcf36133a369abc8f3c5e5738cd4d82e4903c0e0"
+            yosys -V | grep -F "Yosys 0.62 (git sha1 7326bb7d6641500ecb285c291a54a662cb1e76cf"
+            test "$(klayout -v)" = "KLayout 0.30.7"
+            iverilog -V 2>&1 | grep -F "Icarus Verilog version 13.0 (devel)"
+          '
+
+      # Official IP62 container signoff is intentionally disabled in public CI.
+      # Private-CI image placeholder:
+      # TR1UM_OFFICIAL_EDA_IMAGE: <official-ip62-docker-image>
+      - name: Disable official IP62 container signoff
+        shell: bash
+        run: |
+          set -euxo pipefail
+          echo "RUN_OFFICIAL_IP62_DRC=0" >> "$GITHUB_ENV"
+          echo "Official IP62 container signoff is disabled in public CI." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Run simulation, RTL-to-GDS, drawing DRC, and strict LVS
+        shell: bash
+        run: |
+          set -euxo pipefail
+          tag="ci-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          nix-shell "$RUNNER_TEMP/librelane" --run \
+            "$GITHUB_WORKSPACE/flow/designs/run_digital_tests.sh --tag $tag ${{ matrix.design }}"
+
+      - name: Upload logs and reusable macro views
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: digital-regression-${{ matrix.design }}
+          if-no-files-found: warn
+          retention-days: 14
+          path: |
+            flow/designs/artifacts/ci-${{ github.run_id }}-${{ github.run_attempt }}/logs/${{ matrix.design }}.log
+            flow/designs/artifacts/ci-${{ github.run_id }}-${{ github.run_attempt }}/${{ matrix.design }}/
+            flow/designs/${{ matrix.design }}/runs/ci-${{ github.run_id }}-${{ github.run_attempt }}/connected_power/*.log
+            flow/designs/${{ matrix.design }}/runs/ci-${{ github.run_id }}-${{ github.run_attempt }}/connected_power/*.lyrdb

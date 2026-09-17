@@ -1,0 +1,85 @@
+# TR-1um 24-character UART routing experiment using the qualified BEOL-access
+# standard-cell library. Timing is intentionally relaxed because the current
+# Liberty characterization is placeholder data.
+meta:
+  version: 3
+  flow: Classic
+  substituting_steps:
+    Magic.StreamOut: null
+    Magic.WriteLEF: null
+    Magic.DRC: null
+    Magic.SpiceExtraction: null
+    Netgen.LVS: null
+    Checker.LVS: null
+    Checker.MagicDRC: null
+    Checker.IllegalOverlap: null
+    Odb.CheckDesignAntennaProperties: null
+    Odb.CheckMacroAntennaProperties: null
+    Klayout.XOR: null
+    Checker.XOR: null
+    OpenROAD.IRDropReport: null
+
+DESIGN_NAME: tr1um_uarttx_big
+VERILOG_FILES: dir::src/tr1um_uarttx_big.v
+
+CLOCK_PORT: clk
+CLOCK_PERIOD: 5000
+PNR_SDC_FILE: dir::constraints.sdc
+SIGNOFF_SDC_FILE: dir::constraints.sdc
+FALLBACK_SDC: dir::constraints.sdc
+
+VDD_NETS: [VDD]
+GND_NETS: [GND]
+VERILOG_POWER_DEFINE: "USE_POWER_PINS"
+
+FP_SIZING: absolute
+# Compact integration target requested for the @-separated message decoder.
+DIE_AREA: [0, 0, 1000, 1000]
+# Leave margin for pin access and the design-local power trunks. The 910 um
+# core width accommodates the fixed seven-row placement corridor.
+CORE_AREA: [50, 75.6, 960, 982.8]
+IO_PIN_ORDER_CFG: dir::pin_order.cfg
+PL_TARGET_DENSITY_PCT: 10
+PL_ROUTABILITY_DRIVEN: false
+PL_OPTIMIZE_MIRRORING: false
+
+GRT_ALLOW_CONGESTION: true
+GRT_OVERFLOW_ITERS: 0
+RUN_PDN: false
+RUN_CTS: false
+RUN_FILL_INSERTION: false
+RUN_DRT: true
+RUN_SPEF_EXTRACTION: true
+RUN_POST_GPL_DESIGN_REPAIR: false
+RUN_POST_GRT_RESIZER_TIMING: false
+RUN_ANTENNA_REPAIR: false
+
+RUN_KLAYOUT_STREAMOUT: true
+RUN_KLAYOUT_DRC: true
+# This preliminary check uses the nominal technology LEF and may flag a route
+# that the stricter connected-power finishing pass immediately reroutes.  Keep
+# generating its report, but leave pass/fail authority to the final drawing
+# DRC and the official-container IP62 deck in run_digital_core_flow.sh.
+ERROR_ON_KLAYOUT_DRC: false
+ERROR_ON_TR_DRC: false
+RUN_MAGIC_STREAMOUT: false
+RUN_MAGIC_DRC: false
+RUN_LVS: false
+RUN_MCSTA: false
+TIMING_VIOLATION_CORNERS: []
+HOLD_VIOLATION_CORNERS: []
+ERROR_ON_DISCONNECTED_PINS: true
+
+PDN_MULTILAYER: false
+ERROR_ON_PDN_VIOLATIONS: false
+KLAYOUT_CONFLICT_RESOLUTION: AddToCell
+
+IO_DELAY_CONSTRAINT: 5
+OUTPUT_CAP_LOAD: 0.5
+PL_RESIZER_HOLD_MAX_BUFFER_PCT: 100
+GRT_RESIZER_HOLD_MAX_BUFFER_PCT: 100
+GRT_RESIZER_ALLOW_SETUP_VIOS: true
+DRT_OPT_ITERS: 64
+DRT_OR_SEED: 43
+DRT_SAVE_SNAPSHOTS: false
+DRT_SAVE_DRC_REPORT_ITERS: 1

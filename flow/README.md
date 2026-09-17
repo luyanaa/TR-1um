@@ -147,6 +147,127 @@ the macro DB landing, preserving that signal while satisfying the upstream
 M2 spacing rule; both paths are checked by the same drawing DRC used for
 signoff.
 
+### Explicit connected-power core experiment
+
+The ordinary routed GDS from a `RUN_PDN: false` run does not, by itself,
+physically join every standard-cell VDD/GND landing.  The powered access
+library and `flow/run_connected_power_route.sh` provide a reproducible
+core-level experiment that routes both supplies as normal M1/M2 nets after a
+completed LibreLane run.  Start from the official mixed-counter example in the
+LibreLane development shell:
+
+```bash
+./flow/run_librelane_tr1um_access_power.sh \
+  flow/designs/tr1um_mixed_counter/config_access.yaml \
+  --run-tag mixed-power-nopdn-1
+
+./flow/run_connected_power_route.sh \
+  flow/designs/tr1um_mixed_counter/runs/mixed-power-nopdn-1 \
+  /tmp/tr1um-connected-power
+```
+
+The second command deliberately runs as an isolated post-route derivation. It
+does not replace or mutate any of the saved LibreLane stages. It writes a new
+DEF, ODB, GDS, OpenROAD report, KLayout drawing-DRC report, raw conductive-graph
+check, and netlist-only LVS extraction to the requested output directory.
+
+Two routing-only LEFs make the supply topology unambiguous:
+
+- `TR-1um_access_cells_signal_power.lef` exposes dedicated M2 power landings
+  for the six cell types used by this reference design while treating their
+  internal M1 shapes as obstructions. Other library cells retain their normal
+  abstraction and require the same qualification before this method is
+  generalized to designs that use them.
+- `CMC_S_NMOS_B_X1_Y1.routing.lef` gives the macro's physically separate body
+  ground escape the temporary terminal name `GNDP`; the routing Tcl explicitly
+  connects `u_ana/GNDP` to `GND`.
+
+The derived DEF keeps VDD and GND classified as `SIGNAL`. This is required so
+OpenDB serializes the detailed-route `dbWire` geometry; changing them back to
+special POWER/GROUND nets without converting the wires to `dbSWire` drops the
+physical routes. Their supply meaning remains defined by the physical VDD/GND
+labels and the Verilog/CDL contract.
+
+For the reference run, the post-route result has zero OpenROAD detailed-route
+violations, zero hard KLayout drawing-DRC items, one conductive component for
+all 24 VDD/VCC labels, and one conductive component for all 28 GND/VSS labels.
+The checker also fails if the two supply components are shorted or a power
+label is not on M1/M2 metal.
+
+This result is currently **core-level evidence, not a framed tapeout signoff**.
+Directly joining the narrow core supply routes to the official frame pads
+causes the foundry deck to classify the connected network as pad metal and
+apply the M1P/M2P 14 um spacing and 40 um lead-out rules. That pad-transition
+geometry remains to be designed and qualified. Layer 250 bridge metadata is
+not required by this connected-core method and is not used as connectivity
+evidence.
+
+#### 24-character UART channel-power experiment
+
+`tr1um_uarttx_big` is a 14.7456 MHz, 115200-baud transmitter in a
+1000 by 1000 um macro.  It continuously emits
+`SYMBIOTIC@YG@CKDUR@ROBIN@@@@@@@@`.  The design contains 103 synthesis
+instances: 102 logic/sequential cells plus one physical TIELO.  Its fixed
+placement uses seven site-aligned rows, with five empty row intervals reserved
+for the channel buses.
+
+Run the complete generic flow from the LibreLane development shell:
+
+```bash
+./flow/designs/run_digital_tests.sh \
+  --tag uart-big-1000x1000-run tr1um_uarttx_big
+```
+
+The design-local `power_channels.json` supplies the row offsets and right-edge
+trunk inset used by `run_digital_core_flow.sh`.  The generic connected-power
+stage then performs OpenROAD detailed-route checking, KLayout drawing DRC,
+explicit supply-continuity checks, extraction, and strict transistor-level
+LVS.  The optional dedicated reroute entry point uses the same design and
+channel configuration:
+
+```bash
+./flow/run_uart_connected_power.sh \
+  flow/designs/tr1um_uarttx_big/runs/<tag>
+```
+
+Both paths are core-level experiments.  They do not qualify the MPW frame/pad
+transition, IR drop, electromigration, or final tapeout reliability.
+
+For any standalone digital core with a routed GDS, matching DEF, and powered
+post-route Verilog, run the same strict comparison without the UART routing
+stage:
+
+```bash
+./flow/run_core_lvs.sh \
+  core.gds core.def core.pnl.v core_top /tmp/core-lvs
+```
+
+For a larger hardened hierarchy, put the `tr1um_uarttx_big` GDS/LEF in the
+parent's macro views and instantiate its black-box Verilog.  Pass the strict
+UART contract after the parent output directory; multiple macro contracts may
+be listed:
+
+```bash
+./flow/run_core_lvs.sh \
+  parent.gds parent.def parent.pnl.v parent_top /tmp/parent-lvs \
+  uart-build/tr1um_uarttx_big.strict.cir
+```
+
+The builder checks the complete parent physical/Verilog instance population,
+recursively includes the macro contract, stamps all parent DEF ports onto the
+GDS label layers, and runs strict-port LVS.  In xschem, place
+`tr1um_uarttx_big.sym`, connect `tx clk VDD VSS`, and include or concatenate
+`tr1um_uarttx_big.strict.cir` with the parent SPICE netlist before running the
+same KLayout LVS deck.  Do not use behavioral RTL as the LVS schematic: the
+strict `.cir` file is the transistor-level physical contract.
+
+The channel topology grows linearly with the number of cells, but it is not a
+general power-grid generator.  A larger design should increase die area and
+row count, retain routing channels, and re-run every check.  The 1.8 um M1 bus
+width is the process drawing minimum used by this DRC experiment; tapeout use
+also requires an IR-drop and electromigration assessment and may need wider or
+parallel buses.  The common WN geometry requires foundry review before tapeout.
+
 ### Reproduction
 
 Enter the LibreLane development shell, then run the access launcher above.
@@ -686,6 +807,46 @@ variants. The canonical signal-only access run is the verified digital baseline;
 its generated library is restored under
 `flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access/`.
 
+### Generated access-library views and LEF obstructions
+
+`flow/scripts/access/gen_ip62_beol_access_strict.py` regenerates the derived
+access library from the immutable GDS cells under `STDLIB/LogicCells/gds`.
+Its outputs include the per-cell `flow_gds/*.gds` and `lef/*.lef` views, the
+aggregate `gds/TR-1um_stdcell_access.gds` and
+`lef/TR-1um_access_cells.lef` views, and `access_manifest.json`. The aggregate
+LEF concatenates the individual cell abstracts, so one generator change can
+appear twice and produce a large textual diff without adding new cells.
+
+The generated LEFs intentionally contain conservative `OBS` rectangles on
+`V1`. OpenROAD sees the routing abstract but not the complete transistor-level
+FEOL geometry in the source GDS. Without these obstructions it can create an
+M1-to-M2 via that is legal in the abstract but violates the foundry spacing
+rules after streamout. The generator therefore obstructs existing V1 geometry
+and the following rule-expanded FEOL regions, clipped to the cell boundary:
+
+- gate layers `GC` and `GR`, expanded by 1.2 um; and
+- contact layer `CO`, expanded by 1.0 um.
+
+These LEF rectangles are router restrictions only. They are not new physical
+GDS wires, vias, pins, devices, or logical cells. Polygon decomposition can
+emit many rectangles for a single obstruction region, particularly in the
+aggregate LEF.
+
+KLayout rewrites GDS library and structure creation/modification timestamps
+when these views are regenerated. Consequently, Git can report binary GDS
+changes even when every non-timestamp GDS record, including all geometry, is
+identical. Review generated GDS changes semantically rather than treating a
+byte-level timestamp difference as a layout change. The generated manifest
+also records absolute source and output paths, so regenerating it on another
+machine can produce path-only changes.
+
+The current FEOL obstruction collector examines shapes directly owned by each
+top cell; it does not recursively collect FEOL shapes from instantiated child
+cells. Hierarchical source cells therefore require explicit checking before
+assuming that the generated V1 obstruction covers child geometry. Per-cell
+qualification and final official IP62 DRC remain mandatory; the LEF
+obstruction is a routing guard, not a signoff waiver.
+
 The canonical signal-only access baseline intentionally omits PDN. The final
 powered access experiment is `flow/designs/tr1um_counter/runs/power-access-cleanup-final`.
 It preserves the verified access placement, reports zero detailed-route DRC,
@@ -906,6 +1067,105 @@ The wrapper completed with the accepted RCX value and therefore does not claim
 foundry correlation beyond this repository's declared TR-1um signoff policy.
 
 No DRC rule was weakened and no timing violation was waived.
+
+## Generic digital-core flow
+
+`flow/run_tr1um_digital.sh` is the generic one-command entry point for an
+access-library digital core. Run it from the LibreLane nix shell:
+
+```bash
+./flow/run_tr1um_digital.sh \
+  flow/designs/tr1um_busdecode/config_access.yaml \
+  tr1um_busdecode generic-1
+```
+
+It runs RTL lint/synthesis, deterministic sparse placement, signal routing,
+ordinary M1 VDD/GND channel buses, OpenROAD detailed-route checking, KLayout
+drawing DRC, physical supply-continuity checks, extraction, and strict LVS.
+
+The final reusable outputs are under `runs/<tag>/connected_power/`: the
+`*.connected_power.gds`, `*.macro.lef`, and `*.strict.cir` files.
+
+### Five-design regression and reusable macro bundles
+
+`flow/designs/run_digital_tests.sh` runs the complete test for the five
+checked-in digital examples by default. From the LibreLane development shell:
+
+```bash
+./flow/designs/run_digital_tests.sh --clean-all --tag local-regression
+```
+
+Each design is simulated with Icarus Verilog, then run through LibreLane,
+connected-power routing, OpenROAD and KLayout DRC, explicit supply-continuity
+checks, strict transistor-level LVS, and hierarchy-view packaging. Every
+stage name and executed command is included in
+`flow/designs/artifacts/<tag>/logs/`. `--clean-all` removes all old `runs/`
+contents only for the selected designs; without it, only the selected tag is
+replaced.
+
+A design name, design directory, or config YAML may be supplied, so no shared
+script change is needed for another core:
+
+```bash
+./flow/designs/run_digital_tests.sh --tag my-core tr1um_uarttx_big
+./flow/designs/run_digital_tests.sh --tag my-core /absolute/path/config_access.yaml
+./flow/designs/run_digital_tests.sh --artifacts /tmp/macro-results \
+  --tag my-core /absolute/path/to/design-directory
+```
+
+The config must contain `DESIGN_NAME`, and the design's `src/Makefile` must
+provide `clean` and `sim` targets. A successful bundle contains:
+
+| View | Hierarchical use |
+|---|---|
+| `<top>.gds` | connected-power physical macro placed in the parent GDS |
+| `<top>.lef` | routing and pin abstract supplied to parent place-and-route |
+| `<top>.blackbox.v` | interface supplied to parent synthesis |
+| `<top>.pnl.v` | powered mapped implementation retained for inspection |
+| `<top>.strict.cir` | transistor-level child contract used by parent LVS |
+| `<top>.sym` | xschem subcircuit symbol |
+| `SHA256SUMS` | integrity manifest for every packaged view |
+
+For an xschem parent, place `<top>.sym` and add
+`.include <top>.strict.cir` to the generated SPICE deck. For a hardened parent,
+include the GDS/LEF and black-box views during implementation, then append one
+or more child contracts to the strict parent LVS command:
+
+```bash
+./flow/run_core_lvs.sh parent.gds parent.def parent.pnl.v parent \
+  parent_lvs child1.strict.cir child2.strict.cir
+```
+
+The packager fails if the GDS-extracted contract, LEF pins, and powered
+Verilog interface differ. GDS `GND` is normalized to the LVS name `VSS`.
+
+Adding another design does not require editing the standard-cell library or
+shared flow scripts. Its directory supplies RTL, constraints, pin order,
+`config_access.yaml`, and (when needed) `manual_place_access.tcl`. Keep every
+other 75.6 um physical row empty. The current regressions show that 40 um
+horizontal cell gaps work through 216 cells, while the shift-register-heavy
+SPI block needs an 80 um gap. These are explicit design-local routability
+parameters, not DRC waivers.
+
+Five independent regression designs now pass RTL simulation, connected-power
+GDS generation, zero-hard-item KLayout DRC, complete extracted VDD/VSS
+connectivity, and strict LVS:
+
+| Design | Function | Mapped instances | Verified run |
+|---|---|---:|---|
+| `tr1um_alu8` | registered 8-bit ALU | 216 | `clean-regression-2` |
+| `tr1um_fifo4` | four-entry 4-bit FIFO | 95 | `clean-regression-2` |
+| `tr1um_irqctrl` | four-source interrupt controller | 26 | `clean-regression-2` |
+| `tr1um_spitx` | 8-bit SPI transmitter | 72 | `clean-regression-2` |
+| `tr1um_busdecode` | registered 3-to-8 bus decoder | 18 | `clean-regression-2` |
+
+The current experimental technology has only M1/M2 available for signal
+routing. Placement locality and whitespace therefore matter much more than
+nominal utilization; a small but poorly grouped register bank can be harder to
+route than the 216-cell ALU. Scale by preserving empty rows, increasing local
+horizontal gaps, and grouping strongly connected state before enlarging the
+die. The signoff runner fails closed on any OpenROAD DRC, KLayout DRC, missing
+supply connection, extraction mismatch, or strict-LVS mismatch.
 
 Native top-level KLayout DRC is intentionally removed from the tapeout scope;
 the native branch remains a reference diagnostic only.

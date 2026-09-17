@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Fail only on unvisited hard KLayout report items.
+"""Summarize a KLayout report and fail on selected unvisited items.
 
 KLayout stores both errors and foundry-declared warnings in the same report
-format. Warning categories beginning with ``WAR`` are informational for the
-TR-1um MPW mask run; every other unvisited item remains a hard failure.
+format. By default warning categories beginning with ``WAR`` are informational;
+``--fail-warnings`` makes every unvisited report item fatal.  The latter is the
+required mode for the official IP62 signoff because warnings such as WAR06
+identify electrically floating source/gate geometry.
 """
 from __future__ import annotations
 
@@ -15,6 +17,11 @@ from pathlib import Path
 
 def main() -> int:
     parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--fail-warnings",
+        action="store_true",
+        help="treat foundry WAR categories as failures too",
+    )
     parser.add_argument("report", type=Path)
     args = parser.parse_args()
     text = args.report.read_text()
@@ -26,14 +33,15 @@ def main() -> int:
         category = html.unescape(match.group(1).strip()) if match else "<uncategorized>"
         # The runset emits warning names as 'WAR06: ...'. Do not classify
         # those as hard DRC failures; all other unvisited items are failures.
-        if re.match(r"^'?WAR\d*\s*:", category):
+        if not args.fail_warnings and re.match(r"^'?WAR\d*\s*:", category):
             continue
         failures[category] = failures.get(category, 0) + 1
     if failures:
         for category, count in sorted(failures.items()):
             print(f"{count} hard item(s): {category}")
         return 1
-    print(f"OK: no hard KLayout items in {args.report}")
+    qualification = "unvisited" if args.fail_warnings else "hard"
+    print(f"OK: no {qualification} KLayout items in {args.report}")
     return 0
 
 

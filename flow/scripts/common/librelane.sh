@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Shared launcher setup for the TR-1um LibreLane entry points.
 set -euo pipefail
+set -x
 
 tr1um_prepare_librelane() {
     local flow_dir="$1"

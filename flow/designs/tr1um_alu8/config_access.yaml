@@ -1,0 +1,67 @@
+meta:
+  version: 3
+  flow: Classic
+  substituting_steps:
+    Magic.StreamOut: null
+    Magic.WriteLEF: null
+    Magic.DRC: null
+    Magic.SpiceExtraction: null
+    Netgen.LVS: null
+    Checker.LVS: null
+    Checker.MagicDRC: null
+    Checker.IllegalOverlap: null
+    Odb.CheckDesignAntennaProperties: null
+    Odb.CheckMacroAntennaProperties: null
+    Klayout.XOR: null
+    Checker.XOR: null
+    OpenROAD.IRDropReport: null
+DESIGN_NAME: tr1um_alu8
+VERILOG_FILES: dir::src/tr1um_alu8.v
+CLOCK_PORT: clk
+CLOCK_PERIOD: 5000
+PNR_SDC_FILE: dir::constraints.sdc
+SIGNOFF_SDC_FILE: dir::constraints.sdc
+FALLBACK_SDC: dir::constraints.sdc
+VDD_NETS: [VDD]
+GND_NETS: [GND]
+VERILOG_POWER_DEFINE: "USE_POWER_PINS"
+FP_SIZING: absolute
+DIE_AREA: [0, 0, 2400, 2200]
+CORE_AREA: [50, 75.6, 2350, 2041.2]
+IO_PIN_ORDER_CFG: dir::pin_order.cfg
+PL_TARGET_DENSITY_PCT: 10
+PL_ROUTABILITY_DRIVEN: false
+PL_OPTIMIZE_MIRRORING: false
+GRT_ALLOW_CONGESTION: true
+GRT_OVERFLOW_ITERS: 0
+RUN_PDN: false
+RUN_CTS: false
+RUN_FILL_INSERTION: false
+RUN_DRT: true
+RUN_SPEF_EXTRACTION: true
+RUN_POST_GPL_DESIGN_REPAIR: false
+RUN_POST_GRT_RESIZER_TIMING: false
+RUN_ANTENNA_REPAIR: false
+RUN_KLAYOUT_STREAMOUT: true
+RUN_KLAYOUT_DRC: true
+ERROR_ON_KLAYOUT_DRC: false
+ERROR_ON_TR_DRC: false
+RUN_MAGIC_STREAMOUT: false
+RUN_MAGIC_DRC: false
+RUN_LVS: false
+RUN_MCSTA: false
+TIMING_VIOLATION_CORNERS: []
+HOLD_VIOLATION_CORNERS: []
+ERROR_ON_DISCONNECTED_PINS: true
+PDN_MULTILAYER: false
+ERROR_ON_PDN_VIOLATIONS: false
+KLAYOUT_CONFLICT_RESOLUTION: AddToCell
+IO_DELAY_CONSTRAINT: 5
+OUTPUT_CAP_LOAD: 0.5
+PL_RESIZER_HOLD_MAX_BUFFER_PCT: 100
+GRT_RESIZER_HOLD_MAX_BUFFER_PCT: 100
+GRT_RESIZER_ALLOW_SETUP_VIOS: true
+DRT_OPT_ITERS: 64
+DRT_OR_SEED: 42
+DRT_SAVE_SNAPSHOTS: false
+DRT_SAVE_DRC_REPORT_ITERS: 1

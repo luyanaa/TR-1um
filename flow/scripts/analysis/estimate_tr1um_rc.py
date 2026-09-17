@@ -29,6 +29,9 @@ VIA_R_NOMINAL_OHM = 1.0
 VIA_R_LOW_OHM = 0.5
 VIA_R_HIGH_OHM = 2.0
 ACTIVE_ROUTING_LAYERS = ("M1", "M2")
+# Access-cell technology LEFs intentionally expose only active M1/M2.  Full
+# source/framed technology LEFs may additionally declare M3 for reserved-layer
+# sensitivity reporting.
 RESERVED_ROUTING_LAYERS = ("M3",)
 
 
@@ -80,10 +83,14 @@ def main() -> int:
     parser.add_argument("--lef", type=Path, default=DEFAULT_LEF)
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     args = parser.parse_args()
-
     text = args.lef.read_text(encoding="utf-8")
+
     layers = [estimate_layer(text, layer) for layer in ACTIVE_ROUTING_LAYERS]
-    reserved_layers = [estimate_layer(text, layer) for layer in RESERVED_ROUTING_LAYERS]
+    reserved_layers = [
+        estimate_layer(text, layer)
+        for layer in RESERVED_ROUTING_LAYERS
+        if re.search(rf"(?m)^LAYER {re.escape(layer)}\s*$", text)
+    ]
     report = {
         "schema": 1,
         "status": "engineering_estimate_not_foundry_qualified",
@@ -100,8 +107,8 @@ def main() -> int:
             },
             {
                 "path": str(args.lef),
-                "location": "M1/M2/M3 routing-layer statements",
-                "fact": "Derived LEF supplies sheet resistance, area capacitance, edge capacitance, and nominal routing widths for active and reserved routing layers.",
+                "location": "M1/M2 and any declared reserved routing-layer statements",
+                "fact": "The selected technology LEF supplies sheet resistance, area capacitance, edge capacitance, and nominal routing widths for its active and declared reserved routing layers.",
             },
         ],
         "method": {
