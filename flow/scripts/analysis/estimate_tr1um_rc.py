@@ -112,8 +112,10 @@ def main() -> int:
             },
         ],
         "method": {
-            "resistance": "R_per_um = sheet_resistance / nominal_routing_width",
-            "capacitance": "C_per_um = area_capacitance * nominal_routing_width + 2 * edge_capacitance",
+            "resistance": "wire R = sheet_resistance * length / actual DEF route width; nominal per_um is the widthless-route fallback",
+            "capacitance": "wire C = length * (area_capacitance * actual DEF route width + 2 * edge_capacitance); nominal per_um is the widthless-route fallback",
+            "topology": "the extractor splits routed segments at endpoints, vias, and located DEF/LEF terminals and emits distributed RC edges",
+            "vertical_overlap": "adjacent-metal overlap is modeled separately by the extractor from route bounding boxes",
             "sheet_resistance_relative_spread": SHEET_R_SPREAD,
             "capacitance_relative_spread": CAP_SPREAD,
             "spread_interpretation": "engineering sensitivity band, not a confidence interval",

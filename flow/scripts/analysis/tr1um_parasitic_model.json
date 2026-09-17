@@ -57,6 +57,10 @@
     }
   },
   "vertical_coupling": {
+    "M2_M1": {
+      "capacitance_pf_per_um2": 0.0000175,
+      "basis": "engineering proxy: minimum adjacent-metal LEF area capacitance for M1/M2 overlap; no inter-metal coupling coefficient is published"
+    },
     "M3_M2": {
       "capacitance_pf_per_um2": 0.0000175,
       "basis": "engineering proxy: minimum of M3 and M2 LEF area capacitance; no inter-metal coupling coefficient is published"

@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
-# Deterministic TR-1um RC/PEX estimate: DEF/GDS-derived SPEF and capacitor network.
+# Deterministic TR-1um RC/PEX estimate: DEF/GDS-derived distributed SPEF and RC.
 #
 # A real foundry RC/PEX deck is unavailable for TR-1um (the open IP62 manual
 # lists parasitic extraction as unavailable).  The companion extractor now
 # materializes:
-#   * wire-to-substrate capacitance and resistance from DEF/LEF geometry;
-#   * lateral M1/M1 and M2/M2 fringe coupling;
+#   * width-aware wire-to-substrate capacitance and distributed resistance
+#     from DEF/LEF geometry;
+#   * explicit V1 resistor edges and DEF/LEF *CONN terminal records;
+#   * lateral M1/M1 and M2/M2 fringe coupling plus DEF M1/M2 overlap coupling;
 #   * M3-to-M2/M1 vertical overlap when M3 geometry is available;
 #   * GR/F_RS, RR/F_RR, and GC/MOS device capacitance when an extracted SPICE
 #     view is supplied; unresolved nested devices remain ledger-only.

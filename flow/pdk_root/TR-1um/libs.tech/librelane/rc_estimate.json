@@ -13,14 +13,16 @@
       "fact": "The open manual lists parasitic extraction as unavailable and does not provide a metal RC/PEX deck."
     },
     {
-      "path": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell/lef/TR-1um_tech.lef",
-      "location": "M1/M2/M3 routing-layer statements",
-      "fact": "Derived LEF supplies sheet resistance, area capacitance, edge capacitance, and nominal routing widths for active and reserved routing layers."
+      "path": "flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell/lef/TR-1um_tech.lef",
+      "location": "M1/M2 and any declared reserved routing-layer statements",
+      "fact": "The selected technology LEF supplies sheet resistance, area capacitance, edge capacitance, and nominal routing widths for its active and declared reserved routing layers."
     }
   ],
   "method": {
-    "resistance": "R_per_um = sheet_resistance / nominal_routing_width",
-    "capacitance": "C_per_um = area_capacitance * nominal_routing_width + 2 * edge_capacitance",
+    "resistance": "wire R = sheet_resistance * length / actual DEF route width; nominal per_um is the widthless-route fallback",
+    "capacitance": "wire C = length * (area_capacitance * actual DEF route width + 2 * edge_capacitance); nominal per_um is the widthless-route fallback",
+    "topology": "the extractor splits routed segments at endpoints, vias, and located DEF/LEF terminals and emits distributed RC edges",
+    "vertical_overlap": "adjacent-metal overlap is modeled separately by the extractor from route bounding boxes",
     "sheet_resistance_relative_spread": 0.5,
     "capacitance_relative_spread": 0.5,
     "spread_interpretation": "engineering sensitivity band, not a confidence interval"

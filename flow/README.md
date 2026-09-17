@@ -504,9 +504,11 @@ Accordingly, `flow/scripts/analysis/estimate_tr1um_rc.py` does not claim
 foundry data. It reads the checked-in derived technology LEF and computes:
 
 ```text
-R_per_um = sheet_resistance / nominal_routing_width
-C_per_um = area_capacitance * nominal_routing_width + 2 * edge_capacitance
+R_edge = sheet_resistance * segment_length / route_width
+C_edge = segment_length * (area_capacitance * route_width + 2 * edge_capacitance)
 ```
+`route_width` is the explicit DEF route width; widthless routes use the
+nominal LEF routing width. Each split graph edge receives its own R/C terms.
 
 Current derived values:
 
@@ -518,20 +520,27 @@ Current derived values:
 | V1 | 1.0 ohm nominal | 0.5--2.0 ohm sensitivity range |
 
 The estimator applies +/-50% sensitivity bands to sheet resistance and
-capacitance. `flow/signoff/run_estimated_rcx.sh` now delegates network
-construction to `flow/scripts/analysis/extract_tr1um_parasitics.py`. The
-extractor converts routed DEF segments and explicit via names into a SPEF,
-retains bracketed bus net names, and emits two additional artifacts beside
-the SPEF: `<base>.parasitics.json` (the source/basis ledger) and
-`<base>.pex.sp` (a capacitor subcircuit for an analog deck). DEF coordinate
-extension fields are not vias.
+capacitance. `flow/signoff/run_estimated_rcx.sh` delegates network construction
+to `flow/scripts/analysis/extract_tr1um_parasitics.py`. The extractor reads
+explicit DEF route widths (using the nominal LEF width only for widthless
+routes), resolves DEF/LEF pin connections, splits each routed segment at
+endpoints, vias, and located terminals, and emits a distributed SPEF. It also
+emits two sidecars beside the SPEF: `<base>.parasitics.json` (the source,
+geometry, width, node, and resistor-edge ledger) and `<base>.pex.sp` (the
+distributed RC network for an analog deck). DEF coordinate extension fields
+are not vias.
 
-The generated engineering network includes same-net wire capacitance,
-parallel-segment lateral fringe coupling for M1--M1, M2--M2 (and M3--M3
-when routed), M3 vertical overlap to M2 and optionally M1 from GDS/DEF
-geometry, GR/F_RS capacitance to the classified PSUB or NW net, active
-RR/F_RR PLUS-to-bulk capacitance from the checked-in compact-model formula,
-and GC/MOS gate-to-AP/AN overlap terms from the BSIM3 `cgsl`/`cgdl` values.
+The generated engineering network includes width-aware same-net wire
+capacitance, distributed sheet-resistance edges, explicit V1 resistor edges,
+parallel-segment lateral fringe coupling for M1--M1, M2--M2 (and M3--M3 when
+routed), and adjacent-metal M1--M2 overlap coupling from DEF route bounding
+boxes. M3 vertical overlap to M2 and optionally M1 is derived from GDS/DEF
+geometry. The network also includes GR/F_RS capacitance to the classified PSUB
+or NW net, active RR/F_RR PLUS-to-bulk capacitance from the checked-in
+compact-model formula, and GC/MOS gate-to-AP/AN overlap terms from the BSIM3
+`cgsl`/`cgdl` values. SPEF `*CONN` records carry DEF ports and placed-cell
+pin directions/cell types; zero-ohm terminal attachments connect those
+physical terminals to the nearest routed graph node.
 Only device terms whose terminals resolve to the selected top-level routed
 nets are materialized in SPEF/SPICE; nested KLayout devices remain in the
 ledger with a bounded warning rather than being assigned to an unrelated net.
@@ -572,9 +581,14 @@ file and this log together when a foundry deck, measured correlation, or
 better process documentation becomes available.
 
 - **Baseline interconnect RC:** M1, M2, and reserved M3 use the derived LEF
-  values above. The estimator derives `R'` from sheet resistance and nominal
-  width, and derives `C'` from area plus two edge terms. The stated +/-50%
-  ranges are engineering sensitivity bands, not confidence intervals.
+  values above. Each routed segment uses its explicit DEF width when present;
+  widthless routes use the nominal LEF width. Split graph edges materialize
+  `R = Rsheet * L / W` and `C = L * (Carea * W + 2 * Cedge)`. The stated
+  +/-50% ranges are engineering sensitivity bands, not confidence intervals.
+- **M1/M2 overlap coupling:** use `0.0000175 pF/um2` from
+  `vertical_coupling.M2_M1` as an engineering proxy for adjacent-metal
+  overlap. The extractor applies it to DEF M1/M2 route bounding-box
+  intersections; no foundry inter-metal coupling coefficient is published.
 - **Via resistance:** V1 is set to 1.0 ohm nominal with a 0.5--2.0 ohm
   sensitivity range because no via resistance is published.
 - **Lateral fringe coupling:** M1, M2, and M3 use 0.00005 pF/um edge
@@ -621,10 +635,11 @@ The contract generator is
 `flow/scripts/signoff/build_strict_mixed_contract.py`; it never copies the
 routed layout's topology (the earlier `build_mixed_extracted_contract.py`
 extraction-echo contract is deprecated and kept only for debugging). The
-RCX recipe `flow/signoff/run_estimated_rcx.sh` derives the SPEF from routed
-DEF geometry, adds optional GDS vertical-overlap and extracted-device terms,
-and writes the capacitor network/ledger sidecars; the status remains an
-explicit engineering estimate because no foundry RC/PEX deck exists for TR-1um.
+RCX recipe `flow/signoff/run_estimated_rcx.sh` derives a distributed
+SPEF/RC network from routed DEF geometry, adds optional GDS vertical-overlap
+and extracted-device terms, and writes distributed RC/SPICE and ledger
+sidecars; the status remains an explicit engineering estimate because no
+foundry RC/PEX deck exists for TR-1um.
 
 The macro GND issue is fixed by a reproducible post-streamout bridge in
 `flow/scripts/signoff/add_gnd_bridge.py`, integrated into the overridden
@@ -1053,7 +1068,7 @@ DRC errors.
 
 The full wrapper reaches the RC/PEX stage without an environment override.
 `flow/signoff/run_estimated_rcx.sh` produces the repository's deterministic
-DEF/GDS-derived engineering SPEF, capacitor-network sidecar, and source/basis
+DEF/GDS-derived distributed SPEF, distributed RC/SPICE network, and
 ledger. A real foundry RC/PEX deck is unavailable; this estimate is explicitly
 not foundry-qualified. `RCX_COMMAND` remains an optional override for a
 separately qualified extractor.
@@ -1166,6 +1181,104 @@ route than the 216-cell ALU. Scale by preserving empty rows, increasing local
 horizontal gaps, and grouping strongly connected state before enlarging the
 die. The signoff runner fails closed on any OpenROAD DRC, KLayout DRC, missing
 supply connection, extraction mismatch, or strict-LVS mismatch.
+
+### SPEF-backed post-layout digital simulation
+
+Completed digital runs with a final PNL and engineering SPEF can be simulated
+through the checked-in manifest
+`flow/qualification/post_layout_digital_manifest.json`. The launcher uses a
+distributed source SPEF directly when it contains `*CONN` and graph-node
+records, runs OpenSTA to generate a fresh SDF, builds timing-capable Icarus
+cell models, and annotates the PNL testbench:
+
+```bash
+cd "$HOME/Documents/librelane"
+nix-shell
+cd "$HOME/Documents/TR-1um"
+./flow/designs/run_post_layout_tests.sh \
+  --output /tmp/tr1um-post-layout
+```
+
+The default `--mode both` runs two views for each case. `strict` keeps the
+source testbench clock and exposes timing failures. `slow` keeps the
+SPEF-derived cell delays unchanged but slows the testbench clock so the
+functional checks run after annotated delays settle. The command also runs the
+design-local RTL testbench for comparison; `summary.json` contains the RTL,
+strict, and slow status for every case. `--fail-on-strict` turns a strict
+timing failure into a nonzero exit status.
+
+The current manifest covers the six completed layout-backed cases
+`tr1um_alu8`, `tr1um_fifo4`, `tr1um_irqctrl`, `tr1um_spitx`,
+`tr1um_busdecode`, and `tr1um_uarttx_big`. Designs without both a final PNL
+and a testbench are intentionally excluded.
+
+The checked-in RC extractor emits distributed engineering SPEF files with
+`*CONN` records, width-aware split graph nodes, distributed wire/via
+resistors, node-ground capacitance, and explicit coupling records. The runner
+passes such a source through to OpenSTA unchanged
+(`spef_source_mode=distributed_direct`, with zero coupling collapse). For
+legacy SPEFs with empty `*CONN`, it uses a deterministic fallback that
+recovers PNL instance/pin connectivity, collapses coupling into each source
+net's total capacitance, and replaces each scalar net resistance with a star
+network (`spef_source_mode=legacy_lumped_bridge`). The result JSON records the
+source mode and record counts. OpenSTA consumes the normalized source, but
+Icarus cannot reliably annotate the generated top-level `INTERCONNECT` records
+for these PNLs; the `*.for_iverilog.sdf` view removes those records while
+retaining SPEF-derived cell `IOPATH` delays. The result JSON records the
+removed and retained counts explicitly.
+
+The final run produced the following delay-to-frequency conversion. For a
+maximum cell delay \(t_{\mathrm{ns}}\), the reciprocal-delay rate is
+\(f_{\mathrm{MHz}} = 1000 / t_{\mathrm{ns}}\), or
+\(f_{\mathrm{Hz}} = 10^9 / t_{\mathrm{ns}}\). This is a delay-equivalent
+rate, not a validated maximum operating clock frequency.
+
+| Design | Max cell IOPATH delay (ns) | Reciprocal delay (MHz) | RTL | Strict | Slow |
+| --- | ---: | ---: | :---: | :---: | :---: |
+| `tr1um_alu8` | 8.635 | 115.808 | PASS | FAIL | PASS |
+| `tr1um_fifo4` | 10.913 | 91.634 | PASS | FAIL | PASS |
+| `tr1um_irqctrl` | 8.805 | 113.572 | PASS | FAIL | PASS |
+| `tr1um_spitx` | 9.232 | 108.319 | PASS | FAIL | PASS |
+| `tr1um_busdecode` | 9.873 | 101.286 | PASS | FAIL | PASS |
+| `tr1um_uarttx_big` | 10.707 | 93.397 | PASS | PASS | PASS |
+
+The reciprocal rates above use the largest annotated cell `IOPATH` delay in
+each generated SDF. They must not be used as signoff clock targets without
+full timing analysis, clock uncertainty, setup/hold checks, and qualified
+parasitics.
+
+### OpenSTA path-class frequency estimates
+
+The runner also emits one machine-readable OpenSTA max-path report per path
+class under each case's `path_reports/` directory. The four classes are
+`input -> output` (pure combinational), `reg -> reg`, `input -> reg`, and
+`reg -> output`. The table reports the reciprocal of each class's largest
+OpenSTA data arrival; the corresponding maximum delay is shown in
+parentheses:
+
+| Design | Input -> output (combinational) | Reg -> reg | Input -> reg | Reg -> output |
+| --- | ---: | ---: | ---: | ---: |
+| `tr1um_alu8` | n/a | n/a | 24.516 MHz (40.790 ns) | 115.794 MHz (8.636 ns) |
+| `tr1um_fifo4` | n/a | 43.917 MHz (22.770 ns) | 76.336 MHz (13.100 ns) | 47.985 MHz (20.840 ns) |
+| `tr1um_irqctrl` | 106.349 MHz (9.403 ns) | 58.997 MHz (16.950 ns) | 98.717 MHz (10.130 ns) | 65.531 MHz (15.260 ns) |
+| `tr1um_spitx` | n/a | 39.604 MHz (25.250 ns) | 76.453 MHz (13.080 ns) | 67.659 MHz (14.780 ns) |
+| `tr1um_busdecode` | n/a | n/a | 500.000 MHz (2.000 ns) | 67.204 MHz (14.880 ns) |
+| `tr1um_uarttx_big` | n/a | 36.684 MHz (27.260 ns) | n/a | 34.400 MHz (29.070 ns) |
+
+The frequency calculation is `f_MHz = 1000 / t_ns`. The reported path delay
+is the endpoint data arrival measured from the OpenSTA launch edge: input
+paths include the active input-delay constraint, and register paths include
+source clock-to-Q. `max_logic_segment_delay_ns` in each result JSON records
+the arrival difference from the path startpoint for separating the internal
+logic segment. `n/a` means OpenSTA found no path in that class; it is not a
+zero-delay or infinite-frequency result.
+
+Only `reg -> reg` is a synchronous-clock candidate. These are reciprocal
+path-rate estimates, not signoff Fmax values: the current engineering timing
+library does not provide a complete setup/hold characterization, and this
+calculation does not add setup, hold, skew, or uncertainty margins. The
+`input -> reg`, `reg -> output`, and combinational rates are interface or
+throughput indicators rather than independent clock limits.
 
 Native top-level KLayout DRC is intentionally removed from the tapeout scope;
 the native branch remains a reference diagnostic only.

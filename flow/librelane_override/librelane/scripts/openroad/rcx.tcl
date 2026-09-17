@@ -1,17 +1,19 @@
-# TR-1um RCX: reproducible uniform per-layer engineering estimate.
+# TR-1um RCX: reproducible distributed engineering estimate.
 #
 # Tokai Rika's open IP62 reference manual lists parasitic extraction as
 # unavailable. The values below are therefore not foundry-qualified PEX; they
 # are derived from the checked-in technology LEF and are used consistently by
 # placement/timing estimation and the generated SPEF:
-#   R' = Rsheet / nominal width
-#   C' = Carea * nominal width + 2 * Cedge
-# M1: 0.050 ohm/sq, 1.8um, 0.035 fF/um^2, 0.050 fF/um -> 0.0277778 ohm/um, 0.163 fF/um.
-# M2: 0.030 ohm/sq, 3.0um, 0.0175 fF/um^2, 0.050 fF/um -> 0.0100000 ohm/um, 0.1525 fF/um.
-# Via resistance is not published; OpenROAD's technology LEF has no via R, so
-# the nominal estimator leaves it at 0 ohm. This is a known limitation; via-R
-# sensitivity is covered by flow/scripts/analysis/rc_sensitivity.py only when a via-R
-# model is available.
+#   R_wire = Rsheet * length / actual DEF route width
+#   C_wire = length * (Carea * actual DEF route width + 2 * Cedge)
+# Widthless DEF routes use the nominal layer width.  The repository extractor
+# emits route-midpoint capacitance, split resistor edges, explicit via
+# resistors, and an M1/M2 overlap proxy from the checked-in model.
+# M1: 0.050 ohm/sq, 1.8um nominal, 0.035 fF/um^2, 0.050 fF/um.
+# M2: 0.030 ohm/sq, 3.0um nominal, 0.0175 fF/um^2, 0.050 fF/um.
+# Via resistance is not published; the local model uses 1 ohm per V1
+# (0.5-2 ohm sensitivity range).  This remains an engineering estimate and
+# is not signoff-qualified without foundry RC/PEX correlation.
  source $::env(SCRIPTS_DIR)/openroad/common/io.tcl
  read_lefs "RCX_LEF"
  read_def $::env(CURRENT_DEF)

@@ -112,8 +112,8 @@ characterization and independent qualification.
 - The `TR-1um_MPW_template` submission contract is pinned as a git submodule
   and integrated into the local pre-check/signoff gate.
 - Engineering-only DEF/GDS/device-aware RCX is available under `flow/`.
-  It emits SPEF, a capacitor-network sidecar, and a provenance ledger, but it
-  is not foundry-qualified.
+  It emits a distributed RC/SPICE network, SPEF, and a provenance ledger, but
+  it is not foundry-qualified.
 
 ### Planned
 
@@ -143,13 +143,20 @@ correlation becomes available.
 - **Baseline interconnect:** M1 uses 0.027777778 ohm/um and 0.163 fF/um;
   M2 uses 0.010000000 ohm/um and 0.1525 fF/um; reserved M3 uses
   0.010000000 ohm/um and 0.160 fF/um. These are derived from LEF sheet,
-  area-capacitance, edge-capacitance, and nominal-width values. +/-50% bands
-  are engineering sensitivity ranges, not confidence intervals.
+  area-capacitance, and edge-capacitance values. For each routed graph edge,
+  `R = Rsheet * L / W` and `C = L * (Carea * W + 2 * Cedge)`, where `W` is
+  the explicit DEF width or the nominal LEF width for widthless routes.
+  +/-50% bands are engineering sensitivity ranges, not confidence intervals.
 - **Via resistance:** V1 is 1.0 ohm nominal with a 0.5--2.0 ohm range because
   no via resistance is published.
 - **Lateral coupling:** M1/M2/M3 use 0.00005 pF/um edge capacitance with
   exponential spacing attenuation: decay 1.8 um for M1, 3.0 um for M2/M3,
   and maximum modeled spacing 5.4 um for M1 or 9.0 um for M2/M3.
+- **M1/M2 overlap coupling:** 0.0000175 pF/um2 from
+  `vertical_coupling.M2_M1` is applied to axis-aligned DEF route
+  bounding-box intersections. This is an engineering adjacent-metal proxy;
+  no foundry inter-metal coupling coefficient is published.
+
 - **M3 vertical coupling:** M3--M2 is 0.0000175 pF/um2; M3--M1 and
   M3--substrate are 0.000020 pF/um2. GDS overlap uses axis-aligned bounding
   boxes rather than polygon clipping or a field solve.
@@ -164,6 +171,47 @@ correlation becomes available.
   substrate net, and only device terms resolved to selected top-level routed
   nets enter SPEF/SPICE. Nested devices remain ledger-only. No V2 route model
   or foundry-qualified substrate/inter-metal coefficient is assumed.
+
+### Distributed PEX and OpenSTA path-class evidence
+
+The corrected extractor emits version-3 distributed SPEF and SPICE RC
+networks. Routed nets contain DEF/LEF `*CONN` records, graph nodes split at
+route endpoints, vias, terminals, and same-net intersections, node-ground
+capacitance records, lateral coupling records, M1/M2 overlap coupling, and
+per-edge wire/via resistors. The adjacent JSON ledger records widths,
+coordinates, topology, edge values, coupling basis, and warnings.
+
+The post-layout runner passes a distributed SPEF directly to OpenSTA when
+`*CONN` and graph-node records are present. Legacy SPEFs with empty `*CONN`
+use the explicit `legacy_lumped_bridge` fallback, which collapses coupling
+and replaces scalar net resistance with a star network. Direct runs report
+`distributed_direct` and zero coupling collapse.
+
+The six manifest-backed digital run artifacts were regenerated under their
+ignored `flow/designs/*/runs/*/final/spef/` directories. Each run now has a
+distributed `..spef`, `..pex.sp`, and `..parasitics.json` ledger. The FIFO
+audit contains 5,485 graph nodes, 4,320 resistor edges, 1,693 ground-cap
+records, 3,139 coupling pairs, and 12,275.38 um2 of M1/M2 overlap area.
+
+OpenSTA path-class reciprocal-delay estimates from the regenerated SPEFs are:
+
+| Design | Input -> output | Reg -> reg | Input -> reg | Reg -> output |
+| --- | ---: | ---: | ---: | ---: |
+| `tr1um_alu8` | n/a | n/a | 24.516 MHz (40.790 ns) | 115.794 MHz (8.636 ns) |
+| `tr1um_fifo4` | n/a | 43.917 MHz (22.770 ns) | 76.336 MHz (13.100 ns) | 47.985 MHz (20.840 ns) |
+| `tr1um_irqctrl` | 106.349 MHz (9.403 ns) | 58.997 MHz (16.950 ns) | 98.717 MHz (10.130 ns) | 65.531 MHz (15.260 ns) |
+| `tr1um_spitx` | n/a | 39.604 MHz (25.250 ns) | 76.453 MHz (13.080 ns) | 67.659 MHz (14.780 ns) |
+| `tr1um_busdecode` | n/a | n/a | 500.000 MHz (2.000 ns) | 67.204 MHz (14.880 ns) |
+| `tr1um_uarttx_big` | n/a | 36.684 MHz (27.260 ns) | n/a | 34.400 MHz (29.070 ns) |
+
+Rates use `f_MHz = 1000 / t_ns`, where `t_ns` is the OpenSTA endpoint data
+arrival for that path class. Only `reg -> reg` is a synchronous-clock
+candidate. These are engineering reciprocal-delay indicators, not signoff
+Fmax values: setup, hold, skew, uncertainty, complete clock modeling, and
+foundry-qualified parasitics are not included. The regenerated full runner
+reported RTL and slow-view functional PASS for all six cases; strict timing
+remained failing for five cases, so the overall status is
+`PASS_WITH_TIMING_FAILURES`.
 
 For the detailed flow contract and update procedure, see `flow/README.md`.
 

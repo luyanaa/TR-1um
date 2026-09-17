@@ -6,9 +6,9 @@ therefore does not claim silicon-qualified values.  It combines the checked-in
 DEF route geometry, optional GDS overlap geometry, optional KLayout extracted
 SPICE devices, and an explicit model file into:
 
-* a SPEF with wire-to-substrate and inter-net coupling capacitance;
-* a small SPICE capacitor subcircuit for analog deck inclusion; and
-* a JSON ledger that records every estimate and its source basis.
+* a distributed SPEF with route-node ground and inter-net coupling capacitance;
+* a distributed SPICE RC subcircuit for analog deck inclusion; and
+* a JSON ledger that records route widths, resistor edges, and every estimate basis.
 
 The device terms deliberately preserve model ownership.  F_RR is evaluated
 from the c_d0 formula in models_IP62_res_v5.lib; F_RS (the GR/poly resistor)
@@ -33,6 +33,7 @@ ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_RC = ROOT / "pdk_root/TR-1um/libs.tech/librelane/rc_estimate.json"
 DEFAULT_MODEL = Path(__file__).with_name("tr1um_parasitic_model.json")
 DEFAULT_RR_MODEL = ROOT.parent / "libs.tech/spice/models/models_IP62_res_v5.lib"
+DEFAULT_LEF_DIR = ROOT / "pdk_root/TR-1um/libs.ref/TR-1um_stdcell/lef"
 
 # GDS drawing-layer numbers from libs.tech/klayout/tech/drc/00_Layers.drc.
 GDS_LAYERS = {
@@ -89,6 +90,83 @@ class Segment:
             max(self.x1_um, self.x2_um) + half,
             max(self.y1_um, self.y2_um) + half,
         )
+@dataclass(frozen=True)
+class Via:
+    net: str
+    x_um: float
+    y_um: float
+    lower_layer: str
+    upper_layer: str
+    source: str = "DEF"
+
+
+@dataclass(frozen=True)
+class DefComponent:
+    name: str
+    cell: str
+    x_um: float | None
+    y_um: float | None
+    orientation: str
+
+
+@dataclass(frozen=True)
+class DefPort:
+    name: str
+    direction: str
+    x_um: float | None
+    y_um: float | None
+
+
+@dataclass(frozen=True)
+class DefConnection:
+    net: str
+    instance: str | None
+    pin: str
+    cell: str | None
+    direction: str
+    location_um: tuple[float, float] | None
+
+    @property
+    def node_name(self) -> str:
+        return self.pin if self.instance is None else f"{self.instance}:{self.pin}"
+
+
+@dataclass(frozen=True)
+class WireEdge:
+    net: str
+    layer: str
+    x1_um: float
+    y1_um: float
+    x2_um: float
+    y2_um: float
+    width_um: float
+    source: str = "DEF"
+
+    @property
+    def length_um(self) -> float:
+        return abs(self.x2_um - self.x1_um) + abs(self.y2_um - self.y1_um)
+
+
+@dataclass(frozen=True)
+class WireEdgeRecord:
+    edge: WireEdge
+    node1: str
+    midpoint: str
+    node2: str
+
+
+@dataclass
+class RouteTopology:
+    node_net: dict[str, str]
+    node_coordinates: dict[str, tuple[str, float, float]]
+    nodes_by_net: dict[str, set[str]]
+    edge_records: list[WireEdgeRecord]
+    segment_midpoints: dict[int, list[str]]
+    via_edges: list[tuple[Via, str, str]]
+    connections: dict[str, list[DefConnection]]
+    terminal_attachments: dict[str, tuple[str, str]]
+    anchor_nodes: dict[str, str]
+
 
 
 @dataclass(frozen=True)
@@ -138,29 +216,120 @@ class Network:
     ground_pf: dict[str, float]
     resistance_ohm: dict[str, float]
     coupling_pf: dict[tuple[str, str], float]
+    resistor_records: list[dict[str, Any]]
     coupling_records: list[dict[str, Any]]
     ground_records: list[dict[str, Any]]
     device_records: list[dict[str, Any]]
+    node_net: dict[str, str]
+    net_nodes: dict[str, set[str]]
+    connections: dict[str, list[DefConnection]]
+    anchor_nodes: dict[str, str]
 
     @classmethod
     def create(cls) -> "Network":
-        return cls(defaultdict(float), defaultdict(float), defaultdict(float), [], [], [])
+        return cls(
+            defaultdict(float),
+            defaultdict(float),
+            defaultdict(float),
+            [],
+            [],
+            [],
+            [],
+            {},
+            defaultdict(set),
+            defaultdict(list),
+            {},
+        )
 
-    def add_ground(self, net: str, cap_pf: float, kind: str, basis: str, **details: Any) -> None:
-        if not net or cap_pf <= 0.0:
+    def register_node(self, net: str, node: str) -> None:
+        if not net or not node:
             return
-        self.ground_pf[net] += cap_pf
+        existing = self.node_net.get(node)
+        if existing is not None and existing != net:
+            raise ValueError(f"node {node} belongs to both {existing} and {net}")
+        self.node_net[node] = net
+        self.net_nodes[net].add(node)
+
+    def _canonical_node(self, node: str) -> str:
+        return self.anchor_nodes.get(node, node)
+
+    def anchor_for_net(self, net: str) -> str:
+        if not net:
+            return ""
+        anchor = self.anchor_nodes.get(net)
+        if anchor is None:
+            anchor = net
+            self.anchor_nodes[net] = anchor
+            self.register_node(net, anchor)
+        return anchor
+
+    def add_ground(self, node: str, cap_pf: float, kind: str, basis: str, **details: Any) -> None:
+        if not node or cap_pf <= 0.0:
+            return
+        node = self._canonical_node(node)
+        net = self.node_net.get(node, node)
+        self.register_node(net, node)
+        self.ground_pf[node] += cap_pf
         self.ground_records.append(
-            {"net": net, "capacitance_pf": cap_pf, "kind": kind, "basis": basis, **details}
+            {
+                "net": net,
+                "node": node,
+                "capacitance_pf": cap_pf,
+                "kind": kind,
+                "basis": basis,
+                **details,
+            }
+        )
+
+
+    def add_resistor(
+        self,
+        net: str,
+        node1: str,
+        node2: str,
+        resistance_ohm: float,
+        kind: str,
+        basis: str,
+        **details: Any,
+    ) -> None:
+        if not net or not node1 or not node2 or resistance_ohm < 0.0:
+            return
+        self.register_node(net, node1)
+        self.register_node(net, node2)
+        self.resistance_ohm[net] += resistance_ohm
+        self.resistor_records.append(
+            {
+                "net": net,
+                "node1": node1,
+                "node2": node2,
+                "resistance_ohm": resistance_ohm,
+                "kind": kind,
+                "basis": basis,
+                **details,
+            }
         )
 
     def add_coupling(self, node1: str, node2: str, cap_pf: float, kind: str, basis: str, **details: Any) -> None:
-        if not node1 or not node2 or node1 == node2 or cap_pf <= 0.0:
+        if not node1 or not node2 or cap_pf <= 0.0:
+            return
+        node1 = self._canonical_node(node1)
+        node2 = self._canonical_node(node2)
+        if node1 == node2:
+            return
+        if node1 not in self.node_net:
+            self.register_node(node1, node1)
+        if node2 not in self.node_net:
+            self.register_node(node2, node2)
+        net1 = self.node_net[node1]
+        net2 = self.node_net[node2]
+        if net1 == net2:
             return
         pair = tuple(sorted((node1, node2)))
         self.coupling_pf[pair] += cap_pf
         self.coupling_records.append(
             {
+                "net1": self.node_net[pair[0]],
+                "net2": self.node_net[pair[1]],
                 "node1": pair[0],
                 "node2": pair[1],
                 "capacitance_pf": cap_pf,
@@ -169,7 +338,6 @@ class Network:
                 **details,
             }
         )
-
 
 def read_json(path: Path) -> dict[str, Any]:
     try:
@@ -265,14 +433,207 @@ def _route_blocks(text: str) -> Iterable[tuple[str, str, str]]:
         yield section or "NETS", current_net, "\n".join(block)
 
 
-def parse_def_segments(text: str, rc: dict[str, Any]) -> tuple[str, list[Segment], dict[str, dict[str, float]]]:
+def _is_number_token(token: str) -> bool:
+    return bool(re.fullmatch(r"[+-]?(?:\d+(?:\.\d*)?|\.\d+)", token))
+
+
+def _parse_def_components(text: str, dbu: int) -> dict[str, DefComponent]:
+    components: dict[str, DefComponent] = {}
+    section_match = re.search(r"^COMPONENTS\s+\d+\s*;(.*?)^END COMPONENTS\b", text, re.MULTILINE | re.DOTALL)
+    if not section_match:
+        return components
+    component_re = re.compile(
+        r"^\s*-\s+(\S+)\s+(\S+).*?\+\s+(?:FIXED|PLACED)\s+\(\s*(-?\d+(?:\.\d+)?)\s+(-?\d+(?:\.\d+)?)\s*\)\s+(\S+)",
+        re.MULTILINE,
+    )
+    for match in component_re.finditer(section_match.group(1)):
+        components[match.group(1)] = DefComponent(
+            name=match.group(1),
+            cell=match.group(2),
+            x_um=float(match.group(3)) / dbu,
+            y_um=float(match.group(4)) / dbu,
+            orientation=match.group(5).upper(),
+        )
+    return components
+
+
+def _parse_def_ports(text: str, dbu: int) -> dict[str, DefPort]:
+    ports: dict[str, DefPort] = {}
+    section_match = re.search(r"^PINS\s+\d+\s*;(.*?)^END PINS\b", text, re.MULTILINE | re.DOTALL)
+    if not section_match:
+        return ports
+    block_re = re.compile(r"^\s*-\s+(\S+)(.*?)(?=^\s*-\s+\S+|\Z)", re.MULTILINE | re.DOTALL)
+    for match in block_re.finditer(section_match.group(1)):
+        name, body = match.groups()
+        direction_match = re.search(r"\+\s+DIRECTION\s+(\S+)", body, re.IGNORECASE)
+        placement_match = re.search(
+            r"\+\s+(?:FIXED|PLACED)\s+\(\s*(-?\d+(?:\.\d+)?)\s+(-?\d+(?:\.\d+)?)\s*\)",
+            body,
+            re.IGNORECASE,
+        )
+        ports[name] = DefPort(
+            name=name,
+            direction=(direction_match.group(1).upper() if direction_match else "INOUT"),
+            x_um=(float(placement_match.group(1)) / dbu if placement_match else None),
+            y_um=(float(placement_match.group(2)) / dbu if placement_match else None),
+        )
+    return ports
+
+
+def _lef_pin_geometry(lef_dir: Path | None, cell: str) -> tuple[tuple[float, float], dict[str, tuple[str, float, float]]] | None:
+    if lef_dir is None:
+        return None
+    lef_path = lef_dir / f"{cell}.lef"
+    if not lef_path.exists():
+        return None
+    text = lef_path.read_text(encoding="utf-8", errors="replace")
+    macro_match = re.search(rf"\bMACRO\s+{re.escape(cell)}\b(.*?)\bEND\s+{re.escape(cell)}\b", text, re.IGNORECASE | re.DOTALL)
+    if not macro_match:
+        return None
+    body = macro_match.group(1)
+    size_match = re.search(r"\bSIZE\s+([0-9.eE+-]+)\s+BY\s+([0-9.eE+-]+)", body, re.IGNORECASE)
+    if not size_match:
+        return None
+    size_um = (float(size_match.group(1)), float(size_match.group(2)))
+    pins: dict[str, tuple[str, float, float]] = {}
+    pin_re = re.compile(r"\bPIN\s+(\S+)(.*?)(?=\bPIN\s+\S+|\bEND\s+%s\b)" % re.escape(cell), re.IGNORECASE | re.DOTALL)
+    for pin_match in pin_re.finditer(body):
+        pin_name, pin_body = pin_match.groups()
+        direction_match = re.search(r"\bDIRECTION\s+(\S+)", pin_body, re.IGNORECASE)
+        rects = [
+            tuple(float(value) for value in values)
+            for values in re.findall(
+                r"\bRECT\s+([0-9.eE+-]+)\s+([0-9.eE+-]+)\s+([0-9.eE+-]+)\s+([0-9.eE+-]+)",
+                pin_body,
+                re.IGNORECASE,
+            )
+        ]
+        if not rects:
+            continue
+        x1 = min(rect[0] for rect in rects)
+        y1 = min(rect[1] for rect in rects)
+        x2 = max(rect[2] for rect in rects)
+        y2 = max(rect[3] for rect in rects)
+        pins[pin_name] = (
+            direction_match.group(1).upper() if direction_match else "INOUT",
+            (x1 + x2) / 2.0,
+            (y1 + y2) / 2.0,
+        )
+    return size_um, pins
+
+
+def _transform_pin_location(
+    local_x_um: float,
+    local_y_um: float,
+    size_um: tuple[float, float],
+    orientation: str,
+) -> tuple[float, float]:
+    width_um, height_um = size_um
+    orientation = orientation.upper()
+    if orientation == "S":
+        return width_um - local_x_um, height_um - local_y_um
+    if orientation == "FN":
+        return width_um - local_x_um, local_y_um
+    if orientation == "FS":
+        return local_x_um, height_um - local_y_um
+    if orientation == "E":
+        return height_um - local_y_um, local_x_um
+    if orientation == "W":
+        return local_y_um, width_um - local_x_um
+    if orientation == "FE":
+        return height_um - local_y_um, width_um - local_x_um
+    if orientation == "FW":
+        return local_y_um, local_x_um
+    return local_x_um, local_y_um
+
+
+def _connection_direction(value: str | None) -> str:
+    return {"INPUT": "I", "OUTPUT": "O", "INOUT": "B"}.get((value or "INOUT").upper(), "B")
+
+
+def _parse_def_connections(
+    text: str,
+    dbu: int,
+    lef_dir: Path | None,
+) -> dict[str, list[DefConnection]]:
+    components = _parse_def_components(text, dbu)
+    ports = _parse_def_ports(text, dbu)
+    lef_cache: dict[str, tuple[tuple[float, float], dict[str, tuple[str, float, float]]] | None] = {}
+    connections: dict[str, list[DefConnection]] = defaultdict(list)
+    seen: set[tuple[str, str]] = set()
+
+    def add_connection(net: str, instance: str | None, pin: str) -> None:
+        if not net or not pin or instance == "*":
+            return
+        node_key = (net, pin if instance is None else f"{instance}:{pin}")
+        if node_key in seen:
+            return
+        seen.add(node_key)
+        cell: str | None = None
+        direction = "B"
+        location: tuple[float, float] | None = None
+        if instance is None:
+            port = ports.get(pin)
+            if port is not None:
+                direction = _connection_direction(port.direction)
+                if port.x_um is not None and port.y_um is not None:
+                    location = (port.x_um, port.y_um)
+        else:
+            component = components.get(instance)
+            if component is not None:
+                cell = component.cell
+                geometry = lef_cache.setdefault(cell, _lef_pin_geometry(lef_dir, cell))
+                if geometry is not None:
+                    size_um, pin_geometry = geometry
+                    pin_info = pin_geometry.get(pin)
+                    if pin_info is None:
+                        pin_info = pin_geometry.get(pin.upper())
+                    if pin_info is not None:
+                        direction = _connection_direction(pin_info[0])
+                        local = _transform_pin_location(pin_info[1], pin_info[2], size_um, component.orientation)
+                        if component.x_um is not None and component.y_um is not None:
+                            location = (component.x_um + local[0], component.y_um + local[1])
+        connections[net].append(
+            DefConnection(net, instance, pin, cell, direction, location)
+        )
+
+    connection_re = re.compile(r"\(\s*(\S+)\s+(\S+)\s*\)")
+    for section, net, block in _route_blocks(text):
+        for match in connection_re.finditer(block):
+            first, second = match.groups()
+            if _is_number_token(first) or _is_number_token(second):
+                continue
+            if first.upper() == "PIN":
+                add_connection(net, None, second)
+            elif first != "*":
+                add_connection(net, first, second)
+        if section == "SPECIALNETS" and net not in connections:
+            connections[net] = []
+    return dict(connections)
+
+
+def parse_def_segments(
+    text: str,
+    rc: dict[str, Any],
+    lef_dir: Path | None = None,
+) -> tuple[
+    str,
+    list[Segment],
+    dict[str, dict[str, float]],
+    list[Via],
+    dict[str, list[DefConnection]],
+]:
     design, dbu = read_def_header(text)
     layers = {entry["layer"]: entry for entry in rc.get("layers", []) + rc.get("reserved_layers", [])}
     via_layer = rc.get("via", {}).get("layer", "V1")
     segments: list[Segment] = []
+    vias: list[Via] = []
+    seen_vias: set[tuple[str, float, float, str]] = set()
     by_net: dict[str, dict[str, float]] = defaultdict(lambda: defaultdict(float))
     route_re = re.compile(
-        r"(?:^|\s)(?:ROUTED|NEW)\s+(M\d+)\b(.*?)(?=(?:\s+(?:ROUTED|NEW)\s+M\d+\b)|\s*;|$)",
+        r"(?:^|\s)\+?\s*(?:ROUTED|NEW)\s+(M\d+)\b"
+        r"(?:\s+([+-]?(?:\d+(?:\.\d*)?|\.\d+)))?"
+        r"(.*?)(?=(?:\s+\+?\s*(?:ROUTED|NEW)\s+M\d+\b)|\s*;|$)",
         re.IGNORECASE | re.DOTALL,
     )
     coordinate_re = re.compile(r"\(\s*([^)]*?)\s*\)")
@@ -284,41 +645,67 @@ def parse_def_segments(text: str, rc: dict[str, Any]) -> tuple[str, list[Segment
                     f"parasitic extraction cannot process routed layer {layer} on net {net}; "
                     f"model layers: {', '.join(sorted(layers))}"
                 )
-            width_um = finite_positive(layers[layer]["width_um"], f"{layer}.width_um")
-            body = route_match.group(2)
+            nominal_width_um = finite_positive(layers[layer]["width_um"], f"{layer}.width_um")
+            width_token = route_match.group(2)
+            width_um = nominal_width_um
+            if width_token is not None and float(width_token) > 0.0:
+                width_um = float(width_token) / dbu
+            body = route_match.group(3)
             points: list[tuple[float, float]] = []
+            coordinate_matches = list(coordinate_re.finditer(body))
             previous: tuple[float, float] | None = None
-            for coordinate_match in coordinate_re.finditer(body):
+            for coordinate_match in coordinate_matches:
                 fields = coordinate_match.group(1).split()
                 if len(fields) < 2:
                     continue
                 x_token, y_token = fields[:2]
-                x = previous[0] if x_token == "*" and previous is not None else float(x_token)
-                y = previous[1] if y_token == "*" and previous is not None else float(y_token)
-                point = (x / dbu, y / dbu)
+                if x_token == "*" and previous is None:
+                    continue
+                if y_token == "*" and previous is None:
+                    continue
+                x = previous[0] if x_token == "*" else float(x_token) / dbu
+                y = previous[1] if y_token == "*" else float(y_token) / dbu
+                point = (x, y)
                 points.append(point)
                 previous = point
             for first, second in zip(points, points[1:]):
-                segment = Segment(net, layer, first[0], first[1], second[0], second[1], width_um)
+                segment = Segment(net, layer, first[0], first[1], second[0], second[1], width_um, section)
                 if segment.length_um <= 0.0:
                     continue
                 segments.append(segment)
                 by_net[net][layer] += segment.length_um
-            for via_name in re.findall(r"\b(M\dM\d_[A-Za-z0-9_]+)\b", body):
-                via_match = re.fullmatch(r"M(\d)M(\d)_.*", via_name)
-                if not via_match:
+            for via_match in re.finditer(r"\b(M\dM\d_[A-Za-z0-9_]+)\b", body):
+                via_name = via_match.group(1)
+                layer_match = re.fullmatch(r"M(\d)M(\d)_.*", via_name)
+                if not layer_match:
                     continue
-                derived_via_layer = f"V{via_match.group(1)}"
+                lower_layer = f"M{layer_match.group(1)}"
+                upper_layer = f"M{layer_match.group(2)}"
+                derived_via_layer = f"V{layer_match.group(1)}"
                 if derived_via_layer != via_layer:
                     raise SystemExit(
                         f"parasitic extraction cannot process via {via_name} ({derived_via_layer}); "
                         f"model supports {via_layer} only"
                     )
+                coordinate = None
+                for coordinate_match in coordinate_matches:
+                    if coordinate_match.end() <= via_match.start():
+                        fields = coordinate_match.group(1).split()
+                        if len(fields) >= 2 and _is_number_token(fields[0]) and _is_number_token(fields[1]):
+                            coordinate = (float(fields[0]) / dbu, float(fields[1]) / dbu)
+                if coordinate is None and points:
+                    coordinate = points[-1]
+                if coordinate is None:
+                    continue
+                via_key = (net, coordinate[0], coordinate[1], via_name)
+                if via_key in seen_vias:
+                    continue
+                seen_vias.add(via_key)
+                vias.append(Via(net, coordinate[0], coordinate[1], lower_layer, upper_layer, section))
                 by_net[net][via_layer] += 1.0
-        # Keep the section in the ledger so a reviewer can distinguish power routes.
         if section == "SPECIALNETS" and net in by_net:
             by_net[net]["__special_net__"] += 1.0
-    return design, segments, {net: dict(values) for net, values in by_net.items()}
+    return design, segments, {net: dict(values) for net, values in by_net.items()}, vias, _parse_def_connections(text, dbu, lef_dir)
 
 
 def route_rectangle(segment: Segment) -> tuple[float, float, float, float]:
@@ -345,52 +732,372 @@ def perpendicular_spacing(a: Segment, b: Segment) -> float:
     return max(0.0, abs((a.x1_um + a.x2_um) / 2.0 - (b.x1_um + b.x2_um) / 2.0) - (a.width_um + b.width_um) / 2.0)
 
 
+def _project_to_segment(segment: Segment, point: tuple[float, float]) -> tuple[float, float] | None:
+    x, y = point
+    tolerance = max(1.0e-6, segment.width_um / 2.0)
+    if segment.orientation == "H":
+        low = min(segment.x1_um, segment.x2_um)
+        high = max(segment.x1_um, segment.x2_um)
+        if low - tolerance <= x <= high + tolerance and abs(y - segment.y1_um) <= tolerance:
+            return max(low, min(high, x)), segment.y1_um
+    else:
+        low = min(segment.y1_um, segment.y2_um)
+        high = max(segment.y1_um, segment.y2_um)
+        if low - tolerance <= y <= high + tolerance and abs(x - segment.x1_um) <= tolerance:
+            return segment.x1_um, max(low, min(high, y))
+    return None
+def _same_layer_intersections(first: Segment, second: Segment) -> list[tuple[float, float]]:
+    if first.layer != second.layer or first.net != second.net:
+        return []
+    if first.orientation == second.orientation:
+        if first.orientation == "H":
+            if abs(first.y1_um - second.y1_um) > 1.0e-9:
+                return []
+            low = max(min(first.x1_um, first.x2_um), min(second.x1_um, second.x2_um))
+            high = min(max(first.x1_um, first.x2_um), max(second.x1_um, second.x2_um))
+            if low > high:
+                return []
+            return [(low, first.y1_um), (high, first.y1_um)]
+        if abs(first.x1_um - second.x1_um) > 1.0e-9:
+            return []
+        low = max(min(first.y1_um, first.y2_um), min(second.y1_um, second.y2_um))
+        high = min(max(first.y1_um, first.y2_um), max(second.y1_um, second.y2_um))
+        if low > high:
+            return []
+        return [(first.x1_um, low), (first.x1_um, high)]
+    horizontal, vertical = (
+        (first, second) if first.orientation == "H" else (second, first)
+    )
+    point = (vertical.x1_um, horizontal.y1_um)
+    if (
+        min(horizontal.x1_um, horizontal.x2_um) - 1.0e-9 <= point[0] <= max(horizontal.x1_um, horizontal.x2_um) + 1.0e-9
+        and min(vertical.y1_um, vertical.y2_um) - 1.0e-9 <= point[1] <= max(vertical.y1_um, vertical.y2_um) + 1.0e-9
+    ):
+        return [point]
+    return []
+
+
+
+def _node_for_coordinate(
+    network: Network,
+    node_coordinates: dict[str, tuple[str, float, float]],
+    coordinate_nodes: dict[tuple[str, str, float, float], str],
+    counters: dict[str, int],
+    net: str,
+    layer: str,
+    point: tuple[float, float],
+) -> str:
+    key = (net, layer, round(point[0], 9), round(point[1], 9))
+    node = coordinate_nodes.get(key)
+    if node is None:
+        index = counters["__global__"]
+        counters["__global__"] += 1
+        node = f"{net}:{index}"
+        node_coordinates[node] = (layer, point[0], point[1])
+        network.register_node(net, node)
+    return node
+
+
+def _nearest_route_node(
+    node_coordinates: dict[str, tuple[str, float, float]],
+    candidates: Iterable[str],
+    point: tuple[float, float],
+) -> str | None:
+    candidate_list = [candidate for candidate in candidates if candidate in node_coordinates]
+    if not candidate_list:
+        return None
+    return min(
+        candidate_list,
+        key=lambda node: abs(node_coordinates[node][1] - point[0]) + abs(node_coordinates[node][2] - point[1]),
+    )
+
+
+def _coupling_node(
+    topology: RouteTopology,
+    segment_index: int,
+    segment: Segment,
+    target: tuple[float, float],
+) -> str | None:
+    nodes = topology.segment_midpoints.get(segment_index, [])
+    if not nodes:
+        return None
+    return _nearest_route_node(topology.node_coordinates, nodes, target)
+
+
+def build_route_topology(
+    network: Network,
+    segments: list[Segment],
+    vias: list[Via],
+    connections: dict[str, list[DefConnection]],
+    rc: dict[str, Any],
+) -> RouteTopology:
+    node_coordinates: dict[str, tuple[str, float, float]] = {}
+    coordinate_nodes: dict[tuple[str, str, float, float], str] = {}
+    counters: dict[str, int] = defaultdict(int)
+    edge_records: list[WireEdgeRecord] = []
+    segment_midpoints: dict[int, list[str]] = defaultdict(list)
+    vias_by_net = defaultdict(list)
+    for via in vias:
+        vias_by_net[via.net].append(via)
+    connections_by_net = defaultdict(list)
+    for net, entries in connections.items():
+        connections_by_net[net].extend(entries)
+    segments_by_net_layer: dict[tuple[str, str], list[tuple[int, Segment]]] = defaultdict(list)
+    for segment_index, segment in enumerate(segments):
+        segments_by_net_layer[(segment.net, segment.layer)].append((segment_index, segment))
+
+    for index, segment in enumerate(segments):
+        split_points = [(segment.x1_um, segment.y1_um), (segment.x2_um, segment.y2_um)]
+        for other_index, other in segments_by_net_layer[(segment.net, segment.layer)]:
+            if other_index != index:
+                split_points.extend(_same_layer_intersections(segment, other))
+        for via in vias_by_net.get(segment.net, []):
+            if segment.layer not in {via.lower_layer, via.upper_layer}:
+                continue
+            projected = _project_to_segment(segment, (via.x_um, via.y_um))
+            if projected is not None:
+                split_points.append(projected)
+        for connection in connections_by_net.get(segment.net, []):
+            if connection.location_um is None:
+                continue
+            projected = _project_to_segment(segment, connection.location_um)
+            if projected is not None:
+                split_points.append(projected)
+        if segment.orientation == "H":
+            split_points.sort(key=lambda point: (point[0], point[1]))
+        else:
+            split_points.sort(key=lambda point: (point[1], point[0]))
+        unique_points: list[tuple[float, float]] = []
+        for point in split_points:
+            if not unique_points or abs(point[0] - unique_points[-1][0]) > 1.0e-9 or abs(point[1] - unique_points[-1][1]) > 1.0e-9:
+                unique_points.append(point)
+        for first, second in zip(unique_points, unique_points[1:]):
+            interval = WireEdge(
+                segment.net,
+                segment.layer,
+                first[0],
+                first[1],
+                second[0],
+                second[1],
+                segment.width_um,
+                segment.source,
+            )
+            if interval.length_um <= 0.0:
+                continue
+            node1 = _node_for_coordinate(
+                network,
+                node_coordinates,
+                coordinate_nodes,
+                counters,
+                segment.net,
+                segment.layer,
+                first,
+            )
+            node2 = _node_for_coordinate(
+                network,
+                node_coordinates,
+                coordinate_nodes,
+                counters,
+                segment.net,
+                segment.layer,
+                second,
+            )
+            midpoint = f"{segment.net}:{counters['__global__']}"
+            counters["__global__"] += 1
+            node_coordinates[midpoint] = (
+                segment.layer,
+                (first[0] + second[0]) / 2.0,
+                (first[1] + second[1]) / 2.0,
+            )
+            network.register_node(segment.net, midpoint)
+            edge_records.append(WireEdgeRecord(interval, node1, midpoint, node2))
+            segment_midpoints[index].append(midpoint)
+            layers = {entry["layer"]: entry for entry in rc.get("layers", []) + rc.get("reserved_layers", [])}
+            entry = layers[segment.layer]
+            sheet_resistance = finite_positive(
+                entry.get("sheet_resistance_ohm_per_square"),
+                f"{segment.layer}.sheet_resistance_ohm_per_square",
+            )
+            half_resistance = sheet_resistance * (interval.length_um / segment.width_um) / 2.0
+            details = {
+                "layer": segment.layer,
+                "length_um": interval.length_um / 2.0,
+                "width_um": segment.width_um,
+                "route_source": segment.source,
+            }
+            network.add_resistor(
+                segment.net,
+                node1,
+                midpoint,
+                half_resistance,
+                "wire",
+                "sheet resistance divided by explicit DEF route width",
+                **details,
+            )
+            network.add_resistor(
+                segment.net,
+                midpoint,
+                node2,
+                half_resistance,
+                "wire",
+                "sheet resistance divided by explicit DEF route width",
+                **details,
+            )
+
+    anchor_nodes: dict[str, str] = {}
+    all_nets = set(connections) | {segment.net for segment in segments} | {via.net for via in vias}
+    for net in all_nets:
+        coordinate_candidates = [
+            node for node in network.net_nodes.get(net, set()) if node in node_coordinates
+        ]
+        anchor_nodes[net] = (
+            sorted(coordinate_candidates)[0] if coordinate_candidates else network.anchor_for_net(net)
+        )
+        network.anchor_nodes[net] = anchor_nodes[net]
+
+    via_r = finite_positive(rc.get("via", {}).get("nominal_resistance_ohm"), "via.nominal_resistance_ohm")
+    via_edges: list[tuple[Via, str, str]] = []
+    for via in vias:
+        lower_candidates = [
+            node
+            for node, (layer, _x, _y) in node_coordinates.items()
+            if network.node_net.get(node) == via.net and layer == via.lower_layer
+        ]
+        upper_candidates = [
+            node
+            for node, (layer, _x, _y) in node_coordinates.items()
+            if network.node_net.get(node) == via.net and layer == via.upper_layer
+        ]
+        lower = _nearest_route_node(node_coordinates, lower_candidates, (via.x_um, via.y_um))
+        upper = _nearest_route_node(node_coordinates, upper_candidates, (via.x_um, via.y_um))
+        if lower is None:
+            lower = _node_for_coordinate(
+                network,
+                node_coordinates,
+                coordinate_nodes,
+                counters,
+                via.net,
+                via.lower_layer,
+                (via.x_um, via.y_um),
+            )
+        if upper is None:
+            upper = _node_for_coordinate(
+                network,
+                node_coordinates,
+                coordinate_nodes,
+                counters,
+                via.net,
+                via.upper_layer,
+                (via.x_um, via.y_um),
+            )
+        network.add_resistor(
+            via.net,
+            lower,
+            upper,
+            via_r,
+            "via",
+            str(rc.get("via", {}).get("basis", "nominal via resistance")),
+            lower_layer=via.lower_layer,
+            upper_layer=via.upper_layer,
+            x_um=via.x_um,
+            y_um=via.y_um,
+            route_source=via.source,
+        )
+        via_edges.append((via, lower, upper))
+
+    terminal_attachments: dict[str, tuple[str, str]] = {}
+    for net, entries in connections.items():
+        anchor = anchor_nodes.get(net, network.anchor_for_net(net))
+        for connection in entries:
+            terminal = connection.node_name
+            network.register_node(net, terminal)
+            target = anchor
+            if connection.location_um is not None:
+                target = _nearest_route_node(
+                    node_coordinates,
+                    network.net_nodes.get(net, set()),
+                    connection.location_um,
+                ) or anchor
+            if target in node_coordinates and terminal != target:
+                network.add_resistor(
+                    net,
+                    terminal,
+                    target,
+                    0.0,
+                    "terminal_attachment",
+                    "zero-ohm attachment to nearest routed graph node",
+                    terminal=terminal,
+                    x_um=connection.location_um[0] if connection.location_um else None,
+                    y_um=connection.location_um[1] if connection.location_um else None,
+                )
+            terminal_attachments[terminal] = (net, target)
+
+    network.connections = dict(connections)
+    return RouteTopology(
+        network.node_net,
+        node_coordinates,
+        network.net_nodes,
+        edge_records,
+        dict(segment_midpoints),
+        via_edges,
+        dict(connections),
+        terminal_attachments,
+        anchor_nodes,
+    )
+
+
+def _wire_capacitance_pf(entry: dict[str, Any], length_um: float, width_um: float, layer: str) -> float:
+    area = finite_positive(entry.get("capacitance_area_pf_per_um2"), f"{layer}.capacitance_area_pf_per_um2")
+    edge = finite_positive(entry.get("edge_capacitance_pf_per_um"), f"{layer}.edge_capacitance_pf_per_um")
+    return length_um * (area * width_um + 2.0 * edge)
+
+
 def add_route_network(
     network: Network,
     segments: list[Segment],
     net_lengths: dict[str, dict[str, float]],
+    vias: list[Via],
+    connections: dict[str, list[DefConnection]],
     rc: dict[str, Any],
     model: dict[str, Any],
-) -> None:
+) -> RouteTopology:
     layers = {entry["layer"]: entry for entry in rc.get("layers", []) + rc.get("reserved_layers", [])}
-    via_layer = rc.get("via", {}).get("layer", "V1")
-    via_r = finite_positive(rc.get("via", {}).get("nominal_resistance_ohm"), "via.nominal_resistance_ohm")
-    for net, per_layer in net_lengths.items():
-        for layer, value in per_layer.items():
-            if layer.startswith("__"):
-                continue
-            if layer.startswith("V"):
-                if layer == via_layer:
-                    network.resistance_ohm[net] += value * via_r
-                continue
-            entry = layers[layer]
-            network.resistance_ohm[net] += value * finite_positive(entry["resistance_ohm_per_um"], f"{layer}.resistance_ohm_per_um")
-            network.add_ground(
-                net,
-                value * finite_positive(entry["capacitance_pf_per_um"], f"{layer}.capacitance_pf_per_um"),
-                "wire_to_substrate",
-                "derived LEF area plus edge capacitance",
-                layer=layer,
-                length_um=value,
-            )
+    topology = build_route_topology(network, segments, vias, connections, rc)
+    for net in set(net_lengths) | set(connections):
+        topology.anchor_nodes.setdefault(net, network.anchor_for_net(net))
+    for record in topology.edge_records:
+        entry = layers[record.edge.layer]
+        network.add_ground(
+            record.midpoint,
+            _wire_capacitance_pf(entry, record.edge.length_um, record.edge.width_um, record.edge.layer),
+            "wire_to_substrate",
+            "derived LEF area plus edge capacitance using actual DEF route width",
+            layer=record.edge.layer,
+            length_um=record.edge.length_um,
+            width_um=record.edge.width_um,
+            route_source=record.edge.source,
+        )
     lateral = model.get("lateral_coupling", {})
-    by_layer_orientation: dict[tuple[str, str], list[Segment]] = defaultdict(list)
-    for segment in segments:
-        by_layer_orientation[(segment.layer, segment.orientation)].append(segment)
+    by_layer_orientation: dict[tuple[str, str], list[tuple[int, Segment]]] = defaultdict(list)
+    for index, segment in enumerate(segments):
+        by_layer_orientation[(segment.layer, segment.orientation)].append((index, segment))
     for (layer, orientation), group in by_layer_orientation.items():
         params = lateral.get(layer)
         if not isinstance(params, dict):
             continue
-        edge_pf_per_um = finite_positive(params.get("coupling_edge_capacitance_pf_per_um"), f"lateral_coupling.{layer}.coupling_edge_capacitance_pf_per_um")
+        edge_pf_per_um = finite_positive(
+            params.get("coupling_edge_capacitance_pf_per_um"),
+            f"lateral_coupling.{layer}.coupling_edge_capacitance_pf_per_um",
+        )
         decay_um = finite_positive(params.get("decay_um"), f"lateral_coupling.{layer}.decay_um")
         max_distance_um = finite_positive(params.get("max_distance_um"), f"lateral_coupling.{layer}.max_distance_um")
         if orientation == "H":
-            group.sort(key=lambda item: (item.y1_um + item.y2_um) / 2.0)
+            group.sort(key=lambda item: (item[1].y1_um + item[1].y2_um) / 2.0)
         else:
-            group.sort(key=lambda item: (item.x1_um + item.x2_um) / 2.0)
-        for index, first in enumerate(group):
+            group.sort(key=lambda item: (item[1].x1_um + item[1].x2_um) / 2.0)
+        for position, (first_index, first) in enumerate(group):
             first_perpendicular = (first.y1_um + first.y2_um) / 2.0 if orientation == "H" else (first.x1_um + first.x2_um) / 2.0
-            for second in group[index + 1 :]:
+            for second_index, second in group[position + 1 :]:
                 second_perpendicular = (second.y1_um + second.y2_um) / 2.0 if orientation == "H" else (second.x1_um + second.x2_um) / 2.0
                 center_gap = abs(second_perpendicular - first_perpendicular)
                 if center_gap - (first.width_um + second.width_um) / 2.0 > max_distance_um:
@@ -404,17 +1111,32 @@ def add_route_network(
                 if spacing_um > max_distance_um:
                     continue
                 cap_pf = overlap_um * edge_pf_per_um * math.exp(-spacing_um / decay_um)
+                target = (
+                    (max(min(first.x1_um, first.x2_um), min(second.x1_um, second.x2_um)) + min(max(first.x1_um, first.x2_um), max(second.x1_um, second.x2_um))) / 2.0,
+                    (first_perpendicular + second_perpendicular) / 2.0,
+                ) if orientation == "H" else (
+                    (first_perpendicular + second_perpendicular) / 2.0,
+                    (max(min(first.y1_um, first.y2_um), min(second.y1_um, second.y2_um)) + min(max(first.y1_um, first.y2_um), max(second.y1_um, second.y2_um))) / 2.0,
+                )
+                first_node = _coupling_node(topology, first_index, first, target)
+                second_node = _coupling_node(topology, second_index, second, target)
+                if first_node is None or second_node is None:
+                    continue
                 network.add_coupling(
-                    first.net,
-                    second.net,
+                    first_node,
+                    second_node,
                     cap_pf,
                     "lateral_fringe",
                     "engineering proxy: minimum LEF edge capacitance with exponential spacing attenuation",
+                    net1=first.net,
+                    net2=second.net,
                     layer=layer,
                     parallel_length_um=overlap_um,
                     spacing_um=spacing_um,
+                    width1_um=first.width_um,
+                    width2_um=second.width_um,
                 )
-
+    return topology
 
 def _gds_data_size(data_type: int) -> int:
     return {0: 0, 1: 2, 2: 2, 3: 4, 4: 4, 5: 8, 6: 1}[data_type]
@@ -612,8 +1334,25 @@ def _labels_for_box(labels: list[GdsLabel], layer: int, box: tuple[float, float,
     ]
 
 
+def _route_node_for_box(
+    network: Network,
+    topology: RouteTopology,
+    net: str,
+    layer: str,
+    box: tuple[float, float, float, float],
+) -> str:
+    center = ((box[0] + box[2]) / 2.0, (box[1] + box[3]) / 2.0)
+    candidates = [
+        node
+        for node, (node_layer, _x, _y) in topology.node_coordinates.items()
+        if node_layer == layer and topology.node_net.get(node) == net
+    ]
+    return _nearest_route_node(topology.node_coordinates, candidates, center) or network.anchor_for_net(net)
+
+
 def add_vertical_network(
     network: Network,
+    topology: RouteTopology,
     segments: list[Segment],
     gds_path: Path | None,
     gds_top: str,
@@ -622,26 +1361,73 @@ def add_vertical_network(
     warnings: list[str],
 ) -> dict[str, Any]:
     vertical = model.get("vertical_coupling", {})
+    m2_m1 = vertical.get("M2_M1", {})
     m3_m2 = vertical.get("M3_M2", {})
     m3_m1 = vertical.get("M3_M1", {})
     m3_substrate = vertical.get("M3_SUBSTRATE", {})
-    for name, params in (("M3_M2", m3_m2), ("M3_M1", m3_m1), ("M3_SUBSTRATE", m3_substrate)):
+    for name, params in (
+        ("M2_M1", m2_m1),
+        ("M3_M2", m3_m2),
+        ("M3_M1", m3_m1),
+        ("M3_SUBSTRATE", m3_substrate),
+    ):
         if not isinstance(params, dict):
             raise SystemExit(f"vertical_coupling.{name} must be an object")
-    m3_segments = [segment for segment in segments if segment.layer == "M3"]
+
+    indexed_segments = list(enumerate(segments))
+    m3_segments = [(index, segment) for index, segment in indexed_segments if segment.layer == "M3"]
     underlying_geometry: list[tuple[tuple[float, float, float, float], str, str, str]] = [
         (segment.bbox, segment.layer, segment.net, f"DEF {segment.source}")
-        for segment in segments
+        for _index, segment in indexed_segments
         if segment.layer in {"M1", "M2"}
     ]
-    route_nets = {segment.net for segment in segments}
+    route_nets = {segment.net for segment in segments} | set(network.connections)
     gds_summary: dict[str, Any] = {
         "available": bool(gds_path),
         "m3_shapes": 0,
         "underlying_gds_shapes": 0,
         "overlap_area_um2": {"M1": 0.0, "M2": 0.0},
+        "m1_m2_overlap_area_um2": 0.0,
         "geometry_method": "axis_aligned_bounding_box_intersection",
     }
+
+    m2_m1_density = finite_positive(
+        m2_m1.get("capacitance_pf_per_um2"),
+        "vertical_coupling.M2_M1.capacitance_pf_per_um2",
+    )
+    for first_index, first in indexed_segments:
+        if first.layer != "M1":
+            continue
+        for second_index, second in indexed_segments:
+            if second.layer != "M2" or first.net == second.net:
+                continue
+            area = rectangle_overlap(first.bbox, second.bbox)
+            if area <= 0.0:
+                continue
+            overlap_box = (
+                max(first.bbox[0], second.bbox[0]),
+                max(first.bbox[1], second.bbox[1]),
+                min(first.bbox[2], second.bbox[2]),
+                min(first.bbox[3], second.bbox[3]),
+            )
+            target = ((overlap_box[0] + overlap_box[2]) / 2.0, (overlap_box[1] + overlap_box[3]) / 2.0)
+            first_node = _coupling_node(topology, first_index, first, target) or network.anchor_for_net(first.net)
+            second_node = _coupling_node(topology, second_index, second, target) or network.anchor_for_net(second.net)
+            network.add_coupling(
+                first_node,
+                second_node,
+                area * m2_m1_density,
+                "m1_m2_overlap",
+                str(m2_m1.get("basis", "engineering adjacent-metal overlap estimate")),
+                layer1="M1",
+                layer2="M2",
+                overlap_area_um2=area,
+                width1_um=first.width_um,
+                width2_um=second.width_um,
+                source=f"DEF {first.source}; DEF {second.source}",
+            )
+            gds_summary["m1_m2_overlap_area_um2"] += area
+
     m3_boxes: list[tuple[tuple[float, float, float, float], str, str]] = []
     if gds_path is not None:
         needed = {GDS_LAYERS[layer] for layer in ("M1", "M2", "M3")}
@@ -650,22 +1436,18 @@ def add_vertical_network(
         shapes, labels = flatten_gds(structures, meters_per_dbu, gds_top, needed)
         m3_layer, m3_datatype = GDS_LAYERS["M3"]
         m3_shape_boxes: list[tuple[float, float, float, float]] = []
-        for shape in (
-            shape for shape in shapes if shape.layer == m3_layer and shape.datatype == m3_datatype
-        ):
+        for shape in (shape for shape in shapes if shape.layer == m3_layer and shape.datatype == m3_datatype):
             m3_shape_boxes.append(shape.bbox_um)
             nets = _labels_for_box(labels, m3_layer, shape.bbox_um)
             shape_net = next(
                 (net for net in nets if net in route_nets or net.upper() in SUBSTRATE_ALIASES),
                 next(
-                    (segment.net for segment in m3_segments if rectangle_overlap(shape.bbox_um, segment.bbox) > 0.0),
+                    (segment.net for _index, segment in m3_segments if rectangle_overlap(shape.bbox_um, segment.bbox) > 0.0),
                     substrate_net,
                 ),
             )
             m3_boxes.append((shape.bbox_um, shape_net, f"GDS {shape.hierarchy}"))
-        for shape in (
-            shape for shape in shapes if shape.layer in needed_layer_numbers and shape.layer != m3_layer
-        ):
+        for shape in (shape for shape in shapes if shape.layer in needed_layer_numbers and shape.layer != m3_layer):
             layer = next(name for name in ("M1", "M2") if GDS_LAYERS[name][0] == shape.layer)
             nets = _labels_for_box(labels, shape.layer, shape.bbox_um)
             shape_net = next(
@@ -673,7 +1455,7 @@ def add_vertical_network(
                 next(
                     (
                         segment.net
-                        for segment in segments
+                        for _index, segment in indexed_segments
                         if segment.layer == layer and rectangle_overlap(shape.bbox_um, segment.bbox) > 0.0
                     ),
                     None,
@@ -681,13 +1463,7 @@ def add_vertical_network(
             )
             if shape_net is None:
                 continue
-            # DEF routes are authoritative where both views describe the same
-            # metal.  GDS-only labelled shapes extend the overlap evidence to
-            # frame/cell geometry not present in the routed DEF.
-            if any(
-                segment.layer == layer and rectangle_overlap(shape.bbox_um, segment.bbox) > 0.0
-                for segment in segments
-            ):
+            if any(segment.layer == layer and rectangle_overlap(shape.bbox_um, segment.bbox) > 0.0 for segment in segments):
                 continue
             underlying_geometry.append((shape.bbox_um, layer, shape_net, f"GDS {shape.hierarchy}"))
         gds_summary["m3_shapes"] = len(m3_shape_boxes)
@@ -698,35 +1474,63 @@ def add_vertical_network(
             warnings.append("GDS was supplied but contains no M3 drawing geometry in the selected hierarchy")
         else:
             warnings.append("M3 vertical overlap uses axis-aligned GDS bounding boxes; review before signoff")
-        # A DEF M3 segment can represent a routed shape absent from the GDS
-        # hierarchy.  Keep only those non-overlapping segments to avoid double
-        # counting a shape present in both views.
-        for segment in m3_segments:
+        for _index, segment in m3_segments:
             if not any(rectangle_overlap(segment.bbox, box) > 0.0 for box in m3_shape_boxes):
                 m3_boxes.append((segment.bbox, segment.net, "DEF M3 route"))
     else:
-        m3_boxes = [(segment.bbox, segment.net, "DEF M3 route") for segment in m3_segments]
-    if not m3_boxes:
-        return gds_summary
+        m3_boxes = [(segment.bbox, segment.net, "DEF M3 route") for _index, segment in m3_segments]
+
     for m3_box, m3_net, m3_source in m3_boxes:
+        m3_node = _route_node_for_box(network, topology, m3_net, "M3", m3_box)
         if m3_net != substrate_net and m3_net.upper() not in SUBSTRATE_ALIASES:
             area = (m3_box[2] - m3_box[0]) * (m3_box[3] - m3_box[1])
-            cap_density = finite_positive(m3_substrate.get("capacitance_pf_per_um2"), "vertical_coupling.M3_SUBSTRATE.capacitance_pf_per_um2")
-            network.add_ground(m3_net, area * cap_density, "m3_to_substrate", str(m3_substrate.get("basis", "engineering vertical estimate")), area_um2=area, source=m3_source)
+            cap_density = finite_positive(
+                m3_substrate.get("capacitance_pf_per_um2"),
+                "vertical_coupling.M3_SUBSTRATE.capacitance_pf_per_um2",
+            )
+            network.add_ground(
+                m3_node,
+                area * cap_density,
+                "m3_to_substrate",
+                str(m3_substrate.get("basis", "engineering vertical estimate")),
+                area_um2=area,
+                source=m3_source,
+            )
         for underlying_box, layer, underlying_net, underlying_source in underlying_geometry:
             area = rectangle_overlap(m3_box, underlying_box)
             if area <= 0.0:
                 continue
             params = m3_m2 if layer == "M2" else m3_m1
             key = "M3_M2" if layer == "M2" else "M3_M1"
-            cap_density = finite_positive(params.get("capacitance_pf_per_um2"), f"vertical_coupling.{key}.capacitance_pf_per_um2")
+            cap_density = finite_positive(
+                params.get("capacitance_pf_per_um2"),
+                f"vertical_coupling.{key}.capacitance_pf_per_um2",
+            )
             cap_pf = area * cap_density
             gds_summary["overlap_area_um2"][layer] += area
             basis = str(params.get("basis", "engineering vertical estimate"))
+            underlying_node = _route_node_for_box(network, topology, underlying_net, layer, underlying_box)
             if m3_net == substrate_net or m3_net.upper() in SUBSTRATE_ALIASES:
-                network.add_ground(underlying_net, cap_pf, "m3_vertical_to_substrate", basis, layer=layer, overlap_area_um2=area, source=m3_source)
+                network.add_ground(
+                    underlying_node,
+                    cap_pf,
+                    "m3_vertical_to_substrate",
+                    basis,
+                    layer=layer,
+                    overlap_area_um2=area,
+                    source=m3_source,
+                )
             elif m3_net != underlying_net:
-                network.add_coupling(underlying_net, m3_net, cap_pf, "m3_vertical_coupling", basis, layer=layer, overlap_area_um2=area, source=f"{m3_source}; {underlying_source}")
+                network.add_coupling(
+                    underlying_node,
+                    m3_node,
+                    cap_pf,
+                    "m3_vertical_coupling",
+                    basis,
+                    layer=layer,
+                    overlap_area_um2=area,
+                    source=f"{m3_source}; {underlying_source}",
+                )
     return gds_summary
 
 
@@ -1031,6 +1835,26 @@ def add_device_network(
         network.device_records.append(record)
 
 
+def _net_for_node(network: Network, node: str) -> str:
+    return network.node_net.get(node, node)
+
+
+def _net_ground_capacitance(network: Network, net: str) -> float:
+    return sum(
+        cap
+        for node, cap in network.ground_pf.items()
+        if _net_for_node(network, node) == net
+    )
+
+
+def _net_coupling_capacitance(network: Network, net: str) -> float:
+    return sum(
+        cap
+        for (node1, node2), cap in network.coupling_pf.items()
+        if _net_for_node(network, node1) == net or _net_for_node(network, node2) == net
+    )
+
+
 def write_spef(
     path: Path,
     design: str,
@@ -1038,10 +1862,10 @@ def write_spef(
     network: Network,
     net_lengths: dict[str, dict[str, float]],
 ) -> None:
-    nets = set(net_lengths) | set(network.ground_pf)
+    nets = set(net_lengths) | set(network.net_nodes) | set(network.connections) | {substrate_net}
     for node1, node2 in network.coupling_pf:
-        nets.add(node1)
-        nets.add(node2)
+        nets.add(_net_for_node(network, node1))
+        nets.add(_net_for_node(network, node2))
     nets.discard("")
     out = [
         '*SPEF "IEEE 1481-1998"',
@@ -1049,7 +1873,7 @@ def write_spef(
         '*DATE "2026-01-01T00:00:00"',
         '*VENDOR "TR-1um flow"',
         '*PROGRAM "extract_tr1um_parasitics"',
-        '*VERSION "2.0"',
+        '*VERSION "3.0"',
         '*DESIGN_FLOW "PIN_CAP NONE" "NAME_SCOPE LOCAL"',
         '*DIVIDER /',
         '*DELIMITER :',
@@ -1060,60 +1884,81 @@ def write_spef(
         '*L_UNIT 1 HENRY',
         "",
     ]
-    pair_owner: dict[str, list[tuple[str, float]]] = defaultdict(list)
-    for (node1, node2), cap_pf in sorted(network.coupling_pf.items()):
-        pair_owner[node1].append((node2, cap_pf))
     total_nets = 0
     for net in sorted(nets):
-        ground = float(network.ground_pf.get(net, 0.0))
-        coupling_total = sum(
-            cap for (node1, node2), cap in network.coupling_pf.items() if net in {node1, node2}
-        )
-        total_cap = ground + coupling_total
-        resistance = float(network.resistance_ohm.get(net, 0.0))
-        if total_cap <= 0.0 and resistance <= 0.0 and net not in pair_owner:
+        ground_cap = _net_ground_capacitance(network, net)
+        coupling_cap = _net_coupling_capacitance(network, net)
+        if (
+            ground_cap <= 0.0
+            and coupling_cap <= 0.0
+            and not any(record["net"] == net for record in network.resistor_records)
+        ):
             continue
         total_nets += 1
-        out.append(f"*D_NET {net} {total_cap:.9e}")
+        out.append(f"*D_NET {net} {ground_cap + coupling_cap:.9e}")
         out.append("*CONN")
+        for connection in sorted(network.connections.get(net, []), key=lambda item: item.node_name):
+            if connection.instance is None:
+                out.append(f"*P {connection.pin} {connection.direction}")
+            elif connection.cell:
+                out.append(f"*I {connection.node_name} {connection.direction} *D {connection.cell}")
+            else:
+                out.append(f"*I {connection.node_name} {connection.direction}")
         out.append("*CAP")
         cap_index = 1
-        if ground > 0.0:
-            out.append(f"{cap_index} {net} {ground:.9e}")
-            cap_index += 1
-        for other, cap_pf in sorted(pair_owner.get(net, [])):
-            out.append(f"{cap_index} {net} {other} {cap_pf:.9e}")
-            cap_index += 1
-        if resistance > 0.0:
+        for node, cap_pf in sorted(network.ground_pf.items()):
+            if cap_pf > 0.0 and _net_for_node(network, node) == net:
+                out.append(f"{cap_index} {node} {cap_pf:.9e}")
+                cap_index += 1
+        for (node1, node2), cap_pf in sorted(network.coupling_pf.items()):
+            if cap_pf <= 0.0:
+                continue
+            if _net_for_node(network, node1) == net or _net_for_node(network, node2) == net:
+                out.append(f"{cap_index} {node1} {node2} {cap_pf:.9e}")
+                cap_index += 1
+        net_resistors = [
+            record for record in network.resistor_records if record["net"] == net
+        ]
+        if net_resistors:
             out.append("*RES")
-            out.append(f"1 {net} {net} {resistance:.9e}")
+            for index, record in enumerate(net_resistors, 1):
+                out.append(
+                    f"{index} {record['node1']} {record['node2']} "
+                    f"{float(record['resistance_ohm']):.9e}"
+                )
         out.append("*END")
         out.append("")
-    out.append(f"*# NETS {total_nets}")
-    out.append(f"*# SUBSTRATE_NET {substrate_net}")
-    out.append("*# STATUS engineering_estimate_not_foundry_qualified")
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n".join(out) + "\n", encoding="utf-8")
 
 
 def write_spice(path: Path, substrate_net: str, network: Network) -> None:
     nodes = {substrate_net}
+    nodes.update(network.net_nodes)
     nodes.update(network.ground_pf)
     for node1, node2 in network.coupling_pf:
         nodes.update((node1, node2))
+    for record in network.resistor_records:
+        nodes.update((record["node1"], record["node2"]))
     ordered_nodes = [substrate_net] + sorted(node for node in nodes if node != substrate_net)
     out = [
-        "* TR-1um engineering parasitic capacitor network.",
+        "* TR-1um engineering distributed parasitic RC network.",
         "* Include this subcircuit only when its device-cap ownership is understood.",
         ".SUBCKT tr1um_parasitics " + " ".join(ordered_nodes),
     ]
     index = 1
-    for net, cap_pf in sorted(network.ground_pf.items()):
+    for node, cap_pf in sorted(network.ground_pf.items()):
         if cap_pf > 0.0:
-            out.append(f"CPEX{index} {net} {substrate_net} {cap_pf:.9e}pF")
+            out.append(f"CPEX{index} {node} {substrate_net} {cap_pf:.9e}pF")
             index += 1
     for (node1, node2), cap_pf in sorted(network.coupling_pf.items()):
         out.append(f"CPEX{index} {node1} {node2} {cap_pf:.9e}pF")
+        index += 1
+    for record in network.resistor_records:
+        out.append(
+            f"RPEX{index} {record['node1']} {record['node2']} "
+            f"{float(record['resistance_ohm']):.9e}"
+        )
         index += 1
     out.extend([".ENDS tr1um_parasitics", ""])
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -1141,6 +1986,7 @@ def main() -> int:
     parser.add_argument("--rc", type=Path, default=DEFAULT_RC)
     parser.add_argument("--model", type=Path, default=DEFAULT_MODEL)
     parser.add_argument("--rr-model", type=Path, default=DEFAULT_RR_MODEL)
+    parser.add_argument("--lef-dir", type=Path, default=DEFAULT_LEF_DIR)
     parser.add_argument("--top", help="GDS/SPICE top subcircuit; defaults to DEF DESIGN")
     parser.add_argument("--substrate-net", default="VSS")
     parser.add_argument("--well-net", default="VDD", help="net used for GR geometry classified inside N-well")
@@ -1153,17 +1999,19 @@ def main() -> int:
     def_text = args.def_path.read_text(encoding="utf-8", errors="replace")
     rc = read_json(args.rc)
     model = read_json(args.model)
-    design, segments, net_lengths = parse_def_segments(def_text, rc)
+    design, segments, net_lengths, vias, connections = parse_def_segments(def_text, rc, args.lef_dir)
     top = args.top or design
     warnings: list[str] = []
     if args.gds is None:
         warnings.append("no GDS supplied; M3 vertical terms are extracted only when M3 routes are present in DEF")
     if args.extracted is None:
         warnings.append("no extracted SPICE supplied; GR/RR/GC device terms are not discoverable from DEF alone")
+    if not args.lef_dir.exists():
+        warnings.append(f"LEF directory {args.lef_dir} is unavailable; SPEF pin locations use route anchors")
     if not args.rr_model.exists() and args.extracted:
         raise SystemExit(f"missing F_RR model file: {args.rr_model}")
     network = Network.create()
-    add_route_network(network, segments, net_lengths, rc, model)
+    topology = add_route_network(network, segments, net_lengths, vias, connections, rc, model)
     devices: list[Device] = []
     if args.extracted:
         devices = parse_extracted_devices(args.extracted)
@@ -1172,13 +2020,15 @@ def main() -> int:
         warnings.append("F_RS devices were found but no GR geometry was classified; using the configured substrate net")
     if gr_region == "MIXED":
         warnings.append("GR geometry spans PSUB and NW; F_RS terms use the configured substrate net")
-    gds_summary = add_vertical_network(network, segments, args.gds, top, args.substrate_net, model, warnings)
+    gds_summary = add_vertical_network(network, topology, segments, args.gds, top, args.substrate_net, model, warnings)
     if devices:
         add_device_network(network, devices, model, args.rr_model, top, args.substrate_net, args.well_net, gr_region, not args.no_device_caps, warnings, args.extracted)
     write_spef(args.spef, design, args.substrate_net, network, net_lengths)
     write_spice(args.spice, args.substrate_net, network)
+    report_nets = set(net_lengths) | set(network.net_nodes) | set(network.connections)
+    report_nets.discard("")
     report = {
-        "schema": 2,
+        "schema": 3,
         "status": "engineering_estimate_not_foundry_qualified",
         "design": design,
         "top_subckt": top,
@@ -1192,6 +2042,7 @@ def main() -> int:
             "rc_model": str(args.rc),
             "parasitic_model": str(args.model),
             "rr_model": str(args.rr_model),
+            "lef_dir": str(args.lef_dir),
         },
         "outputs": {
             "spef": str(args.spef),
@@ -1207,24 +2058,66 @@ def main() -> int:
                 1 for entry in network.device_records if entry["subckt"] != top
             ),
         },
+        "topology": {
+            "node_count": len(network.node_net),
+            "wire_interval_count": len(topology.edge_records),
+            "via_edge_count": len(topology.via_edges),
+            "resistor_edge_count": len(network.resistor_records),
+            "terminal_attachment_count": sum(
+                1 for record in network.resistor_records if record["kind"] == "terminal_attachment"
+            ),
+            "connection_count": sum(len(entries) for entries in connections.values()),
+        },
         "gds": gds_summary,
         "summary": summarize(network, segments, devices, warnings),
-        "ground_capacitance_pf": {net: value for net, value in sorted(network.ground_pf.items()) if value > 0.0},
-        "resistance_ohm": {net: value for net, value in sorted(network.resistance_ohm.items()) if value > 0.0},
+        "ground_capacitance_pf": {
+            net: _net_ground_capacitance(network, net)
+            for net in sorted(report_nets)
+            if _net_ground_capacitance(network, net) > 0.0
+        },
+        "node_ground_capacitance_pf": {
+            node: value for node, value in sorted(network.ground_pf.items()) if value > 0.0
+        },
+        "resistance_ohm": {
+            net: value for net, value in sorted(network.resistance_ohm.items()) if value > 0.0
+        },
+        "resistor_entries": network.resistor_records,
         "coupling_capacitance_pf": [
-            {"node1": node1, "node2": node2, "capacitance_pf": value}
+            {
+                "net1": _net_for_node(network, node1),
+                "net2": _net_for_node(network, node2),
+                "node1": node1,
+                "node2": node2,
+                "capacitance_pf": value,
+            }
             for (node1, node2), value in sorted(network.coupling_pf.items())
         ],
         "ground_entries": network.ground_records,
         "coupling_entries": network.coupling_records,
         "device_entries": network.device_records,
+        "connections": {
+            net: [
+                {
+                    "node": connection.node_name,
+                    "instance": connection.instance,
+                    "pin": connection.pin,
+                    "cell": connection.cell,
+                    "direction": connection.direction,
+                    "location_um": connection.location_um,
+                }
+                for connection in entries
+            ]
+            for net, entries in sorted(connections.items())
+        },
+        "node_net": {node: net for node, net in sorted(network.node_net.items())},
         "warnings": warnings,
     }
     args.json_path.parent.mkdir(parents=True, exist_ok=True)
     args.json_path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(
         "parasitics: "
-        f"segments={len(segments)} devices={len(devices)} "
+        f"segments={len(segments)} vias={len(vias)} devices={len(devices)} "
+        f"nodes={len(network.node_net)} resistor_edges={len(network.resistor_records)} "
         f"ground_caps={len(network.ground_pf)} coupling_pairs={len(network.coupling_pf)}"
     )
     for warning in warnings:

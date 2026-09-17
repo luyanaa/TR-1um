@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "kind": "tr1um_digital_post_layout_spef_sdf",
+  "description": "Completed TR-1um digital cases with final PNL, engineering SPEF, and fresh OpenSTA SDF.",
+  "cell_model": "../pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access/verilog/TR-1um_stdcell_access.v",
+  "timing_library": "../pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access/lib/TR-1um_stdcell_access_typ_5p0V_25C.lib",
+  "cases": [
+    {
+      "name": "tr1um_alu8",
+      "top": "tr1um_alu8",
+      "tb_module": "tr1um_alu8_tb",
+      "pass_marker": "PASS tr1um_alu8",
+      "netlist": "../designs/tr1um_alu8/runs/audit-pr1-final2/final/pnl/tr1um_alu8.pnl.v",
+      "spef": "../designs/tr1um_alu8/runs/audit-pr1-final2/final/spef/tr1um_alu8..spef",
+      "sdc": "../designs/tr1um_alu8/constraints.sdc",
+      "testbench": "../designs/tr1um_alu8/src/tr1um_alu8_tb.v",
+      "rtl_source": "../designs/tr1um_alu8/src/tr1um_alu8.v",
+      "rtl_testbench": "../designs/tr1um_alu8/src/tr1um_alu8_tb.v",
+      "clock_period_ns": 10.0,
+      "ports": {
+        "GND": "GND",
+        "VDD": "VDD",
+        "carry": "carry",
+        "clk": "clk",
+        "zero": "zero",
+        "a": "a",
+        "b": "b",
+        "op": "op",
+        "y": "y"
+      }
+    },
+    {
+      "name": "tr1um_fifo4",
+      "top": "tr1um_fifo4",
+      "tb_module": "tr1um_fifo4_tb",
+      "pass_marker": "PASS tr1um_fifo4",
+      "netlist": "../designs/tr1um_fifo4/runs/audit-pr1-final2/final/pnl/tr1um_fifo4.pnl.v",
+      "spef": "../designs/tr1um_fifo4/runs/audit-pr1-final2/final/spef/tr1um_fifo4..spef",
+      "sdc": "../designs/tr1um_fifo4/constraints.sdc",
+      "testbench": "../designs/tr1um_fifo4/src/tr1um_fifo4_tb.v",
+      "rtl_source": "../designs/tr1um_fifo4/src/tr1um_fifo4.v",
+      "rtl_testbench": "../designs/tr1um_fifo4/src/tr1um_fifo4_tb.v",
+      "clock_period_ns": 10.0,
+      "ports": {
+        "GND": "GND",
+        "VDD": "VDD",
+        "clk": "clk",
+        "empty": "empty",
+        "full": "full",
+        "pop": "pop",
+        "push": "push",
+        "data_in": "din",
+        "data_out": "dout"
+      }
+    },
+    {
+      "name": "tr1um_irqctrl",
+      "top": "tr1um_irqctrl",
+      "tb_module": "tr1um_irqctrl_tb",
+      "pass_marker": "PASS tr1um_irqctrl",
+      "netlist": "../designs/tr1um_irqctrl/runs/audit-pr1-final2/final/pnl/tr1um_irqctrl.pnl.v",
+      "spef": "../designs/tr1um_irqctrl/runs/audit-pr1-final2/final/spef/tr1um_irqctrl..spef",
+      "sdc": "../designs/tr1um_irqctrl/constraints.sdc",
+      "testbench": "../designs/tr1um_irqctrl/src/tr1um_irqctrl_tb.v",
+      "rtl_source": "../designs/tr1um_irqctrl/src/tr1um_irqctrl.v",
+      "rtl_testbench": "../designs/tr1um_irqctrl/src/tr1um_irqctrl_tb.v",
+      "clock_period_ns": 10.0,
+      "ports": {
+        "GND": "GND",
+        "VDD": "VDD",
+        "ack": "ack",
+        "clk": "clk",
+        "pending": "pending",
+        "irq": "irq",
+        "mask": "mask",
+        "vector": "vector"
+      }
+    },
+    {
+      "name": "tr1um_spitx",
+      "top": "tr1um_spitx",
+      "tb_module": "tr1um_spitx_tb",
+      "pass_marker": "PASS tr1um_spitx",
+      "netlist": "../designs/tr1um_spitx/runs/audit-pr1-final2/final/pnl/tr1um_spitx.pnl.v",
+      "spef": "../designs/tr1um_spitx/runs/audit-pr1-final2/final/spef/tr1um_spitx..spef",
+      "sdc": "../designs/tr1um_spitx/constraints.sdc",
+      "testbench": "../designs/tr1um_spitx/src/tr1um_spitx_tb.v",
+      "rtl_source": "../designs/tr1um_spitx/src/tr1um_spitx.v",
+      "rtl_testbench": "../designs/tr1um_spitx/src/tr1um_spitx_tb.v",
+      "clock_period_ns": 10.0,
+      "ports": {
+        "GND": "GND",
+        "VDD": "VDD",
+        "busy": "busy",
+        "clk": "clk",
+        "done": "done",
+        "mosi": "mosi",
+        "sclk": "sclk",
+        "start": "start",
+        "data_in": "din"
+      }
+    },
+    {
+      "name": "tr1um_busdecode",
+      "top": "tr1um_busdecode",
+      "tb_module": "tr1um_busdecode_tb",
+      "pass_marker": "PASS tr1um_busdecode",
+      "netlist": "../designs/tr1um_busdecode/runs/audit-pr1-final2/final/pnl/tr1um_busdecode.pnl.v",
+      "spef": "../designs/tr1um_busdecode/runs/audit-pr1-final2/final/spef/tr1um_busdecode..spef",
+      "sdc": "../designs/tr1um_busdecode/constraints.sdc",
+      "testbench": "../designs/tr1um_busdecode/src/tr1um_busdecode_tb.v",
+      "rtl_source": "../designs/tr1um_busdecode/src/tr1um_busdecode.v",
+      "rtl_testbench": "../designs/tr1um_busdecode/src/tr1um_busdecode_tb.v",
+      "clock_period_ns": 10.0,
+      "ports": {
+        "GND": "GND",
+        "VDD": "VDD",
+        "any": "any",
+        "clk": "clk",
+        "enable": "enable",
+        "address": "address",
+        "select": "select"
+      }
+    },
+    {
+      "name": "tr1um_uarttx_big",
+      "top": "tr1um_uarttx_big",
+      "tb_module": "tr1um_uarttx_big_tb",
+      "pass_marker": "PASS",
+      "netlist": "../designs/tr1um_uarttx_big/runs/audit-pr1-uart-vdd40/final/pnl/tr1um_uarttx_big.pnl.v",
+      "spef": "../designs/tr1um_uarttx_big/runs/audit-pr1-uart-vdd40/final/spef/tr1um_uarttx_big..spef",
+      "sdc": "../designs/tr1um_uarttx_big/constraints.sdc",
+      "testbench": "../designs/tr1um_uarttx_big/src/tr1um_uarttx_big_tb.v",
+      "rtl_source": "../designs/tr1um_uarttx_big/src/tr1um_uarttx_big.v",
+      "rtl_testbench": "../designs/tr1um_uarttx_big/src/tr1um_uarttx_big_tb.v",
+      "timing_style": "uart",
+      "clock_period_ns": 67.8168402778,
+      "bit_period_ns": 8680.55555556,
+      "ports": {
+        "GND": "GND",
+        "VDD": "VDD",
+        "clk": "clk",
+        "tx": "tx"
+      }
+    }
+  ]
+}

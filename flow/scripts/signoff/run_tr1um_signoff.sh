@@ -217,7 +217,7 @@ bash -lc "$RCX_COMMAND" 2>&1 | tee "$REPORT_DIR/rcx.log"
 if [ "$RCX_DEFAULT_COMMAND" = 1 ]; then
   RCX_BASE="${RCX_OUT_PATH%.spef}"
   [ -s "${RCX_BASE}.parasitics.json" ] || { echo "ERROR: RCX parasitic ledger missing or empty: ${RCX_BASE}.parasitics.json" >&2; exit 14; }
-  [ -s "${RCX_BASE}.pex.sp" ] || { echo "ERROR: RCX capacitor network missing or empty: ${RCX_BASE}.pex.sp" >&2; exit 14; }
+[ -s "${RCX_BASE}.pex.sp" ] || { echo "ERROR: RCX distributed RC sidecar missing or empty: ${RCX_BASE}.pex.sp" >&2; exit 14; }
 fi
 if [ -n "$SIGNOFF_MANIFEST_ABS" ]; then
   echo "==> Analog signoff manifest"
