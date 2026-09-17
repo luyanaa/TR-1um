@@ -1,0 +1,6 @@
+Setting running mode => deep
+Starting TR-1um LVS Comparison in strict port mode
+flag_missing_ports enabled: missing/mislabeled top-level ports are treated as errors
+==========================================
+INFO : Congratulations! Netlists match.
+==========================================

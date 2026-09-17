@@ -1,6 +1,6 @@
-# Chapter 3 : 03_Extract.lvs
+# Chapter 3 : passive-device extraction
 
-## [03_Extract.lvs](../../libs.tech/klayout/lvs/IP62/03_Extract.lvs)
+## [02_Extract.lvs](../../libs.tech/klayout/tech/lvs/02_Extract.lvs)
 
 ### Capacitor (CSIO)
 

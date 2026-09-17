@@ -48,6 +48,8 @@ else
     source_topcell = source.select("-*")
 end
 #
+# NETLIST_LABELS_REQUIRED: the signoff wrapper must compare these top labels
+# with the exact netlist interface using check_netlist_labels.py.
 # Select Top Metal Labels
 #
 M1LBL_TOP = source_topcell.labels(48, 0).texts(as_boxes)  # Top M1 Label
@@ -64,3 +66,32 @@ GC_M1LBL_TOP = antenna_check(M1LBL_TOP, GC, 0.0)
 GC_M2LBL_TOP = antenna_check(M2LBL_TOP, GC, 0.0)
 #
 GC_FL_LBL_TOP = (GC - (GC_MP + GC_MN + GC_PE + GC_NE + GC_DP + GC_DN + GC_GP + GC_GN + GC_M1LBL_TOP + GC_M2LBL_TOP + GC_PAD))  # Floating Gate
+
+# Project-owned voltage-domain annotations.
+#
+# V15_MARKER (150/0) and V27_MARKER (151/0) are intentionally separate from
+# foundry mask layers.  When present, they annotate the NW/M1 regions that
+# carry the corresponding electrical domain.  No marker means no inferred
+# voltage class; the annotation must be supplied for these checks to apply.
+V15V_NW = NW.interacting(V15_MARKER)
+V15V_NW_NORMAL = NW - V15V_NW
+V15V_NW.drc(sep(V15V_NW_NORMAL) < 3.5).output(
+    "V15V_NW:15 V NW-to-normal-NW spacing < 3.5 um"
+)
+V27V_PWELL = NW.interacting(V27_MARKER)
+V27V_PWELL.drc(sep(WP) < 5.0).output(
+    "V27V_PWELL:27 V NW-to-Pwell spacing < 5.0 um"
+)
+V27V_PWELL.interacting(WP).output(
+    "V27V_PWELL:27 V NW island overlaps Pwell"
+)
+V15V_M1_WIDTH = M1.interacting(V15_MARKER)
+V15V_M1_WIDTH.drc(width(projection) < 2.0).output(
+    "V15V_M1_WIDTH:15 V power M1 width < 2.0 um"
+)
+V15_MARKER.not_interacting(NW + M1).output(
+    "V15V_MARKER:15 V marker does not annotate NW or M1"
+)
+V27_MARKER.not_interacting(NW).output(
+    "V27V_MARKER:27 V marker does not annotate NW"
+)

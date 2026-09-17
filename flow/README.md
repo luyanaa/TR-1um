@@ -157,6 +157,7 @@ The final framed gate uses the repaired run's saved GDS and generated strict
 contract:
 
 ```bash
+RCX_DEF="$PWD/flow/designs/tr1um_mixed_counter/runs/gc-diode-repair13/final/def/tr1um_mixed_counter.def" \
 bash flow/scripts/signoff/run_tr1um_signoff.sh \
   /tmp/tr_1um_mixed_counter_gc_diode_repair13.gds \
   tr_1um_mixed_counter \
@@ -205,6 +206,117 @@ antenna cells inserted on the four `clk`/`rst` input pairs and the analog
 port protection, not a heuristic threshold-based insertion. The upstream
 runsets were not weakened and no DRC waiver was added.
 
+### Drawing DRC source/output parity
+
+The checked-in drawing runset is gated against its source table by
+`flow/scripts/signoff/check_drc_rule_parity.py` and
+`flow/qualification/drc_rule_parity.json`:
+
+```bash
+python3 flow/scripts/signoff/check_drc_rule_parity.py \
+  --manifest flow/qualification/drc_rule_parity.json
+```
+
+The checker compares exact source rule IDs with KLayout `.output()` category
+prefixes. It never infers semantic aliases. A source rule missing from the
+runset therefore requires an explicit disposition; rules without a disposition
+or with `required`, `unknown`, or `not_implemented` are reported as TODOs.
+`covered_by_alias`, `obsolete`, `advisory_only`, and `fab_accepted` are
+reported as warnings. TODOs and warnings are nonblocking because the
+manufacturer-supplied DRC collateral is known to be incomplete; malformed
+manifests or unreadable inputs still fail closed. The top-level signoff wrapper
+and the independent MPW flow run this gate before physical checks.
+
+The current checked-in pair is intentionally `PASS_WITH_WARNINGS`: `GC.AN`,
+`CC.S1`, `CS.S1`, `M1.W2`, `M1.PW`, and `M2.PW` are absent from the active
+runset, and `GC.AN` still has unresolved `???` source values. The report keeps
+all six visible for user review without stopping the physical flow.
+
+The upstream DRC branch used for this checkout makes the Cat-4 rename
+explicit: the 0.4 um spacing rules are `GA.AP` and `GA.AN`, while the
+separate Cat-5 `GC.AN` row remains unresolved (`MIN`/`MAX` are `???`).
+Regression collateral follows that distinction: `GA_AP` and `GA_AN` are
+executable Cat-4 fixtures; no executable Cat-5 fixture is claimed until the
+source threshold is published. `GC.ANT` remains the independent diode/floating
+gate electrical rule.
+
+### Current DRC regression
+
+`TR-1um_DRC_Regression_TEST` is tracked as a top-level submodule. Its nested
+`external/TR-1um` source submodule was removed; when used inside this project,
+the harness resolves the parent checkout as `TR1UM_ROOT`. Run the current DRC
+from the LibreLane nix-shell:
+
+```bash
+nix-shell "$HOME/Documents/librelane/shell.nix" --run \
+  'cd "$HOME/Documents/TR-1um" && \
+   python3 TR-1um_DRC_Regression_TEST/scripts/generate_all.py \
+     TR-1um_DRC_Regression_TEST/unit_tests && \
+   python3 TR-1um_DRC_Regression_TEST/scripts/batch_regression.py \
+     TR-1um_DRC_Regression_TEST/unit_tests'
+```
+
+The regression result is evidence for user review, not a waiver: known
+manufacturer-rule gaps are reported as TODOs/warnings, while actual hard
+layout violations remain physical DRC failures.
+The full run from this checkout produced the following current baseline after
+aligning the executable Cat-4 spacing fixtures with the upstream `GA.*` rule
+IDs and excluding the unresolved Cat-5 `GC.AN` fixture:
+
+| Category | Total | Passed | Failed |
+|---|---:|---:|---:|
+| Cat-1 | 25 | 25 | 0 |
+| Cat-2 | 67 | 67 | 0 |
+| Cat-3 | 65 | 65 | 0 |
+| Cat-4 | 46 | 24 | 22 |
+| Cat-5 | 47 | 0 | 47 |
+| Cat-6 | 50 | 27 | 23 |
+| Cat-7 | 39 | 0 | 39 |
+| Cat-8 | 60 | 30 | 30 |
+| **Total** | **399** | **238** | **161** |
+
+This is not a clean regression result. The 161 failures remain review items;
+they are not converted into waivers by the parity manifest.
+
+### LVS source/manual/runset parity
+
+The active KLayout LVS contract is inventoried by
+`flow/qualification/lvs_source_parity.json` and checked by
+`flow/scripts/signoff/check_lvs_source_parity.py`. The manifest covers the
+GUI wrapper, the active `tech/lvs/run.lvs` include order, both shared DRC
+inputs, all five active LVS source files, the six tutorial files, and the
+legacy `tech/lvs/IP62` tree that is explicitly excluded from the active
+contract.
+
+Run the source/manual/runset check directly with:
+
+```bash
+python3 flow/scripts/signoff/check_lvs_source_parity.py \
+  --manifest flow/qualification/lvs_source_parity.json \
+  --runset libs.tech/klayout/tech/lvs/run.lvs \
+  --output /tmp/tr1um-lvs-source-parity.json
+```
+
+The current result is `PASS_WITH_WARNINGS`: seven active include directives
+resolve to seven readable source files, and all local tutorial links now
+resolve to files in the current tree. The manifest records four reviewed
+semantic-drift claims (device extraction, passive extraction, custom-device
+translation, and comparison behavior) plus one reference-only combiner
+contract. These are evidence of documentation drift, not LVS waivers or proof
+of source/manual semantic equivalence.
+
+The full signoff wrapper and the independent MPW wrapper run this checker
+before physical stages and write `lvs_source_parity.json` in their report
+directory. Malformed manifests, missing active sources, include-order changes,
+or invalid evidence references fail closed; reviewed tutorial drift remains a
+visible non-blocking warning until the manual is refreshed.
+
+The integrated wrapper smoke against the repaired framed inputs returned
+`RC=0`; `/tmp/tr1um-lvs-parity-signoff/lvs_source_parity.json` recorded
+`PASS_WITH_WARNINGS`, and its strict `lvs.log` emitted
+`INFO : Congratulations! Netlists match.`.
+
+
 ## Final mixed-signal signoff evidence
 
 The current signoff artifact is the repaired access-cell run
@@ -240,6 +352,24 @@ IP62 mask DRC: 0 hard items
 RCX: 20-net DEF-derived engineering SPEF
 ```
 
+The exact report bundle for this framed revision is tracked by
+`flow/qualification/analog_signoff_manifest.json` under
+`flow/qualification/reports/gc-diode-repair13/`:
+
+| Evidence | Bundled path |
+|---|---|
+| Framed drawing DRC | `drc.lyrdb` |
+| Contract-aware ERC | `erc.json` |
+| Netlist-label/ERC input | `netlist_labels.json` |
+| Strict LVS log/database | `lvs.log`, `lvs.lvsdb` |
+| MDP output and post-MDP DRC | `tr_1um_mixed_counter_mdp.gds`, `ip62_drc.lyrdb` |
+| DRC/LVS source parity | `drc_rule_parity.json`, `lvs_source_parity.json` |
+
+All listed report files are exact byte copies of the `/tmp` signoff run and
+are classified `engineering_only`; the regression mismatches and analog
+qualification blockers remain open.
+
+
 ### RC/PEX estimate basis and limits
 
 The open IP62 process manual is
@@ -263,25 +393,97 @@ Current derived values:
 |---|---:|---:|
 | M1 | 0.027777778 ohm/um | 0.163000 fF/um |
 | M2 | 0.010000000 ohm/um | 0.152500 fF/um |
+| M3 (reserved) | 0.010000000 ohm/um | 0.160000 fF/um |
 | V1 | 1.0 ohm nominal | 0.5--2.0 ohm sensitivity range |
 
 The estimator applies +/-50% sensitivity bands to sheet resistance and
-capacitance. `flow/signoff/run_estimated_rcx.sh` converts routed DEF segment
-lengths and via counts into a parseable SPEF. This is useful for engineering
-sensitivity/timing analysis, but remains **not foundry-qualified RC/PEX**.
-No RC estimate is used as evidence that the MPW submission has qualified
-parasitic extraction.
+capacitance. `flow/signoff/run_estimated_rcx.sh` now delegates network
+construction to `flow/scripts/analysis/extract_tr1um_parasitics.py`. The
+extractor converts routed DEF segments and explicit via names into a SPEF,
+retains bracketed bus net names, and emits two additional artifacts beside
+the SPEF: `<base>.parasitics.json` (the source/basis ledger) and
+`<base>.pex.sp` (a capacitor subcircuit for an analog deck). DEF coordinate
+extension fields are not vias.
+
+The generated engineering network includes same-net wire capacitance,
+parallel-segment lateral fringe coupling for M1--M1, M2--M2 (and M3--M3
+when routed), M3 vertical overlap to M2 and optionally M1 from GDS/DEF
+geometry, GR/F_RS capacitance to the classified PSUB or NW net, active
+RR/F_RR PLUS-to-bulk capacitance from the checked-in compact-model formula,
+and GC/MOS gate-to-AP/AN overlap terms from the BSIM3 `cgsl`/`cgdl` values.
+Only device terms whose terminals resolve to the selected top-level routed
+nets are materialized in SPEF/SPICE; nested KLayout devices remain in the
+ledger with a bounded warning rather than being assigned to an unrelated net.
+The coefficients and provenance are explicit in
+`flow/scripts/analysis/tr1um_parasitic_model.json`; no value is presented as
+foundry-qualified. `run_tr1um_signoff.sh` passes the KLayout extracted SPICE
+view to RCX automatically. Set `RCX_INCLUDE_DEVICE_CAPS=0` when the analog
+compact models already own the RR/GC terms and the generated network is used
+only for wire coupling.
+
+The extractor rejects unsupported routed layers and via types instead of
+silently dropping them. This is useful for engineering sensitivity/timing
+analysis, but remains **not foundry-qualified RC/PEX**. No RC estimate is
+used as evidence that the MPW submission has qualified parasitic extraction.
 
 ### Reserved M3 and RC scope
 
 The technology LEF defines an M3 routing layer, but the current digital router
 is explicitly constrained to M1/M2 (`RT_MIN_LAYER: M1`, `RT_MAX_LAYER: M2`).
-M3 is therefore reserved and is not present in the routed DEF/SPEF estimate.
-Its existence does not change the first-order M1/M2 resistance calculation;
-it could affect effective capacitance only if M3 geometry is actually placed
-near or over the routed nets, which this flow does not do. A future M3-enabled
-flow would require a new coupled-layer capacitance model and fresh RC
-correlation; it must not silently reuse the current M1/M2 estimate.
+The estimator still reports M3's LEF-derived first-order values under
+`reserved_layers`; the new extractor accepts explicit M3 DEF routes and
+consumes selected-hierarchy M3 GDS geometry for vertical overlap. Unlabelled
+M3 geometry is conservatively associated with the configured substrate net
+(`VSS` by default), while labelled M3 geometry becomes an explicit coupling
+aggressor. GDS overlap uses axis-aligned bounding boxes and is therefore an
+engineering bound, not a calibrated field solve.
+
+M3 remains reserved for the current router and no V2 route model is silently
+invented. A future M3-enabled flow still requires foundry coupling data and
+fresh RC correlation; the checked-in model is only a transparent sensitivity
+proxy.
+
+### Current engineering RCX assumption log
+
+This is the update point for the non-foundry RCX assumptions. The executable
+values live in `flow/scripts/analysis/tr1um_parasitic_model.json`; update that
+file and this log together when a foundry deck, measured correlation, or
+better process documentation becomes available.
+
+- **Baseline interconnect RC:** M1, M2, and reserved M3 use the derived LEF
+  values above. The estimator derives `R'` from sheet resistance and nominal
+  width, and derives `C'` from area plus two edge terms. The stated +/-50%
+  ranges are engineering sensitivity bands, not confidence intervals.
+- **Via resistance:** V1 is set to 1.0 ohm nominal with a 0.5--2.0 ohm
+  sensitivity range because no via resistance is published.
+- **Lateral fringe coupling:** M1, M2, and M3 use 0.00005 pF/um edge
+  capacitance. The spacing attenuation lengths are 1.8 um for M1 and 3.0 um
+  for M2/M3; the modeled maximum spacings are 5.4 um and 9.0 um respectively.
+  This is an exponential-spacing proxy, not a calibrated coupling deck.
+- **M3 vertical coupling:** M3--M2 uses 0.0000175 pF/um2; M3--M1 and
+  M3--substrate use 0.000020 pF/um2. These are area-density proxies. GDS
+  overlap is measured with axis-aligned bounding boxes rather than polygon
+  clipping or a field solve.
+- **GR/F_RS capacitance:** use 0.000615 pF/um2 (0.615 fF/um2), borrowed from
+  the legacy CSIO coefficient because no direct GR coefficient is published.
+  The total is `C = density * W * L` and is split equally over PLUS/MINUS.
+  GR defaults to PSUB/VSS; overlap with WN classifies it as NW/VDD.
+- **RR/F_RR capacitance:** evaluate the checked-in `F_RR c_d0` PLUS--SUB
+  compact-model expression; `c_d1` MINUS--SUB is zero in that model. This is
+  source-derived rather than a new coefficient, and the compact model owns
+  the term.
+- **GC/MOS overlap:** use BSIM3 `cgsl`/`cgdl`: 1.81 fF/um for PMOS and
+  2.02 fF/um for NMOS. These are source-derived compact-model terms; do not
+  add them a second time to an analog deck.
+- **Geometry and hierarchy:** unlabelled M3 is assigned to the configured
+  substrate net; labelled M3 is treated as an aggressor. Only device terms
+  that resolve to selected top-level routed nets enter SPEF/SPICE. Nested
+  KLayout devices stay ledger-only with a warning. No V2 route model or
+  foundry-qualified substrate/inter-metal coefficient is assumed.
+
+These assumptions are engineering placeholders, not release qualification.
+New source data must replace the corresponding proxy and its provenance, then
+be re-correlated before the remaining qualification TODO is closed.
 
 Direct evidence from the repaired run and framed wrapper (`RC=0`):
 
@@ -298,9 +500,10 @@ The contract generator is
 `flow/scripts/signoff/build_strict_mixed_contract.py`; it never copies the
 routed layout's topology (the earlier `build_mixed_extracted_contract.py`
 extraction-echo contract is deprecated and kept only for debugging). The
-RCX recipe `flow/signoff/run_estimated_rcx.sh` derives a real SPEF from the
-routed DEF geometry; the status remains an explicit engineering estimate
-because no foundry RC/PEX deck exists for TR-1um.
+RCX recipe `flow/signoff/run_estimated_rcx.sh` derives the SPEF from routed
+DEF geometry, adds optional GDS vertical-overlap and extracted-device terms,
+and writes the capacitor network/ledger sidecars; the status remains an
+explicit engineering estimate because no foundry RC/PEX deck exists for TR-1um.
 
 The macro GND issue is fixed by a reproducible post-streamout bridge in
 `flow/scripts/signoff/add_gnd_bridge.py`, integrated into the overridden
@@ -328,7 +531,8 @@ generated.
 
 The no-PDN configuration remains intentional: OpenROAD PDN generation cannot
 consume this analog macro because it has no full power-grid shape/via set.
-The explicit bridge supplies the missing physical GND connection instead.
+The explicit bridge supplies the missing physical GND connection, but it is
+not an IR-drop, electromigration, or power-grid signoff result.
 
 ### Why OpenROAD PDN is not enabled for this macro
 
@@ -350,17 +554,28 @@ PDN_MACRO_CONNECTIONS:
 
 OpenROAD's standard macro PDN grid also requires a macro grid with usable
 PG geometry. The current escape-ring macro has legal M1/M2 landing pads, but
-does not provide the internal grid topology expected by `define_pdn_grid -macro`; a guarded ground-only experiment generated the standard-cell grid
-but failed the macro connection/power-grid check (`PDN-0232`/`PDN-0233`).
+does not provide the internal grid topology expected by `define_pdn_grid -macro`.
+The macro-grid experiment (`runs/pdn-experiment`) failed with
+`PDN-0232`/`PDN-0233`. A second ground-only experiment with macro-grid
+connection disabled generated the standard-cell grid but failed the GND
+connectivity check (`PSM-0069`) at the macro landings and then failed detailed
+placement (`DPL-0033`).
+The checked-in PDN recipe now honors `PDN_CONNECT_MACROS_TO_GRID`: when it is
+false, no macro grid is emitted. This prevents an accidental macro-grid
+attempt, but it does not make the macro power contract valid. The canonical
+configuration also sets `ERROR_ON_PDN_VIOLATIONS: true`, so a future
+`RUN_PDN: true` experiment fails rather than yielding a signoff artifact with
+deferred PSM violations.
 
-The experiment was intentionally removed from the canonical configuration.
+Those experiments were intentionally removed from the canonical configuration.
 The conservative current solution is M1/M2-only: keep standard PDN generation
 disabled, route the named GND connection with the explicit post-DRT route, and
 apply the same physical GND bridge during KLayout streamout. The
 disconnected-pin checker remains strict. Enabling true macro PDN requires a
-ground-only PDN hook plus an internal macro PG grid/landing contract; adding a
-fake VDD pin is not acceptable. M3 is not used or planned because it is
-unavailable for fabrication in this process.
+ground-only PDN hook that excludes the macro from broad standard-cell global
+connections, plus an internal macro PG grid/landing contract; adding a fake VDD
+pin is not acceptable. M3 is not used or planned because it is unavailable for
+fabrication in this process.
 
 
 ## Regression and MPW-template integration
@@ -419,8 +634,9 @@ This repository integrates that contract in:
   report policy.
 
 The local wrapper intentionally adds two project-specific safeguards: it
-requires a positive LVS match marker, and it derives a real DEF-based
-engineering SPEF while explicitly retaining the not-foundry-qualified status.
+requires a positive LVS match marker, and it derives a real DEF/GDS-based
+engineering SPEF plus an auditable parasitic ledger while explicitly retaining
+the not-foundry-qualified status.
 The wrapper does not replace the MPW template's required geometry or DRC/LVS
 gates.
 The local wrapper defaults to the pinned submodule and does not depend on an
@@ -432,6 +648,7 @@ Reproduce the full local gate from the repaired access run with:
 cd "$HOME/Documents/librelane"
 nix-shell
 cd "$HOME/Documents/TR-1um"
+RCX_DEF="$PWD/flow/designs/tr1um_mixed_counter/runs/gc-diode-repair13/final/def/tr1um_mixed_counter.def" \
 bash flow/scripts/signoff/run_tr1um_signoff.sh \
   /tmp/tr_1um_mixed_counter_gc_diode_repair13.gds \
   tr_1um_mixed_counter \
@@ -608,6 +825,7 @@ Expected result:
 
 ```text
 MPW structural pre-check: PASS
+LVS source/manual/runset parity: PASS_WITH_WARNINGS (reviewed drift warnings)
 Drawing DRC: 0 report items
 IP62 mask DRC: 0 report items
 MDP: non-empty GDS
@@ -635,7 +853,9 @@ INFO : Congratulations! Netlists match.
 
 `RCX_COMMAND` is optional. When unset, the wrapper uses the repository's
 accepted deterministic TR-1um RCX recipe; set it explicitly to use a different
-qualified extractor.
+qualified extractor. For the mixed-signal framed top, `RCX_DEF` is mandatory
+and must point to the exact routed DEF revision that produced the submitted
+GDS; a same-name DEF from another run is not sufficient.
 
 For an extraction-only diagnostic, which is not a signoff pass, use:
 
@@ -672,9 +892,10 @@ DRC errors.
 
 The full wrapper reaches the RC/PEX stage without an environment override.
 `flow/signoff/run_estimated_rcx.sh` produces the repository's deterministic
-DEF-derived engineering SPEF. A real foundry RC/PEX deck is unavailable;
-this estimate is explicitly not foundry-qualified. `RCX_COMMAND` remains an
-optional override for a separately qualified extractor.
+DEF/GDS-derived engineering SPEF, capacitor-network sidecar, and source/basis
+ledger. A real foundry RC/PEX deck is unavailable; this estimate is explicitly
+not foundry-qualified. `RCX_COMMAND` remains an optional override for a
+separately qualified extractor.
 The macro GND problem is fixed by the physical GND bridge integrated into
 KLayout streamout. It is not a checker-classification waiver: the bridge is
 present in the saved GDS, drawing DRC remains zero, and strict LVS still
@@ -688,6 +909,406 @@ No DRC rule was weakened and no timing violation was waived.
 
 Native top-level KLayout DRC is intentionally removed from the tapeout scope;
 the native branch remains a reference diagnostic only.
+
+## General analog signoff guard framework
+
+The repository now carries a reusable, fail-closed analog signoff contract in
+`flow/qualification/analog_signoff_manifest.json`. It is intentionally scoped
+to general analog and mixed-signal designs rather than claiming that the
+current counter is a qualified analog product. Every stage is classified as
+`pass`, `engineering_only`, `not_run`, `not_applicable`, `blocked`, or `fail`;
+the release gate rejects every status other than `pass` or justified
+`not_applicable`, and also rejects `release_status: blocked`.
+
+Run the inventory gate from the repository root:
+
+```bash
+python3 flow/scripts/signoff/check_analog_signoff_manifest.py \
+  --mode inventory \
+  --manifest flow/qualification/analog_signoff_manifest.json
+```
+
+The current inventory result is `PASS`: every referenced repository artifact
+exists and is non-empty. The release gate is intentionally incomplete:
+
+```bash
+python3 flow/scripts/signoff/check_analog_signoff_manifest.py \
+  --mode signoff \
+  --manifest flow/qualification/analog_signoff_manifest.json \
+  --output /tmp/tr1um-analog-signoff.json
+```
+
+The current result is `INCOMPLETE`; this is the expected safe result while
+design-specific analog evidence is absent. It must not be changed to
+`release_status: ready` by editing the manifest.
+
+### Temperature and model scope
+
+The analog contract uses the stated product ranges:
+
+| Quantity | Declared range |
+|---|---:|
+| Operating temperature | `-40..85 degC` |
+| RS characterization range | `25..150 degC` |
+
+The RS range is not silently treated as coverage of the lower operating
+range. The PVT runner requires operating-temperature endpoint corners and
+requires explicit qualified extrapolation evidence when the operating range
+extends outside the RS characterization range:
+
+```bash
+python3 flow/scripts/signoff/audit_temperature_models.py \
+  --contract flow/qualification/temperature_model_contract.json \
+  --output /tmp/tr1um-temperature-model-audit.json
+
+python3 flow/scripts/signoff/run_pvt_sta.py \
+  --manifest <pvt_manifest.json> \
+  --output-dir /tmp/tr1um-pvt \
+  --sta-bin <opensta>
+```
+
+The checked-in audit records these model facts, without treating simulator
+hooks as qualification:
+
+- the BSIM3 MOS models contain `tnom=27`, `ute`, `kt1`, and `kt2`;
+- `F_RR` contains an explicit `(temper-tnom)` temperature expression;
+- `F_RS` contains `tnom` but no `temper` term;
+- `m_CSIO` is nominal-only (`tnom`);
+- diode temperature behavior is implicit through `tnom`/`xti`.
+
+The audited source files are:
+`libs.tech/spice/models/models_IP62_mos_v2.lib`,
+`libs.tech/spice/models/models_IP62_res_v5.lib`,
+`libs.tech/spice/models/models_IP62_cap_v5p1.lib`, and
+`libs.tech/spice/models/models_IP62_diode_v2.lib`. The extracted model text is
+the machine-readable source; the manual figures are supporting characterization
+evidence, not a replacement for missing low-temperature coefficients.
+
+The audit remains incomplete because the model declarations do not establish
+qualified `-40 degC` behavior for every used device. The reference manual
+`OS00_リファレンスマニュアル_rev1.1.pdf` Section I.2.7 and Table II-1-1
+provide temperature-characteristic material as figures and list model
+extraction ranges around `27..150 degC`; the product contract above remains
+the controlling `-40..85 degC` requirement. The 25-vs-27 degC reference
+temperature discrepancy is recorded rather than normalized away. The layout
+guide does not provide machine-readable coefficients that can replace those
+figures. Digitizing the figures or obtaining qualified coefficients, then
+adding low-temperature RS evidence, is required before temperature-dependent
+RC/PEX or analog performance can be signoff evidence.
+
+### TR-1um electrical-limit contract
+
+The machine-readable electrical limits are centralized in
+`flow/qualification/tr1um_electrical_limits.json`. They are sourced from
+`openIP62/IP62/Technology/doc/OS00_リファレンスマニュアル_rev1.1.pdf`;
+the page numbers and table identifiers are recorded in the contract itself.
+They are absolute maximum constraints, not recommended operating targets.
+Simulation assertions therefore require an explicit non-zero margin below each
+maximum, and the contract remains `engineering_only` until the limits are
+correlated with qualified models and silicon evidence.
+
+| Device or structure | Enforced absolute limit | Manual source |
+|---|---|---|
+| 5V NMOS | `abs(VDS) <= 8 V`; `abs(VGS) <= 15 V` | p. 7, Table I-2-2 |
+| 5V PMOS | `abs(VDS) <= 8 V`; `abs(VGS) <= 15 V` (manual values `-8/-15 V`) | p. 7, Table I-2-2 |
+| RR/RN/RNHV | terminal-to-terminal `abs(V) <= 27 V`; island-to-P-well `abs(V) <= 100 V` | pp. 7, 9, Tables I-2-2/I-2-4 |
+| RR island-to-lower-terminal | **unknown; fail closed** | p. 7 table entry is non-public |
+| RS | terminal-to-terminal `abs(V) <= 6 V`; `abs(I) <= 10 mA` | pp. 7, 9, Tables I-2-2/I-2-4 |
+| Generic C | upper-to-lower `abs(V) <= 15 V`; lower-electrode-to-P-well `abs(V) <= 50 V` | p. 7, Table I-2-2 |
+| DP/DN | reverse `abs(V) <= 10/13 V` | p. 7, Table I-2-2 |
+| CSIO characterization | terminal-to-terminal `abs(V) <= 5.75 V`; reverse `abs(V) <= 50 V` | p. 10, Table I-2-5 |
+
+The generic C entry and the CSIO characterization entry are retained
+separately; neither silently replaces the other. Likewise, the user-suggested
+27 V RR island-to-terminal value is not encoded because the manual does not
+publish that entry. `P-substrate` and `PW/P-sub` tie policy remains the manual's
+ground-referenced contract; a missing or unknown body/well limit is never
+treated as safe.
+
+The wiring/current limits are tied to the manual reference geometries:
+
+| Structure | Reference geometry | Continuous or step limit |
+|---|---:|---:|
+| M1 | width `2 um` | `900 uA` continuous |
+| M2 | width `3 um` | `3.7 mA` continuous |
+| M1 step | width `2 um` | `500 uA` |
+| TC | `1.4 um` square contact | `780 uA/contact`; instantaneous `7.8 mA/contact` |
+
+The contract deliberately permits no silent width scaling. A current report
+must state the exact reference width/size and bind its `limit_ref` to the
+central contract. Unknown values fail closed. It also publishes engineering-only
+current-density screening values derived from each manual reference
+current/width pair. For a step assertion,
+`required_width_um = I_peak / J_max_step_coverage`; for continuous metal, use
+the corresponding `current_density_a_per_um`. This screening does not relax
+the exact-reference-width signoff rule.
+
+### Electrical ERC and netlist-label gate
+
+`libs.tech/klayout/tech/drc/03_Electrical.drc` remains the physical electrical
+ruleset. It consumes text on TR-1um label layers `M1/LABEL` (`48/0`) and
+`M2/LABEL` (`49/0`) and checks floating gates, substrate connections, and
+antenna paths. The deterministic bridge
+`flow/scripts/signoff/check_netlist_labels.py` compares those labels with the
+exact top `.SUBCKT` interface and verifies that each checked label is anchored
+on M1 or M2. The default `top` scope accepts labels inherited through the
+physical boundary hierarchy while ignoring unrelated internal cell labels;
+unknown labels directly on the top cell fail unless explicitly allowed.
+
+For mixed-voltage layout, the electrical ruleset consumes project-owned
+annotation overlays `V15_MARKER` (`150/0`) and `V27_MARKER` (`151/0`), declared
+in `tr1um_electrical_limits.json` and visible in `TR-1um.lyp`. With markers
+present, KLayout checks 15 V NW-to-normal-NW spacing (`3.5 um`), 27 V
+NW-island-to-Pwell spacing (`5 um`), and 15 V marked-M1 width (`2 um`).
+Markers are not foundry mask layers and an absent marker cannot be treated as
+proof of a voltage class.
+
+Run the label gate before LVS:
+
+```bash
+python3 flow/scripts/signoff/check_netlist_labels.py \
+  --layout <framed.gds> \
+  --top-cell <top_cell> \
+  --netlist <top.cir> \
+  --output /tmp/netlist-labels.json
+```
+
+When `power_nets` is present in the ERC contract, the contract must also
+provide `power_net_via_minimums` with exactly one integer minimum (at least
+`2`) for every power net. Pass that contract to the label gate:
+
+```bash
+python3 flow/scripts/signoff/check_netlist_labels.py \
+  --layout <framed.gds> \
+  --top-cell <top_cell> \
+  --netlist <top.cir> \
+  --erc-contract <erc_contract.json> \
+  --output /tmp/netlist-labels.json
+```
+
+The gate counts unique V1 shapes intersecting the labeled M1/M2 geometry and
+aggregates the count at net level. Direct-M2 labels can therefore have zero
+local V1 shapes when other labels on the same `Power_Nets` net provide the
+required redundant vias. This is a connectivity/redundancy screen, not an
+EM-current or via-reliability proof.
+
+The netlist-aware ERC wrapper then requires the label report, the electrical
+ruleset, and an explicit rating inventory. Each `rating_bindings` item must
+name an instance, declare its device kind (`mos_5v_nmos`, `mos_5v_pmos`, `rr`,
+`rs`, `c`, `dp`, `dn`, or `csio`), and reference only limits in that kind's
+central-contract namespace:
+
+```bash
+python3 flow/scripts/signoff/check_analog_erc.py \
+  --contract <erc_contract.json> \
+  --report /tmp/drc.lyrdb \
+  --ruleset libs.tech/klayout/tech/drc/run.drc \
+  --electrical-ruleset libs.tech/klayout/tech/drc/03_Electrical.drc \
+  --limits-contract flow/qualification/tr1um_electrical_limits.json \
+  --label-report /tmp/netlist-labels.json \
+  --output /tmp/erc.json
+```
+
+The physical wrapper always runs `check_netlist_labels.py` after drawing DRC
+and before LVS. When a signoff manifest is supplied, `ERC_CONTRACT` (or
+`ANALOG_ERC_CONTRACT`) is mandatory; the wrapper then runs the netlist-aware
+ERC checker with the central limits contract. Intermediate structural runs
+without a manifest may omit the supplemental contract, but that mode cannot
+produce a manifest-backed ERC pass.
+
+#### Final framed mixed-signal ERC run
+
+The final framed `gc-diode-repair13` netlist/GDS pair was checked with the
+contract in `flow/qualification/tr1um_mixed_counter_erc_contract.json`:
+
+```bash
+python3 flow/scripts/signoff/check_netlist_labels.py \
+  --layout /tmp/tr_1um_mixed_counter_gc_diode_repair13.gds \
+  --top-cell tr_1um_mixed_counter \
+  --netlist /tmp/gc-diode-repair13-strict-current.cir \
+  --erc-contract flow/qualification/tr1um_mixed_counter_erc_contract.json \
+  --output /tmp/tr1um-final-erc/netlist_labels.json
+
+python3 flow/scripts/signoff/check_analog_erc.py \
+  --contract flow/qualification/tr1um_mixed_counter_erc_contract.json \
+  --report /tmp/tr1um-lvs-parity-signoff/drc.lyrdb \
+  --ruleset libs.tech/klayout/tech/drc/run.drc \
+  --electrical-ruleset libs.tech/klayout/tech/drc/03_Electrical.drc \
+  --limits-contract flow/qualification/tr1um_electrical_limits.json \
+  --label-report /tmp/tr1um-final-erc/netlist_labels.json \
+  --output /tmp/tr1um-final-erc/erc.json
+```
+
+Both gates returned `PASS` (`RC=0`). The label gate found top-level ports
+`VDD` and `VSS`, and counted `1713` unique V1 shapes on `VDD` against the
+contract minimum of `2`.
+
+The persisted ERC result is:
+
+| Field | Result |
+|---|---:|
+| Contract-aware ERC | `PASS` |
+| Hard report items | `0` |
+| Warnings | `0` |
+| Acknowledged warnings | `0` |
+| ERC errors | `0` |
+
+Warning review is complete: `warnings=[]`, so no warning category or message
+was emitted and no warning waiver/acknowledgment was accepted.
+
+The ERC stage remains engineering-only because the central limits and analog
+qualification are engineering-only. The exact report is bundled at
+`flow/qualification/reports/gc-diode-repair13/erc.json`; the source framed
+inputs remain intermediate `/tmp` evidence.
+
+
+### Pre-layout/post-layout simulation assertions
+
+`flow/scripts/signoff/run_analog_sim.py` accepts both `pre_layout` and
+`post_layout` cases. Every case still requires the full supply, temperature,
+process, load, input-slew, startup, and activity sweep axes, and every case
+must declare assertions with a target, measured quantity, central `limit_ref`,
+mode, and `0 < margin_fraction < 1`:
+
+```json
+{
+  "stage": "pre_layout",
+  "assertions": [
+    {
+      "name": "M1_vds_abs",
+      "target": "M1",
+      "measure": "m1_vds_peak",
+      "expression": "v(d_node,s_node)",
+      "message": "BVDS Limit Exceeded!",
+      "limit_ref": "device_limits.mos_5v_nmos.vds_abs_max_v",
+      "mode": "absolute",
+      "margin_fraction": 0.10
+    },
+    {
+      "name": "M1_vgs_abs",
+      "target": "M1",
+      "measure": "m1_vgs_peak",
+      "expression": "v(g_node,s_node)",
+      "message": "BVGS Limit Exceeded!",
+      "limit_ref": "device_limits.mos_5v_nmos.vgs_abs_max_v",
+      "mode": "absolute",
+      "margin_fraction": 0.10
+    }
+  ]
+}
+```
+
+`absolute` compares the absolute value of the runtime expression; `signed`
+preserves polarity for a directional assertion. The runner writes a temporary
+instrumented deck containing `run`, `let`, `meas tran`, and `if`/`quit 1`
+commands, and retains that deck and log in the output directory. An explicit
+expression is required because ngspice-47 parses the proposed
+`.assert ... alert=fail` form as an undefined parameter. The post-run parser
+still records the declared `measure` separately, but the enforced value is the
+runtime waveform maximum.
+The runner compares the observed value to
+`limit * (1 - margin_fraction)`, records both values, and fails on a missing
+measurement, missing limit, or over-limit result. Post-layout cases must name
+the extracted SPICE deck; the runner never manufactures extraction or models.
+
+For a current assertion, add `width_um` and a central
+`density_limit_ref`, for example
+`interconnect_limits.metal.M1.current_density_a_per_um` or
+`interconnect_limits.steps.M1.j_max_step_coverage_a_per_um`. The runner then
+enforces both `I_peak < I_max` after the required margin and
+`width_um >= I_peak / J`, where `J` is the selected central density, recording
+`required_width_um`. Use the step density for a step/discontinuity assertion;
+use the continuous metal density for a continuous segment.
+
+### PDN/EMIR current checks
+
+For a powered contract, `flow/scripts/signoff/check_pdn_contract.py` requires
+the central limits contract and `required_interconnect_checks` to list exactly
+`metal:M1`, `metal:M2`, `step:M1`, and `contact:TC`. The numeric PDN/EMIR report
+must include explicit `interconnect_checks` for each M1/M2 continuous segment,
+M1 step, and TC contact. Metal and step records report `width_um`,
+`peak_current_a`, and an exact `limit_ref`; contact records report the exact
+`size_um`, contact count, steady current per contact, instantaneous current per
+contact, and both central limit references. Reference-width mismatch, absent
+checks, non-finite values, or either current at/above its manual limit fail
+closed. Metal and step records also require `width_um >= peak_current_a / J`,
+where `J` is the central continuous-metal density or step-coverage density;
+the step diagnostic uses `I_peak/J_max_step_coverage`. The exact reference
+width remains mandatory, so this engineering screen cannot waive it. The
+generic IR-drop/current-density/via limits remain contract-owned alongside
+these process-specific checks.
+
+The checked-in `pdn_emir_contract.json` is still a ground-only
+`engineering_only` contract with no numeric return-path result, and
+`post_layout_sim_manifest.json` is still blocked with zero cases. These
+classifications are intentional: adding the machine-readable limits and
+gates does not claim EM/IR or analog simulation closure.
+
+### Analog robustness contracts
+
+Each checker below validates a design-owned JSON contract and writes a
+machine-readable report. A checker PASS is meaningful only when the contract
+contains real design evidence; the checked-in current contracts are explicit
+blocked placeholders.
+
+| Concern | Checker | Contract |
+|---|---|---|
+| PDN/EMIR | `flow/scripts/signoff/check_pdn_contract.py` | `flow/qualification/pdn_emir_contract.json` |
+| Post-layout simulation | `flow/scripts/signoff/run_analog_sim.py` | `flow/qualification/post_layout_sim_manifest.json` |
+| Crosstalk | `flow/scripts/signoff/check_crosstalk.py` | `flow/qualification/crosstalk_contract.json` |
+| Latch-up | `flow/scripts/signoff/check_latchup.py` | `flow/qualification/latchup_contract.json` |
+| Matching/overdesign | `flow/scripts/signoff/check_matching.py` | `flow/qualification/matching_contract.json` |
+| Pad ESD | `flow/scripts/signoff/check_esd.py` | `flow/qualification/esd_contract.json` |
+| MOS/poly capacitance | `flow/scripts/signoff/check_capacitance.py` | `flow/qualification/capacitance_contract.json` |
+
+The contract requirements are deliberately explicit:
+
+- PDN/EMIR requires actual PG geometry, voltage sources, current envelopes,
+  IR/EM limits, and a zero-violation report for powered macros. A ground-only
+  leaf may mark powered PDN not applicable, but its return path remains a
+  separate review.
+- Post-layout simulation requires extracted SPICE, macro CDL, process models,
+  frame/pad/ESD models, digital abstractions, supply/temperature/process/load/
+  slew/startup/activity sweeps, and measured limits.
+- Crosstalk requires every sensitive victim's extracted coupling, victim
+  capacitance, aggressor step/driver/rise data, measured glitch/settling/
+  delay/functional-error values, and limits. The checker also reports a
+  first-order capacitive bound; it does not infer coupling from layer names.
+- Latch-up requires well/substrate topology, tap and guard-ring continuity
+  and resistance, positive/negative injection paths, I/O/ESD interactions,
+  substrate-current assumptions, and numerical limits. Geometry DRC is not a
+  latch-up result.
+- Matching requires per-group common-centroid/interdigitation or an explicit
+  alternative, dummies, orientation, symmetric routing, surroundings,
+  guard-ring evidence, W/L/finger/multiplicity, headroom, current density,
+  area, and either valid sigma data or a clearly marked engineering guardband.
+- ESD requires every external pad's positive and negative discharge paths,
+  VDD/VSS clamps, body/trigger nets, package assumptions, and evidence through
+  schematic, CDL, LVS, GDS, and parasitic views.
+- Capacitance separates intrinsic MOS, CSIO/F_CSIO, and Poly_cap/CAP. It
+  requires area/perimeter, device identity, and extracted-versus-expected
+  values over voltage, temperature, and process corners. Unsupported
+  Poly_cap/CAP is recorded as unsupported; a PCell coefficient alone is not
+  qualification.
+
+The repaired mixed-signal physical wrapper remains usable as an intermediate
+structural gate. Supplying the fifth argument enables the analog release
+gate, which currently exits with `15` and `INCOMPLETE` after the physical
+stages:
+
+```bash
+RCX_DEF="$PWD/flow/designs/tr1um_mixed_counter/runs/gc-diode-repair13/final/def/tr1um_mixed_counter.def" \
+bash flow/scripts/signoff/run_tr1um_signoff.sh \
+  /tmp/tr_1um_mixed_counter_gc_diode_repair13.gds \
+  tr_1um_mixed_counter \
+  /tmp/gc-diode-repair13-strict-current.cir \
+  /tmp/tr1um-release-gate \
+  flow/qualification/analog_signoff_manifest.json
+```
+
+The no-manifest invocation documented above remains structural/engineering
+evidence only. It must not be reported as general analog signoff.
+
 ## Final cleanup and optional auxiliary cells
 
 The ALIGN-generated standard-cell library and its dedicated LibreLane

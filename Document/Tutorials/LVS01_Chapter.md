@@ -1,6 +1,6 @@
 # Chapter 1 : 01_Extract.lvs
 
-## [01_Extract.lvs](../../libs.tech/klayout/lvs/IP62/01_Extract.lvs)
+## [01_Extract.lvs](../../libs.tech/klayout/tech/lvs/01_Extract.lvs)
 
 First step of LVS runset is to specify unique layers to recognize each of device terminals, as follow;
 

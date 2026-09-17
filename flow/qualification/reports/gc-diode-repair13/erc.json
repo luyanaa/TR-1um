@@ -1,0 +1,159 @@
+{
+  "status": "PASS",
+  "contract": "/Users/yanlu/Documents/TR-1um/flow/qualification/tr1um_mixed_counter_erc_contract.json",
+  "report": "/private/tmp/tr1um-lvs-parity-signoff/drc.lyrdb",
+  "ruleset": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/tech/drc/run.drc",
+  "electrical_ruleset": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/tech/drc/03_Electrical.drc",
+  "limits_contract": "/Users/yanlu/Documents/TR-1um/flow/qualification/tr1um_electrical_limits.json",
+  "label_report": "/private/tmp/tr1um-final-erc/netlist_labels.json",
+  "rating_bindings": [
+    {
+      "instance": "OSS_NCH_ESD/M$1",
+      "device_kind": "mos_5v_nmos",
+      "limit_refs": [
+        "device_limits.mos_5v_nmos.vds_abs_max_v",
+        "device_limits.mos_5v_nmos.vgs_abs_max_v"
+      ]
+    },
+    {
+      "instance": "OSS_PCH_ESD/M$1",
+      "device_kind": "mos_5v_pmos",
+      "limit_refs": [
+        "device_limits.mos_5v_pmos.vds_abs_max_v",
+        "device_limits.mos_5v_pmos.vgs_abs_max_v"
+      ]
+    },
+    {
+      "instance": "NAND2/NMOS",
+      "device_kind": "mos_5v_nmos",
+      "limit_refs": [
+        "device_limits.mos_5v_nmos.vds_abs_max_v",
+        "device_limits.mos_5v_nmos.vgs_abs_max_v"
+      ]
+    },
+    {
+      "instance": "NAND2/PMOS",
+      "device_kind": "mos_5v_pmos",
+      "limit_refs": [
+        "device_limits.mos_5v_pmos.vds_abs_max_v",
+        "device_limits.mos_5v_pmos.vgs_abs_max_v"
+      ]
+    },
+    {
+      "instance": "NAND3/NMOS",
+      "device_kind": "mos_5v_nmos",
+      "limit_refs": [
+        "device_limits.mos_5v_nmos.vds_abs_max_v",
+        "device_limits.mos_5v_nmos.vgs_abs_max_v"
+      ]
+    },
+    {
+      "instance": "NAND3/PMOS",
+      "device_kind": "mos_5v_pmos",
+      "limit_refs": [
+        "device_limits.mos_5v_pmos.vds_abs_max_v",
+        "device_limits.mos_5v_pmos.vgs_abs_max_v"
+      ]
+    },
+    {
+      "instance": "XOR2/NMOS",
+      "device_kind": "mos_5v_nmos",
+      "limit_refs": [
+        "device_limits.mos_5v_nmos.vds_abs_max_v",
+        "device_limits.mos_5v_nmos.vgs_abs_max_v"
+      ]
+    },
+    {
+      "instance": "XOR2/PMOS",
+      "device_kind": "mos_5v_pmos",
+      "limit_refs": [
+        "device_limits.mos_5v_pmos.vds_abs_max_v",
+        "device_limits.mos_5v_pmos.vgs_abs_max_v"
+      ]
+    },
+    {
+      "instance": "XNOR2/NMOS",
+      "device_kind": "mos_5v_nmos",
+      "limit_refs": [
+        "device_limits.mos_5v_nmos.vds_abs_max_v",
+        "device_limits.mos_5v_nmos.vgs_abs_max_v"
+      ]
+    },
+    {
+      "instance": "XNOR2/PMOS",
+      "device_kind": "mos_5v_pmos",
+      "limit_refs": [
+        "device_limits.mos_5v_pmos.vds_abs_max_v",
+        "device_limits.mos_5v_pmos.vgs_abs_max_v"
+      ]
+    },
+    {
+      "instance": "AND4_X1/NMOS",
+      "device_kind": "mos_5v_nmos",
+      "limit_refs": [
+        "device_limits.mos_5v_nmos.vds_abs_max_v",
+        "device_limits.mos_5v_nmos.vgs_abs_max_v"
+      ]
+    },
+    {
+      "instance": "AND4_X1/PMOS",
+      "device_kind": "mos_5v_pmos",
+      "limit_refs": [
+        "device_limits.mos_5v_pmos.vds_abs_max_v",
+        "device_limits.mos_5v_pmos.vgs_abs_max_v"
+      ]
+    },
+    {
+      "instance": "DFFR/NMOS",
+      "device_kind": "mos_5v_nmos",
+      "limit_refs": [
+        "device_limits.mos_5v_nmos.vds_abs_max_v",
+        "device_limits.mos_5v_nmos.vgs_abs_max_v"
+      ]
+    },
+    {
+      "instance": "DFFR/PMOS",
+      "device_kind": "mos_5v_pmos",
+      "limit_refs": [
+        "device_limits.mos_5v_pmos.vds_abs_max_v",
+        "device_limits.mos_5v_pmos.vgs_abs_max_v"
+      ]
+    },
+    {
+      "instance": "CMC_S_NMOS_B_X1_Y1/M1",
+      "device_kind": "mos_5v_nmos",
+      "limit_refs": [
+        "device_limits.mos_5v_nmos.vds_abs_max_v",
+        "device_limits.mos_5v_nmos.vgs_abs_max_v"
+      ]
+    },
+    {
+      "instance": "CMC_S_NMOS_B_X1_Y1/M2",
+      "device_kind": "mos_5v_nmos",
+      "limit_refs": [
+        "device_limits.mos_5v_nmos.vds_abs_max_v",
+        "device_limits.mos_5v_nmos.vgs_abs_max_v"
+      ]
+    }
+  ],
+  "power_net_via_minimums": {
+    "VDD": 2
+  },
+  "layout_markers": {
+    "v15_marker": {
+      "gds_layer": 150,
+      "datatype": 0,
+      "semantics": "annotates NW and M1 regions constrained to the 15 V domain"
+    },
+    "v27_marker": {
+      "gds_layer": 151,
+      "datatype": 0,
+      "semantics": "annotates NW islands constrained to the 27 V domain"
+    },
+    "status": "engineering_only"
+  },
+  "hard_items": {},
+  "warnings": [],
+  "acknowledged_warnings": [],
+  "errors": []
+}

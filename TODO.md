@@ -1,36 +1,93 @@
-# TODO for TR-1um PDK
+# TODO for TR-1um signoff safety
 
-    0. DONE: NOT use recognition layer for device extraction for both DRC/LVS. (ALL deleted in TR_IP62.lyp)
+This is the release-blocking checklist for the mixed-signal submission. A
+clean local drawing/structural gate is not equivalent to signoff safety.
+Completed checklist entries are removed; only unresolved work remains here.
 
-    1. DONE: ADD NF/PF matched to PSUB check.
+## Scope and qualification boundaries
 
-    2. DONE: SUPPORT full custom layout for MP/MN/MPE/MNE/RR/RS/CSIO.
+- [ ] Replace the engineering M3 bound with reviewed foundry or silicon
+  correlation before treating M3 RCX as qualified.
+- [ ] Complete design-specific qualification for `CMC_S_NMOS_B_X1_Y1`:
+  review guard structures, PG/return-path geometry, current envelope, and
+  analog performance before calling the macro signoff-ready.
+- [ ] Keep the `TELESCOPIC_OTA` handoff blocked until finalized, matching
+  top-level GDS, LEF, CDL, and black-box views independently pass DRC and LVS.
+  Do not substitute the current handoff metadata or black-box-only view.
 
-    3. ONGOING: WRITE DRC Tutrial.
- 
-    4. DONE: SUPPORT sourrounding SG on the field must tie-down check for RR.
+## DRC, LVS, and top-level coverage
 
-    5. DONE: LVS runset initial version (MOS/DIODE/CAP/RR/RS).
+- [ ] Reconcile the current 399-case DRC regression baseline before claiming
+  complete DRC coverage. Deliberately track the 161 mismatches as unresolved
+  TODO rather than masking or waiving them: Cat-4 has 22, Cat-5 has 47,
+  Cat-6 has 23, Cat-7 has 39, and Cat-8 has 30. Do not describe the regression
+  as clean until these mismatches are resolved or separately justified.
+- [ ] Refresh the LVS tutorial examples before presenting the manual as
+  current. The links resolve, but the parity review still records four
+  semantic-drift warnings and one reference-only combiner contract.
+- [ ] Add a top-level connectivity check based on
+  `TR-1um_MPW_template/scripts/pre_check.py`. Extend the frame/name/dbu/bbox
+  checks with explicit pad, rail, port, frame-cell, and net-to-pin
+  connectivity checks against the final GDS, DEF, and routed netlist.
 
-    6. DONE: WRITE LVS Tutrial.
+## Electrical, timing, and corner analysis
 
-    7. DONE: Simplified drawing layer, means introduce MDP runset as an after-process to generate MASK layer.
+- [ ] Run OpenSTA using the matching RCX SPEF extraction and routed netlist.
+  Report setup/hold, slew, capacitance, fanout, clock skew, recovery/removal,
+  generated clocks, and unconstrained endpoints for every declared corner.
+- [ ] Complete PDNSim power-integrity analysis: EM limits, IR-drop limits,
+  VDD/VSS source definitions, macro PG geometry, current envelopes, worst-case
+  activity, metal/via limits, and a separate GND return-path result.
+- [ ] Audit ESD integration at the hierarchy boundary. Resolve whether every
+  ESD element must be a hard macro with a matching LEF, GDS, CDL, and
+  black-box view, and verify placement in the pad ring or at the
+  digital/analog boundary with package-qualified discharge paths.
+- [ ] Audit `GND_BRIDGE` integration in the final GDS, DEF, LEF/CDL, and LVS
+  views. Verify its pad-ring or digital/analog-boundary placement, VSS-only
+  intent, substrate/tap continuity, return-current path, spacing to analog
+  nets, and absence of an unintended short to `ANA_DB` or other signals.
+- [ ] Complete temperature validation for every used device over the declared
+  `-40..85 degC` operating range, including low-temperature RS evidence and
+  model/manual reference-temperature reconciliation.
+- [ ] Add RF validation for any RF-relevant path: define S-parameter, gain,
+  noise, linearity, stability, loading, and matching measurements with
+  extracted parasitics across the declared voltage, temperature, and process
+  corners.
+- [ ] Run a synthetic PVT sweep covering Fast Corner, Slow Corner, and Cross
+  Corner combinations (`FF`, `SS`, `FS`, and `SF`) with explicit model,
+  Liberty, RCX, supply, and temperature provenance.
+- [ ] Run pseudo-Monte Carlo analysis on model parameters `V_th`, `mu_0`
+  (`μ₀`), and `R_sq` (`Rₛq`). Declare distributions, correlation assumptions,
+  sample count, seeds, measured outputs, acceptance limits, and tail metrics.
+- [ ] Run sensitivity analysis for process, device, interconnect, supply, and
+  temperature parameters. Rank their effects on timing, current, voltage
+  margin, analog operating points, RF metrics, and return-path integrity.
 
-    8. DONE: Develop MASK to Drawing Layer conversion tool.
+## Analog and physical robustness
 
-    9. DONE: Develop new DRC for Drawing Layer design.
-    
-    10. DONE: Develop Drawing to MASK Layer conversion tool.
-    
-    11. DONE: Develop new PCell sets for Drawing Layout.
-    
-    12. DONE: Develop Python script to generate the DRC runset from DR.csv file.
-    
-    13. DONE: Develop new LVS for Drawing Layer design.
+- [ ] Instantiate the post-layout flow with real extracted decks and valid
+  signoff views. The current manifest remains blocked because foundry-qualified
+  analog extraction/models and matching OTA views are absent.
+- [ ] Instantiate crosstalk analysis for every sensitive analog victim,
+  including clock, digital, supply/ground, neighboring M1/M2, and frame-M3
+  aggressors, with design-specific limits and measured glitch/settling/delay
+  evidence.
+- [ ] Instantiate mismatch and overdesign review for every precision group.
+  Provide process sigma data or a reviewed guardband, plus layout, headroom,
+  current-density, and area evidence.
+- [ ] Instantiate pad-level ESD review for every external pad with
+  package-qualified limits and complete view-to-view discharge-path evidence.
+- [ ] Instantiate capacitance review for all used MOS and capacitor devices.
+  Bundle independent area/perimeter and value tables across voltage,
+  temperature, and process corners.
 
-    13. PLAN: ADD ESD device check to DRC/LVS
-  
+## Release evidence
 
-
-
-
+- [ ] Bundle the remaining exact framed GDS, matching DEF, routed netlist,
+  LEF/CDL/black boxes, PVT corner inputs, SPICE decks/waveforms, M3 audit,
+  analog reviews, tool versions, assumptions, and residual-risk decisions.
+  The exact framed DRC/ERC/LVS and post-MDP report bundle is already listed in
+  `flow/qualification/analog_signoff_manifest.json`.
+- [ ] Keep `release_status: blocked` until all required stages close, all
+  unresolved TODOs above are addressed, and every release artifact is
+  independently traceable to the final framed revision.

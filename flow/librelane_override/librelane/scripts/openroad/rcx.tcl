@@ -24,3 +24,19 @@
  set_vias_default_r [lln::get_corner_names]
  
  estimate_parasitics -placement -spef_file $::env(SAVE_SPEF)
+
+# OpenROAD's estimator supplies the corner-independent wire RC baseline.  The
+# repository extractor then replaces the SPEF with the same baseline plus
+# explicit lateral coupling entries.  GDS/device views are not available at
+# this digital step, so M3 geometry and device terms are added by the framed
+# signoff wrapper when those views are supplied.
+set analysis_dir [file normalize [file join $::env(SCRIPTS_DIR) .. .. .. scripts analysis]]
+set rc_json [file join [file dirname $::env(SAVE_SPEF)] tr1um_rc_estimate.json]
+set spice_out "[file rootname $::env(SAVE_SPEF)].pex.sp"
+set ledger_out "[file rootname $::env(SAVE_SPEF)].parasitics.json"
+exec python3 [file join $analysis_dir estimate_tr1um_rc.py] \
+    --lef $::env(RCX_LEF) --out $rc_json
+exec python3 [file join $analysis_dir extract_tr1um_parasitics.py] \
+    --def $::env(CURRENT_DEF) --rc $rc_json \
+    --model [file join $analysis_dir tr1um_parasitic_model.json] \
+    --spef $::env(SAVE_SPEF) --spice $spice_out --json $ledger_out

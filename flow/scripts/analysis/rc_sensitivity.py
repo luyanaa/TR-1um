@@ -23,19 +23,31 @@ def scale_spef(text: str, r_factor: float, c_factor: float) -> str:
     result = []
     section = None
     for line in text.splitlines():
-        if line.startswith("*CAP"):
+        if line.startswith("*D_NET"):
+            parts = line.split()
+            if len(parts) >= 3 and re.fullmatch(r"[-+\d.eE]+", parts[-1]):
+                parts[-1] = f"{float(parts[-1]) * c_factor:.9g}"
+                line = " ".join(parts)
+            section = None
+        elif line.startswith("*CAP"):
             section = "cap"
+            parts = line.split()
+            if len(parts) >= 4 and re.fullmatch(r"[-+\d.eE]+", parts[-1]):
+                parts[-1] = f"{float(parts[-1]) * c_factor:.9g}"
+                line = " ".join(parts)
         elif line.startswith("*RES"):
             section = "res"
+            parts = line.split()
+            if len(parts) >= 5 and re.fullmatch(r"[-+\d.eE]+", parts[-1]):
+                parts[-1] = f"{float(parts[-1]) * r_factor:.9g}"
+                line = " ".join(parts)
         elif line.startswith("*") and not re.match(r"^\d+\s", line):
             section = None
-        if section == "cap" and re.match(r"^\d+\s+\S+\s+[-\d.eE+]+", line):
+        if section == "cap" and re.match(r"^\d+\s+\S+\s+(?:\S+\s+)?[-+\d.eE]+$", line):
             parts = line.split()
-            parts[2] = f"{float(parts[2]) * c_factor:.9g}"
-            if len(parts) > 3:
-                parts[3] = f"{float(parts[3]) * c_factor:.9g}"
+            parts[-1] = f"{float(parts[-1]) * c_factor:.9g}"
             line = " ".join(parts)
-        elif section == "res" and re.match(r"^\d+\s+\S+\s+\S+\s+[-\d.eE+]+$", line):
+        elif section == "res" and re.match(r"^\d+\s+\S+\s+\S+\s+[-+\d.eE]+$", line):
             parts = line.split()
             parts[-1] = f"{float(parts[-1]) * r_factor:.9g}"
             line = " ".join(parts)

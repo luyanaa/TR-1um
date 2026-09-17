@@ -101,14 +101,18 @@ repository also contains the `spice` and `xschem` libraries.
   collateral with no new DRC categories.
 - The `TR-1um_MPW_template` submission contract is pinned as a git submodule
   and integrated into the local pre-check/signoff gate.
+- Engineering-only DEF/GDS/device-aware RCX is available under `flow/`.
+  It emits SPEF, a capacitor-network sidecar, and a provenance ledger, but it
+  is not foundry-qualified.
 
 ### Planned
 
 - Add ESD device checks to DRC/LVS.
 - Use `TR-1um_DRC_Regression_TEST` (Cat-1 through Cat-9) as the DRC
   qualification gate before release.
-- Add RC/parasitic extraction flow and collateral (OpenRCX or an equivalent
-  TR-1um-qualified extractor; layer R/C values, via R/C, SPEF/PEX validation).
+- Obtain a reviewed foundry- or silicon-correlated RC/PEX deck to replace the
+  current engineering estimate; validate layer RC, via RC, coupling, and
+  device-capacitance ownership before calling extraction qualified.
 - Qualify LibreLane PDN/routing/signoff against the MPW template and the
   TR-1um DRC/LVS/MDP regression before tapeout use.
 - Qualify ALIGN-generated analog macros through the MPW pre-check, DRC, LVS,
@@ -116,6 +120,42 @@ repository also contains the `spice` and `xschem` libraries.
 - Fix the TR-1um ALIGN abstraction DRC debt (CO width/enclosure, V1
   enclosure/overlap, off-grid 0.050) in `layers.json`/`mos.py` so generated
   primitives pass the foundry drawing-layer DRC deck.
+
+## Engineering RCX assumption log
+
+The current RCX implementation is an engineering estimate because the open
+IP62 collateral does not include a qualified parasitic-extraction deck. The
+executable values are maintained in
+`flow/scripts/analysis/tr1um_parasitic_model.json`; update that file and this
+section together when new process documentation, foundry data, or silicon
+correlation becomes available.
+
+- **Baseline interconnect:** M1 uses 0.027777778 ohm/um and 0.163 fF/um;
+  M2 uses 0.010000000 ohm/um and 0.1525 fF/um; reserved M3 uses
+  0.010000000 ohm/um and 0.160 fF/um. These are derived from LEF sheet,
+  area-capacitance, edge-capacitance, and nominal-width values. +/-50% bands
+  are engineering sensitivity ranges, not confidence intervals.
+- **Via resistance:** V1 is 1.0 ohm nominal with a 0.5--2.0 ohm range because
+  no via resistance is published.
+- **Lateral coupling:** M1/M2/M3 use 0.00005 pF/um edge capacitance with
+  exponential spacing attenuation: decay 1.8 um for M1, 3.0 um for M2/M3,
+  and maximum modeled spacing 5.4 um for M1 or 9.0 um for M2/M3.
+- **M3 vertical coupling:** M3--M2 is 0.0000175 pF/um2; M3--M1 and
+  M3--substrate are 0.000020 pF/um2. GDS overlap uses axis-aligned bounding
+  boxes rather than polygon clipping or a field solve.
+- **GR/F_RS:** 0.000615 pF/um2 is reused from the legacy CSIO coefficient;
+  `C = density * W * L`, split equally over PLUS/MINUS. GR defaults to
+  PSUB/VSS; overlap with WN classifies it as NW/VDD.
+- **RR/F_RR and GC/MOS:** RR uses the checked-in `F_RR c_d0` PLUS--SUB
+  expression, while GC uses BSIM3 `cgsl`/`cgdl` values of 1.81 fF/um for
+  PMOS and 2.02 fF/um for NMOS. These are source-derived compact-model
+  terms, not independent foundry measurements; avoid double counting them.
+- **Geometry and hierarchy:** unlabelled M3 defaults to the configured
+  substrate net, and only device terms resolved to selected top-level routed
+  nets enter SPEF/SPICE. Nested devices remain ledger-only. No V2 route model
+  or foundry-qualified substrate/inter-metal coefficient is assumed.
+
+For the detailed flow contract and update procedure, see `flow/README.md`.
 
 ## Foundry errata (IP62 rev 1.1)
 

@@ -28,6 +28,9 @@ CAP_SPREAD = 0.50
 VIA_R_NOMINAL_OHM = 1.0
 VIA_R_LOW_OHM = 0.5
 VIA_R_HIGH_OHM = 2.0
+ACTIVE_ROUTING_LAYERS = ("M1", "M2")
+RESERVED_ROUTING_LAYERS = ("M3",)
+
 
 
 def layer_block(text: str, layer: str) -> str:
@@ -79,7 +82,8 @@ def main() -> int:
     args = parser.parse_args()
 
     text = args.lef.read_text(encoding="utf-8")
-    layers = [estimate_layer(text, layer) for layer in ("M1", "M2")]
+    layers = [estimate_layer(text, layer) for layer in ACTIVE_ROUTING_LAYERS]
+    reserved_layers = [estimate_layer(text, layer) for layer in RESERVED_ROUTING_LAYERS]
     report = {
         "schema": 1,
         "status": "engineering_estimate_not_foundry_qualified",
@@ -96,8 +100,8 @@ def main() -> int:
             },
             {
                 "path": str(args.lef),
-                "location": "M1/M2 routing-layer statements",
-                "fact": "Derived LEF supplies sheet resistance, area capacitance, edge capacitance, and nominal routing widths.",
+                "location": "M1/M2/M3 routing-layer statements",
+                "fact": "Derived LEF supplies sheet resistance, area capacitance, edge capacitance, and nominal routing widths for active and reserved routing layers.",
             },
         ],
         "method": {
@@ -108,6 +112,7 @@ def main() -> int:
             "spread_interpretation": "engineering sensitivity band, not a confidence interval",
         },
         "layers": layers,
+        "reserved_layers": reserved_layers,
         "via": {
             "layer": "V1",
             "nominal_resistance_ohm": VIA_R_NOMINAL_OHM,
@@ -115,8 +120,10 @@ def main() -> int:
             "basis": "No via resistance is published; nominal 1 ohm is an explicit local interconnect estimate for sensitivity analysis.",
         },
         "digital_flow_policy": {
-            "routing_layers": ["M1", "M2"],
+            "routing_layers": list(ACTIVE_ROUTING_LAYERS),
+            "reserved_routing_layers": list(RESERVED_ROUTING_LAYERS),
             "m3": "reserved_not_used_by_current_digital_router",
+            "def_policy": "Reject routed DEF geometry on any layer outside routing_layers.",
             "timing_use": "Use nominal values for estimated RCX; evaluate the stated bands with sensitivity analysis.",
             "tapeout_status": "not signoff-qualified without foundry RC/PEX correlation.",
         },
@@ -126,6 +133,11 @@ def main() -> int:
     for layer in layers:
         print(
             f"{layer['layer']}: R={layer['resistance_ohm_per_um']:.9f} ohm/um, "
+            f"C={layer['capacitance_ff_per_um']:.6f} fF/um"
+        )
+    for layer in reserved_layers:
+        print(
+            f"{layer['layer']} (reserved): R={layer['resistance_ohm_per_um']:.9f} ohm/um, "
             f"C={layer['capacitance_ff_per_um']:.6f} fF/um"
         )
     print(f"V1: R={VIA_R_NOMINAL_OHM:.3f} ohm nominal [{VIA_R_LOW_OHM:.3f}, {VIA_R_HIGH_OHM:.3f}]")

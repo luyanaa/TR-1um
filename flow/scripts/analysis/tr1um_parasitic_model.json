@@ -1,0 +1,98 @@
+{
+  "schema": 1,
+  "status": "engineering_estimate_not_foundry_qualified",
+  "units": {
+    "length": "um",
+    "capacitance": "pF"
+  },
+  "source_basis": [
+    {
+      "path": "openIP62/IP62/Technology/doc/OS00_リファレンスマニュアル_rev1.1.pdf",
+      "location": "pages 5 and 37-41",
+      "fact": "The open IP62 manual marks parasitic extraction unavailable and provides no foundry RC/PEX deck."
+    },
+    {
+      "path": "flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell/lef/TR-1um_tech.lef",
+      "location": "M1/M2/M3 routing-layer statements",
+      "fact": "The derived LEF provides nominal width, sheet resistance, area capacitance, and edge capacitance."
+    },
+    {
+      "path": "openIP62/IP62/Technology/tech/lvs/lvs.lylvs",
+      "location": "resistor and CSIO extraction",
+      "fact": "The legacy deck recognizes RR/RS bodies and publishes a CSIO area coefficient of 0.615 fF/um^2."
+    },
+    {
+      "path": "libs.tech/spice/models/models_IP62_res_v5.lib",
+      "location": "F_RR c_d0 branches",
+      "fact": "F_RR compact model contains explicit PLUS-to-SUB capacitance formulas."
+    },
+    {
+      "path": "libs.tech/spice/models/models_IP62_mos_v2.lib",
+      "location": "PMOS/NMOS cgsl and cgdl",
+      "fact": "BSIM3 compact models contain gate-source and gate-drain overlap coefficients."
+    }
+  ],
+  "substrate": {
+    "default_net": "VSS",
+    "aliases": ["VSS", "GND", "GROUND", "0", "PSUB", "SUBSTRATE"]
+  },
+  "lateral_coupling": {
+    "M1": {
+      "coupling_edge_capacitance_pf_per_um": 0.00005,
+      "decay_um": 1.8,
+      "max_distance_um": 5.4,
+      "basis": "engineering proxy: M1 LEF EDGECAPACITANCE, attenuated with lateral spacing; not a foundry coupling deck"
+    },
+    "M2": {
+      "coupling_edge_capacitance_pf_per_um": 0.00005,
+      "decay_um": 3.0,
+      "max_distance_um": 9.0,
+      "basis": "engineering proxy: M2 LEF EDGECAPACITANCE, attenuated with lateral spacing; not a foundry coupling deck"
+    },
+    "M3": {
+      "coupling_edge_capacitance_pf_per_um": 0.00005,
+      "decay_um": 3.0,
+      "max_distance_um": 9.0,
+      "basis": "engineering proxy: M3 LEF EDGECAPACITANCE, attenuated with lateral spacing; M3 is reserved in the current router"
+    }
+  },
+  "vertical_coupling": {
+    "M3_M2": {
+      "capacitance_pf_per_um2": 0.0000175,
+      "basis": "engineering proxy: minimum of M3 and M2 LEF area capacitance; no inter-metal coupling coefficient is published"
+    },
+    "M3_M1": {
+      "capacitance_pf_per_um2": 0.000020,
+      "basis": "engineering proxy: M3 LEF area capacitance; no M3-to-M1 inter-metal coefficient is published"
+    },
+    "M3_SUBSTRATE": {
+      "capacitance_pf_per_um2": 0.000020,
+      "basis": "engineering proxy: M3 LEF area capacitance; use only for explicitly net-assigned M3 geometry"
+    }
+  },
+  "devices": {
+    "F_RS": {
+      "area_capacitance_pf_per_um2": 0.000615,
+      "split_between_terminals": true,
+      "default_substrate_region": "PSUB",
+      "basis": "engineering proxy: legacy CSIO coefficient 0.615 fF/um^2; no direct GR/F_RS substrate-capacitance coefficient is published"
+    },
+    "F_RR": {
+      "model_path": "libs.tech/spice/models/models_IP62_res_v5.lib",
+      "basis": "evaluate the source F_RR c_d0 PLUS-SUB expression; c_d1 MINUS-SUB is zero",
+      "compact_model_owns_capacitance": true
+    },
+    "GC": {
+      "PMOS": {
+        "cgsl_fF_per_um": 1.81,
+        "cgdl_fF_per_um": 1.81,
+        "basis": "BSIM3 PMOS cgsl/cgdl from models_IP62_mos_v2.lib; compact model owns these terms"
+      },
+      "NMOS": {
+        "cgsl_fF_per_um": 2.02,
+        "cgdl_fF_per_um": 2.02,
+        "basis": "BSIM3 NMOS cgsl/cgdl from models_IP62_mos_v2.lib; compact model owns these terms"
+      }
+    }
+  }
+}

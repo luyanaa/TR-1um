@@ -186,13 +186,17 @@ if { $::env(PDN_CORE_RING) == 1 } {
     }
 }
 
-define_pdn_grid \
-    -macro \
-    -default \
-    -name macro \
-    -starts_with POWER \
-    -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
+if { $::env(PDN_CONNECT_MACROS_TO_GRID) == 1 } {
+    define_pdn_grid \
+        -macro \
+        -default \
+        -name macro \
+        -starts_with POWER \
+        -halo "$::env(PDN_HORIZONTAL_HALO) $::env(PDN_VERTICAL_HALO)"
 
-add_pdn_connect \
-    -grid macro \
-    -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+    add_pdn_connect \
+        -grid macro \
+        -layers "$::env(PDN_VERTICAL_LAYER) $::env(PDN_HORIZONTAL_LAYER)"
+} else {
+    puts "\[INFO\] Skipping macro PDN grid because PDN_CONNECT_MACROS_TO_GRID=0"
+}

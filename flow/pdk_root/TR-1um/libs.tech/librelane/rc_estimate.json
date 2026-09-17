@@ -14,8 +14,8 @@
     },
     {
       "path": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell/lef/TR-1um_tech.lef",
-      "location": "M1/M2 routing-layer statements",
-      "fact": "Derived LEF supplies sheet resistance, area capacitance, edge capacitance, and nominal routing widths."
+      "location": "M1/M2/M3 routing-layer statements",
+      "fact": "Derived LEF supplies sheet resistance, area capacitance, edge capacitance, and nominal routing widths for active and reserved routing layers."
     }
   ],
   "method": {
@@ -63,6 +63,26 @@
       ]
     }
   ],
+  "reserved_layers": [
+    {
+      "layer": "M3",
+      "width_um": 3.0,
+      "sheet_resistance_ohm_per_square": 0.03,
+      "capacitance_area_pf_per_um2": 2e-05,
+      "edge_capacitance_pf_per_um": 5e-05,
+      "resistance_ohm_per_um": 0.01,
+      "capacitance_pf_per_um": 0.00016,
+      "capacitance_ff_per_um": 0.16,
+      "resistance_range_ohm_per_um": [
+        0.005,
+        0.015
+      ],
+      "capacitance_range_ff_per_um": [
+        0.08,
+        0.24
+      ]
+    }
+  ],
   "via": {
     "layer": "V1",
     "nominal_resistance_ohm": 1.0,
@@ -77,7 +97,11 @@
       "M1",
       "M2"
     ],
+    "reserved_routing_layers": [
+      "M3"
+    ],
     "m3": "reserved_not_used_by_current_digital_router",
+    "def_policy": "Reject routed DEF geometry on any layer outside routing_layers.",
     "timing_use": "Use nominal values for estimated RCX; evaluate the stated bands with sensitivity analysis.",
     "tapeout_status": "not signoff-qualified without foundry RC/PEX correlation."
   }

@@ -3394,6 +3394,42 @@
   <order>0</order>
   <name/>
  </custom-line-style>
+<properties>
+ <expanded>false</expanded>
+ <frame-color>#ff8000</frame-color>
+ <fill-color>#ffcc66</fill-color>
+ <frame-brightness>0</frame-brightness>
+ <fill-brightness>0</fill-brightness>
+ <dither-pattern>I3</dither-pattern>
+ <line-style/>
+ <valid>true</valid>
+ <visible>true</visible>
+ <transparent>false</transparent>
+ <width/>
+ <marked>false</marked>
+ <xfill>false</xfill>
+ <animation>0</animation>
+ <name>V15_MARKER</name>
+ <source>150/0@1</source>
+</properties>
+<properties>
+ <expanded>false</expanded>
+ <frame-color>#ff00ff</frame-color>
+ <fill-color>#ff99ff</fill-color>
+ <frame-brightness>0</frame-brightness>
+ <fill-brightness>0</fill-brightness>
+ <dither-pattern>I4</dither-pattern>
+ <line-style/>
+ <valid>true</valid>
+ <visible>true</visible>
+ <transparent>false</transparent>
+ <width/>
+ <marked>false</marked>
+ <xfill>false</xfill>
+ <animation>0</animation>
+ <name>V27_MARKER</name>
+ <source>151/0@1</source>
+</properties>
  <custom-line-style>
   <pattern/>
   <order>0</order>

@@ -1,0 +1,306 @@
+{
+  "schema_version": 1,
+  "design": {
+    "name": "tr1um_mixed_counter",
+    "top_cell": "tr_1um_mixed_counter",
+    "scope": "general analog hard-macro and mixed-signal signoff gates"
+  },
+  "release_status": "blocked",
+  "artifacts": {
+    "cmc_macro_contract": {
+      "path": "analog_macro/CMC_S_NMOS_B_X1_Y1.json",
+      "classification": "engineering_only"
+    },
+    "m3_audit_tool": {
+      "path": "../scripts/signoff/audit_m3_impact.py",
+      "classification": "reference"
+    },
+    "electrical_rule_source": {
+      "path": "../../libs.tech/klayout/tech/drc/03_Electrical.drc",
+      "classification": "reference"
+    },
+    "electrical_limits": {
+      "path": "tr1um_electrical_limits.json",
+      "classification": "engineering_only"
+    },
+    "mixed_counter_erc_contract": {
+      "path": "tr1um_mixed_counter_erc_contract.json",
+      "classification": "engineering_only"
+    },
+    "final_framed_drc_report": {
+      "path": "reports/gc-diode-repair13/drc.lyrdb",
+      "classification": "engineering_only",
+      "source": "/tmp/tr1um-lvs-parity-signoff/drc.lyrdb",
+      "sha256": "535b5b4ef5cbf84a699421fb2814fdbc3cf08930b17d6c77f5e30d06dbe4f9da"
+    },
+    "final_erc_report": {
+      "path": "reports/gc-diode-repair13/erc.json",
+      "classification": "engineering_only",
+      "source": "/tmp/tr1um-final-erc/erc.json",
+      "sha256": "1ff23a76e1a8384ac6f2bb9c96a0dfa4a9ff1c401fd21a272766becfec64333a"
+    },
+    "final_netlist_label_report": {
+      "path": "reports/gc-diode-repair13/netlist_labels.json",
+      "classification": "engineering_only",
+      "source": "/tmp/tr1um-final-erc/netlist_labels.json",
+      "sha256": "e3ae9a2a79cc94e0433a1729d6a58a46e8853814ac0e696f506bde58e4abd236"
+    },
+    "final_lvs_log": {
+      "path": "reports/gc-diode-repair13/lvs.log",
+      "classification": "engineering_only",
+      "source": "/tmp/tr1um-lvs-parity-signoff/lvs.log",
+      "sha256": "0f00695e415557cdc5df79f22745e4998283450d7280a71b1fa38494ca336436"
+    },
+    "final_lvs_report": {
+      "path": "reports/gc-diode-repair13/lvs.lvsdb",
+      "classification": "engineering_only",
+      "source": "/tmp/tr1um-lvs-parity-signoff/lvs.lvsdb",
+      "sha256": "f743e436d7ff23b1a8d1b61752cda4c6480b0f016e70efb8ce54c257eb2b2141"
+    },
+    "final_mdp_gds": {
+      "path": "reports/gc-diode-repair13/tr_1um_mixed_counter_mdp.gds",
+      "classification": "engineering_only",
+      "source": "/tmp/tr1um-lvs-parity-signoff/tr_1um_mixed_counter_mdp.gds",
+      "sha256": "9c926104c6b4d57074f42e8fe3ed27ff84bcbbecfe345052ee7e190f7ca66498"
+    },
+    "final_post_mdp_drc_report": {
+      "path": "reports/gc-diode-repair13/ip62_drc.lyrdb",
+      "classification": "engineering_only",
+      "source": "/tmp/tr1um-lvs-parity-signoff/ip62_drc.lyrdb",
+      "sha256": "d0961b547cf08f4fc759d4719cce8fc05506309b4bdb5ad3e43a8203f82e455f"
+    },
+    "final_drc_rule_parity_report": {
+      "path": "reports/gc-diode-repair13/drc_rule_parity.json",
+      "classification": "engineering_only",
+      "source": "/tmp/tr1um-lvs-parity-signoff/drc_rule_parity.json",
+      "sha256": "6fa7a0e974405eece4d553eab3bad58d89a0430e03f91c715bf3d817a91b3be7"
+    },
+    "final_lvs_source_parity_report": {
+      "path": "reports/gc-diode-repair13/lvs_source_parity.json",
+      "classification": "engineering_only",
+      "source": "/tmp/tr1um-lvs-parity-signoff/lvs_source_parity.json",
+      "sha256": "040722f15fe1653f5a77932f1b29f0a59476e5d02ee0943c9fa25f1617097f6d"
+    },
+    "analog_erc_checker": {
+      "path": "../scripts/signoff/check_analog_erc.py",
+      "classification": "reference"
+    },
+    "netlist_label_checker": {
+      "path": "../scripts/signoff/check_netlist_labels.py",
+      "classification": "reference"
+    },
+    "legacy_config": {
+      "path": "../designs/tr1um_mixed_counter/config.yaml",
+      "classification": "reference"
+    },
+    "access_config": {
+      "path": "../designs/tr1um_mixed_counter/config_access.yaml",
+      "classification": "reference"
+    },
+    "pvt_sta_runner": {
+      "path": "../scripts/signoff/run_pvt_sta.py",
+      "classification": "reference"
+    },
+    "pdn_emir_contract": {
+      "path": "pdn_emir_contract.json",
+      "classification": "engineering_only"
+    },
+    "post_layout_sim_runner": {
+      "path": "../scripts/signoff/run_analog_sim.py",
+      "classification": "reference"
+    },
+    "post_layout_sim_manifest": {
+      "path": "post_layout_sim_manifest.json",
+      "classification": "engineering_only"
+    },
+    "temperature_model_contract": {
+      "path": "temperature_model_contract.json",
+      "classification": "engineering_only"
+    },
+    "temperature_model_audit": {
+      "path": "../scripts/signoff/audit_temperature_models.py",
+      "classification": "reference"
+    },
+    "mos_temperature_models": {
+      "path": "../../libs.tech/spice/models/models_IP62_mos_v2.lib",
+      "classification": "reference"
+    },
+    "res_temperature_models": {
+      "path": "../../libs.tech/spice/models/models_IP62_res_v5.lib",
+      "classification": "reference"
+    },
+    "cap_temperature_models": {
+      "path": "../../libs.tech/spice/models/models_IP62_cap_v5p1.lib",
+      "classification": "reference"
+    },
+    "diode_temperature_models": {
+      "path": "../../libs.tech/spice/models/models_IP62_diode_v2.lib",
+      "classification": "reference"
+    },
+    "crosstalk_checker": {
+      "path": "../scripts/signoff/check_crosstalk.py",
+      "classification": "reference"
+    },
+    "crosstalk_contract": {
+      "path": "crosstalk_contract.json",
+      "classification": "not_run"
+    },
+    "latchup_checker": {
+      "path": "../scripts/signoff/check_latchup.py",
+      "classification": "reference"
+    },
+    "latchup_contract": {
+      "path": "latchup_contract.json",
+      "classification": "not_run"
+    },
+    "matching_checker": {
+      "path": "../scripts/signoff/check_matching.py",
+      "classification": "reference"
+    },
+    "matching_contract": {
+      "path": "matching_contract.json",
+      "classification": "not_run"
+    },
+    "esd_checker": {
+      "path": "../scripts/signoff/check_esd.py",
+      "classification": "reference"
+    },
+    "esd_contract": {
+      "path": "esd_contract.json",
+      "classification": "not_run"
+    },
+    "capacitance_checker": {
+      "path": "../scripts/signoff/check_capacitance.py",
+      "classification": "reference"
+    },
+    "capacitance_contract": {
+      "path": "capacitance_contract.json",
+      "classification": "not_run"
+    }
+  },
+  "stages": {
+    "macro_qualification": {
+      "status": "engineering_only",
+      "evidence": [
+        "analog_macro/CMC_S_NMOS_B_X1_Y1.json",
+        "../align_macro/CMC_S_NMOS_B_X1_Y1.gds",
+        "../align_macro/CMC_S_NMOS_B_X1_Y1.lef",
+        "../align_macro/CMC_S_NMOS_B_X1_Y1.cdl",
+        "../align_macro/CMC_S_NMOS_B_X1_Y1.bb.v"
+      ],
+      "rationale": "CMC structural views match and the macro DRC/LVS gate passes, but process-qualified analog performance, current envelope, mismatch, and post-layout corners are absent."
+    },
+    "ota_handoff": {
+      "status": "blocked",
+      "evidence": [
+        "../align_macro/TELESCOPIC_OTA.handoff.json",
+        "../align_macro/TELESCOPIC_OTA.bb.v"
+      ],
+      "rationale": "The handoff explicitly has no finalized matching physical views and has not passed independent DRC/LVS."
+    },
+    "m3_rc_scope": {
+      "status": "engineering_only",
+      "evidence": [
+        "../scripts/signoff/audit_m3_impact.py"
+      ],
+      "rationale": "The reusable audit reports frame M3 geometry in OSS_EDGE_SEAL0 with M1/M2/V2 overlap and no routed-DEF M3/V2 route. A reviewed seal/core/net exclusion or coupling bound is still required."
+    },
+    "erc_electrical": {
+      "status": "engineering_only",
+      "evidence": [
+        "../scripts/signoff/check_analog_erc.py",
+        "../scripts/signoff/check_netlist_labels.py",
+        "tr1um_mixed_counter_erc_contract.json",
+        "reports/gc-diode-repair13/erc.json",
+        "reports/gc-diode-repair13/netlist_labels.json",
+        "../../libs.tech/klayout/tech/drc/03_Electrical.drc",
+        "tr1um_electrical_limits.json"
+      ],
+      "rationale": "The final framed gc-diode-repair13 mixed-signal netlist/GDS passed the contract-aware label/ERC gate with zero hard report items, zero warnings, and zero errors. Exact ERC and label reports are bundled under reports/gc-diode-repair13; central electrical limits and analog qualification remain engineering-only."
+    },
+    "antenna": {
+      "status": "engineering_only",
+      "evidence": [
+        "../scripts/signoff/run_final_antenna_check.sh",
+        "../designs/tr1um_mixed_counter/runs/gc-diode-repair13/41-openroad-checkantennas-1/reports/antenna.rpt",
+        "reports/gc-diode-repair13/drc.lyrdb",
+        "reports/gc-diode-repair13/tr_1um_mixed_counter_mdp.gds",
+        "reports/gc-diode-repair13/ip62_drc.lyrdb"
+      ],
+      "rationale": "The repaired final-framed triplet passed with zero framed/post-MDP antenna items and zero OpenROAD net/pin violations. Exact framed and post-MDP outputs are bundled under reports/gc-diode-repair13; the release remains engineering-only while regression mismatches and other qualification blockers remain open."
+    },
+    "sta_pvt": {
+      "status": "engineering_only",
+      "evidence": [
+        "../scripts/signoff/run_pvt_sta.py",
+        "../scripts/signoff/audit_temperature_models.py",
+        "temperature_model_contract.json",
+        "../librelane_override/librelane/scripts/openroad/sta/corner.tcl",
+        "../designs/tr1um_counter/config.yaml"
+      ],
+      "rationale": "The reusable runner now enforces the stated -40..85 degC operating range, the 25..150 degC RS characterization range, endpoint temperature coverage, and qualified low-temperature RS extrapolation before execution. The model audit finds BSIM3 MOS temperature coefficients, explicit F_RR temperature dependence, but no temper term in F_RS and nominal-only CSIO; the design remains engineering-only without low-temperature evidence, process-qualified slow/fast Liberty, complete analog SDC coverage, and a bundled multi-corner report."
+    },
+    "pdn_emir": {
+      "status": "engineering_only",
+      "evidence": [
+        "pdn_emir_contract.json",
+        "tr1um_electrical_limits.json",
+        "../scripts/signoff/check_pdn_contract.py",
+        "../align_macro/CMC_S_NMOS_B_X1_Y1.gds",
+        "../designs/tr1um_mixed_counter/config_access.yaml"
+      ],
+      "rationale": "The fail-closed contract correctly classifies powered PDN analysis as not applicable to the ground-only CMC leaf. The checker now requires central electrical limits plus measured M1/M2, step, and TC contact current evidence for any powered contract. The required return-path review remains engineering-only because no resistance or current-envelope result is bundled; no EM/IR closure is claimed."
+    },
+    "post_layout_sim": {
+      "status": "blocked",
+      "evidence": [
+        "../scripts/signoff/run_analog_sim.py",
+        "post_layout_sim_manifest.json",
+        "tr1um_electrical_limits.json"
+      ],
+      "rationale": "The runner now requires pre_layout or post_layout cases, extracted SPICE for post-layout cases, macro CDL, process models, frame/pad/ESD models, digital abstraction, all declared sweep axes, measured limits, device targets, and non-zero assertion margins. The current manifest has no cases because foundry-qualified analog extraction/models and matching OTA views are absent."
+    },
+    "crosstalk": {
+      "status": "not_run",
+      "evidence": [
+        "../scripts/signoff/check_crosstalk.py",
+        "crosstalk_contract.json"
+      ],
+      "rationale": "The reusable checker requires extracted aggressor/victim coupling, victim capacitance, measured peak glitch/settling/delay/functional-error values, and explicit limits. The current contract is intentionally blocked because none of those design-specific coupling results are available."
+    },
+    "latchup": {
+      "status": "not_run",
+      "evidence": [
+        "../scripts/signoff/check_latchup.py",
+        "latchup_contract.json"
+      ],
+      "rationale": "The reusable checker requires well/substrate topology, tap and guard-ring continuity/resistance evidence, injection paths, I/O/ESD interactions, substrate-current assumptions, and numerical limits. The current contract is intentionally blocked because no design-specific latch-up evidence is bundled."
+    },
+    "mismatch_overdesign": {
+      "status": "not_run",
+      "evidence": [
+        "../scripts/signoff/check_matching.py",
+        "matching_contract.json"
+      ],
+      "rationale": "The reusable checker requires explicit matching layout strategy, dummies, orientation, symmetric routes, surroundings, guard rings, dimensions, headroom, current density, area, and qualified sigma data or an engineering-only guardband. The current contract is blocked because no design-specific matching inventory or overdesign limits are bundled."
+    },
+    "esd": {
+      "status": "not_run",
+      "evidence": [
+        "../scripts/signoff/check_esd.py",
+        "esd_contract.json"
+      ],
+      "rationale": "The reusable checker requires every external pad to declare positive and negative discharge paths, VDD/VSS clamps, body/trigger nets, package assumptions, and schematic/CDL/LVS/GDS/parasitic evidence. The current contract is blocked because no pad-level ESD map or package-qualified limits are bundled."
+    },
+    "capacitance": {
+      "status": "not_run",
+      "evidence": [
+        "../scripts/signoff/check_capacitance.py",
+        "capacitance_contract.json",
+        "../../openIP62/IP62/Technology/tech/lvs/lvs.lylvs",
+        "../../openIP62/IP62/Technology/tech/models/ngspice/models_IP62_cap_v5p1.lib"
+      ],
+      "rationale": "The reusable checker separates intrinsic MOS, CSIO/F_CSIO, and Poly_cap/CAP recognition and requires area/perimeter plus extracted-versus-expected values over voltage, temperature, and process corners. The active flow contains CSIO/F_CSIO model/LVS sources, but no design-specific value table is bundled; Poly_cap/CAP support must be marked unsupported until independently demonstrated."
+    }
+  }
+}

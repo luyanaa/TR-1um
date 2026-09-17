@@ -1,0 +1,1498 @@
+<?xml version="1.0" encoding="utf-8"?>
+<report-database>
+ <description>TR-1um DRC(MASK)</description>
+ <original-file/>
+ <generator>drc: script='/Users/yanlu/Documents/TR-1um/libs.tech/klayout/tech/drc/run_IP62.drc'</generator>
+ <top-cell>tr_1um_mixed_counter</top-cell>
+ <tags>
+ </tags>
+ <categories>
+  <category>
+   <name>ERR01: CANNOT EXIST RHP </name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: CANNOT EXIST HPBE</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: CANNOT EXIST HNBE</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: PSUB OFFGRID 0.050</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: NW OFFGRID 0.050</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: HVNW OFFGRID 0.050</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: L OFFGRID 0.050</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: NF OFFGRID 0.050</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: PF OFFGRID 0.050</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: CL OFFGRID 0.050</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: PBE OFFGRID 0.050</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: NBE OFFGRID 0.050</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: SG OFFGRID 0.050</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: PM OFFGRID 0.050</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: NM OFFGRID 0.050</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: R OFFGRID 0.050</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: PSD OFFGRID 0.050</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: NSD OFFGRID 0.050</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: CONT OFFGRID 0.050</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: M1 OFFGRID 0.050</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: TC OFFGRID 0.050</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: M2 OFFGRID 0.050</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: PRO OFFGRID 0.050</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: PSUB twisted polygon</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: NW twisted polygon</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: HVNW twisted polygon</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: L twisted polygon</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: NF twisted polygon</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: PF twisted polygon</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: CL twisted polygon</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: PBE twisted polygon</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: NBE twisted polygon</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: SG twisted polygon</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: PM twisted polygon</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: NM twisted polygon</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: R twisted polygon</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: PSD twisted polygon</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: NSD twisted polygon</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: CONT twisted polygon</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: M1 twisted polygon</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: TC twisted polygon</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: M2 twisted polygon</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: PRO twisted polygon</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: PSUB edge not 90 or 45 degrees</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: NW edge not 90 or 45 degrees</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: HVNW edge not 90 or 45 degrees</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: L edge not 90 or 45 degrees</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: NF edge not 90 or 45 degrees</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: PF edge not 90 or 45 degrees</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: CL edge not 90 or 45 degrees</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: PBE edge not 90 or 45 degrees</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: NBE edge not 90 or 45 degrees</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: SG edge not 90 or 45 degrees</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: PM edge not 90 or 45 degrees</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: NM edge not 90 or 45 degrees</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: R edge not 90 or 45 degrees</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: PSD edge not 90 or 45 degrees</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: NSD edge not 90 or 45 degrees</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: CONT edge not 90 or 45 degrees</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: M1 edge not 90 or 45 degrees</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: TC edge not 90 or 45 degrees</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: M2 edge not 90 or 45 degrees</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: PRO edge not 90 or 45 degrees</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Width for PSUB &lt;  8.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Width for NW   &lt;  8.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Width for HVNW &lt;  8.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Width for L    &lt;  1.4</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Width for NF   &lt;  8.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Width for PF   &lt;  3.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Width for CL   &lt;  3.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Width for PBE  &lt;  4.2</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Width for NBE  &lt;  4.2</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Width for SG   &lt;  1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Width for PM   &lt;  4.2</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Width for NM   &lt;  4.2</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Width for R    &lt;  4.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Width for PSD  &lt;  3.5</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Width for NSD  &lt;  2.6</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Width for CONT &lt;  1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Width for M1   &lt;  1.8</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Width for TC   &lt;  1.4</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Width for M2   &lt;  3.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Width for PRO  &lt; 10.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Space for PSUB &lt;  4.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Space for NW   &lt;  4.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Space for HVNW &lt;  4.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Space for L    &lt;  1.4</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Space for NF   &lt;  2.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Space for PF   &lt;  2.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Space for CL   &lt;  3.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Space for PBE  &lt;  2.6</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Space for NBE  &lt;  2.6</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Space for SG   &lt;  1.2</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Space for PM   &lt;  2.6</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Space for NM   &lt;  2.6</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Space for R    &lt;  2.6</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Space for PSD  &lt;  2.2</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Space for NSD  &lt;  2.6</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Space for CONT &lt;  1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Space for M1   &lt;  1.4</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Space for TC   &lt;  1.5</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Space for M2   &lt;  2.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR01: Space for PRO  &lt; 20.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR02: Uncertain AA</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: NWMP to NWMP separation &lt; 12.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: NWMP to NWRR separation &lt;  9.5</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: NWRR to NWRR separation &lt;  8.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: NWCS to NWCS separation &lt; 12.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: NF crossed PSUB</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: PF crossed PSUB</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: NF enclosed PSUB &lt; 0.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: PF enclosed PSUB &lt; 0.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: NF not match to PSUB</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: PSUB enclosed NW   &lt; 1.5</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: PSUB enclosed HVNW &lt; 1.5</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: L enclosed PF  &lt; 1.4</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: L enclosed NF  &lt; 1.4</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: L enclosed PBE &lt; 1.4</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: L enclosed NBE &lt; 1.4</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: L enclosed PM  &lt; 1.4</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: L enclosed NM  &lt; 1.4</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: L enclosed PSD &lt; 1.4</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: L enclosed NSD &lt; 1.4</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: L(RR) enclosed PM  &lt; 2.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: L(RR) enclosed NM  &lt; 2.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: L(RR) enclosed PSD &lt; 2.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: L(RR) enclosed NSD &lt; 2.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: L(RR) enclosed R &lt; 2.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(MP) to PSUB &lt;  7.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(MN) to PSUB &lt; 10.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(DP) to PSUB &lt;  7.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(DN) to PSUB &lt; 10.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(GP) to PSUB &lt;  5.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(GN) to PSUB &lt;  5.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(RR) to PSUB &lt; 10.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(GR) to PSUB &lt; 10.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(GC) to PSUB &lt;  3.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(MPE) to PSUB &lt; 10.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(MNE) to PSUB &lt; 10.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L crossed PSUB</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(MP) to L(DP) &lt;  2.8</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(MP) to L(GP) &lt;  2.8</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(DP) to L(GP) &lt;  2.8</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(MN) to L(DN) &lt;  2.8</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(MN) to L(GN) &lt;  2.8</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(DN) to L(GN) &lt;  2.8</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(RR) to L(RR) &lt;  4.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(RR) to L(GR) &lt;  4.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(CC) to L(GC) &lt;  2.8</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(MPE) to L(GP) &lt; 10.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(MNE) to L(GN) &lt; 10.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(MPE) shape NOT Octagon</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(MNE) shape NOT Octagon</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(MPE) trimed corner size &lt; 0.98</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(MNE) trimed corner size &lt; 0.98</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(RR) shape NOT Octagon</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR04: L(RR) trimed corner size &lt; 0.5</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: L(RR) not surrounded by SG</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR03: L(RR) enclosed SG != 1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT crossed L</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT crossed SG</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT crossed M1</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT outside of L/SG/M1</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT enclosed SG &lt; 0.8</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT enclosed M1 &lt; 0.8</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT on L(MP) != 1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT on L(MN) != 1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT on L(GP) != 1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT on L(GN) != 1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT enclosed L(MP) &lt; 0.8</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT enclosed L(MN) &lt; 0.8</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT enclosed L(GP) &lt; 0.8</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT enclosed L(GN) &lt; 0.8</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT on L(MP) space &lt;  1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT on L(MN) space &lt;  1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT on L(GP) space &lt;  1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT on L(GN) space &lt;  1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT to SG(MP) &lt; 1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT to SG(MN) &lt; 1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT to SG(GP) &lt; 1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT to SG(GN) &lt; 1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT on MP(ESD) != 3.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT on MN(ESD) != 3.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT space on MP(ESD) &lt;  1.6</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT space on MN(ESD) &lt;  1.6</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT enclosed MP(ESD) &lt; 4.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT enclosed MN(ESD) &lt; 4.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT to L(DP) != 1.2</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT to L(DN) != 1.2</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT enclosed L(DP) &lt; 1.2</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT enclosed L(DN) &lt; 1.2</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT-L to CONT-L &lt;  1.6</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR07: CONTL(L) &gt; 97.5</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: DONOT allow CONT-L on SG</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT-L enclosed L  &lt; 1.2</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR05: CONT-L enclosed M1 &lt; 1.2</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR07: CONT-L sep to TC &lt; 1.4</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR08: CONT   sep to TC &lt; 1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR06: SG to L     &lt;  0.4</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR06: SG to L(RR) &lt;  1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR06: SG to CONT(MP) &lt; 1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR06: SG to CONT(MN) &lt; 1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR06: SG for ESD &lt; 2.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR06: SG to CONT(MPE-S) &lt;  3.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR06: SG to CONT(MPE-D) &lt;  7.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR06: SG to CONT(MNE-S) &lt;  3.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR06: SG to CONT(MNE-D) &lt;  7.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>WAR06: Floating SG Detected</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR06: SG(RR) not tied to HVNW(RR)</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR06: SG(RR) width &lt; 2.0 </name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR07: W(MP)  &lt;  3.4</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR07: W(MN)  &lt;  3.4</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR07: W(MPE) &lt; 11.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR07: W(MNE) &lt; 11.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR07: L(MP)  &lt; 1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR07: L(MN)  &lt; 1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR07: L(MPE) &lt; 2.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR07: L(MNE) &lt; 2.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR07: Endcap(MP)  &lt; 1.2</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR07: Endcap(MN)  &lt; 1.2</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR07: Endcap(MPE) &lt; 1.2</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR07: Endcap(MNE) &lt; 1.2</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR08: TC crossed SG</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR08: TC crossed CONT</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR08: TC crossed M1</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR08: TC crossed M2</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR08: TC outside of M1/M2</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR08: TC width != 1.4</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR08: TC(PAD) width &lt; ???</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR08: TC enclosed SG   &lt; 1.2</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR08: TC enclosed CONT &lt; 1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR08: TC enclosed M1   &lt; 1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR08: TC enclosed M2   &lt; 1.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR08: M1(Wide) space &lt; 2.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR08: M2(Wide) space &lt; 2.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR09: PRO crossed M1</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR09: PRO crossed M2</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR09: PRO outside of M1/M2</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR09: PRO enclosed M1 &lt; 5.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR09: PRO enclosed M2 &lt; 5.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR09: TC(PRO) enclosed M1 &lt; 15.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR09: TC(PRO) enclosed M2 &lt; 15.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR09: PRO width &lt; 70.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR09: PRO space &lt; 64.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR09: M1(PRO) separation M1 &lt; 14.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>ERR09: M2(PRO) separation M2 &lt; 14.0</name>
+   <description/>
+   <categories>
+   </categories>
+  </category>
+ </categories>
+ <cells>
+  <cell>
+   <name>tr_1um_mixed_counter</name>
+   <variant/>
+   <layout-name/>
+   <references>
+   </references>
+  </cell>
+ </cells>
+ <items>
+ </items>
+</report-database>

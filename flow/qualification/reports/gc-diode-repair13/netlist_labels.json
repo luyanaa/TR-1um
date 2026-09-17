@@ -1,0 +1,1274 @@
+{
+  "status": "PASS",
+  "layout": "/private/tmp/tr_1um_mixed_counter_gc_diode_repair13.gds",
+  "top_cell": "tr_1um_mixed_counter",
+  "netlist": "/private/tmp/gc-diode-repair13-strict-current.cir",
+  "netlist_subckt": "tr_1um_mixed_counter",
+  "netlist_ports": [
+    "VDD",
+    "VSS"
+  ],
+  "label_scope": "top",
+  "allow_extra_labels": false,
+  "erc_contract": "/Users/yanlu/Documents/TR-1um/flow/qualification/tr1um_mixed_counter_erc_contract.json",
+  "power_net_via_minimums": {
+    "VDD": 2
+  },
+  "power_via_checks": [
+    {
+      "net": "VDD",
+      "minimum_vias": 2,
+      "observed_vias": 1713,
+      "label_count": 44,
+      "labels": [
+        {
+          "layer": "M2",
+          "point_um": [
+            -25.0,
+            -1040.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_VSS/OSS_PCH_ESD",
+          "via_count": 107
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            -200.0,
+            -1140.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_VSS",
+          "via_count": 0
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            115.0,
+            1040.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_VDD/OSS_PCH_ESD",
+          "via_count": 107
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            200.0,
+            1140.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_VDD",
+          "via_count": 0
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            25.0,
+            -1040.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+          "via_count": 107
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            200.0,
+            -1140.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+          "via_count": 0
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            -775.0,
+            -1040.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+          "via_count": 107
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            -600.0,
+            -1140.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+          "via_count": 0
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            1040.0,
+            -775.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+          "via_count": 107
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            1140.0,
+            -600.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+          "via_count": 0
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            1040.0,
+            25.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+          "via_count": 107
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            1140.0,
+            200.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+          "via_count": 0
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            -25.0,
+            1040.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+          "via_count": 107
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            -200.0,
+            1140.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+          "via_count": 0
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            775.0,
+            1040.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+          "via_count": 107
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            600.0,
+            1140.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+          "via_count": 0
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            -1040.0,
+            775.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+          "via_count": 107
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            -1140.0,
+            600.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+          "via_count": 0
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            -1040.0,
+            -25.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+          "via_count": 107
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            -1140.0,
+            -199.99999999999997
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+          "via_count": 0
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            -775.0,
+            1040.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+          "via_count": 107
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            -600.0,
+            1140.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+          "via_count": 0
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            -1040.0,
+            -775.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+          "via_count": 107
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            -1140.0,
+            -600.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+          "via_count": 0
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            -1040.0,
+            25.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+          "via_count": 107
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            -1140.0,
+            200.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+          "via_count": 0
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            775.0,
+            -1040.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+          "via_count": 107
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            600.0,
+            -1140.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+          "via_count": 0
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            1040.0,
+            775.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+          "via_count": 107
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            1140.0,
+            600.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+          "via_count": 0
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            1040.0,
+            -25.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+          "via_count": 107
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            1140.0,
+            -200.00000000000003
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+          "via_count": 0
+        },
+        {
+          "layer": "M2",
+          "point_um": [
+            200.0,
+            1040.0
+          ],
+          "hierarchy": "tr_1um_mixed_counter/OSS_FRAME",
+          "via_count": 1
+        },
+        {
+          "layer": "M1",
+          "point_um": [
+            -743.7,
+            -468.1
+          ],
+          "hierarchy": "tr_1um_mixed_counter/tr1um_mixed_counter_core/NAND2",
+          "via_count": 0
+        },
+        {
+          "layer": "M1",
+          "point_um": [
+            -493.7,
+            -468.1
+          ],
+          "hierarchy": "tr_1um_mixed_counter/tr1um_mixed_counter_core/XOR2",
+          "via_count": 0
+        },
+        {
+          "layer": "M1",
+          "point_um": [
+            -443.7,
+            -316.90000000000003
+          ],
+          "hierarchy": "tr_1um_mixed_counter/tr1um_mixed_counter_core/XNOR2",
+          "via_count": 0
+        },
+        {
+          "layer": "M1",
+          "point_um": [
+            -743.7,
+            -316.90000000000003
+          ],
+          "hierarchy": "tr_1um_mixed_counter/tr1um_mixed_counter_core/XNOR2",
+          "via_count": 0
+        },
+        {
+          "layer": "M1",
+          "point_um": [
+            -243.70000000000002,
+            -392.5
+          ],
+          "hierarchy": "tr_1um_mixed_counter/tr1um_mixed_counter_core/XNOR2",
+          "via_count": 0
+        },
+        {
+          "layer": "M1",
+          "point_um": [
+            -743.7,
+            -392.5
+          ],
+          "hierarchy": "tr_1um_mixed_counter/tr1um_mixed_counter_core/XNOR2",
+          "via_count": 0
+        },
+        {
+          "layer": "M1",
+          "point_um": [
+            -493.7,
+            -392.5
+          ],
+          "hierarchy": "tr_1um_mixed_counter/tr1um_mixed_counter_core/AND4_X1",
+          "via_count": 0
+        },
+        {
+          "layer": "M1",
+          "point_um": [
+            -243.70000000000002,
+            -241.3
+          ],
+          "hierarchy": "tr_1um_mixed_counter/tr1um_mixed_counter_core/DFFR",
+          "via_count": 0
+        },
+        {
+          "layer": "M1",
+          "point_um": [
+            -443.7,
+            -241.3
+          ],
+          "hierarchy": "tr_1um_mixed_counter/tr1um_mixed_counter_core/DFFR",
+          "via_count": 0
+        },
+        {
+          "layer": "M1",
+          "point_um": [
+            -743.7,
+            -241.3
+          ],
+          "hierarchy": "tr_1um_mixed_counter/tr1um_mixed_counter_core/DFFR",
+          "via_count": 0
+        },
+        {
+          "layer": "M1",
+          "point_um": [
+            -243.70000000000002,
+            -316.90000000000003
+          ],
+          "hierarchy": "tr_1um_mixed_counter/tr1um_mixed_counter_core/DFFR",
+          "via_count": 0
+        }
+      ],
+      "status": "PASS"
+    }
+  ],
+  "labels": [
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        -25.0,
+        -1040.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_VSS/OSS_PCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        -284.0,
+        -1040.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_VSS/OSS_NCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        -200.0,
+        -940.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_VSS",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        -200.0,
+        -1140.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_VSS",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        115.0,
+        1040.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_VDD/OSS_PCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        376.0,
+        1040.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_VDD/OSS_NCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        200.0,
+        940.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_VDD",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        200.0,
+        1140.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_VDD",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        25.0,
+        -1040.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        376.0,
+        -1040.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_NCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        200.0,
+        -940.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        200.0,
+        -1140.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        -775.0,
+        -1040.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        -424.0,
+        -1040.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_NCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        -600.0,
+        -940.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        -600.0,
+        -1140.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        1040.0,
+        -775.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        1040.0,
+        -424.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_NCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        940.0,
+        -600.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        1140.0,
+        -600.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        1040.0,
+        25.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        1040.0,
+        376.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_NCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        940.0,
+        200.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        1140.0,
+        200.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        -25.0,
+        1040.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        -376.0,
+        1040.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_NCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        -200.0,
+        940.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        -200.0,
+        1140.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        775.0,
+        1040.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        424.0,
+        1040.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_NCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        600.0,
+        940.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        600.0,
+        1140.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        -1040.0,
+        775.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        -1040.0,
+        424.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_NCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        -940.0,
+        600.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        -1140.0,
+        600.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        -1040.0,
+        -25.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        -1040.0,
+        -376.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_NCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        -940.0,
+        -200.00000000000003
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        -1140.0,
+        -199.99999999999997
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        -775.0,
+        1040.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        -424.0,
+        1040.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_NCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        -600.0,
+        940.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        -600.0,
+        1140.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        -1040.0,
+        -775.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        -1040.0,
+        -424.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_NCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        -940.0,
+        -600.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        -1140.0,
+        -600.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        -1040.0,
+        25.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        -1040.0,
+        376.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_NCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        -940.0,
+        200.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        -1140.0,
+        200.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        775.0,
+        -1040.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        424.0,
+        -1040.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_NCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        600.0,
+        -940.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        600.0,
+        -1140.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        1040.0,
+        775.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        1040.0,
+        424.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_NCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        940.0,
+        600.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        1140.0,
+        600.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        1040.0,
+        -25.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_PCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        1040.0,
+        -376.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA/OSS_NCH_ESD",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        940.0,
+        -199.99999999999997
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        1140.0,
+        -200.00000000000003
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME/OSS_ESD_5V_ANA",
+      "on_metal": true
+    },
+    {
+      "text": "VSS",
+      "net": "VSS",
+      "layer": "M2",
+      "point_um": [
+        -200.0,
+        -1040.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME",
+      "on_metal": true
+    },
+    {
+      "text": "VDD",
+      "net": "VDD",
+      "layer": "M2",
+      "point_um": [
+        200.0,
+        1040.0
+      ],
+      "hierarchy": "tr_1um_mixed_counter/OSS_FRAME",
+      "on_metal": true
+    },
+    {
+      "text": "vdd",
+      "net": "VDD",
+      "layer": "M1",
+      "point_um": [
+        -743.7,
+        -468.1
+      ],
+      "hierarchy": "tr_1um_mixed_counter/tr1um_mixed_counter_core/NAND2",
+      "on_metal": true
+    },
+    {
+      "text": "vdd",
+      "net": "VDD",
+      "layer": "M1",
+      "point_um": [
+        -493.7,
+        -468.1
+      ],
+      "hierarchy": "tr_1um_mixed_counter/tr1um_mixed_counter_core/XOR2",
+      "on_metal": true
+    },
+    {
+      "text": "vdd",
+      "net": "VDD",
+      "layer": "M1",
+      "point_um": [
+        -443.7,
+        -316.90000000000003
+      ],
+      "hierarchy": "tr_1um_mixed_counter/tr1um_mixed_counter_core/XNOR2",
+      "on_metal": true
+    },
+    {
+      "text": "vdd",
+      "net": "VDD",
+      "layer": "M1",
+      "point_um": [
+        -743.7,
+        -316.90000000000003
+      ],
+      "hierarchy": "tr_1um_mixed_counter/tr1um_mixed_counter_core/XNOR2",
+      "on_metal": true
+    },
+    {
+      "text": "vdd",
+      "net": "VDD",
+      "layer": "M1",
+      "point_um": [
+        -243.70000000000002,
+        -392.5
+      ],
+      "hierarchy": "tr_1um_mixed_counter/tr1um_mixed_counter_core/XNOR2",
+      "on_metal": true
+    },
+    {
+      "text": "vdd",
+      "net": "VDD",
+      "layer": "M1",
+      "point_um": [
+        -743.7,
+        -392.5
+      ],
+      "hierarchy": "tr_1um_mixed_counter/tr1um_mixed_counter_core/XNOR2",
+      "on_metal": true
+    },
+    {
+      "text": "vdd",
+      "net": "VDD",
+      "layer": "M1",
+      "point_um": [
+        -493.7,
+        -392.5
+      ],
+      "hierarchy": "tr_1um_mixed_counter/tr1um_mixed_counter_core/AND4_X1",
+      "on_metal": true
+    },
+    {
+      "text": "vdd",
+      "net": "VDD",
+      "layer": "M1",
+      "point_um": [
+        -243.70000000000002,
+        -241.3
+      ],
+      "hierarchy": "tr_1um_mixed_counter/tr1um_mixed_counter_core/DFFR",
+      "on_metal": true
+    },
+    {
+      "text": "vdd",
+      "net": "VDD",
+      "layer": "M1",
+      "point_um": [
+        -443.7,
+        -241.3
+      ],
+      "hierarchy": "tr_1um_mixed_counter/tr1um_mixed_counter_core/DFFR",
+      "on_metal": true
+    },
+    {
+      "text": "vdd",
+      "net": "VDD",
+      "layer": "M1",
+      "point_um": [
+        -743.7,
+        -241.3
+      ],
+      "hierarchy": "tr_1um_mixed_counter/tr1um_mixed_counter_core/DFFR",
+      "on_metal": true
+    },
+    {
+      "text": "vdd",
+      "net": "VDD",
+      "layer": "M1",
+      "point_um": [
+        -243.70000000000002,
+        -316.90000000000003
+      ],
+      "hierarchy": "tr_1um_mixed_counter/tr1um_mixed_counter_core/DFFR",
+      "on_metal": true
+    }
+  ],
+  "errors": []
+}

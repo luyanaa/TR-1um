@@ -60,8 +60,9 @@ PL_ROUTABILITY_DRIVEN: false
 PL_OPTIMIZE_MIRRORING: false
 
 GRT_ALLOW_CONGESTION: true
+# The analog macro has no complete PG grid or VDD pin. Keep OpenROAD PDN off;
+# any future enablement must prove macro-level power integrity independently.
 RUN_PDN: false
-PDN_CONNECT_MACROS_TO_GRID: false
 ERROR_ON_DISCONNECTED_PINS: true
 RUN_CTS: false
 RUN_FILL_INSERTION: false
@@ -81,6 +82,7 @@ TIMING_VIOLATION_CORNERS: []
 HOLD_VIOLATION_CORNERS: []
 
 PDN_MULTILAYER: false
+# If PDN is enabled for an experiment, do not defer power-grid violations.
 PDN_CONNECT_MACROS_TO_GRID: false
-ERROR_ON_PDN_VIOLATIONS: false
+ERROR_ON_PDN_VIOLATIONS: true
 KLAYOUT_CONFLICT_RESOLUTION: AddToCell

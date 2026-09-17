@@ -1,9 +1,13 @@
-# TR-1um mixed-signal counter template.
-# Digital logic uses the native TR-1um standard-cell library. The analog leaf is
-# a fixed macro with independently qualified GDS/LVS collateral.
+# TR-1um mixed-signal counter diagnostic template.
+#
+# This legacy profile is intentionally not a signoff entry point. Use
+# config_access.yaml for the mixed-signal run that carries the active
+# electrical/PDN policy and the explicit signoff artifacts.
 meta:
   version: 3
   flow: Classic
+  signoff_profile: diagnostic_only
+  signoff_profile_source: config_access.yaml
   substituting_steps:
     Magic.StreamOut: null
     Magic.WriteLEF: null
@@ -52,6 +56,7 @@ GRT_ALLOW_CONGESTION: true
 
 RUN_CTS: false
 RUN_FILL_INSERTION: false
+# Diagnostic profile: these stages are not a release signoff.
 RUN_DRT: false
 RUN_SPEF_EXTRACTION: false
 RUN_POST_GPL_DESIGN_REPAIR: false
@@ -68,7 +73,10 @@ RUN_MCSTA: false
 TIMING_VIOLATION_CORNERS: []
 HOLD_VIOLATION_CORNERS: []
 
+RUN_PDN: false
 PDN_MULTILAYER: false
-PDN_CONNECT_MACROS_TO_GRID: true
-ERROR_ON_PDN_VIOLATIONS: false
+# Never allow this legacy profile to attach a macro to a guessed grid.
+PDN_CONNECT_MACROS_TO_GRID: false
+ERROR_ON_DISCONNECTED_PINS: true
+ERROR_ON_PDN_VIOLATIONS: true
 KLAYOUT_CONFLICT_RESOLUTION: AddToCell

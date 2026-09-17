@@ -6,11 +6,14 @@
 # an optional diagnostic only because the checked-in Magic technology is not a
 # qualified TR-1um signoff deck.
 #
-# Usage:
-#   run_align_macro_signoff.sh <macro.gds> <top_cell> <circuit.sp> <report_dir> [macro.lef]
+#   run_align_macro_signoff.sh <macro.gds> <top_cell> <circuit.sp> <report_dir> [macro.lef] [macro_manifest]
+#
+# The manifest is required for the authoritative gate. It is the electrical
+# contract for the macro and must not be replaced by inferred VDD/VSS pins.
 #
 # Environment:
 #   KLAYOUT_BIN, DRC_RUNSET, LVS_RUNSET, MDP_RUNSET, IP62_DRC_RUNSET
+#   ANALOG_MACRO_MANIFEST may provide the sixth argument.
 #   RUN_MAGIC_DRC=1 enables the optional Magic diagnostic.
 set -euo pipefail
 
@@ -19,21 +22,28 @@ TOP="${2:?top cell}"
 CIRCUIT="${3:?macro circuit netlist}"
 REPORT_DIR="${4:?report directory}"
 LEF="${5:-${GDS%.gds}.lef}"
+MACRO_MANIFEST="${6:-${ANALOG_MACRO_MANIFEST:-}}"
 
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
 KLAYOUT_BIN="${KLAYOUT_BIN:-$(command -v klayout || true)}"
 DRC_RUNSET="${DRC_RUNSET:-$ROOT/libs.tech/klayout/tech/drc/run.drc}"
 LVS_RUNSET="${LVS_RUNSET:-$ROOT/libs.tech/klayout/tech/lvs/run.lvs}"
 MDP_RUNSET="${MDP_RUNSET:-$ROOT/libs.tech/klayout/tech/drc/run_mdp.drc}"
+MACRO_VALIDATOR="$ROOT/flow/scripts/signoff/validate_analog_macro_contract.py"
 IP62_DRC_RUNSET="${IP62_DRC_RUNSET:-$ROOT/libs.tech/klayout/tech/drc/run_IP62.drc}"
 
 mkdir -p "$REPORT_DIR"
 abs_path() { (cd "$(dirname "$1")" && printf '%s/%s\n' "$PWD" "$(basename "$1")"); }
 GDS="$(abs_path "$GDS")"
 LEF="$(abs_path "$LEF")"
+if [[ -z "$MACRO_MANIFEST" ]]; then
+    echo "BLOCKED: macro manifest is required; pass argument 6 or ANALOG_MACRO_MANIFEST" >&2
+    exit 2
+fi
+MACRO_MANIFEST="$(abs_path "$MACRO_MANIFEST")"
 CIRCUIT="$(abs_path "$CIRCUIT")"
 
-for required in "$GDS" "$LEF" "$CIRCUIT" "$DRC_RUNSET" "$LVS_RUNSET" "$MDP_RUNSET" "$IP62_DRC_RUNSET"; do
+for required in "$GDS" "$LEF" "$CIRCUIT" "$MACRO_MANIFEST" "$MACRO_VALIDATOR" "$DRC_RUNSET" "$LVS_RUNSET" "$MDP_RUNSET" "$IP62_DRC_RUNSET"; do
     if [[ ! -f "$required" ]]; then
         echo "BLOCKED: missing required macro signoff input: $required" >&2
         exit 2
@@ -43,13 +53,20 @@ if [[ -z "$KLAYOUT_BIN" || ! -x "$KLAYOUT_BIN" ]]; then
     echo "ERROR: KLayout executable is unavailable" >&2
     exit 3
 fi
+echo "==> Analog macro contract"
+python3 "$MACRO_VALIDATOR" --manifest "$MACRO_MANIFEST" --output "$REPORT_DIR/macro_contract.json"
 
-python3 - "$GDS" "$TOP" "$LEF" <<'PY'
+python3 - "$GDS" "$TOP" "$LEF" "$MACRO_MANIFEST" <<'PY'
 from pathlib import Path
+import json
 import re
 import sys
 
-gds, top, lef = map(Path, sys.argv[1:])
+gds, top, lef, manifest_path = map(Path, sys.argv[1:])
+manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+manifest_lef = (manifest_path.parent / manifest["views"]["lef"]).resolve()
+if manifest_lef != lef.resolve():
+    raise SystemExit(f"ERROR: runner LEF {lef} differs from manifest LEF {manifest_lef}")
 top_name = str(top)
 text = lef.read_text(encoding="utf-8", errors="replace")
 if not re.search(rf"(?m)^\s*MACRO\s+{re.escape(top_name)}\s*$", text):
