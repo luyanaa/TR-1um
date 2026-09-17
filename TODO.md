@@ -30,6 +30,16 @@ Completed checklist entries are removed; only unresolved work remains here.
   checks with explicit pad, rail, port, frame-cell, and net-to-pin
   connectivity checks against the final GDS, DEF, and routed netlist.
 
+## IP62 errata carry-over
+
+- [ ] Resolve the `CSIO` PCell off-grid `CONT` erratum. Ensure generated
+  contacts stay on the 50 nm grid for every supported parameter set, and
+  demonstrate the result with a KLayout DRC check.
+- [ ] Correct the `F_RR` and `F_RS` compact-model left/right parenthesis-count
+  mismatch. Validate every supported resistor-width branch with an ngspice
+  parse and runtime smoke test before release.
+
+
 ## Electrical, timing, and corner analysis
 
 - [ ] Run OpenSTA using the matching RCX SPEF extraction and routed netlist.

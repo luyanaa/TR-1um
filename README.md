@@ -47,6 +47,16 @@ repository also contains the `spice` and `xschem` libraries.
 | `spice` | SPICE-related library collateral. |
 | `xschem` | Xschem symbol library under development. |
 
+## Acknowledgements
+
+This flow incorporates part of the optional auxiliary standard-cell collateral
+from [KoheiUchi/TR_1um_sc](https://github.com/KoheiUchi/TR_1um_sc), including
+`DFFQU1`, `FA1D1`, and `HA1S`, which are layout-compatible with the TR-1um
+standard-cell library. Source-derived views are staged under
+`flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell/aux`, with the opt-in LibreLane
+integration in `flow/pdk_root/TR-1um/libs.tech/librelane/aux_stdcell.tcl`.
+These cells remain outside the default cell contract pending timing
+characterization and independent qualification.
 
 ## Tools
 
