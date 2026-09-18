@@ -79,7 +79,7 @@
       "path": "reports/gc-diode-repair13/lvs_source_parity.json",
       "classification": "engineering_only",
       "source": "/tmp/tr1um-lvs-parity-signoff/lvs_source_parity.json",
-      "sha256": "040722f15fe1653f5a77932f1b29f0a59476e5d02ee0943c9fa25f1617097f6d"
+      "sha256": "67f48c56d4f60b00cde4697952f4e73a4ed331191309a8466d1cd56b58fcbe44"
     },
     "analog_erc_checker": {
       "path": "../scripts/signoff/check_analog_erc.py",

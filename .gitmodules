@@ -1,6 +1,6 @@
 [submodule "TR-1um_MPW_template"]
 	path = TR-1um_MPW_template
-	url = https://github.com/OpenSUSI/TR-1um_MPW_template
+	url = git@github.com:luyanaa/TR-1um_MPW_template.git
 [submodule "TR-1um_DRC_Regression_TEST"]
 	path = TR-1um_DRC_Regression_TEST
 	url = https://github.com/luyanaa/TR-1um_DRC_Regression_TEST.git

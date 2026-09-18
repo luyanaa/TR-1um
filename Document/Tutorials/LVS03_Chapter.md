@@ -1,173 +1,119 @@
-# Chapter 3 : passive-device extraction
+# Chapter 3: passive extraction and device combination
 
-## [02_Extract.lvs](../../libs.tech/klayout/tech/lvs/02_Extract.lvs)
+[`02_Extract.lvs`](../../libs.tech/klayout/tech/lvs/02_Extract.lvs) defines the
+active CSIO, RR, and RS extraction contracts. The model names below are the
+same names consumed by [`04_Custom.lvs`](../../libs.tech/klayout/tech/lvs/04_Custom.lvs).
 
-### Capacitor (CSIO)
+## CSIO capacitor
 
-The command [**"extract_devices(capacitor/capacitor_with_bulk)"**](https://www.klayout.de/doc-qt5/manual/lvs_device_extractors.html#h2-72) to extract both two or three terminal capacitor device, as follow.
+The active CSIO extractor uses `GC` as the top plate, `AC` as the bottom
+plate, `WC` as the well plate, and `BULK` as the bulk terminal:
 
-_**NOTE:** The root level model is m_CSIO in ngspice model file yet it is pure two terminal capacitor as C1, and there is two .subckt model which are  F_CSIO_mst and F_CSIO as three terminal model incuding C1 and botom capacitos bteween Nwell and CL diffusion as C2. There is no voltage dependency for C1 yet has prinominal equation for C2._
+```ruby
+class LWCapacitorWithBulk < RBA::DeviceClassCapacitorWithBulk
+  def initialize
+    super
+    enable_parameter("A", true)
+    enable_parameter("P", true)
+    add_parameter(RBA::DeviceParameterDefinition.new('W', 'Width', 0, false))
+    add_parameter(RBA::DeviceParameterDefinition.new('L', 'Length', 0, false))
+    add_parameter(RBA::DeviceParameterDefinition.new('m', 'multiplier', 1, true))
+    enable_parameter("m", true)
+    self.combiner = CAPDeviceCombiner.new
+    self.supports_serial_combination = false
+    self.supports_parallel_combination = true
+    clear_equivalent_terminal_ids
+  end
+end
 
-```
-* //macro F_CSIO/////////////////////////////////
-.model m_CSIO C tnom=27
+extract_devices(capacitor_with_bulk("F_CSIO", 0.6e-15, LWCapacitorWithBulk),
+  { "P1" => (GC),
+    "P2" => (AC),
+    "W"  => (WC),
+    "tA" => (GC),
+    "tB" => (WC),
+    "tW" => (BULK) })
 
-* ----- ----- ----- ----- ----- ----- ----- ----- ----- 
-.subckt F_CSIO_mst plus minus sub
-.param c=0 y=0 x=0 m=1 magCSIO=1
-
-C1 plus minus m_CSIO c=c*magCSIO  m=m
-C2 minus sub  							
-+ c = '0.56*(((x+18.8+((2.03e-8*(0.61+v(minus,sub)))**0.5)*1e+4)*			
-+     (y+18.8+((2.03e-8*(0.61+v(minus,sub)))**0.5)*1e+4))*(1.053e-20)/		
-+     (2.03e-8*(0.61+v(minus,sub)))**0.5+(2.0*(x+18.8+((1.03e-8*(0.71+		
-+     v(minus,sub)))**0.5)*1e+4)*(10+0.5*((1.03e-8*(0.71+v(minus,sub)))**0.5)*	
-+     1e+4)+2.0*(y+18.8+((1.03e-8*(0.71+v(minus,sub)))**0.5)*1e+4)*		
-+     (10+0.5*((1.03e-8*(0.71+v(minus,sub)))**0.5)*1e+4))*(1.053e-20)/		
-+     (1.03e-8*(0.71+v(minus,sub)))**0.5)'    m=m
-
-.ends F_CSIO_mst
-
-* ----- ----- ----- ----- ----- ----- ----- ----- ----- 
-.subckt F_CSIO plus minus sub
-.param c=0 y=0 x=0 m=1
-                           
-X1 plus minus sub F_CSIO_mst c=c m=m  x=x*1e+6  y=y*1e+6  
-.ends F_CSIO
-```
-
-**IMHO:** Given the influence of parasitic capacitance between the N-well and P-substrate junction, it is advisable to use the F_CSIO model for accurate circuit-level simulation. This model captures the junction capacitance effects more precisely, which is critical for analog or mixed-signal performance analysis. However, for LVS purposes, verifying the physical area of the gate capacitor as **C** and each terminal connections **A**,**B**, and **W** are fundamental, since LVS focuses on structural and topological consistency rather than analog behavior.
-
-```
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# Capacitance extraction ( F_CSIO: 3 terminal capacitor device is optional, either one to use )
-#
-#extract_devices(capacitor("m_CSIO", 0.6e-15 ), 
-#                    { "P1" => (SGG),            # Top plate
-#                      "P2" => (AACC),           # Bottom plate
-#                      "tA" => (SGG),            # Terminal: A
-#                      "tB" => (NWCS) })         # Terminal: B
-#
-extract_devices(capacitor_with_bulk("F_CSIO", 0.6e-15 ), 
-                    { "P1" => (SGG),            # Top plate
-                      "P2" => (AACC),           # Bottom plate
-                      "W"  => (NWCS),           # Bulk plate
-                      "tA" => (SGG),            # Terminal: A
-                      "tB" => (NWCS),           # Terminal: B
-                      "tW" => (BULK) })         # Terminal: BULK
-#
-tolerance("F_CSIO", "C", :relative => 0.01)     # 1% tolerance 
-#
-```
-Then following spice file was extracted which are also reflect C = Cs x Area information.
-
-```
-* device instance $8 r90 *1 -46,18 F_CSIO
-C$8 2 5 5 4.8735e-13 F_CSIO
+tolerance("F_CSIO", "A", :relative => 0.01)
+tolerance("F_CSIO", "P", :relative => 0.01)
+ignore_parameter("F_CSIO", "C")
+ignore_parameter("F_CSIO", "W")
+ignore_parameter("F_CSIO", "L")
 ```
 
-### Resistor (RR/RS)
+The `C` model parameter is intentionally ignored for LVS; area/perimeter are
+the active structural comparison parameters. The voltage-dependent compact
+model remains a circuit-simulation concern.
 
-**RR** spice model is quatitized by w and only 4.0/6.0/12.0/20.0/2.8um are supported, yet DRC does not check those.
+## RR and RS resistors
 
-```
-*//// RR  ////////////////////////////////////////////////////////////////////////
+`LWResistor` and `LWResistorWithBulk` enable `W`, `L`, and multiplier
+comparison. The active recognition mappings are:
 
-.subckt F_RR PLUS MINUS SUB
-.param w=1u r=1 l=1u tc1=0 tc2=0 tnom=27
-.if (w == 4u)
-
-r0 PLUS MINUS
-+ r = '(1+0.00105*(temper-tnom)+2.4*10**(-6)*(temper-tnom)**2)*v(PLUS,MINUS)/		
-+     (v(PLUS,MINUS)/((((834.54*magRR)*((l*10**6)-9.2)/(4-1.09)+(13.3*(9.2/	
-+       (4-1.09)+3.38/(4-1.8))+2.79))+(-21*3.95+615.2)))*				
-+     (1+(0.000949*log(4)-0.00559)*(v(SUB)-(v(MINUS)+v(PLUS))/2)+			
-+     (-3.2478*10**(-6)*log(4)+5.28*10**(-5))*((v(SUB)-(v(MINUS)+v(PLUS))/2)*(v(SUB)-(v(MINUS)+v(PLUS))/2))+	
-+     (-7.97*10**(-7)*log(4)+3.05*10**(-6))*((v(SUB)-(v(MINUS)+v(PLUS))/2)*(v(SUB)-(v(MINUS)+v(PLUS))/2)*(v(SUB)-(v(MINUS)+v(PLUS))/2))+	
-+     (-3*10**(-9)*log(4)+1.2394*10**(-8))*((v(SUB)-(v(MINUS)+v(PLUS))/2)*(v(SUB)-(v(MINUS)+v(PLUS))/2)*(v(SUB)-(v(MINUS)+v(PLUS))/2)*(v(SUB)-(v(MINUS)+v(PLUS))/2)))/	
-+     (1+(-0.09)*abs(v(PLUS,MINUS))/(l*10**6)+0.19*(abs(v(PLUS,MINUS))/		
-+     (l*10**6))**2+(-0.02)*(abs(v(PLUS,MINUS))/(l*10**6))**3)))'
-
-c_d0 PLUS SUB  c='(7.06*(10**-4)*l*(10**6)+6.89*(10**-3))*10**(-12)'
-c_d1 MINUS SUB c=0
-
-.elseif (w == 6u)
-....
-
-.ends F_RR
-```
-_**NOTE:** The root level model F_RR is tree terminal .subckt model and it include polynominal equation to precisely reflect voltage dependency and prasitic capacitance of PLUS/MINUS terminals. In case of LVS, L and W matching are needed._
-
-The [**"extract_devices(resistor/resistor_with_bulk)"**](https://www.klayout.de/doc-qt5/manual/lvs_device_extractors.html#h2-19) command in KLayout LVS allows extraction of both two-terminal and three-terminal resistor devices. However, this command does not support checking for L/W (length/width) matching in general, yet there is a way to compare L/W with new class definition.
-
-```
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# Resistor extraction
-#
-extract_devices(resistor("F_RS", 1, LWResistor),
-                    { "R"  => (SGB),             # Resistance Layer`
-                      "C"  => (SGC),             # Contact Layer
-                      "tA" => (SGC),             # Terminal: A
-                      "tB" => (SGC) })           # Terminal: B
-#
-extract_devices(resistor_with_bulk("F_RR", 1, LWResistorWithBulk),
-                    { "R"  => (AARB),            # Resistance Layer`
-                      "C"  => (AARC),            # Contact Layer
-                      "W"  => (NWRR),            # Bulk plate
-                      "tA" => (AARC),            # Terminal: A
-                      "tB" => (AARC),            # Terminal: B
-                      "tW" => (NWRR) })          # Terminal: BULK
-#
-```
-
-**LWResistor** and **LWResistorWithBulk** are new class definition to enable L/W comparison in LVS. See below.
-
-```
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# L/W extraction Class definition
-#
+```ruby
 class LWResistor < RBA::DeviceClassResistor
   def initialize
     super
     enable_parameter("W", true)
     enable_parameter("L", true)
+    add_parameter(RBA::DeviceParameterDefinition.new('m', 'multiplier', 1, true))
+    enable_parameter("m", true)
+    self.combiner = RESDeviceCombiner.new
+    self.supports_serial_combination = true
+    self.supports_parallel_combination = true
   end
 end
-#
+
 class LWResistorWithBulk < RBA::DeviceClassResistorWithBulk
   def initialize
     super
     enable_parameter("W", true)
     enable_parameter("L", true)
+    add_parameter(RBA::DeviceParameterDefinition.new('m', 'multiplier', 1, true))
+    enable_parameter("m", true)
+    self.combiner = RESDeviceCombiner.new
+    self.supports_serial_combination = true
+    self.supports_parallel_combination = true
   end
 end
-#
-```
 
-Also we have to specify **torerance** for L/W comparison and ignore **R** value. In addition, **A** and **B** terminals are switchable.
+extract_devices(resistor("F_RS", 1, LWResistor),
+  { "R" => (RS), "C" => (RSC), "tA" => (RSC), "tB" => (RSC) })
 
-```
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-tolerance("F_RS", "W", :relative => 0.01)        # 1% tolerance 
-tolerance("F_RS", "L", :relative => 0.01)        # 1% tolerance
-ignore_parameter("F_RS", "R")                    # ignore "R" for comparison
-#
-tolerance("F_RR", "W", :relative => 0.01)        # 1% tolerance 
-tolerance("F_RR", "L", :relative => 0.01)        # 1% tolerance
-ignore_parameter("F_RR", "R")                    # ignore "R" for comparison
-#
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
+extract_devices(resistor_with_bulk("F_RR", 1, LWResistorWithBulk),
+  { "R" => (RR), "C" => (ARC), "W" => (AR),
+    "tA" => (ARC), "tB" => (ARC), "tW" => (WR) })
+
+tolerance("F_RS", "W", :relative => 0.01)
+tolerance("F_RS", "L", :relative => 0.01)
+ignore_parameter("F_RS", "R")
+tolerance("F_RR", "W", :relative => 0.01)
+tolerance("F_RR", "L", :relative => 0.01)
+ignore_parameter("F_RR", "R")
 equivalent_pins("F_RS", "A", "B")
 equivalent_pins("F_RR", "A", "B")
 ```
 
-Then following spice file was extracted which are also reflect L and W information.
+The supported RR widths are classified in `02_Device.drc` as 2.8, 4, 6, 12,
+and 20 um. The model parser and runtime branches must agree with these
+values; LVS itself compares the extracted `W`/`L` contract rather than the
+compact-model resistance value.
 
-```
-* device instance $6 r0 *1 101.5,108.4 F_RS
-R$6 4 3 2.83333333333 F_RS L=17U W=6U
-* device instance $7 r0 *1 -7,100 F_RR
-R$7 2 4 3 1.1 F_RR L=6.6U W=6U
-```
+## Combiner contract (reference-only)
 
+[`03_Combiner.lvs`](../../libs.tech/klayout/tech/lvs/03_Combiner.lvs) is an
+active include but has no standalone tutorial fixture. Its behavior is:
 
+- `CAPDeviceCombiner` combines parallel `F_CSIO` devices only when A/P and
+  all A/B/W nets match; it sums `m` and disconnects the second device.
+- `RESDeviceCombiner` first requires matching substrate nets for three-terminal
+  devices. Parallel resistors require matching `W` and `L` and matching or
+  swapped A/B nets; it sums `m`. Series resistors require matching `W` and
+  `m`, exactly one shared node, and sum `L`.
+- A second device is never silently merged when the net topology is ambiguous;
+  the combiner returns false instead.
+
+This is a structural reference contract, not a qualified analog equivalence
+claim. A future regression fixture should exercise parallel/series cases
+through the active KLayout runset before this section is treated as a tested
+signoff guarantee.

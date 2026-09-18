@@ -1,109 +1,64 @@
-# Chapter 2 : 02_Extract.lvs
+# Chapter 2: active extraction-layer contract
 
-## [02_Extract.lvs](../../libs.tech/klayout/tech/lvs/02_Extract.lvs)
+The active runset separates device recognition from passive extraction:
 
-### MOS
+- [`01_Extract.lvs`](../../libs.tech/klayout/tech/lvs/01_Extract.lvs) handles
+  MOS, ESD-MOS, and diodes;
+- [`02_Extract.lvs`](../../libs.tech/klayout/tech/lvs/02_Extract.lvs) handles
+  CSIO, RR, and RS devices.
 
-KLayout has a command [**"extract_devices(mos4)"**](https://www.klayout.de/doc-qt5/manual/lvs_device_extractors.html#h2-146) to extract 4 terminal mos device.
+This chapter records the shared aliases used by both files. It intentionally
+does not reproduce the obsolete `AAMP`/`AAMN`/`SGG`/`NWMP` examples.
 
-```
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# MOS extraction 5V CMOS
-#
-extract_devices(mos4("PMOS_mst" ), 
-                            { "SD" => (AAMP - SGG),     # S/D region
-                              "G"  => (AAMP & SGG),     # Channel region
-                              "W"  => (NWMP),           # Backgate region
-                              "tS" => (SDMP),           # Terminal: Source
-                              "tD" => (SDMP),           # Terminal: Drain
-                              "tG" => (SGG),            # Terminal: Gate
-                              "tB" => (NWMP) })         # Terminal: Backgate
-#
-extract_devices(mos4("NMOS_mst" ), 
-                            { "SD" => (AAMN - SGG),     # S/D region
-                              "G"  => (AAMN & SGG),     # Channel region
-                              "W"  => (BULK),           # Backgate region
-                              "tS" => (SDMN),           # Terminal: Source
-                              "tD" => (SDMN),           # Terminal: Drain
-                              "tG" => (SGG),            # Terminal: Gate
-                              "tB" => (BULK) })         # Terminal: Backgate
-#
-```
+## Active recognition aliases
 
-Then following spice file was extracted which are also reflect AD/AS/PD/PS information.
+The aliases are defined by the active DRC includes:
 
-```
-* device instance $1 r0 *1 3.3,23.3 PMOS_mst
-M$1 1 2 3 3 PMOS_mst L=1U W=6.8U AS=14.62P AD=14.62P PS=18.8U PD=18.8U
-* device instance $3 r0 *1 3.3,2.8 NMOS_mst
-M$3 1 2 5 5 NMOS_mst L=1U W=3.4U AS=9.52P AD=9.52P PS=12.4U PD=12.4U
+```ruby
+# 02_Device.drc
+MP  = (AP.interacting(GC) & WN - ESD)
+MN  = (AN.interacting(GC) & WP - ESD)
+MPE = (AP.interacting(GC) & WN & ESD)
+MNE = (AN.interacting(GC) & WP & ESD)
+DP  = (AP.not_interacting(GC) & WN)
+DN  = (AN.not_interacting(GC) & WP)
+
+# 02_Device.drc
+SDP  = (MP  - GC)
+SDN  = (MN  - GC)
+SDPE = (MPE - GC)
+SDNE = (MNE - GC)
 ```
 
-**IMHO:** The ngspice model provides .subckt definitions for both PMOS and NMOS; however, there are no additional devices beyond the MOSFETs themselves. The root-level models are PMOS_mst and NMOS_mst, and the LVS runset extracts them as intrinsic MOS devices rather than .subckt instances. This approach simplifies device recognition in LVS.
+For passive devices, the active layers are `GC`/`AC`/`WC` for CSIO,
+`RS`/`RSC` for salicide-gate resistors, and `RR`/`ARC`/`AR`/`WR` for
+well resistors. These aliases are generated in `02_Device.drc`; they are not
+schematic net names.
 
-```
-* // model PMOS ////////////////////////////////////////
-.subckt PMOS d g s b
-.param w=0 l=0 as=0 ad=0 ps=0 pd=0 nrd=0 nrs=0 m=1
-M1 d g s b PMOS_mst w=w l=l as=as ad=ad ps=ps pd=pd nrd=nrd nrs=nrs m=m
-.ends PMOS
-```
+## Global and physical connections
 
-## MOS (ESD)
+The active extraction source makes the substrate contract explicit:
 
-ESD device are separetly extracted since those has differnt spice models, as follow.
+```ruby
+# 01_Extract.lvs
+connect_global(BULK, "VSS")
+connect_global(WN,   "VDD")
 
-```
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# MOS(ESD) extraction
-#
-extract_devices(mos4("MPE_mst"),
-                            { "SD" => (AAPE - SGG),     # S/D region
-                              "G"  => (AAPE & SGG),     # Channel region 
-                              "W"  => (NWMP),           # Backgate region
-                              "tS" => (SDPE),           # Terminal: Source
-                              "tD" => (SDPE),           # Terminal: Drain
-                              "tG" => (SGG),            # Terminal: Gate
-                              "tB" => (NWMP) })         # Terminal: Backgate
-#
-extract_devices(mos4("MNE_mst_mst"), 
-                            { "SD" => (AANE - SGG),     # S/D region
-                              "G"  => (AANE & SGG),     # Channel region
-                              "W"  => (BULK),           # Backgate region
-                              "tS" => (SDNE),           # Terminal: Source
-                              "tD" => (SDNE),           # Terminal: Drain
-                              "tG" => (SGG),            # Terminal: Gate
-                              "tB" => (BULK) })         # Terminal: Backgate
-#
+# 02_Extract.lvs
+connect_global(BULK, "VSS")
+connect_global(GN,   "VSS")
 ```
 
-### DIODE
+It also connects recognition layers to contact and routing layers before
+extraction. For example, the active device definitions connect `SDP`, `SDN`,
+`SDPE`, and `SDNE` to `CO`, then connect `CO` to `M1`, `M1` to `V1`, and `V1`
+to `M2`. Copying an old global-only example omits those physical
+connectivity rules and does not reproduce the active LVS netlist.
 
-The Diode model provides both DP and DN as root-level models, and the LVS runset extracts them as intrinsic devices. This approach simplifies device recognition in LVS.
+## Scope of this chapter
 
-```
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# DIODE extraction
-#
-extract_devices(diode("DP"), 
-                            { "P"  => (AADP),           # P region
-                              "N"  => (NWMP),           # N region
-                              "tA" => (AADP),           # Terminal: Anode
-                              "tC" => (NWMP) })         # Terminal: Cathode
-#                              
-extract_devices(diode("DN"),                            # Floating Protection
-                            { "P"  => (BULK),           # P region
-                              "N"  => (AADN),           # N region
-                              "tA" => (BULK),           # Terminal: Anode
-                              "tC" => (AADN) })         # Terminal: Cathode
-#
-```
-
-Then following spice file was extracted which are also reflect A and P information.
-
-```
-* device instance $4 r0 *1 16,23.4 DP
-D$4 4 3 DP A=14.4P P=15.2U
-* device instance $5 r0 *1 -5.8,2.7 DN
-D$5 5 2 DN A=12.96P P=14.4U
-```
+The examples here describe the active layer vocabulary and connectivity
+preconditions. Device parameters, tolerances, equivalent pins, and the
+reference-only combiner behavior are shown in
+[Chapter 3](./LVS03_Chapter.md), because those contracts are defined beside
+the active passive-device extraction source.

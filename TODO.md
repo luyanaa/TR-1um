@@ -15,28 +15,20 @@ Completed checklist entries are removed; only unresolved work remains here.
 
 ## DRC, LVS, and top-level coverage
 
-- [ ] Reconcile the current 399-case DRC regression baseline before claiming
-  complete DRC coverage. Deliberately track the 161 mismatches as unresolved
-  TODO rather than masking or waiving them: Cat-4 has 22, Cat-5 has 47,
-  Cat-6 has 23, Cat-7 has 39, and Cat-8 has 30. Do not describe the regression
-  as clean until these mismatches are resolved or separately justified.
-- [ ] Refresh the LVS tutorial examples before presenting the manual as
-  current. The links resolve, but the parity review still records four
-  semantic-drift warnings and one reference-only combiner contract.
-- [ ] Add a top-level connectivity check based on
-  `TR-1um_MPW_template/scripts/pre_check.py`. Extend the frame/name/dbu/bbox
-  checks with explicit pad, rail, port, frame-cell, and net-to-pin
-  connectivity checks against the final GDS, DEF, and routed netlist.
+- [ ] Reconcile the DRC regression baseline after syncing upstream PR #18 from
+  `OpenSUSI/TR-1um_DRC_Regression_TEST`. The inventory is now 432 cases. The
+  checked-in report set covers 393 cases: 149 remain mismatched (Cat-1: 4,
+  Cat-4: 6, Cat-5: 47, Cat-6: 23, Cat-7: 39, Cat-8: 30), and 39 newly added
+  Cat-4 cases still need a KLayout run. Do not mask or waive these results;
+  rerun the complete regression in a KLayout environment before changing the
+  baseline or claiming clean DRC coverage.
 
 ## IP62 errata carry-over
 
-- [ ] Resolve the `CSIO` PCell off-grid `CONT` erratum. Ensure generated
-  contacts stay on the 50 nm grid for every supported parameter set, and
-  demonstrate the result with a KLayout DRC check.
-- [ ] Correct the `F_RR` and `F_RS` compact-model left/right parenthesis-count
-  mismatch. Validate every supported resistor-width branch with an ngspice
-  parse and runtime smoke test before release.
-
+- [ ] Resolve the `CSIO` PCell off-grid `CONT` erratum. The generator now
+  clamps and snaps supported dimensions to the 50 nm grid, but the required
+  KLayout DRC demonstration is still blocked because the local KLayout/pya
+  runtime is unavailable.
 
 ## Electrical, timing, and corner analysis
 
@@ -47,14 +39,20 @@ Completed checklist entries are removed; only unresolved work remains here.
   `flow/qualification/reports/pdn-emir/pdn_emir.json`; it records the
   post-streamout bridge estimate and digital-design connectivity failures but
   does not close IR/EM or ground-bounce signoff.
-- [ ] Audit ESD integration at the hierarchy boundary. Resolve whether every
-  ESD element must be a hard macro with a matching LEF, GDS, CDL, and
-  black-box view, and verify placement in the pad ring or at the
-  digital/analog boundary with package-qualified discharge paths.
+- [ ] Audit ESD integration at the hierarchy boundary. The structural gates
+  pass for the analog macro's GDS/LEF/CDL/black-box view contract, framed
+  ERC/body-tie evidence, and strict LVS/netlist-label reports. The pad-level
+  ESD checker remains `BLOCKED` because no per-pad positive/negative discharge
+  map, package assumptions, or qualified limits are bundled.
 - [ ] Audit `GND_BRIDGE` integration in the final GDS, DEF, LEF/CDL, and LVS
-  views. Verify its pad-ring or digital/analog-boundary placement, VSS-only
-  intent, substrate/tap continuity, return-current path, spacing to analog
-  nets, and absence of an unintended short to `ANA_DB` or other signals.
+  views. The canonical post-streamout GDS contains exactly one 3.0 um M2
+  bridge from the top-level GND label to the macro GND landing and a separate
+  `ANA_DB` detour; measured minimum bridge-to-analog clearance is 2.4 um,
+  above the 2.0 um M2 spacing rule, and the strict LVS/ERC evidence passes.
+  The bridge is GDS-only while the canonical DEF has logical GND connectivity
+  but no GND route, and LVS normalizes GND to VSS. Keep the VSS-only return,
+  substrate continuity, and IR/EM claims blocked until that alias and
+  package/pad-ring contract is independently qualified.
 - [ ] Add RF validation for any RF-relevant path: define S-parameter, gain,
   noise, linearity, stability, loading, and matching measurements with
   extracted parasitics across the declared voltage, temperature, and process
@@ -88,3 +86,81 @@ Completed checklist entries are removed; only unresolved work remains here.
 - [ ] Keep `release_status: blocked` until all required stages close, all
   unresolved TODOs above are addressed, and every release artifact is
   independently traceable to the final framed revision.
+
+## Analog primitive and extraction roadmap
+
+This is planned analog-library work. It does not imply process-qualified
+models, silicon correlation, or tapeout readiness.
+
+### A. Analog primitive library
+
+- [ ] Define the analog primitive library contract.
+- [ ] Implement an NMOS primitive.
+- [ ] Implement a PMOS primitive.
+- [ ] Implement an NMOS pair.
+- [ ] Implement a PMOS pair.
+- [ ] Implement a common-centroid NMOS pair.
+- [ ] Implement a common-centroid PMOS pair.
+- [ ] Implement a current-mirror primitive.
+- [ ] Implement a cascode-pair primitive.
+- [ ] Implement a resistor primitive.
+- [ ] Implement a capacitor primitive.
+- [ ] Implement a diode primitive.
+- [ ] Implement a guard-ring primitive.
+- [ ] Implement substrate and well taps.
+
+### B. Analog PEX
+
+- [ ] Build a DEF-to-layout-driven PEX engine.
+- [ ] Build the GDS conductor-connectivity graph.
+- [ ] Map device terminals to conductor polygons.
+- [ ] Extract terminal mapping from KLayout LVS.
+- [ ] Merge the PEX deck with SPICE output.
+- [ ] Couple devices with extracted interconnect.
+- [ ] Build a shape-aware resistor mesh/field/current solver.
+- [ ] Retain the compact resistor model for digital and fast emulation.
+- [ ] Make CO cut arrays explicit.
+- [ ] Make V1 cut arrays explicit.
+- [ ] Extract a capacitance-matrix model.
+- [ ] Build the substrate and well network.
+- [ ] Solve RF inductance and frequency dependence.
+
+### C. Local mismatch simulation
+
+- [ ] Add paper-based local mismatch simulation.
+- [ ] Model sigma(VTH) variation.
+- [ ] Model sigma(beta)/beta variation.
+- [ ] Add spatial correlation modeling.
+- [ ] Plan future mismatch calibration.
+
+### D. Layout-aware matching generator
+
+- [ ] Build a layout-aware matching generator.
+
+### E. Guard ring, substrate, and latch-up
+
+- [ ] Generate guard rings from analog macros.
+- [ ] Generate substrate networks from analog macros.
+- [ ] Generate latch-up structures from analog macros.
+
+### F. RC calibration
+
+- [ ] Calibrate resistor extraction models.
+- [ ] Calibrate capacitor extraction models.
+
+### G. RF passives
+
+- [ ] Build an inductor primitive.
+- [ ] Build a spiral-inductor model.
+- [ ] Build a transmission-line primitive.
+- [ ] Build a transmission-line S-parameter model.
+
+### H. RF transistor validation
+
+- [ ] Validate RF transistor Y/S parameters.
+- [ ] Add RF S-parameter simulation.
+- [ ] Add S-parameter de-embedding.
+
+### I. EM and distributed interconnect
+
+- [ ] Build an EM/distributed-interconnect solver.

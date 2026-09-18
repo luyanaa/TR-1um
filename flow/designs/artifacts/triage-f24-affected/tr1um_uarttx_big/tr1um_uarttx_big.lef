@@ -1,0 +1,98 @@
+VERSION 5.8 ;
+BUSBITCHARS "[]" ;
+DIVIDERCHAR "/" ;
+UNITS
+    DATABASE MICRONS 1000 ;
+END UNITS
+
+MACRO tr1um_uarttx_big
+  FOREIGN tr1um_uarttx_big 0 0 ;
+  CLASS BLOCK ;
+  SIZE 1000 BY 1000 ;
+  PIN GND
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M2 ;
+        RECT  248.1 0 254.1 6 ;
+    END
+  END GND
+  PIN VDD
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M2 ;
+        RECT  744.9 0 750.9 6 ;
+    END
+  END VDD
+  PIN clk
+    DIRECTION INPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT  0 497.7 3.6 501.3 ;
+    END
+  END clk
+  PIN tx
+    DIRECTION OUTPUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER M1 ;
+        RECT  996.4 497.7 1000 501.3 ;
+    END
+  END tx
+  OBS
+    LAYER M1 ;
+     RECT  2.7 498.6 53.1 500.4 ;
+     RECT  53.1 29.1 88.2 905.4 ;
+     RECT  88.2 29.1 113 921.6 ;
+     RECT  113 29.1 123.9 968.4 ;
+     RECT  123.9 29.1 249.4 978 ;
+     RECT  249.4 28.3 252.8 978 ;
+     RECT  252.8 28.8 460.8 978 ;
+     RECT  460.8 28.8 684 986.4 ;
+     RECT  684 28.8 878.1 978 ;
+     RECT  878.1 28.8 902.4 969.8 ;
+     RECT  902.4 28.8 932.4 968.4 ;
+     RECT  932.4 44.1 960.9 968.4 ;
+     RECT  960.9 498.6 998.2 500.4 ;
+    LAYER M2 ;
+     RECT  249.6 3 252.6 28.2 ;
+     RECT  249.6 28.2 333.6 28.3 ;
+     RECT  746.4 3 749.4 39 ;
+     RECT  746.4 39 808.8 43.3 ;
+     RECT  249.4 28.3 333.6 49.8 ;
+     RECT  746.2 43.3 808.8 49.8 ;
+     RECT  930 28.2 933 49.8 ;
+     RECT  120 39 123 60.6 ;
+     RECT  249.4 49.8 339 60.6 ;
+     RECT  503.4 44.4 565.8 60.6 ;
+     RECT  746.2 49.8 933 60.6 ;
+     RECT  120 60.6 339 66 ;
+     RECT  120 66 355.2 77.2 ;
+     RECT  503.4 60.6 933 77.2 ;
+     RECT  120 77.2 933 90.7 ;
+     RECT  120 90.7 941.9 90.9 ;
+     RECT  120 90.9 943.8 102.7 ;
+     RECT  87.6 102.7 943.8 184.8 ;
+     RECT  87.6 184.8 949.2 306.6 ;
+     RECT  98.4 306.6 949.2 471 ;
+     RECT  93 471 949.2 498 ;
+     RECT  44.4 498 970.8 501 ;
+     RECT  44.4 501 954.6 568.5 ;
+     RECT  60.6 568.5 954.6 609 ;
+     RECT  60.6 609 943.8 814.2 ;
+     RECT  60.6 814.2 934.6 825 ;
+     RECT  85.5 825 934.6 862.05 ;
+     RECT  87.6 862.05 934.6 862.1 ;
+     RECT  87.6 862.1 916.8 922.2 ;
+     RECT  125.4 922.2 916.8 924.9 ;
+     RECT  125.4 924.9 897.9 932 ;
+     RECT  134.5 932 897.9 937.65 ;
+     RECT  167.5 937.65 897.9 943.8 ;
+     RECT  167.5 943.8 834.5 978 ;
+     RECT  460.2 978 463.2 987 ;
+     RECT  579 978 684.6 987 ;
+  END
+END tr1um_uarttx_big
+END LIBRARY

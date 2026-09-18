@@ -27,11 +27,18 @@ flow/derived_native/
 # template and the exact final signoff bundle.
 flow/qualification/*
 !flow/qualification/ip62_beol_patch_manifest.template.json
+!flow/qualification/post_layout_digital_manifest.json
 !flow/qualification/analog_signoff_manifest.json
 !flow/qualification/reports/
 flow/qualification/reports/*
 !flow/qualification/reports/gc-diode-repair13/
 !flow/qualification/reports/gc-diode-repair13/**
+!flow/qualification/reports/temperature-validation/
+!flow/qualification/reports/temperature-validation/**
+!flow/qualification/reports/pdn-emir/
+!flow/qualification/reports/pdn-emir/**
+!flow/qualification/reports/variation-analysis/
+!flow/qualification/reports/variation-analysis/**
 
 # Signoff reports and generated/intermediate artifacts.
 flow/signoff/*/

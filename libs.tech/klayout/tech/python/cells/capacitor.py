@@ -5,10 +5,20 @@
 #          http://www.apache.org/licenses/
 # ----- ------ ----- ----- ------ ----- ----- ------ ----- 
 #
+import math
 import pya
 from .layers_def import *
 from .rules_def  import *
 from .util       import *
+
+CSIO_GRID_UM = 0.05
+
+
+def _snap_dimension_to_grid(value: float, minimum: float, maximum: float) -> float:
+    """Clamp a CSIO dimension and snap all derived geometry to 50 nm."""
+    value = min(max(value, minimum), maximum)
+    snapped = math.floor(value / CSIO_GRID_UM + 0.5) * CSIO_GRID_UM
+    return round(snapped, 9)
 
 class cap(pya.PCellDeclarationHelper):
 
@@ -24,15 +34,10 @@ class cap(pya.PCellDeclarationHelper):
         return "moscap(X=" + ('%3f' % self.x) + ",Y=" + ('%3f' % self.y) + ")"
     
     def coerce_parameters_impl(self):
-        # Check parameters
-        if self.x < DR['AC.W1'].min :
-            self.x = DR['AC.W1'].min
-        elif self.x > DR['AC.W1'].max :
-            self.x = DR['AC.W1'].max
-        if self.y < DR['AC.W1'].min :
-            self.y = DR['AC.W1'].min
-        elif self.y > DR['AC.W1'].max :
-            self.y = DR['AC.W1'].max
+        # Clamp and snap dimensions before constructing any CSIO geometry.
+        rule = DR['AC.W1']
+        self.x = _snap_dimension_to_grid(self.x, rule.min, rule.max)
+        self.y = _snap_dimension_to_grid(self.y, rule.min, rule.max)
 
     def produce_impl(self):
         #

@@ -137,152 +137,193 @@
   "manual_files": [
     {
       "path": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/Tutorial_LVS.md",
-      "sha256": "81755a07f24fc33f1b2a5109e0a47bce7ea11b1f0efa5e593123f29a4a3c4b18"
+      "sha256": "c02894eff307eb734c5c28a201aa92a95f148245eea93ac575535b1f314455f0"
     },
     {
       "path": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS00_Prefece.md",
-      "sha256": "2911307d10dfee9159a813445c3b917a0214341cef9ec66d92f3be15ca69d10f"
+      "sha256": "17d2a19874dec5cf1d4544aaa97e6780b3e9299d2781f0e89184d2523e7ba2a7"
     },
     {
       "path": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS01_Chapter.md",
-      "sha256": "cfec2cd8526b5b9b1c747bc7c99ed5a940b3a6555eec7b8f56e22af366ec5e9a"
+      "sha256": "672880c9a4fb556c37b8a1bac54f7562da25bb4364b332455ead0136cbd019f7"
     },
     {
       "path": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS02_Chapter.md",
-      "sha256": "4c6fca01a37de4d6ec78b0511e993b2e83ae925bb3eca5b75a74bd385b71aa2d"
+      "sha256": "7238adfb052c0559cfc53647607d18c1091c2b75234cc205d15f7c925126b157"
     },
     {
       "path": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS03_Chapter.md",
-      "sha256": "7b5305ae0541e1188234975f92f723319de85264845e8364814fe071f866d913"
+      "sha256": "d16e7c9256d012428c5e5056907df3440f97ef76affd7b5e1defb344925ac309"
     },
     {
       "path": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS04_Compare.md",
-      "sha256": "8fafa4a6ecccb01a7fd85aec5288bf9e13ff1e5ea427e2120a5293e22a2dd03b"
+      "sha256": "36070fcf6767178aa3ec92ef62e6bc30c4e2c1c5906d383060a0e835099100af"
     }
   ],
   "manual_links": [
     {
       "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/Tutorial_LVS.md",
-      "line": 13,
+      "line": 10,
       "target": "./LVS00_Prefece.md",
       "resolved": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS00_Prefece.md",
       "exists": true
     },
     {
       "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/Tutorial_LVS.md",
-      "line": 15,
+      "line": 11,
       "target": "./LVS01_Chapter.md",
       "resolved": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS01_Chapter.md",
       "exists": true
     },
     {
       "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/Tutorial_LVS.md",
-      "line": 17,
+      "line": 12,
       "target": "./LVS02_Chapter.md",
       "resolved": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS02_Chapter.md",
       "exists": true
     },
     {
       "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/Tutorial_LVS.md",
-      "line": 19,
+      "line": 13,
       "target": "./LVS03_Chapter.md",
       "resolved": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS03_Chapter.md",
       "exists": true
     },
     {
       "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/Tutorial_LVS.md",
-      "line": 21,
+      "line": 14,
       "target": "./LVS04_Compare.md",
       "resolved": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS04_Compare.md",
       "exists": true
     },
     {
       "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS00_Prefece.md",
-      "line": 3,
-      "target": "../../libs.tech/klayout/lvs/IP62/lvs.lylvs",
-      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/lvs/IP62/lvs.lylvs",
-      "exists": false
+      "line": 4,
+      "target": "../../libs.tech/klayout/tech/lvs/lvs.lylvs",
+      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/tech/lvs/lvs.lylvs",
+      "exists": true
     },
     {
       "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS00_Prefece.md",
-      "line": 17,
-      "target": "../../libs.tech/klayout/lvs/IP62/run.lvs",
-      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/lvs/IP62/run.lvs",
-      "exists": false
+      "line": 5,
+      "target": "../../libs.tech/klayout/tech/lvs/run.lvs",
+      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/tech/lvs/run.lvs",
+      "exists": true
+    },
+    {
+      "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS00_Prefece.md",
+      "line": 46,
+      "target": "../../libs.tech/klayout/tech/lvs/01_Extract.lvs",
+      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/tech/lvs/01_Extract.lvs",
+      "exists": true
+    },
+    {
+      "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS00_Prefece.md",
+      "line": 48,
+      "target": "../../libs.tech/klayout/tech/lvs/02_Extract.lvs",
+      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/tech/lvs/02_Extract.lvs",
+      "exists": true
+    },
+    {
+      "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS00_Prefece.md",
+      "line": 50,
+      "target": "../../libs.tech/klayout/tech/lvs/03_Combiner.lvs",
+      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/tech/lvs/03_Combiner.lvs",
+      "exists": true
+    },
+    {
+      "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS00_Prefece.md",
+      "line": 52,
+      "target": "../../libs.tech/klayout/tech/lvs/04_Custom.lvs",
+      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/tech/lvs/04_Custom.lvs",
+      "exists": true
+    },
+    {
+      "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS00_Prefece.md",
+      "line": 54,
+      "target": "../../libs.tech/klayout/tech/lvs/05_Compare.lvs",
+      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/tech/lvs/05_Compare.lvs",
+      "exists": true
     },
     {
       "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS01_Chapter.md",
       "line": 3,
-      "target": "../../libs.tech/klayout/lvs/IP62/01_Extract.lvs",
-      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/lvs/IP62/01_Extract.lvs",
-      "exists": false
-    },
-    {
-      "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS02_Chapter.md",
-      "line": 3,
-      "target": "../../libs.tech/klayout/lvs/IP62/02_Extract.lvs",
-      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/lvs/IP62/02_Extract.lvs",
-      "exists": false
-    },
-    {
-      "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS03_Chapter.md",
-      "line": 3,
-      "target": "../../libs.tech/klayout/lvs/IP62/03_Extract.lvs",
-      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/lvs/IP62/03_Extract.lvs",
-      "exists": false
-    },
-    {
-      "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS04_Compare.md",
-      "line": 3,
-      "target": "../../libs.tech/klayout/lvs/IP62/04_Compare.lvs",
-      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/lvs/IP62/04_Compare.lvs",
-      "exists": false
-    }
-  ],
-  "broken_manual_links": [
-    {
-      "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS00_Prefece.md",
-      "line": 3,
-      "target": "../../libs.tech/klayout/lvs/IP62/lvs.lylvs",
-      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/lvs/IP62/lvs.lylvs",
-      "exists": false
-    },
-    {
-      "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS00_Prefece.md",
-      "line": 17,
-      "target": "../../libs.tech/klayout/lvs/IP62/run.lvs",
-      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/lvs/IP62/run.lvs",
-      "exists": false
+      "target": "../../libs.tech/klayout/tech/lvs/01_Extract.lvs",
+      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/tech/lvs/01_Extract.lvs",
+      "exists": true
     },
     {
       "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS01_Chapter.md",
-      "line": 3,
-      "target": "../../libs.tech/klayout/lvs/IP62/01_Extract.lvs",
-      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/lvs/IP62/01_Extract.lvs",
-      "exists": false
+      "line": 5,
+      "target": "../../libs.tech/klayout/tech/drc/00_Layers.drc",
+      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/tech/drc/00_Layers.drc",
+      "exists": true
+    },
+    {
+      "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS01_Chapter.md",
+      "line": 6,
+      "target": "../../libs.tech/klayout/tech/drc/02_Device.drc",
+      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/tech/drc/02_Device.drc",
+      "exists": true
     },
     {
       "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS02_Chapter.md",
-      "line": 3,
-      "target": "../../libs.tech/klayout/lvs/IP62/02_Extract.lvs",
-      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/lvs/IP62/02_Extract.lvs",
-      "exists": false
+      "line": 5,
+      "target": "../../libs.tech/klayout/tech/lvs/01_Extract.lvs",
+      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/tech/lvs/01_Extract.lvs",
+      "exists": true
+    },
+    {
+      "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS02_Chapter.md",
+      "line": 7,
+      "target": "../../libs.tech/klayout/tech/lvs/02_Extract.lvs",
+      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/tech/lvs/02_Extract.lvs",
+      "exists": true
+    },
+    {
+      "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS02_Chapter.md",
+      "line": 63,
+      "target": "./LVS03_Chapter.md",
+      "resolved": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS03_Chapter.md",
+      "exists": true
     },
     {
       "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS03_Chapter.md",
       "line": 3,
-      "target": "../../libs.tech/klayout/lvs/IP62/03_Extract.lvs",
-      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/lvs/IP62/03_Extract.lvs",
-      "exists": false
+      "target": "../../libs.tech/klayout/tech/lvs/02_Extract.lvs",
+      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/tech/lvs/02_Extract.lvs",
+      "exists": true
+    },
+    {
+      "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS03_Chapter.md",
+      "line": 5,
+      "target": "../../libs.tech/klayout/tech/lvs/04_Custom.lvs",
+      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/tech/lvs/04_Custom.lvs",
+      "exists": true
+    },
+    {
+      "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS03_Chapter.md",
+      "line": 104,
+      "target": "../../libs.tech/klayout/tech/lvs/03_Combiner.lvs",
+      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/tech/lvs/03_Combiner.lvs",
+      "exists": true
     },
     {
       "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS04_Compare.md",
-      "line": 3,
-      "target": "../../libs.tech/klayout/lvs/IP62/04_Compare.lvs",
-      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/lvs/IP62/04_Compare.lvs",
-      "exists": false
+      "line": 4,
+      "target": "../../libs.tech/klayout/tech/lvs/04_Custom.lvs",
+      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/tech/lvs/04_Custom.lvs",
+      "exists": true
+    },
+    {
+      "manual": "/Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS04_Compare.md",
+      "line": 5,
+      "target": "../../libs.tech/klayout/tech/lvs/05_Compare.lvs",
+      "resolved": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/tech/lvs/05_Compare.lvs",
+      "exists": true
     }
   ],
+  "broken_manual_links": [],
   "excluded_files": [
     {
       "path": "/Users/yanlu/Documents/TR-1um/libs.tech/klayout/tech/lvs/IP62/run.lvs",
@@ -345,9 +386,9 @@
     },
     {
       "id": "device_extraction_manual_drift",
-      "status": "drift",
-      "summary": "The tutorial device-extraction examples do not describe the active layer/model contract.",
-      "rationale": "The active source uses MP/MN/MPE/MNE, GC, WN/BULK, DP/DN, and explicit VSS/VDD globals; the tutorial still shows the older AAMP/AAMN/SGG/NWMP/SDMP vocabulary and one global connection.",
+      "status": "covered",
+      "summary": "The tutorial device-extraction examples match the active layer/model contract.",
+      "rationale": "The tutorial now documents MP/MN/MPE/MNE, GC, WN/BULK, DP/DN, explicit VSS/VDD globals, and the active 01_Extract.lvs mappings.",
       "references": [
         {
           "path": "../../libs.tech/klayout/tech/lvs/01_Extract.lvs",
@@ -355,19 +396,19 @@
         },
         {
           "path": "../../Document/Tutorials/LVS01_Chapter.md",
-          "line": 44
+          "line": 11
         },
         {
           "path": "../../Document/Tutorials/LVS02_Chapter.md",
-          "line": 13
+          "line": 17
         }
       ]
     },
     {
       "id": "passive_extraction_manual_drift",
-      "status": "drift",
-      "summary": "The tutorial passive-device examples do not describe the active capacitor/resistor extraction.",
-      "rationale": "The active source uses GC/AC/WC and RS/RSC or RR/ARC/AR/WR with A/P or L/W comparison; the tutorial still shows SGG/AACC/NWCS and SGB/SGC/AARB/AARC/NWRR.",
+      "status": "covered",
+      "summary": "The tutorial passive-device examples match the active extraction contract.",
+      "rationale": "The tutorial now documents GC/AC/WC and RS/RSC or RR/ARC/AR/WR with the active A/P and L/W comparison policies.",
       "references": [
         {
           "path": "../../libs.tech/klayout/tech/lvs/02_Extract.lvs",
@@ -375,35 +416,39 @@
         },
         {
           "path": "../../Document/Tutorials/LVS03_Chapter.md",
-          "line": 51
+          "line": 9
         },
         {
           "path": "../../Document/Tutorials/LVS03_Chapter.md",
-          "line": 107
+          "line": 80
         }
       ]
     },
     {
       "id": "combiner_contract_reference_only",
       "status": "reference_only",
-      "summary": "The active custom combiner has no matching tutorial chapter.",
-      "rationale": "03_Combiner.lvs implements parallel/series resistor and parallel capacitor combination, while the tutorial index jumps from extraction examples to comparison.",
+      "summary": "The active combiner contract is documented but has no qualified standalone fixture.",
+      "rationale": "03_Combiner.lvs implements parallel/series resistor and parallel capacitor combination, and the tutorial records that structural contract while explicitly withholding a signoff claim until a regression fixture runs it.",
       "references": [
         {
           "path": "../../libs.tech/klayout/tech/lvs/03_Combiner.lvs",
           "line": 73
         },
         {
+          "path": "../../Document/Tutorials/LVS03_Chapter.md",
+          "line": 102
+        },
+        {
           "path": "../../Document/Tutorials/Tutorial_LVS.md",
-          "line": 19
+          "line": 16
         }
       ]
     },
     {
       "id": "custom_device_translation_manual_drift",
-      "status": "drift",
-      "summary": "The active custom reader/writer is richer than the tutorial delegate example.",
-      "rationale": "The active source maps F_RR/F_RS/F_CSIO to custom device classes, preserves A/P/M, and emits mapped prefixes; the tutorial shows an older delegate with fewer parameter conversions and no writer contract.",
+      "status": "covered",
+      "summary": "The tutorial reader/writer examples match the active custom translation contract.",
+      "rationale": "The tutorial now documents F_RR/F_RS/F_CSIO class translation, A/P/M parameter conversions, mapped writer prefixes, and parseable extracted output.",
       "references": [
         {
           "path": "../../libs.tech/klayout/tech/lvs/04_Custom.lvs",
@@ -415,15 +460,15 @@
         },
         {
           "path": "../../Document/Tutorials/LVS04_Compare.md",
-          "line": 58
+          "line": 34
         }
       ]
     },
     {
       "id": "comparison_contract_manual_drift",
-      "status": "drift",
-      "summary": "The tutorial comparison example is not the active strict comparison runset.",
-      "rationale": "The active source accepts explicit circuit/extracted overrides, uses MyWriter, flattens finite standard cells, and checks top-level ports; the tutorial uses older default filenames, write_spice, simplify, and an earlier delegate.",
+      "status": "covered",
+      "summary": "The tutorial comparison example matches the active strict comparison runset.",
+      "rationale": "The tutorial now documents explicit circuit/extracted overrides, MyWriter, finite standard-cell flattening, and strict top-level port checking.",
       "references": [
         {
           "path": "../../libs.tech/klayout/tech/lvs/05_Compare.lvs",
@@ -435,7 +480,7 @@
         },
         {
           "path": "../../Document/Tutorials/LVS04_Compare.md",
-          "line": 19
+          "line": 12
         },
         {
           "path": "../../Document/Tutorials/LVS04_Compare.md",
@@ -477,17 +522,7 @@
     }
   ],
   "warnings": [
-    "manual link /Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS00_Prefece.md:3 -> ../../libs.tech/klayout/lvs/IP62/lvs.lylvs is missing (/Users/yanlu/Documents/TR-1um/libs.tech/klayout/lvs/IP62/lvs.lylvs)",
-    "manual link /Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS00_Prefece.md:17 -> ../../libs.tech/klayout/lvs/IP62/run.lvs is missing (/Users/yanlu/Documents/TR-1um/libs.tech/klayout/lvs/IP62/run.lvs)",
-    "manual link /Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS01_Chapter.md:3 -> ../../libs.tech/klayout/lvs/IP62/01_Extract.lvs is missing (/Users/yanlu/Documents/TR-1um/libs.tech/klayout/lvs/IP62/01_Extract.lvs)",
-    "manual link /Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS02_Chapter.md:3 -> ../../libs.tech/klayout/lvs/IP62/02_Extract.lvs is missing (/Users/yanlu/Documents/TR-1um/libs.tech/klayout/lvs/IP62/02_Extract.lvs)",
-    "manual link /Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS03_Chapter.md:3 -> ../../libs.tech/klayout/lvs/IP62/03_Extract.lvs is missing (/Users/yanlu/Documents/TR-1um/libs.tech/klayout/lvs/IP62/03_Extract.lvs)",
-    "manual link /Users/yanlu/Documents/TR-1um/Document/Tutorials/LVS04_Compare.md:3 -> ../../libs.tech/klayout/lvs/IP62/04_Compare.lvs is missing (/Users/yanlu/Documents/TR-1um/libs.tech/klayout/lvs/IP62/04_Compare.lvs)",
-    "device_extraction_manual_drift: drift: The tutorial device-extraction examples do not describe the active layer/model contract.",
-    "passive_extraction_manual_drift: drift: The tutorial passive-device examples do not describe the active capacitor/resistor extraction.",
-    "combiner_contract_reference_only: reference_only: The active custom combiner has no matching tutorial chapter.",
-    "custom_device_translation_manual_drift: drift: The active custom reader/writer is richer than the tutorial delegate example.",
-    "comparison_contract_manual_drift: drift: The tutorial comparison example is not the active strict comparison runset."
+    "combiner_contract_reference_only: reference_only: The active combiner contract is documented but has no qualified standalone fixture."
   ],
   "errors": [],
   "blockers": []

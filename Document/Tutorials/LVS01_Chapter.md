@@ -1,61 +1,107 @@
-# Chapter 1 : 01_Extract.lvs
+# Chapter 1: `01_Extract.lvs`
 
-## [01_Extract.lvs](../../libs.tech/klayout/tech/lvs/01_Extract.lvs)
+[`01_Extract.lvs`](../../libs.tech/klayout/tech/lvs/01_Extract.lvs) contains
+MOS, ESD-MOS, diode, and global-node extraction. The layer aliases come from
+[`00_Layers.drc`](../../libs.tech/klayout/tech/drc/00_Layers.drc) and
+[`02_Device.drc`](../../libs.tech/klayout/tech/drc/02_Device.drc). The older
+`AAMP`/`AAMN`/`SGG`/`NWMP`/`SDMP` vocabulary is not the active contract.
 
-First step of LVS runset is to specify unique layers to recognize each of device terminals, as follow;
+## 5 V CMOS MOS devices
 
-### RR device
+The active runset recognizes normal PMOS and NMOS devices from `MP`/`MN`,
+with `WN` and `BULK` as their backgate regions. Their source/drain contacts
+are `SDP` and `SDN`:
 
-KLayout needs two layers for resistance device recognition which are Contact and Body regions, in case of RR those can simply recognize by PSD/NSD combination.
+```ruby
+extract_devices(mos4("PMOS"),
+  { "SD" => (MP - GC),
+    "G"  => (MP & GC),
+    "W"  => (MP & GC & WN),
+    "tS" => (SDP),
+    "tD" => (SDP),
+    "tG" => (GC),
+    "tB" => (WN) })
 
-```
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# RR Resistance
-#
-AARC = AARR & NSD - PSD          # RR Contact
-AARB = AARR & NSD & PSD          # RR Body
-#
-```
+tolerance("PMOS", "W", :relative => 0.01)
+tolerance("PMOS", "L", :relative => 0.0)
 
-### RS device
+extract_devices(mos4("NMOS"),
+  { "SD" => (MN - GC),
+    "G"  => (MN & GC),
+    "W"  => (MN & GC & BULK),
+    "tS" => (SDN),
+    "tD" => (SDN),
+    "tG" => (GC),
+    "tB" => (BULK) })
 
-In case of RS situation bit different, I need to introduce **"RS"** layer to recognize Contact and Body regions.
-
-```
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# Saliside Gate Resistance
-#
-SGR = SG.interacting(RS)         # SG for RS
-SGC = SGR - RS                   # RS Contact
-SGB = SGR & RS                   # RS Body
-#
-SGG = SG.not_interacting(RS)     # SG for except RS
-#
-```
-
-### MOS Source and Drain
-
-MOS Souce and Drain regions can recognize as follow.
-
-```
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# Electical connection layers
-#
-SDMP = (AAMP - SGG)      # MP S/D
-SDMN = (AAMN - SGG)      # MN S/D
-SDPE = (AAPE - SGG)      # MPE S/D
-SDNE = (AANE - SGG)      # MNE S/D
-#
+tolerance("NMOS", "W", :relative => 0.01)
+tolerance("NMOS", "L", :relative => 0.0)
 ```
 
-### BULK 
+## ESD MOS devices
 
-This is optional, if you want to clear BULK represetnt VSS in your schematic.
+ESD diffusion is separated by `MPE`/`MNE`; the corresponding source/drain
+contact layers are `SDPE`/`SDNE`. The active runset uses `PMOS` for the ESD
+PMOS extraction and `NMOSE` for the ESD NMOS extraction:
 
+```ruby
+extract_devices(mos4("PMOS"),
+  { "SD" => (MPE - GC),
+    "G"  => (MPE & GC),
+    "W"  => (MPE & GC & WN),
+    "tS" => (SDPE),
+    "tD" => (SDPE),
+    "tG" => (GC),
+    "tB" => (WN) })
+
+extract_devices(mos4("NMOSE"),
+  { "SD" => (MNE - GC),
+    "G"  => (MNE & GC),
+    "W"  => (MNE & GC & BULK),
+    "tS" => (SDNE),
+    "tD" => (SDNE),
+    "tG" => (GC),
+    "tB" => (BULK) })
 ```
-# ----- ------ ----- ----- ------ ----- ----- ------ ----- 
-# Global node
-#
+
+`NMOSE` has the same 1% width and exact-length tolerance policy as the active
+source. ESD protection behavior is not inferred from a device name alone;
+placement and pad discharge paths remain separate signoff contracts.
+
+## Diodes
+
+`DP` and `DN` are intrinsic extracted devices. Their active terminal mappings
+are:
+
+```ruby
+extract_devices(diode("DP"),
+  { "P"  => (DP),
+    "N"  => (DP & WN),
+    "tA" => (DP),
+    "tC" => (WN) })
+
+tolerance("DP", "A", :relative => 0.05)
+tolerance("DP", "P", :relative => 0.05)
+
+extract_devices(diode("DN"),
+  { "P"  => (DN & BULK),
+    "N"  => (DN),
+    "tA" => (BULK),
+    "tC" => (DN) })
+
+tolerance("DN", "A", :relative => 0.05)
+tolerance("DN", "P", :relative => 0.05)
+```
+
+## Global nodes
+
+The active source declares the well and substrate globals explicitly:
+
+```ruby
 connect_global(BULK, "VSS")
-#
+connect_global(WN,   "VDD")
 ```
+
+The additional `GN` substrate-contact connection in `02_Extract.lvs` is
+covered in Chapter 3. Do not replace these explicit power contracts with a
+single historical `connect_global(BULK, ...)` example.
