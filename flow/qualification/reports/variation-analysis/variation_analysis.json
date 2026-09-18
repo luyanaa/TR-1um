@@ -1,0 +1,3353 @@
+{
+  "schema_version": 1,
+  "status": "PASS_WITH_WARNINGS",
+  "qualification_status": "reference_only",
+  "contract": "/Users/yanlu/Documents/TR-1um/flow/qualification/variation_analysis_contract.json",
+  "design": "tr1um_mixed_counter",
+  "ngspice": "ngspice",
+  "errors": [],
+  "pvt": {
+    "status": "PASS_WITH_WARNINGS",
+    "execution_status": "PASS",
+    "warnings": [
+      "FF/SS/FS/SF are reference-only threshold, mobility, and resistor modifiers; no official process-corner cards are available."
+    ],
+    "process_corner_names": [
+      "TT",
+      "FF",
+      "SS",
+      "FS",
+      "SF"
+    ],
+    "voltages_v": [
+      4.5,
+      5.0,
+      5.5
+    ],
+    "temperatures_c": [
+      27,
+      85
+    ],
+    "case_count": 30,
+    "pass_count": 30,
+    "cases": [
+      {
+        "case": "pvt_TT_v4.5_t27",
+        "process": "TT",
+        "vdd_v": 4.5,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.0,
+          "vth_p_shift_v": 0.0,
+          "mu_n_scale": 1.0,
+          "mu_p_scale": 1.0,
+          "rs_scale": 1.0
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00208008,
+          "pmos_current_a": 0.000760317,
+          "rs_current_a": 0.000336437,
+          "rs_resistance_ohm": 594.4649369718551
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_TT_v4.5_t85",
+        "process": "TT",
+        "vdd_v": 4.5,
+        "temperature_c": 85.0,
+        "parameters": {
+          "vth_n_shift_v": 0.0,
+          "vth_p_shift_v": 0.0,
+          "mu_n_scale": 1.0,
+          "mu_p_scale": 1.0,
+          "rs_scale": 1.0
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00175832,
+          "pmos_current_a": 0.000670445,
+          "rs_current_a": 0.000336437,
+          "rs_resistance_ohm": 594.4649369718551
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_TT_v5_t27",
+        "process": "TT",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.0,
+          "vth_p_shift_v": 0.0,
+          "mu_n_scale": 1.0,
+          "mu_p_scale": 1.0,
+          "rs_scale": 1.0
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00249592,
+          "pmos_current_a": 0.000940322,
+          "rs_current_a": 0.000336437,
+          "rs_resistance_ohm": 594.4649369718551
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_TT_v5_t85",
+        "process": "TT",
+        "vdd_v": 5.0,
+        "temperature_c": 85.0,
+        "parameters": {
+          "vth_n_shift_v": 0.0,
+          "vth_p_shift_v": 0.0,
+          "mu_n_scale": 1.0,
+          "mu_p_scale": 1.0,
+          "rs_scale": 1.0
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00212196,
+          "pmos_current_a": 0.000829409,
+          "rs_current_a": 0.000336437,
+          "rs_resistance_ohm": 594.4649369718551
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_TT_v5.5_t27",
+        "process": "TT",
+        "vdd_v": 5.5,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.0,
+          "vth_p_shift_v": 0.0,
+          "mu_n_scale": 1.0,
+          "mu_p_scale": 1.0,
+          "rs_scale": 1.0
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00292414,
+          "pmos_current_a": 0.00113174,
+          "rs_current_a": 0.000336437,
+          "rs_resistance_ohm": 594.4649369718551
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_TT_v5.5_t85",
+        "process": "TT",
+        "vdd_v": 5.5,
+        "temperature_c": 85.0,
+        "parameters": {
+          "vth_n_shift_v": 0.0,
+          "vth_p_shift_v": 0.0,
+          "mu_n_scale": 1.0,
+          "mu_p_scale": 1.0,
+          "rs_scale": 1.0
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00250254,
+          "pmos_current_a": 0.00100064,
+          "rs_current_a": 0.000336437,
+          "rs_resistance_ohm": 594.4649369718551
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_FF_v4.5_t27",
+        "process": "FF",
+        "vdd_v": 4.5,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.05,
+          "vth_p_shift_v": 0.05,
+          "mu_n_scale": 1.15,
+          "mu_p_scale": 1.15,
+          "rs_scale": 0.9
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.0023055,
+          "pmos_current_a": 0.000895737,
+          "rs_current_a": 0.00036565,
+          "rs_resistance_ohm": 546.9711472719814
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_FF_v4.5_t85",
+        "process": "FF",
+        "vdd_v": 4.5,
+        "temperature_c": 85.0,
+        "parameters": {
+          "vth_n_shift_v": -0.05,
+          "vth_p_shift_v": 0.05,
+          "mu_n_scale": 1.15,
+          "mu_p_scale": 1.15,
+          "rs_scale": 0.9
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00196683,
+          "pmos_current_a": 0.000789419,
+          "rs_current_a": 0.00036565,
+          "rs_resistance_ohm": 546.9711472719814
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_FF_v5_t27",
+        "process": "FF",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.05,
+          "vth_p_shift_v": 0.05,
+          "mu_n_scale": 1.15,
+          "mu_p_scale": 1.15,
+          "rs_scale": 0.9
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00274749,
+          "pmos_current_a": 0.0011032,
+          "rs_current_a": 0.00036565,
+          "rs_resistance_ohm": 546.9711472719814
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_FF_v5_t85",
+        "process": "FF",
+        "vdd_v": 5.0,
+        "temperature_c": 85.0,
+        "parameters": {
+          "vth_n_shift_v": -0.05,
+          "vth_p_shift_v": 0.05,
+          "mu_n_scale": 1.15,
+          "mu_p_scale": 1.15,
+          "rs_scale": 0.9
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00235749,
+          "pmos_current_a": 0.000972741,
+          "rs_current_a": 0.00036565,
+          "rs_resistance_ohm": 546.9711472719814
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_FF_v5.5_t27",
+        "process": "FF",
+        "vdd_v": 5.5,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.05,
+          "vth_p_shift_v": 0.05,
+          "mu_n_scale": 1.15,
+          "mu_p_scale": 1.15,
+          "rs_scale": 0.9
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00320034,
+          "pmos_current_a": 0.00132324,
+          "rs_current_a": 0.00036565,
+          "rs_resistance_ohm": 546.9711472719814
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_FF_v5.5_t85",
+        "process": "FF",
+        "vdd_v": 5.5,
+        "temperature_c": 85.0,
+        "parameters": {
+          "vth_n_shift_v": -0.05,
+          "vth_p_shift_v": 0.05,
+          "mu_n_scale": 1.15,
+          "mu_p_scale": 1.15,
+          "rs_scale": 0.9
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00276406,
+          "pmos_current_a": 0.0011697,
+          "rs_current_a": 0.00036565,
+          "rs_resistance_ohm": 546.9711472719814
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_SS_v4.5_t27",
+        "process": "SS",
+        "vdd_v": 4.5,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.05,
+          "vth_p_shift_v": -0.05,
+          "mu_n_scale": 0.85,
+          "mu_p_scale": 0.85,
+          "rs_scale": 1.1
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00183672,
+          "pmos_current_a": 0.000630117,
+          "rs_current_a": 0.000311547,
+          "rs_resistance_ohm": 641.9577142453627
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_SS_v4.5_t85",
+        "process": "SS",
+        "vdd_v": 4.5,
+        "temperature_c": 85.0,
+        "parameters": {
+          "vth_n_shift_v": 0.05,
+          "vth_p_shift_v": -0.05,
+          "mu_n_scale": 0.85,
+          "mu_p_scale": 0.85,
+          "rs_scale": 1.1
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00153687,
+          "pmos_current_a": 0.00055604,
+          "rs_current_a": 0.000311547,
+          "rs_resistance_ohm": 641.9577142453627
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_SS_v5_t27",
+        "process": "SS",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.05,
+          "vth_p_shift_v": -0.05,
+          "mu_n_scale": 0.85,
+          "mu_p_scale": 0.85,
+          "rs_scale": 1.1
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00222081,
+          "pmos_current_a": 0.000782638,
+          "rs_current_a": 0.000311547,
+          "rs_resistance_ohm": 641.9577142453627
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_SS_v5_t85",
+        "process": "SS",
+        "vdd_v": 5.0,
+        "temperature_c": 85.0,
+        "parameters": {
+          "vth_n_shift_v": 0.05,
+          "vth_p_shift_v": -0.05,
+          "mu_n_scale": 0.85,
+          "mu_p_scale": 0.85,
+          "rs_scale": 1.1
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00186861,
+          "pmos_current_a": 0.000690671,
+          "rs_current_a": 0.000311547,
+          "rs_resistance_ohm": 641.9577142453627
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_SS_v5.5_t27",
+        "process": "SS",
+        "vdd_v": 5.5,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.05,
+          "vth_p_shift_v": -0.05,
+          "mu_n_scale": 0.85,
+          "mu_p_scale": 0.85,
+          "rs_scale": 1.1
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00261871,
+          "pmos_current_a": 0.000945283,
+          "rs_current_a": 0.000311547,
+          "rs_resistance_ohm": 641.9577142453627
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_SS_v5.5_t85",
+        "process": "SS",
+        "vdd_v": 5.5,
+        "temperature_c": 85.0,
+        "parameters": {
+          "vth_n_shift_v": 0.05,
+          "vth_p_shift_v": -0.05,
+          "mu_n_scale": 0.85,
+          "mu_p_scale": 0.85,
+          "rs_scale": 1.1
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00221809,
+          "pmos_current_a": 0.000836075,
+          "rs_current_a": 0.000311547,
+          "rs_resistance_ohm": 641.9577142453627
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_FS_v4.5_t27",
+        "process": "FS",
+        "vdd_v": 4.5,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.05,
+          "vth_p_shift_v": -0.05,
+          "mu_n_scale": 1.15,
+          "mu_p_scale": 0.85,
+          "rs_scale": 1.0
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.0023055,
+          "pmos_current_a": 0.000630117,
+          "rs_current_a": 0.000336437,
+          "rs_resistance_ohm": 594.4649369718551
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_FS_v4.5_t85",
+        "process": "FS",
+        "vdd_v": 4.5,
+        "temperature_c": 85.0,
+        "parameters": {
+          "vth_n_shift_v": -0.05,
+          "vth_p_shift_v": -0.05,
+          "mu_n_scale": 1.15,
+          "mu_p_scale": 0.85,
+          "rs_scale": 1.0
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00196683,
+          "pmos_current_a": 0.00055604,
+          "rs_current_a": 0.000336437,
+          "rs_resistance_ohm": 594.4649369718551
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_FS_v5_t27",
+        "process": "FS",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.05,
+          "vth_p_shift_v": -0.05,
+          "mu_n_scale": 1.15,
+          "mu_p_scale": 0.85,
+          "rs_scale": 1.0
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00274749,
+          "pmos_current_a": 0.000782638,
+          "rs_current_a": 0.000336437,
+          "rs_resistance_ohm": 594.4649369718551
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_FS_v5_t85",
+        "process": "FS",
+        "vdd_v": 5.0,
+        "temperature_c": 85.0,
+        "parameters": {
+          "vth_n_shift_v": -0.05,
+          "vth_p_shift_v": -0.05,
+          "mu_n_scale": 1.15,
+          "mu_p_scale": 0.85,
+          "rs_scale": 1.0
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00235749,
+          "pmos_current_a": 0.000690671,
+          "rs_current_a": 0.000336437,
+          "rs_resistance_ohm": 594.4649369718551
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_FS_v5.5_t27",
+        "process": "FS",
+        "vdd_v": 5.5,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.05,
+          "vth_p_shift_v": -0.05,
+          "mu_n_scale": 1.15,
+          "mu_p_scale": 0.85,
+          "rs_scale": 1.0
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00320034,
+          "pmos_current_a": 0.000945283,
+          "rs_current_a": 0.000336437,
+          "rs_resistance_ohm": 594.4649369718551
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_FS_v5.5_t85",
+        "process": "FS",
+        "vdd_v": 5.5,
+        "temperature_c": 85.0,
+        "parameters": {
+          "vth_n_shift_v": -0.05,
+          "vth_p_shift_v": -0.05,
+          "mu_n_scale": 1.15,
+          "mu_p_scale": 0.85,
+          "rs_scale": 1.0
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00276406,
+          "pmos_current_a": 0.000836075,
+          "rs_current_a": 0.000336437,
+          "rs_resistance_ohm": 594.4649369718551
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_SF_v4.5_t27",
+        "process": "SF",
+        "vdd_v": 4.5,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.05,
+          "vth_p_shift_v": 0.05,
+          "mu_n_scale": 0.85,
+          "mu_p_scale": 1.15,
+          "rs_scale": 1.0
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00183672,
+          "pmos_current_a": 0.000895737,
+          "rs_current_a": 0.000336437,
+          "rs_resistance_ohm": 594.4649369718551
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_SF_v4.5_t85",
+        "process": "SF",
+        "vdd_v": 4.5,
+        "temperature_c": 85.0,
+        "parameters": {
+          "vth_n_shift_v": 0.05,
+          "vth_p_shift_v": 0.05,
+          "mu_n_scale": 0.85,
+          "mu_p_scale": 1.15,
+          "rs_scale": 1.0
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00153687,
+          "pmos_current_a": 0.000789419,
+          "rs_current_a": 0.000336437,
+          "rs_resistance_ohm": 594.4649369718551
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_SF_v5_t27",
+        "process": "SF",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.05,
+          "vth_p_shift_v": 0.05,
+          "mu_n_scale": 0.85,
+          "mu_p_scale": 1.15,
+          "rs_scale": 1.0
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00222081,
+          "pmos_current_a": 0.0011032,
+          "rs_current_a": 0.000336437,
+          "rs_resistance_ohm": 594.4649369718551
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_SF_v5_t85",
+        "process": "SF",
+        "vdd_v": 5.0,
+        "temperature_c": 85.0,
+        "parameters": {
+          "vth_n_shift_v": 0.05,
+          "vth_p_shift_v": 0.05,
+          "mu_n_scale": 0.85,
+          "mu_p_scale": 1.15,
+          "rs_scale": 1.0
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00186861,
+          "pmos_current_a": 0.000972741,
+          "rs_current_a": 0.000336437,
+          "rs_resistance_ohm": 594.4649369718551
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_SF_v5.5_t27",
+        "process": "SF",
+        "vdd_v": 5.5,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.05,
+          "vth_p_shift_v": 0.05,
+          "mu_n_scale": 0.85,
+          "mu_p_scale": 1.15,
+          "rs_scale": 1.0
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00261871,
+          "pmos_current_a": 0.00132324,
+          "rs_current_a": 0.000336437,
+          "rs_resistance_ohm": 594.4649369718551
+        },
+        "errors": []
+      },
+      {
+        "case": "pvt_SF_v5.5_t85",
+        "process": "SF",
+        "vdd_v": 5.5,
+        "temperature_c": 85.0,
+        "parameters": {
+          "vth_n_shift_v": 0.05,
+          "vth_p_shift_v": 0.05,
+          "mu_n_scale": 0.85,
+          "mu_p_scale": 1.15,
+          "rs_scale": 1.0
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00221809,
+          "pmos_current_a": 0.0011697,
+          "rs_current_a": 0.000336437,
+          "rs_resistance_ohm": 594.4649369718551
+        },
+        "errors": []
+      }
+    ],
+    "measurement_summary": {
+      "nmos_current_a": {
+        "count": 30,
+        "min": 0.00153687,
+        "max": 0.00320034,
+        "mean": 0.0023055333333333334,
+        "stddev": 0.00044403773848109154,
+        "p01": 0.00153687,
+        "p05": 0.0016365225,
+        "p50": 0.002263155,
+        "p95": 0.003076049999999999,
+        "p99": 0.00320034
+      },
+      "pmos_current_a": {
+        "count": 30,
+        "min": 0.00055604,
+        "max": 0.00132324,
+        "mean": 0.0008907531666666667,
+        "stddev": 0.0002093691686188386,
+        "p01": 0.00055604,
+        "p05": 0.00058937465,
+        "p50": 0.000865906,
+        "p95": 0.0012541469999999997,
+        "p99": 0.00132324
+      },
+      "rs_current_a": {
+        "count": 30,
+        "min": 0.000311547,
+        "max": 0.00036565,
+        "mean": 0.0003373016,
+        "stddev": 1.7434649229781405e-05,
+        "p01": 0.000311547,
+        "p05": 0.000311547,
+        "p50": 0.000336437,
+        "p95": 0.00036565,
+        "p99": 0.00036565
+      },
+      "rs_resistance_ohm": {
+        "count": 30,
+        "min": 546.9711472719814,
+        "max": 641.9577142453627,
+        "mean": 594.464734486582,
+        "stddev": 30.550886729052767,
+        "p01": 546.9711472719814,
+        "p05": 546.9711472719814,
+        "p50": 594.4649369718551,
+        "p95": 641.9577142453627,
+        "p99": 641.9577142453627
+      }
+    }
+  },
+  "pseudo_monte_carlo": {
+    "status": "PASS_WITH_WARNINGS",
+    "execution_status": "PASS",
+    "warnings": [
+      "The 64 samples are reference-only independent bounded-normal distributions; no official mismatch sigma or spatial-correlation data are available."
+    ],
+    "samples": 64,
+    "seed": 20260905,
+    "correlation": "independent",
+    "parameters": [
+      {
+        "name": "V_th_n",
+        "key": "vth_n_shift_v",
+        "distribution": "normal",
+        "mean": 0.0,
+        "sigma": 0.05,
+        "bounds": [
+          -0.15,
+          0.15
+        ],
+        "units": "V",
+        "model_proxy": "NMOS/MNE vth0 additive shift"
+      },
+      {
+        "name": "V_th_p",
+        "key": "vth_p_shift_v",
+        "distribution": "normal",
+        "mean": 0.0,
+        "sigma": 0.05,
+        "bounds": [
+          -0.15,
+          0.15
+        ],
+        "units": "V",
+        "model_proxy": "PMOS/MPE vth0 additive shift"
+      },
+      {
+        "name": "mu_0_n",
+        "key": "mu_n_scale",
+        "distribution": "normal",
+        "mean": 1.0,
+        "sigma": 0.1,
+        "bounds": [
+          0.7,
+          1.3
+        ],
+        "units": "relative",
+        "model_proxy": "NMOS/MNE u0 multiplier"
+      },
+      {
+        "name": "mu_0_p",
+        "key": "mu_p_scale",
+        "distribution": "normal",
+        "mean": 1.0,
+        "sigma": 0.1,
+        "bounds": [
+          0.7,
+          1.3
+        ],
+        "units": "relative",
+        "model_proxy": "PMOS/MPE u0 multiplier"
+      },
+      {
+        "name": "R_sq",
+        "key": "rs_scale",
+        "distribution": "normal",
+        "mean": 1.0,
+        "sigma": 0.1,
+        "bounds": [
+          0.7,
+          1.3
+        ],
+        "units": "relative",
+        "model_proxy": "F_RS magRS multiplier"
+      }
+    ],
+    "fixed": {
+      "vdd_v": 5.0,
+      "temperature_c": 27.0,
+      "process": "TT"
+    },
+    "case_count": 64,
+    "pass_count": 64,
+    "cases": [
+      {
+        "case": "mc_0000",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.03385245692233112,
+          "vth_p_shift_v": -0.020710562025061822,
+          "mu_n_scale": 0.9754534256918284,
+          "mu_p_scale": 0.882551193209969,
+          "rs_scale": 1.0377188203586198
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00249518,
+          "pmos_current_a": 0.000824968,
+          "rs_current_a": 0.000326595,
+          "rs_resistance_ohm": 612.3792464673372
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0001",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.014164827776872039,
+          "vth_p_shift_v": -0.003671268014565775,
+          "mu_n_scale": 0.9284235860661942,
+          "mu_p_scale": 0.9328444063571892,
+          "rs_scale": 1.2153584627010767
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00240553,
+          "pmos_current_a": 0.000878255,
+          "rs_current_a": 0.000287049,
+          "rs_resistance_ohm": 696.7451550083784
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0002",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.04497582065343664,
+          "vth_p_shift_v": 0.04611488643178065,
+          "mu_n_scale": 1.0105393223047698,
+          "mu_p_scale": 1.0026232482669968,
+          "rs_scale": 1.0584155477669221
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00246482,
+          "pmos_current_a": 0.000967094,
+          "rs_current_a": 0.000321436,
+          "rs_resistance_ohm": 622.2078423076446
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0003",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.019405478715480404,
+          "vth_p_shift_v": -0.011485175723017011,
+          "mu_n_scale": 0.9445780027022576,
+          "mu_p_scale": 1.1429086529564938,
+          "rs_scale": 0.990629049562106
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00243507,
+          "pmos_current_a": 0.00106038,
+          "rs_current_a": 0.000338975,
+          "rs_resistance_ohm": 590.0140128328048
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0004",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.06533453758239398,
+          "vth_p_shift_v": -0.09548370149240956,
+          "mu_n_scale": 0.9601416977709556,
+          "mu_p_scale": 0.97852811348137,
+          "rs_scale": 0.8888711709822971
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00237328,
+          "pmos_current_a": 0.000872793,
+          "rs_current_a": 0.000369218,
+          "rs_resistance_ohm": 541.6853999534151
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0005",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.042629755648985385,
+          "vth_p_shift_v": -0.01035125143849133,
+          "mu_n_scale": 0.8534784384033616,
+          "mu_p_scale": 1.0950688005857592,
+          "rs_scale": 1.093297983563485
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00223341,
+          "pmos_current_a": 0.00101903,
+          "rs_current_a": 0.000313099,
+          "rs_resistance_ohm": 638.7755949396197
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0006",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.01439285202026981,
+          "vth_p_shift_v": -0.006292726627756987,
+          "mu_n_scale": 0.877269522820092,
+          "mu_p_scale": 1.1029020476356477,
+          "rs_scale": 1.0279919048569395
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00232631,
+          "pmos_current_a": 0.00102824,
+          "rs_current_a": 0.000329078,
+          "rs_resistance_ohm": 607.7586468861485
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0007",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.03053120401550978,
+          "vth_p_shift_v": -0.03734326792999346,
+          "mu_n_scale": 0.9729375932499985,
+          "mu_p_scale": 0.8866349769588093,
+          "rs_scale": 0.9604798302328392
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00242649,
+          "pmos_current_a": 0.000820862,
+          "rs_current_a": 0.000347406,
+          "rs_resistance_ohm": 575.6952959937365
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0008",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.03308712798690285,
+          "vth_p_shift_v": 0.014513314437383918,
+          "mu_n_scale": 1.11914162512007,
+          "mu_p_scale": 0.8755890192986282,
+          "rs_scale": 1.1082317685957963
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.0026203,
+          "pmos_current_a": 0.000835138,
+          "rs_current_a": 0.000309661,
+          "rs_resistance_ohm": 645.8675777705298
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0009",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.06213312659736221,
+          "vth_p_shift_v": -0.005058165877538445,
+          "mu_n_scale": 0.899932114193018,
+          "mu_p_scale": 1.0434399889708321,
+          "rs_scale": 1.0101122303140413
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00240906,
+          "pmos_current_a": 0.000976322,
+          "rs_current_a": 0.000333741,
+          "rs_resistance_ohm": 599.2670963411748
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0010",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.04736956145253598,
+          "vth_p_shift_v": -0.061967843414026474,
+          "mu_n_scale": 1.0516991959760842,
+          "mu_p_scale": 1.1770667320828407,
+          "rs_scale": 1.080598235461803
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.0026165,
+          "pmos_current_a": 0.00106013,
+          "rs_current_a": 0.000316084,
+          "rs_resistance_ohm": 632.7431948469394
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0011",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.004602427287277645,
+          "vth_p_shift_v": 0.050844176126789015,
+          "mu_n_scale": 1.161917380970801,
+          "mu_p_scale": 1.1917144103092978,
+          "rs_scale": 0.9975497158511274
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00271346,
+          "pmos_current_a": 0.00114127,
+          "rs_current_a": 0.000337097,
+          "rs_resistance_ohm": 593.3010379801659
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0012",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.024297051165055466,
+          "vth_p_shift_v": -0.043859774328062866,
+          "mu_n_scale": 1.1849056261306892,
+          "mu_p_scale": 1.0318213696525296,
+          "rs_scale": 0.7568503370605082
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00271017,
+          "pmos_current_a": 0.00094527,
+          "rs_current_a": 0.000417551,
+          "rs_resistance_ohm": 478.98340561991233
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0013",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.04361937841351743,
+          "vth_p_shift_v": 0.08594141872074579,
+          "mu_n_scale": 0.9601013852099624,
+          "mu_p_scale": 0.9679671703117032,
+          "rs_scale": 1.0299048844006917
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00248253,
+          "pmos_current_a": 0.00095608,
+          "rs_current_a": 0.000328587,
+          "rs_resistance_ohm": 608.6668066600323
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0014",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.027604298527806926,
+          "vth_p_shift_v": -0.04862026894053609,
+          "mu_n_scale": 0.9496801131206967,
+          "mu_p_scale": 0.9342280773173233,
+          "rs_scale": 0.9456173705448297
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.0024509,
+          "pmos_current_a": 0.000857502,
+          "rs_current_a": 0.000351719,
+          "rs_resistance_ohm": 568.6357575223403
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0015",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.04321753349375078,
+          "vth_p_shift_v": 0.13157001294645773,
+          "mu_n_scale": 0.8930089101433012,
+          "mu_p_scale": 0.9315781815697087,
+          "rs_scale": 0.9208228678460741
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00237947,
+          "pmos_current_a": 0.000945242,
+          "rs_current_a": 0.000359157,
+          "rs_resistance_ohm": 556.8595349666024
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0016",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.09118418434510518,
+          "vth_p_shift_v": -0.026145308062260005,
+          "mu_n_scale": 1.0134753389221611,
+          "mu_p_scale": 1.0465871600139365,
+          "rs_scale": 1.0203131899804916
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00260883,
+          "pmos_current_a": 0.000967673,
+          "rs_current_a": 0.000331065,
+          "rs_resistance_ohm": 604.1109751861417
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0017",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.012758010091262132,
+          "vth_p_shift_v": 0.016920222762935744,
+          "mu_n_scale": 0.9259158251581349,
+          "mu_p_scale": 1.0491942398706242,
+          "rs_scale": 0.9863042725994071
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00240033,
+          "pmos_current_a": 0.000993469,
+          "rs_current_a": 0.000340159,
+          "rs_resistance_ohm": 587.9603361957203
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0018",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.061166246726428355,
+          "vth_p_shift_v": -0.07818293019874914,
+          "mu_n_scale": 0.9638346188000952,
+          "mu_p_scale": 1.1154225771568915,
+          "rs_scale": 0.9947287362825206
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00250583,
+          "pmos_current_a": 0.000998414,
+          "rs_current_a": 0.00033786,
+          "rs_resistance_ohm": 591.961167347422
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0019",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.11564501398933368,
+          "vth_p_shift_v": 0.027227703128108478,
+          "mu_n_scale": 0.9390856377505922,
+          "mu_p_scale": 0.8697548414518463,
+          "rs_scale": 0.8701155926943274
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00229321,
+          "pmos_current_a": 0.000835749,
+          "rs_current_a": 0.000375391,
+          "rs_resistance_ohm": 532.7778236558682
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0020",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.06025742708354657,
+          "vth_p_shift_v": -0.016340043005775146,
+          "mu_n_scale": 1.1464131779788043,
+          "mu_p_scale": 0.959346529228848,
+          "rs_scale": 0.9897806283044146
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00275402,
+          "pmos_current_a": 0.000895658,
+          "rs_current_a": 0.000339207,
+          "rs_resistance_ohm": 589.6104738404573
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0021",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.04062323322483061,
+          "vth_p_shift_v": 0.019151051530273765,
+          "mu_n_scale": 1.0213336763095922,
+          "mu_p_scale": 1.1205985187994905,
+          "rs_scale": 1.0022896671565709
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00248411,
+          "pmos_current_a": 0.00105858,
+          "rs_current_a": 0.000335823,
+          "rs_resistance_ohm": 595.5518234307954
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0022",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.011118772084161122,
+          "vth_p_shift_v": -0.021290575979188184,
+          "mu_n_scale": 1.0141464883438585,
+          "mu_p_scale": 1.1259041349852161,
+          "rs_scale": 1.2329922428153386
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00252716,
+          "pmos_current_a": 0.00103981,
+          "rs_current_a": 0.000283639,
+          "rs_resistance_ohm": 705.1216511128582
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0023",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.02446420628244885,
+          "vth_p_shift_v": 0.010239581330142744,
+          "mu_n_scale": 0.8633874207720698,
+          "mu_p_scale": 0.9787636132543742,
+          "rs_scale": 1.1293905029265594
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00226664,
+          "pmos_current_a": 0.000926591,
+          "rs_current_a": 0.000304917,
+          "rs_resistance_ohm": 655.9162001462694
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0024",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.03538171739071834,
+          "vth_p_shift_v": 0.02408227018882662,
+          "mu_n_scale": 1.0030734774665342,
+          "mu_p_scale": 1.0246737031191049,
+          "rs_scale": 0.9991845857525813
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00253647,
+          "pmos_current_a": 0.000975305,
+          "rs_current_a": 0.000336657,
+          "rs_resistance_ohm": 594.0764635816275
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0025",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.06022733557197268,
+          "vth_p_shift_v": -0.04352731661787321,
+          "mu_n_scale": 1.0802160728676444,
+          "mu_p_scale": 0.9301113883188649,
+          "rs_scale": 0.963206028884024
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.0026684,
+          "pmos_current_a": 0.000856353,
+          "rs_current_a": 0.000346627,
+          "rs_resistance_ohm": 576.9890977909972
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0026",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.013820910514118896,
+          "vth_p_shift_v": 0.0552349330514664,
+          "mu_n_scale": 0.9289559784785729,
+          "mu_p_scale": 0.8192458890789647,
+          "rs_scale": 0.9220507594541714
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00237857,
+          "pmos_current_a": 0.000801676,
+          "rs_current_a": 0.000358781,
+          "rs_resistance_ohm": 557.4431198976534
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0027",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.03573020856605882,
+          "vth_p_shift_v": 0.0344116098363901,
+          "mu_n_scale": 0.9492718933620015,
+          "mu_p_scale": 0.975837995635037,
+          "rs_scale": 0.8371787029576819
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00238696,
+          "pmos_current_a": 0.000936456,
+          "rs_current_a": 0.000386747,
+          "rs_resistance_ohm": 517.1339402762013
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0028",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.006003686141783329,
+          "vth_p_shift_v": -0.047697159909632185,
+          "mu_n_scale": 1.0457997482822683,
+          "mu_p_scale": 0.8266427633372452,
+          "rs_scale": 0.983470750411675
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.002553,
+          "pmos_current_a": 0.000762954,
+          "rs_current_a": 0.00034094,
+          "rs_resistance_ohm": 586.6134803777791
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0029",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.0013966421088735562,
+          "vth_p_shift_v": 0.012166714674481369,
+          "mu_n_scale": 1.0553334832516443,
+          "mu_p_scale": 1.079939319519783,
+          "rs_scale": 1.0513807992820419
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00257061,
+          "pmos_current_a": 0.00101833,
+          "rs_current_a": 0.000323171,
+          "rs_resistance_ohm": 618.8674107515835
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0030",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.053083631990712435,
+          "vth_p_shift_v": -0.01969636224910753,
+          "mu_n_scale": 1.1241164777778554,
+          "mu_p_scale": 0.9248939071050201,
+          "rs_scale": 0.9119447694789192
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00260544,
+          "pmos_current_a": 0.000863294,
+          "rs_current_a": 0.000361897,
+          "rs_resistance_ohm": 552.6434316946535
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0031",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.06371083050982265,
+          "vth_p_shift_v": 0.04111337257064817,
+          "mu_n_scale": 1.2045567616469577,
+          "mu_p_scale": 1.0524568330124426,
+          "rs_scale": 0.9314682741445196
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00269088,
+          "pmos_current_a": 0.00100979,
+          "rs_current_a": 0.000355925,
+          "rs_resistance_ohm": 561.9161340169981
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0032",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.07914932198616592,
+          "vth_p_shift_v": -0.02162962747473337,
+          "mu_n_scale": 1.0045257420075944,
+          "mu_p_scale": 1.1496179459242446,
+          "rs_scale": 0.9928613484865977
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00242188,
+          "pmos_current_a": 0.00106028,
+          "rs_current_a": 0.000338367,
+          "rs_resistance_ohm": 591.0741886767918
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0033",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.0026111024010022806,
+          "vth_p_shift_v": -0.010078122731596043,
+          "mu_n_scale": 1.016888707235584,
+          "mu_p_scale": 0.8719291643697955,
+          "rs_scale": 0.877049955681124
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00251689,
+          "pmos_current_a": 0.000820364,
+          "rs_current_a": 0.000373085,
+          "rs_resistance_ohm": 536.0708685688248
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0034",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.006927982747896449,
+          "vth_p_shift_v": -0.019406558716498233,
+          "mu_n_scale": 0.8795847759707414,
+          "mu_p_scale": 1.0825751242289852,
+          "rs_scale": 1.1007720436653095
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00230928,
+          "pmos_current_a": 0.00100296,
+          "rs_current_a": 0.000311369,
+          "rs_resistance_ohm": 642.3247015598856
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0035",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.002494806389127598,
+          "vth_p_shift_v": -0.044232332343727296,
+          "mu_n_scale": 0.8437882950993357,
+          "mu_p_scale": 0.8719064232647493,
+          "rs_scale": 0.9486921249865227
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00225598,
+          "pmos_current_a": 0.000804629,
+          "rs_current_a": 0.000350818,
+          "rs_resistance_ohm": 570.0961752247605
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0036",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.05327451067243948,
+          "vth_p_shift_v": -0.009781671407586037,
+          "mu_n_scale": 0.907926362710355,
+          "mu_p_scale": 0.9439069761811064,
+          "rs_scale": 0.9035612759814905
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00230804,
+          "pmos_current_a": 0.000885153,
+          "rs_current_a": 0.000364523,
+          "rs_resistance_ohm": 548.6622243315237
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0037",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.03679835906280516,
+          "vth_p_shift_v": -0.023612581743793496,
+          "mu_n_scale": 1.0212622225062138,
+          "mu_p_scale": 1.0214731802729016,
+          "rs_scale": 0.9743557993683652
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00256354,
+          "pmos_current_a": 0.000946938,
+          "rs_current_a": 0.000343474,
+          "rs_resistance_ohm": 582.2857043036736
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0038",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.01664385356519071,
+          "vth_p_shift_v": -0.03146663655736395,
+          "mu_n_scale": 1.0548525998490184,
+          "mu_p_scale": 0.8685114471244634,
+          "rs_scale": 1.1063567949848985
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00255414,
+          "pmos_current_a": 0.000807454,
+          "rs_current_a": 0.000310089,
+          "rs_resistance_ohm": 644.976119759166
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0039",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.04436220537828603,
+          "vth_p_shift_v": -0.016493208520365607,
+          "mu_n_scale": 0.859675749088089,
+          "mu_p_scale": 1.0840526783808688,
+          "rs_scale": 1.146005707061331
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00232703,
+          "pmos_current_a": 0.00100589,
+          "rs_current_a": 0.000301292,
+          "rs_resistance_ohm": 663.807867450845
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0040",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.057594582987950706,
+          "vth_p_shift_v": 0.12009621037088088,
+          "mu_n_scale": 0.9659002716789791,
+          "mu_p_scale": 0.8717854330482494,
+          "rs_scale": 0.9359143564821076
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00250527,
+          "pmos_current_a": 0.000881886,
+          "rs_current_a": 0.000354593,
+          "rs_resistance_ohm": 564.026926645478
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0041",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.003609110925188191,
+          "vth_p_shift_v": 0.03665923196515685,
+          "mu_n_scale": 0.9153591173164835,
+          "mu_p_scale": 1.0716856934465493,
+          "rs_scale": 1.0927030780279647
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00237519,
+          "pmos_current_a": 0.00102471,
+          "rs_current_a": 0.000313238,
+          "rs_resistance_ohm": 638.4921369693332
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0042",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.0686429341467769,
+          "vth_p_shift_v": -0.03584873329897691,
+          "mu_n_scale": 0.9201232525766824,
+          "mu_p_scale": 0.9383498596238375,
+          "rs_scale": 1.035920133298994
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00231137,
+          "pmos_current_a": 0.000867358,
+          "rs_current_a": 0.000327052,
+          "rs_resistance_ohm": 611.5235497719018
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0043",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.05725467850696504,
+          "vth_p_shift_v": -0.0054427406687978745,
+          "mu_n_scale": 0.962418663477671,
+          "mu_p_scale": 0.9362756428616015,
+          "rs_scale": 0.9736441026536063
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00238461,
+          "pmos_current_a": 0.000880463,
+          "rs_current_a": 0.000343674,
+          "rs_resistance_ohm": 581.94684497518
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0044",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.01616479384521207,
+          "vth_p_shift_v": -0.004246234679830874,
+          "mu_n_scale": 0.951959029748754,
+          "mu_p_scale": 1.0638567667807186,
+          "rs_scale": 1.1538348451051272
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00241042,
+          "pmos_current_a": 0.000994875,
+          "rs_current_a": 0.000299614,
+          "rs_resistance_ohm": 667.5255495404086
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0045",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.021767071640358685,
+          "vth_p_shift_v": 0.02117523393111503,
+          "mu_n_scale": 1.0021570032431988,
+          "mu_p_scale": 1.028532546209301,
+          "rs_scale": 1.1037010195624433
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00247678,
+          "pmos_current_a": 0.000977214,
+          "rs_current_a": 0.000310696,
+          "rs_resistance_ohm": 643.7160439786801
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0046",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.04620705087118639,
+          "vth_p_shift_v": -0.04648549620840333,
+          "mu_n_scale": 0.8503221574114278,
+          "mu_p_scale": 1.0419574456190357,
+          "rs_scale": 1.0918928951701121
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00222494,
+          "pmos_current_a": 0.000952692,
+          "rs_current_a": 0.000313427,
+          "rs_resistance_ohm": 638.1071190420736
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0047",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.03681396876537707,
+          "vth_p_shift_v": -0.12374119998298486,
+          "mu_n_scale": 1.209242923066541,
+          "mu_p_scale": 0.8437485220065445,
+          "rs_scale": 1.0020000630481634
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00280522,
+          "pmos_current_a": 0.000744861,
+          "rs_current_a": 0.000335901,
+          "rs_resistance_ohm": 595.4135295816327
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0048",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.07013756908942695,
+          "vth_p_shift_v": -0.08024366336089828,
+          "mu_n_scale": 0.9808398758415563,
+          "mu_p_scale": 0.9476383984911998,
+          "rs_scale": 0.8817996977103103
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00239796,
+          "pmos_current_a": 0.000853804,
+          "rs_current_a": 0.000371522,
+          "rs_resistance_ohm": 538.3261287353105
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0049",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.05705547956391829,
+          "vth_p_shift_v": 0.023440386669877453,
+          "mu_n_scale": 1.0687829621170237,
+          "mu_p_scale": 0.897668705457827,
+          "rs_scale": 1.0893922704096284
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00264977,
+          "pmos_current_a": 0.000859552,
+          "rs_current_a": 0.000314011,
+          "rs_resistance_ohm": 636.9203626624545
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0050",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.0053048294102296095,
+          "vth_p_shift_v": -0.013963684081463113,
+          "mu_n_scale": 0.9216529195308071,
+          "mu_p_scale": 1.0875810155664223,
+          "rs_scale": 1.0676761566891664
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00237597,
+          "pmos_current_a": 0.00101041,
+          "rs_current_a": 0.00031918,
+          "rs_resistance_ohm": 626.605677047434
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0051",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.03375652162067352,
+          "vth_p_shift_v": -0.018042988850652607,
+          "mu_n_scale": 1.044988413427233,
+          "mu_p_scale": 1.0301464859143068,
+          "rs_scale": 0.7646219351831214
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00259316,
+          "pmos_current_a": 0.000957554,
+          "rs_current_a": 0.000414358,
+          "rs_resistance_ohm": 482.67440232842137
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0052",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.062263444515432045,
+          "vth_p_shift_v": 0.07879704699780166,
+          "mu_n_scale": 1.1482064528956628,
+          "mu_p_scale": 1.0352002094323653,
+          "rs_scale": 0.8635241423344441
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00262542,
+          "pmos_current_a": 0.00101489,
+          "rs_current_a": 0.00037761,
+          "rs_resistance_ohm": 529.6469902809778
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0053",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.0665756387860827,
+          "vth_p_shift_v": -0.05196154715131133,
+          "mu_n_scale": 1.101352055824776,
+          "mu_p_scale": 1.0936664165907817,
+          "rs_scale": 1.0043747803174874
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00256268,
+          "pmos_current_a": 0.000994463,
+          "rs_current_a": 0.000335266,
+          "rs_resistance_ohm": 596.5412538104073
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0054",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.011124651437965163,
+          "vth_p_shift_v": 0.0013354156474095367,
+          "mu_n_scale": 1.0173147726595844,
+          "mu_p_scale": 0.8391374370115278,
+          "rs_scale": 1.0466036913927648
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00253159,
+          "pmos_current_a": 0.00079587,
+          "rs_current_a": 0.00032436,
+          "rs_resistance_ohm": 616.5988407941794
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0055",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.002207373892794794,
+          "vth_p_shift_v": -0.1296412287349736,
+          "mu_n_scale": 1.0633153531384878,
+          "mu_p_scale": 1.0164371137866592,
+          "rs_scale": 1.0553969196291142
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00258044,
+          "pmos_current_a": 0.00088759,
+          "rs_current_a": 0.000322178,
+          "rs_resistance_ohm": 620.7748511692295
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0056",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.030332649785823774,
+          "vth_p_shift_v": 0.0019819213783110745,
+          "mu_n_scale": 0.9204758938956602,
+          "mu_p_scale": 1.0948097716840226,
+          "rs_scale": 0.9937141179084834
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.0023495,
+          "pmos_current_a": 0.00102579,
+          "rs_current_a": 0.000338135,
+          "rs_resistance_ohm": 591.4797344255993
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0057",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.039252471437002855,
+          "vth_p_shift_v": -0.026594664460734364,
+          "mu_n_scale": 0.8152087711908623,
+          "mu_p_scale": 1.0382805160002906,
+          "rs_scale": 1.017156702659542
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00217404,
+          "pmos_current_a": 0.000960137,
+          "rs_current_a": 0.000331888,
+          "rs_resistance_ohm": 602.6129296630188
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0058",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.009730261555595296,
+          "vth_p_shift_v": 0.010008171796931309,
+          "mu_n_scale": 1.0509047043454336,
+          "mu_p_scale": 0.8044875265448098,
+          "rs_scale": 1.1692765071527547
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00257621,
+          "pmos_current_a": 0.000768042,
+          "rs_current_a": 0.000296358,
+          "rs_resistance_ohm": 674.8594605173473
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0059",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.03074012196014533,
+          "vth_p_shift_v": -0.012094441628721385,
+          "mu_n_scale": 0.8760057602319143,
+          "mu_p_scale": 0.9815513643924231,
+          "rs_scale": 1.0075100369360332
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00234021,
+          "pmos_current_a": 0.000917585,
+          "rs_current_a": 0.000334431,
+          "rs_resistance_ohm": 598.0306849544451
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0060",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.03498080802076556,
+          "vth_p_shift_v": 0.09332950315133337,
+          "mu_n_scale": 1.1394285615438302,
+          "mu_p_scale": 0.9423328133651712,
+          "rs_scale": 1.0323687637316519
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00271814,
+          "pmos_current_a": 0.00093581,
+          "rs_current_a": 0.000327956,
+          "rs_resistance_ohm": 609.8379050848284
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0061",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.05925544604686698,
+          "vth_p_shift_v": 0.08455666074834206,
+          "mu_n_scale": 1.1416264125211582,
+          "mu_p_scale": 0.8863845323806085,
+          "rs_scale": 0.9385242640579137
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00262056,
+          "pmos_current_a": 0.000878586,
+          "rs_current_a": 0.000353815,
+          "rs_resistance_ohm": 565.2671593912073
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0062",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": -0.03934046111562907,
+          "vth_p_shift_v": -0.04557871795955188,
+          "mu_n_scale": 1.0665624815033956,
+          "mu_p_scale": 0.8870333670246674,
+          "rs_scale": 0.9717682760680889
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00262819,
+          "pmos_current_a": 0.000817387,
+          "rs_current_a": 0.000344201,
+          "rs_resistance_ohm": 581.0558365606144
+        },
+        "errors": []
+      },
+      {
+        "case": "mc_0063",
+        "process": "MC",
+        "vdd_v": 5.0,
+        "temperature_c": 27.0,
+        "parameters": {
+          "vth_n_shift_v": 0.009037542004604517,
+          "vth_p_shift_v": 0.011955923826775405,
+          "mu_n_scale": 1.0444319240697302,
+          "mu_p_scale": 1.1187617191135684,
+          "rs_scale": 0.9652306965028202
+        },
+        "status": "PASS",
+        "returncode": 0,
+        "measurements": {
+          "nmos_current_a": 0.00254801,
+          "pmos_current_a": 0.00105276,
+          "rs_current_a": 0.00034605,
+          "rs_resistance_ohm": 577.9511631267159
+        },
+        "errors": []
+      }
+    ],
+    "measurement_summary": {
+      "nmos_current_a": {
+        "count": 64,
+        "min": 0.00217404,
+        "max": 0.00280522,
+        "mean": 0.00248117765625,
+        "stddev": 0.00014353176849546417,
+        "p01": 0.0022061069999999997,
+        "p05": 0.002257579,
+        "p50": 0.00248332,
+        "p95": 0.0027129665,
+        "p99": 0.002772964
+      },
+      "pmos_current_a": {
+        "count": 64,
+        "min": 0.000744861,
+        "max": 0.00114127,
+        "mean": 0.000929947421875,
+        "stddev": 9.008856395964618e-05,
+        "p01": 0.00075625959,
+        "p05": 0.0007967409,
+        "p50": 0.000945256,
+        "p95": 0.0010598975,
+        "p99": 0.0010903093
+      },
+      "rs_current_a": {
+        "count": 64,
+        "min": 0.000283639,
+        "max": 0.000417551,
+        "mean": 0.00033730921875,
+        "stddev": 2.6297477658916834e-05,
+        "p01": 0.0002857873,
+        "p05": 0.00029986570000000004,
+        "p50": 0.000336279,
+        "p95": 0.00037727715,
+        "p99": 0.00041553940999999997
+      },
+      "rs_resistance_ohm": {
+        "count": 64,
+        "min": 478.98340561991233,
+        "max": 705.1216511128582,
+        "mean": 596.36737603644,
+        "stddev": 45.135025438419035,
+        "p01": 481.308733546273,
+        "p05": 530.1166152872114,
+        "p50": 594.7449965816302,
+        "p95": 666.9678972269741,
+        "p99": 699.8444585670359
+      }
+    }
+  },
+  "sensitivity": {
+    "status": "PASS_WITH_WARNINGS",
+    "factors": [
+      {
+        "name": "V_th_n",
+        "key": "vth_n_shift_v",
+        "units": "V",
+        "evaluation": "spice",
+        "points": {
+          "low": {
+            "case": "sens_00_V_th_n_low",
+            "process": "SENS",
+            "vdd_v": 5.0,
+            "temperature_c": 27.0,
+            "parameters": {
+              "vth_n_shift_v": -0.1,
+              "vth_p_shift_v": 0.0,
+              "mu_n_scale": 1.0,
+              "mu_p_scale": 1.0,
+              "rs_scale": 1.0
+            },
+            "status": "PASS",
+            "returncode": 0,
+            "measurements": {
+              "nmos_current_a": 0.0025986,
+              "pmos_current_a": 0.000940322,
+              "rs_current_a": 0.000336437,
+              "rs_resistance_ohm": 594.4649369718551
+            },
+            "errors": []
+          },
+          "nominal": {
+            "case": "sens_00_V_th_n_nominal",
+            "process": "SENS",
+            "vdd_v": 5.0,
+            "temperature_c": 27.0,
+            "parameters": {
+              "vth_n_shift_v": 0.0,
+              "vth_p_shift_v": 0.0,
+              "mu_n_scale": 1.0,
+              "mu_p_scale": 1.0,
+              "rs_scale": 1.0
+            },
+            "status": "PASS",
+            "returncode": 0,
+            "measurements": {
+              "nmos_current_a": 0.00249592,
+              "pmos_current_a": 0.000940322,
+              "rs_current_a": 0.000336437,
+              "rs_resistance_ohm": 594.4649369718551
+            },
+            "errors": []
+          },
+          "high": {
+            "case": "sens_00_V_th_n_high",
+            "process": "SENS",
+            "vdd_v": 5.0,
+            "temperature_c": 27.0,
+            "parameters": {
+              "vth_n_shift_v": 0.1,
+              "vth_p_shift_v": 0.0,
+              "mu_n_scale": 1.0,
+              "mu_p_scale": 1.0,
+              "rs_scale": 1.0
+            },
+            "status": "PASS",
+            "returncode": 0,
+            "measurements": {
+              "nmos_current_a": 0.00239464,
+              "pmos_current_a": 0.000940322,
+              "rs_current_a": 0.000336437,
+              "rs_resistance_ohm": 594.4649369718551
+            },
+            "errors": []
+          }
+        },
+        "status": "PASS",
+        "errors": [],
+        "analysis": {
+          "metrics": {
+            "nmos_current_a": {
+              "low": 0.0025986,
+              "nominal": 0.00249592,
+              "high": 0.00239464,
+              "delta_high_minus_low": -0.00020396,
+              "slope_per_factor_unit": -0.00020396,
+              "normalized_effect": 0.08171736273598512,
+              "status": "PASS"
+            },
+            "pmos_current_a": {
+              "low": 0.000940322,
+              "nominal": 0.000940322,
+              "high": 0.000940322,
+              "delta_high_minus_low": 0.0,
+              "slope_per_factor_unit": 0.0,
+              "normalized_effect": 0.0,
+              "status": "PASS"
+            },
+            "rs_current_a": {
+              "low": 0.000336437,
+              "nominal": 0.000336437,
+              "high": 0.000336437,
+              "delta_high_minus_low": 0.0,
+              "slope_per_factor_unit": 0.0,
+              "normalized_effect": 0.0,
+              "status": "PASS"
+            },
+            "rs_resistance_ohm": {
+              "low": 594.4649369718551,
+              "nominal": 594.4649369718551,
+              "high": 594.4649369718551,
+              "delta_high_minus_low": 0.0,
+              "slope_per_factor_unit": 0.0,
+              "normalized_effect": 0.0,
+              "status": "PASS"
+            }
+          },
+          "aggregate_max_normalized_effect": 0.08171736273598512
+        }
+      },
+      {
+        "name": "V_th_p",
+        "key": "vth_p_shift_v",
+        "units": "V",
+        "evaluation": "spice",
+        "points": {
+          "low": {
+            "case": "sens_01_V_th_p_low",
+            "process": "SENS",
+            "vdd_v": 5.0,
+            "temperature_c": 27.0,
+            "parameters": {
+              "vth_n_shift_v": 0.0,
+              "vth_p_shift_v": -0.1,
+              "mu_n_scale": 1.0,
+              "mu_p_scale": 1.0,
+              "rs_scale": 1.0
+            },
+            "status": "PASS",
+            "returncode": 0,
+            "measurements": {
+              "nmos_current_a": 0.00249592,
+              "pmos_current_a": 0.000888794,
+              "rs_current_a": 0.000336437,
+              "rs_resistance_ohm": 594.4649369718551
+            },
+            "errors": []
+          },
+          "nominal": {
+            "case": "sens_01_V_th_p_nominal",
+            "process": "SENS",
+            "vdd_v": 5.0,
+            "temperature_c": 27.0,
+            "parameters": {
+              "vth_n_shift_v": 0.0,
+              "vth_p_shift_v": 0.0,
+              "mu_n_scale": 1.0,
+              "mu_p_scale": 1.0,
+              "rs_scale": 1.0
+            },
+            "status": "PASS",
+            "returncode": 0,
+            "measurements": {
+              "nmos_current_a": 0.00249592,
+              "pmos_current_a": 0.000940322,
+              "rs_current_a": 0.000336437,
+              "rs_resistance_ohm": 594.4649369718551
+            },
+            "errors": []
+          },
+          "high": {
+            "case": "sens_01_V_th_p_high",
+            "process": "SENS",
+            "vdd_v": 5.0,
+            "temperature_c": 27.0,
+            "parameters": {
+              "vth_n_shift_v": 0.0,
+              "vth_p_shift_v": 0.1,
+              "mu_n_scale": 1.0,
+              "mu_p_scale": 1.0,
+              "rs_scale": 1.0
+            },
+            "status": "PASS",
+            "returncode": 0,
+            "measurements": {
+              "nmos_current_a": 0.00249592,
+              "pmos_current_a": 0.000993661,
+              "rs_current_a": 0.000336437,
+              "rs_resistance_ohm": 594.4649369718551
+            },
+            "errors": []
+          }
+        },
+        "status": "PASS",
+        "errors": [],
+        "analysis": {
+          "metrics": {
+            "nmos_current_a": {
+              "low": 0.00249592,
+              "nominal": 0.00249592,
+              "high": 0.00249592,
+              "delta_high_minus_low": 0.0,
+              "slope_per_factor_unit": 0.0,
+              "normalized_effect": 0.0,
+              "status": "PASS"
+            },
+            "pmos_current_a": {
+              "low": 0.000888794,
+              "nominal": 0.000940322,
+              "high": 0.000993661,
+              "delta_high_minus_low": 0.00010486700000000002,
+              "slope_per_factor_unit": 0.00010486700000000002,
+              "normalized_effect": 0.11152243593152136,
+              "status": "PASS"
+            },
+            "rs_current_a": {
+              "low": 0.000336437,
+              "nominal": 0.000336437,
+              "high": 0.000336437,
+              "delta_high_minus_low": 0.0,
+              "slope_per_factor_unit": 0.0,
+              "normalized_effect": 0.0,
+              "status": "PASS"
+            },
+            "rs_resistance_ohm": {
+              "low": 594.4649369718551,
+              "nominal": 594.4649369718551,
+              "high": 594.4649369718551,
+              "delta_high_minus_low": 0.0,
+              "slope_per_factor_unit": 0.0,
+              "normalized_effect": 0.0,
+              "status": "PASS"
+            }
+          },
+          "aggregate_max_normalized_effect": 0.11152243593152136
+        }
+      },
+      {
+        "name": "mu_0_n",
+        "key": "mu_n_scale",
+        "units": "relative",
+        "evaluation": "spice",
+        "points": {
+          "low": {
+            "case": "sens_02_mu_0_n_low",
+            "process": "SENS",
+            "vdd_v": 5.0,
+            "temperature_c": 27.0,
+            "parameters": {
+              "vth_n_shift_v": 0.0,
+              "vth_p_shift_v": 0.0,
+              "mu_n_scale": 0.8,
+              "mu_p_scale": 1.0,
+              "rs_scale": 1.0
+            },
+            "status": "PASS",
+            "returncode": 0,
+            "measurements": {
+              "nmos_current_a": 0.00218502,
+              "pmos_current_a": 0.000940322,
+              "rs_current_a": 0.000336437,
+              "rs_resistance_ohm": 594.4649369718551
+            },
+            "errors": []
+          },
+          "nominal": {
+            "case": "sens_02_mu_0_n_nominal",
+            "process": "SENS",
+            "vdd_v": 5.0,
+            "temperature_c": 27.0,
+            "parameters": {
+              "vth_n_shift_v": 0.0,
+              "vth_p_shift_v": 0.0,
+              "mu_n_scale": 1.0,
+              "mu_p_scale": 1.0,
+              "rs_scale": 1.0
+            },
+            "status": "PASS",
+            "returncode": 0,
+            "measurements": {
+              "nmos_current_a": 0.00249592,
+              "pmos_current_a": 0.000940322,
+              "rs_current_a": 0.000336437,
+              "rs_resistance_ohm": 594.4649369718551
+            },
+            "errors": []
+          },
+          "high": {
+            "case": "sens_02_mu_0_n_high",
+            "process": "SENS",
+            "vdd_v": 5.0,
+            "temperature_c": 27.0,
+            "parameters": {
+              "vth_n_shift_v": 0.0,
+              "vth_p_shift_v": 0.0,
+              "mu_n_scale": 1.2,
+              "mu_p_scale": 1.0,
+              "rs_scale": 1.0
+            },
+            "status": "PASS",
+            "returncode": 0,
+            "measurements": {
+              "nmos_current_a": 0.0027543,
+              "pmos_current_a": 0.000940322,
+              "rs_current_a": 0.000336437,
+              "rs_resistance_ohm": 594.4649369718551
+            },
+            "errors": []
+          }
+        },
+        "status": "PASS",
+        "errors": [],
+        "analysis": {
+          "metrics": {
+            "nmos_current_a": {
+              "low": 0.00218502,
+              "nominal": 0.00249592,
+              "high": 0.0027543,
+              "delta_high_minus_low": 0.0005692799999999997,
+              "slope_per_factor_unit": 0.0005692799999999997,
+              "normalized_effect": 0.22808423346902132,
+              "status": "PASS"
+            },
+            "pmos_current_a": {
+              "low": 0.000940322,
+              "nominal": 0.000940322,
+              "high": 0.000940322,
+              "delta_high_minus_low": 0.0,
+              "slope_per_factor_unit": 0.0,
+              "normalized_effect": 0.0,
+              "status": "PASS"
+            },
+            "rs_current_a": {
+              "low": 0.000336437,
+              "nominal": 0.000336437,
+              "high": 0.000336437,
+              "delta_high_minus_low": 0.0,
+              "slope_per_factor_unit": 0.0,
+              "normalized_effect": 0.0,
+              "status": "PASS"
+            },
+            "rs_resistance_ohm": {
+              "low": 594.4649369718551,
+              "nominal": 594.4649369718551,
+              "high": 594.4649369718551,
+              "delta_high_minus_low": 0.0,
+              "slope_per_factor_unit": 0.0,
+              "normalized_effect": 0.0,
+              "status": "PASS"
+            }
+          },
+          "aggregate_max_normalized_effect": 0.22808423346902132
+        }
+      },
+      {
+        "name": "mu_0_p",
+        "key": "mu_p_scale",
+        "units": "relative",
+        "evaluation": "spice",
+        "points": {
+          "low": {
+            "case": "sens_03_mu_0_p_low",
+            "process": "SENS",
+            "vdd_v": 5.0,
+            "temperature_c": 27.0,
+            "parameters": {
+              "vth_n_shift_v": 0.0,
+              "vth_p_shift_v": 0.0,
+              "mu_n_scale": 1.0,
+              "mu_p_scale": 0.8,
+              "rs_scale": 1.0
+            },
+            "status": "PASS",
+            "returncode": 0,
+            "measurements": {
+              "nmos_current_a": 0.00249592,
+              "pmos_current_a": 0.000759612,
+              "rs_current_a": 0.000336437,
+              "rs_resistance_ohm": 594.4649369718551
+            },
+            "errors": []
+          },
+          "nominal": {
+            "case": "sens_03_mu_0_p_nominal",
+            "process": "SENS",
+            "vdd_v": 5.0,
+            "temperature_c": 27.0,
+            "parameters": {
+              "vth_n_shift_v": 0.0,
+              "vth_p_shift_v": 0.0,
+              "mu_n_scale": 1.0,
+              "mu_p_scale": 1.0,
+              "rs_scale": 1.0
+            },
+            "status": "PASS",
+            "returncode": 0,
+            "measurements": {
+              "nmos_current_a": 0.00249592,
+              "pmos_current_a": 0.000940322,
+              "rs_current_a": 0.000336437,
+              "rs_resistance_ohm": 594.4649369718551
+            },
+            "errors": []
+          },
+          "high": {
+            "case": "sens_03_mu_0_p_high",
+            "process": "SENS",
+            "vdd_v": 5.0,
+            "temperature_c": 27.0,
+            "parameters": {
+              "vth_n_shift_v": 0.0,
+              "vth_p_shift_v": 0.0,
+              "mu_n_scale": 1.0,
+              "mu_p_scale": 1.2,
+              "rs_scale": 1.0
+            },
+            "status": "PASS",
+            "returncode": 0,
+            "measurements": {
+              "nmos_current_a": 0.00249592,
+              "pmos_current_a": 0.00111724,
+              "rs_current_a": 0.000336437,
+              "rs_resistance_ohm": 594.4649369718551
+            },
+            "errors": []
+          }
+        },
+        "status": "PASS",
+        "errors": [],
+        "analysis": {
+          "metrics": {
+            "nmos_current_a": {
+              "low": 0.00249592,
+              "nominal": 0.00249592,
+              "high": 0.00249592,
+              "delta_high_minus_low": 0.0,
+              "slope_per_factor_unit": 0.0,
+              "normalized_effect": 0.0,
+              "status": "PASS"
+            },
+            "pmos_current_a": {
+              "low": 0.000759612,
+              "nominal": 0.000940322,
+              "high": 0.00111724,
+              "delta_high_minus_low": 0.000357628,
+              "slope_per_factor_unit": 0.000357628,
+              "normalized_effect": 0.3803250375935053,
+              "status": "PASS"
+            },
+            "rs_current_a": {
+              "low": 0.000336437,
+              "nominal": 0.000336437,
+              "high": 0.000336437,
+              "delta_high_minus_low": 0.0,
+              "slope_per_factor_unit": 0.0,
+              "normalized_effect": 0.0,
+              "status": "PASS"
+            },
+            "rs_resistance_ohm": {
+              "low": 594.4649369718551,
+              "nominal": 594.4649369718551,
+              "high": 594.4649369718551,
+              "delta_high_minus_low": 0.0,
+              "slope_per_factor_unit": 0.0,
+              "normalized_effect": 0.0,
+              "status": "PASS"
+            }
+          },
+          "aggregate_max_normalized_effect": 0.3803250375935053
+        }
+      },
+      {
+        "name": "R_sq",
+        "key": "rs_scale",
+        "units": "relative",
+        "evaluation": "spice",
+        "points": {
+          "low": {
+            "case": "sens_04_R_sq_low",
+            "process": "SENS",
+            "vdd_v": 5.0,
+            "temperature_c": 27.0,
+            "parameters": {
+              "vth_n_shift_v": 0.0,
+              "vth_p_shift_v": 0.0,
+              "mu_n_scale": 1.0,
+              "mu_p_scale": 1.0,
+              "rs_scale": 0.8
+            },
+            "status": "PASS",
+            "returncode": 0,
+            "measurements": {
+              "nmos_current_a": 0.00249592,
+              "pmos_current_a": 0.000940322,
+              "rs_current_a": 0.000400419,
+              "rs_resistance_ohm": 499.4767980540384
+            },
+            "errors": []
+          },
+          "nominal": {
+            "case": "sens_04_R_sq_nominal",
+            "process": "SENS",
+            "vdd_v": 5.0,
+            "temperature_c": 27.0,
+            "parameters": {
+              "vth_n_shift_v": 0.0,
+              "vth_p_shift_v": 0.0,
+              "mu_n_scale": 1.0,
+              "mu_p_scale": 1.0,
+              "rs_scale": 1.0
+            },
+            "status": "PASS",
+            "returncode": 0,
+            "measurements": {
+              "nmos_current_a": 0.00249592,
+              "pmos_current_a": 0.000940322,
+              "rs_current_a": 0.000336437,
+              "rs_resistance_ohm": 594.4649369718551
+            },
+            "errors": []
+          },
+          "high": {
+            "case": "sens_04_R_sq_high",
+            "process": "SENS",
+            "vdd_v": 5.0,
+            "temperature_c": 27.0,
+            "parameters": {
+              "vth_n_shift_v": 0.0,
+              "vth_p_shift_v": 0.0,
+              "mu_n_scale": 1.0,
+              "mu_p_scale": 1.0,
+              "rs_scale": 1.2
+            },
+            "status": "PASS",
+            "returncode": 0,
+            "measurements": {
+              "nmos_current_a": 0.00249592,
+              "pmos_current_a": 0.000940322,
+              "rs_current_a": 0.000290086,
+              "rs_resistance_ohm": 689.4507146156658
+            },
+            "errors": []
+          }
+        },
+        "status": "PASS",
+        "errors": [],
+        "analysis": {
+          "metrics": {
+            "nmos_current_a": {
+              "low": 0.00249592,
+              "nominal": 0.00249592,
+              "high": 0.00249592,
+              "delta_high_minus_low": 0.0,
+              "slope_per_factor_unit": 0.0,
+              "normalized_effect": 0.0,
+              "status": "PASS"
+            },
+            "pmos_current_a": {
+              "low": 0.000940322,
+              "nominal": 0.000940322,
+              "high": 0.000940322,
+              "delta_high_minus_low": 0.0,
+              "slope_per_factor_unit": 0.0,
+              "normalized_effect": 0.0,
+              "status": "PASS"
+            },
+            "rs_current_a": {
+              "low": 0.000400419,
+              "nominal": 0.000336437,
+              "high": 0.000290086,
+              "delta_high_minus_low": -0.000110333,
+              "slope_per_factor_unit": -0.000110333,
+              "normalized_effect": 0.32794549945457846,
+              "status": "PASS"
+            },
+            "rs_resistance_ohm": {
+              "low": 499.4767980540384,
+              "nominal": 594.4649369718551,
+              "high": 689.4507146156658,
+              "delta_high_minus_low": 189.9739165616274,
+              "slope_per_factor_unit": 189.9739165616274,
+              "normalized_effect": 0.31957127283122116,
+              "status": "PASS"
+            }
+          },
+          "aggregate_max_normalized_effect": 0.32794549945457846
+        }
+      },
+      {
+        "name": "VDD",
+        "key": "vdd_v",
+        "units": "V",
+        "evaluation": "spice",
+        "points": {
+          "low": {
+            "case": "sens_05_VDD_low",
+            "process": "SENS",
+            "vdd_v": 4.5,
+            "temperature_c": 27.0,
+            "parameters": {
+              "vth_n_shift_v": 0.0,
+              "vth_p_shift_v": 0.0,
+              "mu_n_scale": 1.0,
+              "mu_p_scale": 1.0,
+              "rs_scale": 1.0
+            },
+            "status": "PASS",
+            "returncode": 0,
+            "measurements": {
+              "nmos_current_a": 0.00208008,
+              "pmos_current_a": 0.000760317,
+              "rs_current_a": 0.000336437,
+              "rs_resistance_ohm": 594.4649369718551
+            },
+            "errors": []
+          },
+          "nominal": {
+            "case": "sens_05_VDD_nominal",
+            "process": "SENS",
+            "vdd_v": 5.0,
+            "temperature_c": 27.0,
+            "parameters": {
+              "vth_n_shift_v": 0.0,
+              "vth_p_shift_v": 0.0,
+              "mu_n_scale": 1.0,
+              "mu_p_scale": 1.0,
+              "rs_scale": 1.0
+            },
+            "status": "PASS",
+            "returncode": 0,
+            "measurements": {
+              "nmos_current_a": 0.00249592,
+              "pmos_current_a": 0.000940322,
+              "rs_current_a": 0.000336437,
+              "rs_resistance_ohm": 594.4649369718551
+            },
+            "errors": []
+          },
+          "high": {
+            "case": "sens_05_VDD_high",
+            "process": "SENS",
+            "vdd_v": 5.5,
+            "temperature_c": 27.0,
+            "parameters": {
+              "vth_n_shift_v": 0.0,
+              "vth_p_shift_v": 0.0,
+              "mu_n_scale": 1.0,
+              "mu_p_scale": 1.0,
+              "rs_scale": 1.0
+            },
+            "status": "PASS",
+            "returncode": 0,
+            "measurements": {
+              "nmos_current_a": 0.00292414,
+              "pmos_current_a": 0.00113174,
+              "rs_current_a": 0.000336437,
+              "rs_resistance_ohm": 594.4649369718551
+            },
+            "errors": []
+          }
+        },
+        "status": "PASS",
+        "errors": [],
+        "analysis": {
+          "metrics": {
+            "nmos_current_a": {
+              "low": 0.00208008,
+              "nominal": 0.00249592,
+              "high": 0.00292414,
+              "delta_high_minus_low": 0.0008440599999999998,
+              "slope_per_factor_unit": 0.0008440599999999998,
+              "normalized_effect": 0.3381759030738164,
+              "status": "PASS"
+            },
+            "pmos_current_a": {
+              "low": 0.000760317,
+              "nominal": 0.000940322,
+              "high": 0.00113174,
+              "delta_high_minus_low": 0.00037142299999999996,
+              "slope_per_factor_unit": 0.00037142299999999996,
+              "normalized_effect": 0.3949955440795812,
+              "status": "PASS"
+            },
+            "rs_current_a": {
+              "low": 0.000336437,
+              "nominal": 0.000336437,
+              "high": 0.000336437,
+              "delta_high_minus_low": 0.0,
+              "slope_per_factor_unit": 0.0,
+              "normalized_effect": 0.0,
+              "status": "PASS"
+            },
+            "rs_resistance_ohm": {
+              "low": 594.4649369718551,
+              "nominal": 594.4649369718551,
+              "high": 594.4649369718551,
+              "delta_high_minus_low": 0.0,
+              "slope_per_factor_unit": 0.0,
+              "normalized_effect": 0.0,
+              "status": "PASS"
+            }
+          },
+          "aggregate_max_normalized_effect": 0.3949955440795812
+        }
+      },
+      {
+        "name": "temperature",
+        "key": "temperature_c",
+        "units": "degC",
+        "evaluation": "spice",
+        "points": {
+          "low": {
+            "case": "sens_06_temperature_low",
+            "process": "SENS",
+            "vdd_v": 5.0,
+            "temperature_c": 27.0,
+            "parameters": {
+              "vth_n_shift_v": 0.0,
+              "vth_p_shift_v": 0.0,
+              "mu_n_scale": 1.0,
+              "mu_p_scale": 1.0,
+              "rs_scale": 1.0
+            },
+            "status": "PASS",
+            "returncode": 0,
+            "measurements": {
+              "nmos_current_a": 0.00249592,
+              "pmos_current_a": 0.000940322,
+              "rs_current_a": 0.000336437,
+              "rs_resistance_ohm": 594.4649369718551
+            },
+            "errors": []
+          },
+          "nominal": {
+            "case": "sens_06_temperature_nominal",
+            "process": "SENS",
+            "vdd_v": 5.0,
+            "temperature_c": 55.0,
+            "parameters": {
+              "vth_n_shift_v": 0.0,
+              "vth_p_shift_v": 0.0,
+              "mu_n_scale": 1.0,
+              "mu_p_scale": 1.0,
+              "rs_scale": 1.0
+            },
+            "status": "PASS",
+            "returncode": 0,
+            "measurements": {
+              "nmos_current_a": 0.00230594,
+              "pmos_current_a": 0.000882197,
+              "rs_current_a": 0.000336437,
+              "rs_resistance_ohm": 594.4649369718551
+            },
+            "errors": []
+          },
+          "high": {
+            "case": "sens_06_temperature_high",
+            "process": "SENS",
+            "vdd_v": 5.0,
+            "temperature_c": 85.0,
+            "parameters": {
+              "vth_n_shift_v": 0.0,
+              "vth_p_shift_v": 0.0,
+              "mu_n_scale": 1.0,
+              "mu_p_scale": 1.0,
+              "rs_scale": 1.0
+            },
+            "status": "PASS",
+            "returncode": 0,
+            "measurements": {
+              "nmos_current_a": 0.00212196,
+              "pmos_current_a": 0.000829409,
+              "rs_current_a": 0.000336437,
+              "rs_resistance_ohm": 594.4649369718551
+            },
+            "errors": []
+          }
+        },
+        "status": "PASS",
+        "errors": [],
+        "analysis": {
+          "metrics": {
+            "nmos_current_a": {
+              "low": 0.00249592,
+              "nominal": 0.00230594,
+              "high": 0.00212196,
+              "delta_high_minus_low": -0.00037396,
+              "slope_per_factor_unit": -0.00037396,
+              "normalized_effect": 0.1621724763003374,
+              "status": "PASS"
+            },
+            "pmos_current_a": {
+              "low": 0.000940322,
+              "nominal": 0.000882197,
+              "high": 0.000829409,
+              "delta_high_minus_low": -0.00011091299999999992,
+              "slope_per_factor_unit": -0.00011091299999999992,
+              "normalized_effect": 0.12572361955436248,
+              "status": "PASS"
+            },
+            "rs_current_a": {
+              "low": 0.000336437,
+              "nominal": 0.000336437,
+              "high": 0.000336437,
+              "delta_high_minus_low": 0.0,
+              "slope_per_factor_unit": 0.0,
+              "normalized_effect": 0.0,
+              "status": "PASS"
+            },
+            "rs_resistance_ohm": {
+              "low": 594.4649369718551,
+              "nominal": 594.4649369718551,
+              "high": 594.4649369718551,
+              "delta_high_minus_low": 0.0,
+              "slope_per_factor_unit": 0.0,
+              "normalized_effect": 0.0,
+              "status": "PASS"
+            }
+          },
+          "aggregate_max_normalized_effect": 0.1621724763003374
+        }
+      },
+      {
+        "name": "GND_return_resistance",
+        "key": "return_path_resistance_ohm",
+        "units": "ohm",
+        "evaluation": "return_path",
+        "points": {
+          "low": {
+            "value": 4.456,
+            "measurements": {
+              "ground_return_vdrop_v": 1.0694400000000001e-08
+            },
+            "status": "PASS"
+          },
+          "nominal": {
+            "value": 8.912,
+            "measurements": {
+              "ground_return_vdrop_v": 2.1388800000000003e-08
+            },
+            "status": "PASS"
+          },
+          "high": {
+            "value": 13.368,
+            "measurements": {
+              "ground_return_vdrop_v": 3.20832e-08
+            },
+            "status": "PASS"
+          }
+        },
+        "status": "PASS",
+        "errors": [],
+        "return_path": {
+          "load_current_a": 2.4e-09,
+          "bridge_estimate": {
+            "basis": "R = sheet resistance * Manhattan length / bridge width; engineering sensitivity only",
+            "layer": "M2",
+            "length_um": 891.2,
+            "nominal_resistance_ohm": 8.912,
+            "relative_spread": 0.5,
+            "segments": [
+              {
+                "length_um": 43.2,
+                "nominal_resistance_ohm": 0.432
+              },
+              {
+                "length_um": 383.4,
+                "nominal_resistance_ohm": 3.8339999999999996
+              },
+              {
+                "length_um": 237.6,
+                "nominal_resistance_ohm": 2.376
+              },
+              {
+                "length_um": 141.4,
+                "nominal_resistance_ohm": 1.414
+              },
+              {
+                "length_um": 21.6,
+                "nominal_resistance_ohm": 0.216
+              },
+              {
+                "length_um": 7.0,
+                "nominal_resistance_ohm": 0.06999999999999999
+              },
+              {
+                "length_um": 23.4,
+                "nominal_resistance_ohm": 0.23399999999999999
+              },
+              {
+                "length_um": 30.0,
+                "nominal_resistance_ohm": 0.3
+              },
+              {
+                "length_um": 3.6,
+                "nominal_resistance_ohm": 0.036
+              }
+            ],
+            "sensitivity_band_ohm": [
+              4.456,
+              13.368000000000002
+            ],
+            "sheet_resistance_ohm_per_square": 0.03,
+            "width_um": 3.0
+          }
+        },
+        "analysis": {
+          "metrics": {
+            "ground_return_vdrop_v": {
+              "low": 1.0694400000000001e-08,
+              "nominal": 2.1388800000000003e-08,
+              "high": 3.20832e-08,
+              "delta_high_minus_low": 2.13888e-08,
+              "slope_per_factor_unit": 2.4e-09,
+              "normalized_effect": 0.9999999999999999,
+              "status": "PASS"
+            }
+          },
+          "aggregate_max_normalized_effect": 0.9999999999999999
+        }
+      }
+    ],
+    "ranking": [
+      {
+        "name": "GND_return_resistance",
+        "key": "return_path_resistance_ohm",
+        "aggregate_max_normalized_effect": 0.9999999999999999,
+        "status": "PASS"
+      },
+      {
+        "name": "VDD",
+        "key": "vdd_v",
+        "aggregate_max_normalized_effect": 0.3949955440795812,
+        "status": "PASS"
+      },
+      {
+        "name": "mu_0_p",
+        "key": "mu_p_scale",
+        "aggregate_max_normalized_effect": 0.3803250375935053,
+        "status": "PASS"
+      },
+      {
+        "name": "R_sq",
+        "key": "rs_scale",
+        "aggregate_max_normalized_effect": 0.32794549945457846,
+        "status": "PASS"
+      },
+      {
+        "name": "mu_0_n",
+        "key": "mu_n_scale",
+        "aggregate_max_normalized_effect": 0.22808423346902132,
+        "status": "PASS"
+      },
+      {
+        "name": "temperature",
+        "key": "temperature_c",
+        "aggregate_max_normalized_effect": 0.1621724763003374,
+        "status": "PASS"
+      },
+      {
+        "name": "V_th_p",
+        "key": "vth_p_shift_v",
+        "aggregate_max_normalized_effect": 0.11152243593152136,
+        "status": "PASS"
+      },
+      {
+        "name": "V_th_n",
+        "key": "vth_n_shift_v",
+        "aggregate_max_normalized_effect": 0.08171736273598512,
+        "status": "PASS"
+      }
+    ],
+    "execution_status": "PASS",
+    "warnings": [
+      "Sensitivity is a reference-only local screen and does not claim official multivariate or silicon-correlated limits."
+    ]
+  },
+  "timing_sensitivity": {
+    "status": "PASS_WITH_WARNINGS",
+    "execution_status": "PASS",
+    "warnings": [
+      "Reference-only timing screen using an engineering SPEF and nominal-corner Liberty.",
+      "No process-qualified PVT Liberty set or timing signoff claim is made."
+    ],
+    "report": "/Users/yanlu/Documents/TR-1um/flow/qualification/reports/variation-analysis/rc_timing_sensitivity_alu8.json",
+    "design": "tr1um_alu8",
+    "tool": {
+      "command": "sta",
+      "version": "2.7.0"
+    },
+    "sampling": {
+      "samples": 20,
+      "seed": 20260905,
+      "r_spread": 0.5,
+      "c_spread": 0.5,
+      "method": "independent uniform scaling of all SPEF R and C terms",
+      "delta_method": "R-only, C-only, and coupled RC perturbations relative to the nominal unscaled SPEF"
+    },
+    "summary": {
+      "count": 20,
+      "valid_samples": 20,
+      "total_samples": 20,
+      "violating_samples": 0,
+      "critical_path_delay_ns": {
+        "min": 8.40230975245504,
+        "median": 8.58511819268142,
+        "max": 8.839321969016055
+      },
+      "wns": {
+        "min": 4987.160678030984,
+        "median": 4987.414881807319,
+        "max": 4987.597690247545
+      },
+      "wns_ns": {
+        "min": 4987.160678030984,
+        "median": 4987.414881807319,
+        "max": 4987.597690247545
+      },
+      "delta_t_r_ns": {
+        "min": -0.000454747,
+        "median": 0.0,
+        "max": 0.0
+      },
+      "delta_t_c_ns": {
+        "min": -0.233285398,
+        "median": -0.0511590785,
+        "max": 0.203272072
+      },
+      "delta_t_rc_ns": {
+        "min": -0.233740145,
+        "median": -0.050931705,
+        "max": 0.203272072
+      },
+      "delta_t_interaction_ns": {
+        "min": -0.000454747,
+        "median": 0.0,
+        "max": 0.000454747
+      }
+    },
+    "limitations": [
+      "The SPEF is an engineering RC estimate, not foundry-qualified extraction.",
+      "This is an RC timing sensitivity screen, not a PVT STA signoff report.",
+      "delta_t_r_ns and delta_t_c_ns are isolated one-factor delay changes; delta_t_rc_ns includes their coupled RC effect.",
+      "A missing or sentinel OpenSTA slack or path report is recorded as FAIL; it is never converted to zero or a passing result."
+    ]
+  },
+  "warnings": [
+    "FF/SS/FS/SF process corners are explicit reference modifiers, not official process cards.",
+    "Monte Carlo distributions are reference assumptions, not foundry mismatch data.",
+    "Timing sensitivity is a nominal-corner RC screen, not official PVT STA."
+  ],
+  "limitations": [
+    "FF/SS/FS/SF process corners are reference-only model modifiers; no official process-corner cards are available.",
+    "The pseudo-Monte Carlo distributions and independent correlation assumption are reference-only engineering assumptions; no official mismatch sigma or spatial-correlation data are available.",
+    "The sensitivity outputs are reference-only local one-factor effects and do not claim official multivariate, timing, analog-performance, or EM/IR limits.",
+    "The timing report is a reference-only nominal-corner RC screen and does not claim official PVT STA closure.",
+    "The GND return sensitivity uses the existing leakage-only PDN observation and does not close the PDN TODO.",
+    "Reference-only FF/SS/FS/SF modifiers are not foundry process-corner model cards.",
+    "Reference-only pseudo-Monte Carlo uses independent bounded normal samples; no silicon mismatch sigma or spatial correlation is claimed.",
+    "Reference-only sensitivity is one-factor-at-a-time and does not establish a multivariate worst-case or qualified EM/IR limit.",
+    "Timing evidence is a nominal-corner reference-only RC screen from the LibreLane shell; it is not PVT timing signoff."
+  ],
+  "execution_status": "PASS"
+}

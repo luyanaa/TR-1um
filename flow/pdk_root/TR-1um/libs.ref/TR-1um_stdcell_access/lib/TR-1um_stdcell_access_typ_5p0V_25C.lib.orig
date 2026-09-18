@@ -29,26 +29,20 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     index_1 ("0.5, 1.0, 2.0");
     index_2 ("0.1, 0.5, 2.0");
   }
-  lu_table_template (constraint_template) {
-    variable_1 : constrained_pin_transition ;
-    variable_2 : related_pin_transition ;
-    index_1 ("0.5, 1.0, 2.0");
-    index_2 ("0.5, 1.0, 2.0");
-  }
   cell (AND2_X1) {
-    area : 2165.960000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.075965 ;
-      rise_capacitance : 0.073563 ;
-      fall_capacitance : 0.078366 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (B) {
       direction : input ;
-      capacitance : 0.077288 ;
-      rise_capacitance : 0.077553 ;
-      fall_capacitance : 0.077024 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -88,25 +82,25 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (AND3_X1) {
-    area : 2510.260000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.073268 ;
-      rise_capacitance : 0.070289 ;
-      fall_capacitance : 0.076247 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (B) {
       direction : input ;
-      capacitance : 0.074266 ;
-      rise_capacitance : 0.073913 ;
-      fall_capacitance : 0.074620 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (C) {
       direction : input ;
-      capacitance : 0.074730 ;
-      rise_capacitance : 0.075703 ;
-      fall_capacitance : 0.073758 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -162,31 +156,31 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (AND4_X1) {
-    area : 2854.560000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.072348 ;
-      rise_capacitance : 0.069158 ;
-      fall_capacitance : 0.075539 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (B) {
       direction : input ;
-      capacitance : 0.073173 ;
-      rise_capacitance : 0.072200 ;
-      fall_capacitance : 0.074146 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (C) {
       direction : input ;
-      capacitance : 0.073290 ;
-      rise_capacitance : 0.073478 ;
-      fall_capacitance : 0.073102 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (D) {
       direction : input ;
-      capacitance : 0.073730 ;
-      rise_capacitance : 0.074781 ;
-      fall_capacitance : 0.072679 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -258,13 +252,13 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (BUF_X1) {
-    area : 1821.660000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.079588 ;
-      rise_capacitance : 0.080095 ;
-      fall_capacitance : 0.079081 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -288,13 +282,13 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (BUF_X12) {
-    area : 4920.360000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.140809 ;
-      rise_capacitance : 0.147973 ;
-      fall_capacitance : 0.133646 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -318,13 +312,13 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (BUF_X16) {
-    area : 6641.860000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.202153 ;
-      rise_capacitance : 0.211312 ;
-      fall_capacitance : 0.192994 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -348,13 +342,13 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (BUF_X2) {
-    area : 2165.960000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.075614 ;
-      rise_capacitance : 0.077199 ;
-      fall_capacitance : 0.074029 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -378,13 +372,13 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (BUF_X4) {
-    area : 2854.560000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.152676 ;
-      rise_capacitance : 0.155577 ;
-      fall_capacitance : 0.149776 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -408,13 +402,13 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (BUF_X8) {
-    area : 3887.460000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.144455 ;
-      rise_capacitance : 0.150401 ;
-      fall_capacitance : 0.138509 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -438,13 +432,13 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (CLKBUF_X1) {
-    area : 3198.860000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.149845 ;
-      rise_capacitance : 0.153838 ;
-      fall_capacitance : 0.145851 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -468,13 +462,13 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (CLKBUF_X12) {
-    area : 19118.040000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.704241 ;
-      rise_capacitance : 0.740274 ;
-      fall_capacitance : 0.668208 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -498,13 +492,13 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (CLKBUF_X16) {
-    area : 24545.460000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.840088 ;
-      rise_capacitance : 0.884718 ;
-      fall_capacitance : 0.795458 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -528,13 +522,13 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (CLKBUF_X2) {
-    area : 4920.360000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.299631 ;
-      rise_capacitance : 0.307654 ;
-      fall_capacitance : 0.291608 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -558,13 +552,13 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (CLKBUF_X4) {
-    area : 8019.060000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.439129 ;
-      rise_capacitance : 0.454736 ;
-      fall_capacitance : 0.423522 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -588,13 +582,13 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (CLKBUF_X8) {
-    area : 13527.860000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.569421 ;
-      rise_capacitance : 0.596160 ;
-      fall_capacitance : 0.542682 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -618,13 +612,13 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (DEL1) {
-    area : 3198.860000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.078588 ;
-      rise_capacitance : 0.079088 ;
-      fall_capacitance : 0.078089 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -648,13 +642,13 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (DEL2) {
-    area : 4576.060000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.076258 ;
-      rise_capacitance : 0.077374 ;
-      fall_capacitance : 0.075142 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -678,13 +672,13 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (DEL4) {
-    area : 7330.460000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.128065 ;
-      rise_capacitance : 0.134902 ;
-      fall_capacitance : 0.121228 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -708,39 +702,13 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (DFFR) {
-    area : 6297.560000 ;
+    area : 200 ;
     cell_leakage_power : 1 ;
     pg_pin (VDD) { voltage_name : "VDD" ; pg_type : primary_power ; }
     pg_pin (GND) { voltage_name : "GND" ; pg_type : primary_ground ; }
-    pin (CK) {
-      direction : input ;
-      clock : true ;
-      capacitance : 0.079937 ;
-      rise_capacitance : 0.080249 ;
-      fall_capacitance : 0.079625 ;
-    }
-    pin (D) {
-      direction : input ;
-      capacitance : 0.075886 ;
-      rise_capacitance : 0.075991 ;
-      fall_capacitance : 0.075780 ;
-      timing () {
-        related_pin : "CK" ;
-        timing_type : setup_rising ;
-        rise_constraint (constraint_template) {
-          values ("2.2885, 2.2885, 2.1912", "2.2885, 2.2885, 2.2885", "2.3857, 2.3857, 2.2885");
-        }
-        fall_constraint (constraint_template) {
-          values ("1.0240, 1.0240, 1.0240", "1.1213, 1.0240, 1.0240", "1.1213, 1.1213, 1.0240");
-        }
-      }
-    }
-    pin (RST) {
-      direction : input ;
-      capacitance : 0.128399 ;
-      rise_capacitance : 0.153518 ;
-      fall_capacitance : 0.103280 ;
-    }
+    pin (CK) { direction : input ; clock : true ; capacitance : 0.1 ; }
+    pin (D) { direction : input ; capacitance : 0.05 ; }
+    pin (RST) { direction : input ; capacitance : 0.05 ; }
     pin (Q) {
       direction : output ;
       function : "IQ" ;
@@ -748,16 +716,16 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
         related_pin : "CK" ;
         timing_type : rising_edge ;
         cell_rise (delay_template) {
-          values ("7.3153, 8.4835, 12.6535", "7.3271, 8.4953, 12.6652", "7.3541, 8.5219, 12.6914");
+          values ("7.5535, 8.7196, 12.8850", "7.5535, 8.7196, 12.8850", "7.5535, 8.7196, 12.8850");
         }
         cell_fall (delay_template) {
-          values ("8.1206, 9.8231, 16.0439", "8.1327, 9.8351, 16.0559", "8.1594, 9.8611, 16.0816");
+          values ("8.3773, 10.0864, 16.2889", "8.3773, 10.0864, 16.2889", "8.3773, 10.0864, 16.2889");
         }
         rise_transition (delay_template) {
-          values ("0.8059, 2.3249, 8.3503", "0.8061, 2.3250, 8.3503", "0.8082, 2.3259, 8.3506");
+          values ("1.0, 1.0, 1.0", "1.0, 1.0, 1.0", "1.0, 1.0, 1.0");
         }
         fall_transition (delay_template) {
-          values ("0.9052, 3.1096, 11.5566", "0.9059, 3.1097, 11.5566", "0.9091, 3.1100, 11.5568");
+          values ("1.0, 1.0, 1.0", "1.0, 1.0, 1.0", "1.0, 1.0, 1.0");
         }
       }
     }
@@ -765,39 +733,13 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     ff (IQ, IQN) { clocked_on : "CK" ; next_state : "D" ; clear : "RST" ; clear_polarity : "P" ; }
   }
   cell (DFFS) {
-    area : 6297.560000 ;
+    area : 200 ;
     cell_leakage_power : 1 ;
     pg_pin (VDD) { voltage_name : "VDD" ; pg_type : primary_power ; }
     pg_pin (GND) { voltage_name : "GND" ; pg_type : primary_ground ; }
-    pin (CK) {
-      direction : input ;
-      clock : true ;
-      capacitance : 0.079928 ;
-      rise_capacitance : 0.080249 ;
-      fall_capacitance : 0.079608 ;
-    }
-    pin (D) {
-      direction : input ;
-      capacitance : 0.075882 ;
-      rise_capacitance : 0.075999 ;
-      fall_capacitance : 0.075764 ;
-      timing () {
-        related_pin : "CK" ;
-        timing_type : setup_rising ;
-        rise_constraint (constraint_template) {
-          values ("2.2885, 2.2885, 2.1912", "2.2885, 2.2885, 2.2885", "2.3857, 2.3857, 2.2885");
-        }
-        fall_constraint (constraint_template) {
-          values ("1.0240, 1.0240, 1.0240", "1.1213, 1.0240, 1.0240", "1.1213, 1.1213, 1.0240");
-        }
-      }
-    }
-    pin (SET) {
-      direction : input ;
-      capacitance : 0.130770 ;
-      rise_capacitance : 0.130231 ;
-      fall_capacitance : 0.131309 ;
-    }
+    pin (CK) { direction : input ; clock : true ; capacitance : 0.1 ; }
+    pin (D) { direction : input ; capacitance : 0.05 ; }
+    pin (SET) { direction : input ; capacitance : 0.05 ; }
     pin (Q) {
       direction : output ;
       function : "IQ" ;
@@ -805,16 +747,16 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
         related_pin : "CK" ;
         timing_type : rising_edge ;
         cell_rise (delay_template) {
-          values ("7.3153, 8.4835, 12.6535", "7.3271, 8.4953, 12.6652", "7.3541, 8.5219, 12.6914");
+          values ("7.5535, 8.7196, 12.8850", "7.5535, 8.7196, 12.8850", "7.5535, 8.7196, 12.8850");
         }
         cell_fall (delay_template) {
-          values ("8.1206, 9.8231, 16.0439", "8.1327, 9.8351, 16.0559", "8.1594, 9.8611, 16.0816");
+          values ("8.3773, 10.0864, 16.2889", "8.3773, 10.0864, 16.2889", "8.3773, 10.0864, 16.2889");
         }
         rise_transition (delay_template) {
-          values ("0.8059, 2.3249, 8.3503", "0.8061, 2.3250, 8.3503", "0.8082, 2.3259, 8.3506");
+          values ("1.0, 1.0, 1.0", "1.0, 1.0, 1.0", "1.0, 1.0, 1.0");
         }
         fall_transition (delay_template) {
-          values ("0.9052, 3.1096, 11.5566", "0.9059, 3.1097, 11.5566", "0.9091, 3.1100, 11.5568");
+          values ("1.0, 1.0, 1.0", "1.0, 1.0, 1.0", "1.0, 1.0, 1.0");
         }
       }
     }
@@ -822,13 +764,13 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     ff (IQ, IQN) { clocked_on : "CK" ; next_state : "D" ; preset : "SET" ; }
   }
   cell (INV_X1) {
-    area : 1821.660000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.084108 ;
-      rise_capacitance : 0.084173 ;
-      fall_capacitance : 0.084043 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -852,13 +794,13 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (INV_X12) {
-    area : 4576.060000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 1.011594 ;
-      rise_capacitance : 1.011434 ;
-      fall_capacitance : 1.011754 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -882,13 +824,13 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (INV_X16) {
-    area : 5608.960000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 1.348791 ;
-      rise_capacitance : 1.348578 ;
-      fall_capacitance : 1.349004 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -912,13 +854,13 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (INV_X2) {
-    area : 1821.660000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.168575 ;
-      rise_capacitance : 0.168571 ;
-      fall_capacitance : 0.168579 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -942,13 +884,13 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (INV_X4) {
-    area : 2510.260000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.337196 ;
-      rise_capacitance : 0.337144 ;
-      fall_capacitance : 0.337248 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -972,13 +914,13 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (INV_X8) {
-    area : 3543.160000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.674697 ;
-      rise_capacitance : 0.674890 ;
-      fall_capacitance : 0.674504 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -1002,25 +944,25 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (MUX2) {
-    area : 3887.460000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.052985 ;
-      rise_capacitance : 0.055330 ;
-      fall_capacitance : 0.050639 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (B) {
       direction : input ;
-      capacitance : 0.052904 ;
-      rise_capacitance : 0.055079 ;
-      fall_capacitance : 0.050730 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (S) {
       direction : input ;
-      capacitance : 0.123188 ;
-      rise_capacitance : 0.126222 ;
-      fall_capacitance : 0.120154 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -1076,19 +1018,19 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (NAND2) {
-    area : 1821.660000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.081205 ;
-      rise_capacitance : 0.079895 ;
-      fall_capacitance : 0.082514 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (B) {
       direction : input ;
-      capacitance : 0.080783 ;
-      rise_capacitance : 0.077904 ;
-      fall_capacitance : 0.083661 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -1128,25 +1070,25 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (NAND3) {
-    area : 2165.960000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.076583 ;
-      rise_capacitance : 0.071410 ;
-      fall_capacitance : 0.081755 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (B) {
       direction : input ;
-      capacitance : 0.077273 ;
-      rise_capacitance : 0.074347 ;
-      fall_capacitance : 0.080199 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (C) {
       direction : input ;
-      capacitance : 0.077603 ;
-      rise_capacitance : 0.076180 ;
-      fall_capacitance : 0.079026 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -1202,31 +1144,31 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (NAND4) {
-    area : 2510.260000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.076204 ;
-      rise_capacitance : 0.074918 ;
-      fall_capacitance : 0.077491 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (B) {
       direction : input ;
-      capacitance : 0.075973 ;
-      rise_capacitance : 0.073615 ;
-      fall_capacitance : 0.078332 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (C) {
       direction : input ;
-      capacitance : 0.075920 ;
-      rise_capacitance : 0.072430 ;
-      fall_capacitance : 0.079410 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (D) {
       direction : input ;
-      capacitance : 0.075399 ;
-      rise_capacitance : 0.069747 ;
-      fall_capacitance : 0.081051 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -1298,19 +1240,19 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (NOR2) {
-    area : 1821.660000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.077529 ;
-      rise_capacitance : 0.077856 ;
-      fall_capacitance : 0.077201 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (B) {
       direction : input ;
-      capacitance : 0.079507 ;
-      rise_capacitance : 0.083908 ;
-      fall_capacitance : 0.075106 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -1350,25 +1292,25 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (NOR3) {
-    area : 2165.960000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.072567 ;
-      rise_capacitance : 0.076964 ;
-      fall_capacitance : 0.068171 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (B) {
       direction : input ;
-      capacitance : 0.075670 ;
-      rise_capacitance : 0.075070 ;
-      fall_capacitance : 0.076270 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (C) {
       direction : input ;
-      capacitance : 0.074102 ;
-      rise_capacitance : 0.082711 ;
-      fall_capacitance : 0.065493 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -1424,31 +1366,31 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (NOR4) {
-    area : 2510.260000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.074768 ;
-      rise_capacitance : 0.073824 ;
-      fall_capacitance : 0.075712 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (B) {
       direction : input ;
-      capacitance : 0.071234 ;
-      rise_capacitance : 0.074612 ;
-      fall_capacitance : 0.067855 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (C) {
       direction : input ;
-      capacitance : 0.069948 ;
-      rise_capacitance : 0.076163 ;
-      fall_capacitance : 0.063733 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (D) {
       direction : input ;
-      capacitance : 0.072366 ;
-      rise_capacitance : 0.082035 ;
-      fall_capacitance : 0.062697 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -1520,19 +1462,19 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (OR2) {
-    area : 2165.960000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.071911 ;
-      rise_capacitance : 0.079519 ;
-      fall_capacitance : 0.064303 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (B) {
       direction : input ;
-      capacitance : 0.075770 ;
-      rise_capacitance : 0.075746 ;
-      fall_capacitance : 0.075795 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -1572,25 +1514,25 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (OR3) {
-    area : 2510.260000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.071600 ;
-      rise_capacitance : 0.075275 ;
-      fall_capacitance : 0.067924 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (B) {
       direction : input ;
-      capacitance : 0.068197 ;
-      rise_capacitance : 0.078272 ;
-      fall_capacitance : 0.058123 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (C) {
       direction : input ;
-      capacitance : 0.075021 ;
-      rise_capacitance : 0.073884 ;
-      fall_capacitance : 0.076158 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -1646,31 +1588,31 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (OR4) {
-    area : 2854.560000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.074316 ;
-      rise_capacitance : 0.072796 ;
-      fall_capacitance : 0.075837 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (B) {
       direction : input ;
-      capacitance : 0.070747 ;
-      rise_capacitance : 0.073529 ;
-      fall_capacitance : 0.067965 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (C) {
       direction : input ;
-      capacitance : 0.069088 ;
-      rise_capacitance : 0.074545 ;
-      fall_capacitance : 0.063631 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (D) {
       direction : input ;
-      capacitance : 0.067025 ;
-      rise_capacitance : 0.077691 ;
-      fall_capacitance : 0.056359 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -1742,19 +1684,19 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (XNOR2) {
-    area : 2854.560000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.145554 ;
-      rise_capacitance : 0.151637 ;
-      fall_capacitance : 0.139471 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (B) {
       direction : input ;
-      capacitance : 0.141694 ;
-      rise_capacitance : 0.141416 ;
-      fall_capacitance : 0.141973 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -1794,19 +1736,19 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (XOR2) {
-    area : 2854.560000 ;
+    area : 100 ;
     cell_leakage_power : 1 ;
     pin (A) {
       direction : input ;
-      capacitance : 0.146393 ;
-      rise_capacitance : 0.150369 ;
-      fall_capacitance : 0.142417 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (B) {
       direction : input ;
-      capacitance : 0.146391 ;
-      rise_capacitance : 0.154596 ;
-      fall_capacitance : 0.138185 ;
+      capacitance : 0.05 ;
+      rise_capacitance : 0.05 ;
+      fall_capacitance : 0.05 ;
     }
     pin (Y) {
       direction : output ;
@@ -1846,7 +1788,7 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     }
   }
   cell (TIEHI) {
-    area : 500.800000 ;
+    area : 50 ;
     pg_pin (VDD) {
       voltage_name : "VDD" ;
       pg_type : primary_power ;
@@ -1858,7 +1800,7 @@ library (TR-1um_stdcell_typ_5p0V_25C) {
     pin (HI) { direction : output ; function : "1" ; capacitance : 0.05 ; }
   }
   cell (TIELO) {
-    area : 500.800000 ;
+    area : 50 ;
     pg_pin (VDD) {
       voltage_name : "VDD" ;
       pg_type : primary_power ;

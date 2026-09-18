@@ -2,14 +2,20 @@
 """TR-1um standard-cell Liberty characterization via ngspice.
 
 For each logic cell in STDLIB/LogicCells/extracted:
-  - builds a transient testbench (input pulse with configurable slew, output load)
+  - takes physical area from the matching LEF SIZE W x H
+  - measures effective rising/falling input charge with ngspice
   - measures 50%-to-50% propagation delay and 20/80% output transition
+  - uses a 5% clock-to-Q push-out search for DFF setup constraints
   - sweeps input transition x output load -> NLDM tables
+  - keeps DFFS CK->Q timing on the DFFR electrical path until its extracted
+    SET polarity is reconciled with the Verilog contract
+  - does not emit hold arcs when the extracted cell shows no positive hold
+    push-out at the search resolution
   - writes a Liberty file (single corner: 5V, 25C)
 
 Usage: python3 char_liberty.py [--out liberty.lib] [--cells A,B,C]
 """
-import os, sys, re, subprocess, tempfile, argparse
+import os, sys, re, subprocess, tempfile, argparse, itertools
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -17,12 +23,15 @@ from char_utils import extract_to_spice
 
 TR1UM = Path('/Users/yanlu/Documents/TR-1um')
 EXTRACTED = TR1UM / 'STDLIB/LogicCells/extracted'
+LEF_DIR = TR1UM / 'flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell/lef'
 MODELS = Path(__file__).resolve().parent / 'fixed_models.sp'
 NGSPICE = os.environ.get('NGSPICE', 'ngspice')
 
 VDD = 5.0
 VTH = 2.5          # 50% switching point
 VLO, VHI = 0.2 * VDD, 0.8 * VDD   # 20/80% transition points
+CAP_EDGE_NS = 1.0  # effective input-charge measurement edge
+PUSHOUT = 0.05     # 5% clock-to-Q delay push-out for setup time
 
 # Cell functions (pin -> boolean expr), matching the flow Verilog models
 FUNCS = {
@@ -44,6 +53,116 @@ LOADS = [0.1, 0.5, 2.0]   # output load (pF)
 def cell_base(name):
     return re.sub(r'_X\d+$', '', name)
 
+
+def logic_inputs(base):
+    return sorted({p for p in re.findall(r'\b([A-DS])\b', FUNCS[base]) if p != 'Y'})
+
+
+def logic_value(base, assignment):
+    expr = FUNCS[base].split('=', 1)[1].strip()
+    python_expr = expr.replace('!', ' not ').replace('*', ' and ').replace('+', ' or ')
+    return bool(eval(python_expr, {'__builtins__': {}}, assignment))
+
+
+def sensitized_state(base, pin):
+    others = [name for name in logic_inputs(base) if name != pin]
+    for values in itertools.product([0, 1], repeat=len(others)):
+        state = dict(zip(others, values))
+        if logic_value(base, {**state, pin: 0}) != logic_value(base, {**state, pin: 1}):
+            return state
+    raise RuntimeError(f'{base}: cannot find a sensitized state for input {pin}')
+
+
+def parse_lef_areas():
+    areas = {}
+    for lef in LEF_DIR.glob('*.lef'):
+        text = lef.read_text()
+        for match in re.finditer(r'(?ms)^MACRO\s+(\S+)\s*\n(.*?)^END\s+\1\s*$', text):
+            size = re.search(r'(?m)^\s*SIZE\s+([0-9.]+)\s+BY\s+([0-9.]+)\s*;', match.group(2))
+            if size:
+                areas[match.group(1)] = float(size.group(1)) * float(size.group(2))
+    return areas
+
+
+def characterize_input_cap(cell_spice, pin, state, initial, final):
+    edge = CAP_EDGE_NS * 1e-9
+    t0 = 100e-9
+    match = re.search(r'\.SUBCKT\s+(\S+)\s+(.*)', cell_spice, re.I)
+    if not match:
+        raise RuntimeError(f'cannot parse subcircuit for input-cap measurement: {pin}')
+    subckt_name, pins = match.group(1), match.group(2).split()
+    instance = []
+    for source_pin in pins:
+        lower = source_pin.lower()
+        upper = source_pin.upper()
+        if lower == 'vdd':
+            instance.append('vdd')
+        elif lower in ('gnd', 'vss'):
+            instance.append('0')
+        elif upper == pin.upper():
+            instance.append('cap_in')
+        elif lower in ('y', 'q', 'qb'):
+            instance.append(lower)
+        elif upper in state:
+            instance.append('vdd' if state[upper] else '0')
+        else:
+            instance.append('0')
+    net = f""".include {MODELS}
+{cell_spice}
+.options gmin=1e-9 reltol=1e-4
+VDD vdd 0 {VDD}
+VCAP cap_in 0 PULSE({initial} {final} {t0} {edge} {edge} 100n 300n)
+CLY y 0 1f
+CLQ q 0 1f
+CLQB qb 0 1f
+X1 {' '.join(instance)} {subckt_name}
+.tran {edge / 20} 300n
+.control
+run
+meas tran q_in INTEG I(VCAP) from={t0 - 0.5 * edge} to={t0 + 1.5 * edge}
+print q_in
+quit
+.endc
+.end
+"""
+    with tempfile.NamedTemporaryFile('w', suffix='.sp', delete=False) as fp:
+        fp.write(net)
+        sp_path = fp.name
+    result = subprocess.run([NGSPICE, '-b', sp_path], capture_output=True, text=True)
+    os.unlink(sp_path)
+    match = re.search(r'(?m)^q_in\s*=\s*([-0-9.eE+]+)', result.stdout + result.stderr)
+    if not match:
+        raise RuntimeError(f'{subckt_name}/{pin}: SPICE input charge measurement failed')
+    return abs(float(match.group(1))) / VDD * 1e12
+
+
+def characterize_input_caps(cell, base, cell_spice):
+    if base in SEQ:
+        pins = ['CK', 'D', 'RST'] if base == 'DFFR' else ['CK', 'D', 'SET']
+        defaults = {'CK': 0, 'D': 5, 'RST': 0} if base == 'DFFR' else {'CK': 0, 'D': 5, 'SET': 5}
+        states = {pin: {key: value for key, value in defaults.items() if key != pin} for pin in pins}
+    else:
+        pins = logic_inputs(base)
+        states = {pin: sensitized_state(base, pin) for pin in pins}
+    caps = {}
+    for pin in pins:
+        rise = characterize_input_cap(cell_spice, pin, states[pin], 0, VDD)
+        fall = characterize_input_cap(cell_spice, pin, states[pin], VDD, 0)
+        caps[pin] = (rise, fall)
+    return caps
+
+
+def cap_line(pin, direction, rise, fall, indent='    '):
+    average = (rise + fall) / 2.0
+    lines = [
+        f'{indent}pin ({pin}) {{',
+        f'{indent}  direction : {direction} ;',
+        f'{indent}  capacitance : {average:.6f} ;',
+        f'{indent}  rise_capacitance : {rise:.6f} ;',
+        f'{indent}  fall_capacitance : {fall:.6f} ;',
+        f'{indent}}}',
+    ]
+    return lines
 
 def sim_measure(cell_spice, inp, outp, slew_ns, load_pf, negative_unate=False, tie_high=True, period=800e-9, tie_name=None):
     """Measure a selected input arc with explicit polarity and tie state."""
@@ -110,10 +229,8 @@ quit
 
 
 def sim_measure_seq(cell_spice, outp, slew_ns, load_pf, unused_d, period=800e-9):
-    """DFF CK->Q delays via a two-phase test:
-    phase 1: D=1, CK rises -> Q rises (qdly)
-    phase 2: D=0, CK rises -> Q falls (qdlyf)"""
-    tr = max(slew_ns * 1e-9 / 20, 1e-9)   # >= 1ns edge for FF capture reliability
+    """Measure DFF CK->Q delay and Q transition using a slew-aware edge."""
+    tr = max(slew_ns * 1e-9 / 20, 10e-12)
     m = re.search(r'\.SUBCKT\s+(\S+)\s+(.*)', cell_spice)
     subckt_name, pins = m.group(1), m.group(2).split()
     inst = []
@@ -122,23 +239,21 @@ def sim_measure_seq(cell_spice, outp, slew_ns, load_pf, unused_d, period=800e-9)
         if pl == 'vdd':
             inst.append('vdd')
         elif pl in ('gnd', 'vss'):
-            inst.append('gnd')
+            inst.append('0')
         elif pl == 'd':
             inst.append('d')
         elif pl == 'ck':
             inst.append('ck')
         elif pl == 'rst':
-            inst.append('gnd')   # TR-1um DFFR reset is active-HIGH: 0 = inactive
+            inst.append('0')       # DFFR reset is active-high; 0 = inactive
         elif pl == 'set':
-            inst.append('gnd')
+            inst.append('0')       # retained for the DFFS compatibility path
         elif pl == outp.lower():
             inst.append(outp)
         elif pl == 'qb':
-            inst.append('qb')    # leave the other output floating
+            inst.append('qb')
         else:
             inst.append('vdd')
-    # Proven-timing two-phase pattern: D high 5n..305n (falls well before the
-    # 2nd CK edge at 420n); CK high 20n..221n, period 400n; sim to 900n.
     t_d_high = 300e-9
     t_d_per = 900e-9
     t_ck = 200e-9
@@ -156,7 +271,9 @@ X1 {' '.join(inst)} {subckt_name}
 run
 meas tran qdly trig v(ck) val={VTH} rise=1 targ v({outp}) val={VTH} rise=1
 meas tran qdlyf trig v(ck) val={VTH} rise=2 targ v({outp}) val={VTH} fall=1
-print qdly qdlyf
+meas tran qrslew trig v({outp}) val={VLO} rise=1 targ v({outp}) val={VHI} rise=1
+meas tran qfslew trig v({outp}) val={VHI} fall=1 targ v({outp}) val={VLO} fall=1
+print qdly qdlyf qrslew qfslew
 quit
 .endc
 .end
@@ -167,9 +284,116 @@ quit
     r = subprocess.run([NGSPICE, '-b', sp_path], capture_output=True, text=True)
     os.unlink(sp_path)
     vals = {}
-    for k in re.finditer(r'(qdly|qdlyf)\s*=\s*([-0-9.eE+]+)', r.stdout):
+    for k in re.finditer(r'(qdly|qdlyf|qrslew|qfslew)\s*=\s*([-0-9.eE+]+)', r.stdout + r.stderr):
         vals[k.group(1)] = float(k.group(2)) * 1e9
     return vals
+
+
+def sim_measure_setup_delay(cell_spice, data_slew_ns, clock_slew_ns, load_pf, data_rise, offset_ns):
+    """Measure second-edge clock-to-Q delay for a setup push-out search."""
+    data_tr = max(data_slew_ns * 1e-9 / 20, 10e-12)
+    clock_tr = max(clock_slew_ns * 1e-9 / 20, 10e-12)
+    first_edge = 20e-9
+    second_edge = 200e-9
+    data_edge = second_edge - offset_ns * 1e-9
+    if data_rise:
+        data_pulse = f'PULSE(0 {VDD} {data_edge} {data_tr} {data_tr} 1000n 2000n)'
+        target_edge = 'rise=1'
+    else:
+        data_pulse = f'PULSE({VDD} 0 {data_edge} {data_tr} {data_tr} 1000n 2000n)'
+        target_edge = 'fall=1'
+    clock_pwl = (
+        f'PWL(0 0 {first_edge} {VDD} {first_edge + clock_tr} {VDD} '
+        f'100n 0 {100e-9 + clock_tr} 0 {second_edge} 0 '
+        f'{second_edge + clock_tr} {VDD} 240n {VDD})'
+    )
+    match = re.search(r'\.SUBCKT\s+(\S+)\s+(.*)', cell_spice)
+    subckt_name, pins = match.group(1), match.group(2).split()
+    instance = []
+    for pin in pins:
+        lower = pin.lower()
+        if lower == 'vdd':
+            instance.append('vdd')
+        elif lower in ('gnd', 'vss'):
+            instance.append('0')
+        elif lower == 'd':
+            instance.append('d')
+        elif lower == 'ck':
+            instance.append('ck')
+        elif lower in ('rst', 'set'):
+            instance.append('0')
+        elif lower == 'q':
+            instance.append('q')
+        elif lower == 'qb':
+            instance.append('qb')
+        else:
+            instance.append('0')
+    timestep = min(data_tr, clock_tr) / 5
+    net = f""".include {MODELS}
+{cell_spice}
+.options gmin=1e-9 reltol=1e-3
+VDD vdd 0 {VDD}
+VD d 0 {data_pulse}
+VCK ck 0 {clock_pwl}
+CL q 0 {load_pf}p
+X1 {' '.join(instance)} {subckt_name}
+.tran {timestep} 400n
+.control
+run
+meas tran qdly trig v(ck) val={VTH} rise=2 targ v(q) val={VTH} {target_edge}
+print qdly
+quit
+.endc
+.end
+"""
+    with tempfile.NamedTemporaryFile('w', suffix='.sp', delete=False) as fp:
+        fp.write(net)
+        sp_path = fp.name
+    r = subprocess.run([NGSPICE, '-b', sp_path], capture_output=True, text=True)
+    os.unlink(sp_path)
+    match = re.search(r'(?m)^qdly\s*=\s*([-0-9.eE+]+)', r.stdout + r.stderr)
+    return float(match.group(1)) * 1e9 if match else None
+
+
+def pushout_setup(cell_spice, data_slew_ns, clock_slew_ns, load_pf, data_rise):
+    """Find data-to-clock separation at a 5% clock-to-Q delay push-out."""
+    baseline = sim_measure_setup_delay(
+        cell_spice, data_slew_ns, clock_slew_ns, load_pf, data_rise, 25.0
+    )
+    if baseline is None:
+        raise RuntimeError('DFF setup baseline did not produce a Q transition')
+    limit = baseline * (1.0 + PUSHOUT)
+    good = 25.0
+    bad = 0.1
+    bad_delay = sim_measure_setup_delay(
+        cell_spice, data_slew_ns, clock_slew_ns, load_pf, data_rise, bad
+    )
+    if bad_delay is not None and bad_delay < limit:
+        return 0.0
+    for _ in range(8):
+        candidate = (good + bad) / 2.0
+        measured = sim_measure_setup_delay(
+            cell_spice, data_slew_ns, clock_slew_ns, load_pf, data_rise, candidate
+        )
+        if measured is None or measured >= limit:
+            bad = candidate
+        else:
+            good = candidate
+    return round((good + bad) / 2.0, 4)
+
+
+def characterize_setup_tables(cell_spice):
+    rise_table = []
+    fall_table = []
+    for data_slew in SLEWS:
+        rise_row = []
+        fall_row = []
+        for clock_slew in SLEWS:
+            rise_row.append(pushout_setup(cell_spice, data_slew, clock_slew, 0.5, True))
+            fall_row.append(pushout_setup(cell_spice, data_slew, clock_slew, 0.5, False))
+        rise_table.append('"' + ', '.join(f'{value:.4f}' for value in rise_row) + '"')
+        fall_table.append('"' + ', '.join(f'{value:.4f}' for value in fall_row) + '"')
+    return rise_table, fall_table
 
 
 def main():
@@ -186,6 +410,11 @@ def main():
         if args.cells and name not in args.cells.split(','):
             continue
         cells.append(name)
+    areas = parse_lef_areas()
+    missing_areas = sorted(set(cells) - set(areas))
+    if missing_areas:
+        raise RuntimeError(f'missing LEF SIZE metadata for: {missing_areas}')
+
 
     lib_dir = Path(args.out).parent
     lib_dir.mkdir(parents=True, exist_ok=True)
@@ -223,58 +452,101 @@ def main():
         '    index_1 ("0.5, 1.0, 2.0");',
         '    index_2 ("0.1, 0.5, 2.0");',
         '  }',
+        '  lu_table_template (constraint_template) {',
+        '    variable_1 : constrained_pin_transition ;',
+        '    variable_2 : related_pin_transition ;',
+        '    index_1 ("0.5, 1.0, 2.0");',
+        '    index_2 ("0.5, 1.0, 2.0");',
+        '  }',
     ]
 
+
     failures = []
+    setup_tables = None
+
     for cell in cells:
         base = cell_base(cell)
         if base in SEQ:
             print(f'CHAR {cell} (seq) ...', end=' ', flush=True)
-            # DFFS (set-only FF) has no controllable initial state; its timing is
-            # measured from the structurally identical DFFR (set vs reset variant).
-            src_cell = cell if cell == 'DFFR' else 'DFFR'
+            # DFFS has an extracted SET polarity mismatch with its Verilog view;
+            # retain the existing DFFR timing compatibility path until that
+            # logical contract is reconciled. Its input charge is measured from
+            # the physical extracted DFFS below.
+            src_cell = 'DFFR'
             spi = extract_to_spice(str(EXTRACTED / (src_cell + '.extracted')))
+            physical_spi = extract_to_spice(str(EXTRACTED / (cell + '.extracted')))
+            cap_by_pin = characterize_input_caps(cell, base, physical_spi)
+            if setup_tables is None:
+                setup_tables = characterize_setup_tables(spi)
+            setup_rise_tbl, setup_fall_tbl = setup_tables
             outpin = 'q'
             rise_tbl, fall_tbl = [], []
+            rtrans_tbl, ftrans_tbl = [], []
             ok = True
             for slew in SLEWS:
                 r_row, f_row = [], []
+                rs_row, fs_row = [], []
                 for load in LOADS:
-                    v = sim_measure_seq(spi, outpin, slew, load, 5.0)   # D=1: Q rises
-                    if 'qdly' not in v:
+                    values = sim_measure_seq(spi, outpin, slew, load, 5.0)
+                    if any(key not in values for key in ('qdly', 'qrslew')):
                         ok = False
                         break
-                    r_row.append(f'{v["qdly"]:.4f}')
+                    r_row.append(f'{values["qdly"]:.4f}')
+                    rs_row.append(f'{max(values["qrslew"], 0.001):.4f}')
                 if not ok:
                     break
-                f_row0 = []
                 for load in LOADS:
-                    v = sim_measure_seq(spi, outpin, slew, load, 0.0)   # D=0: Q falls
-                    if 'qdlyf' not in v:
+                    values = sim_measure_seq(spi, outpin, slew, load, 0.0)
+                    if any(key not in values for key in ('qdlyf', 'qfslew')):
                         ok = False
                         break
-                    f_row0.append(f'{v["qdlyf"]:.4f}')
+                    f_row.append(f'{values["qdlyf"]:.4f}')
+                    fs_row.append(f'{max(values["qfslew"], 0.001):.4f}')
                 if not ok:
                     break
                 rise_tbl.append('"' + ', '.join(r_row) + '"')
-                fall_tbl.append('"' + ', '.join(f_row0) + '"')
+                fall_tbl.append('"' + ', '.join(f_row) + '"')
+                rtrans_tbl.append('"' + ', '.join(rs_row) + '"')
+                ftrans_tbl.append('"' + ', '.join(fs_row) + '"')
             if not ok:
                 failures.append(cell)
                 print('FAILED')
                 continue
+            ck_rise, ck_fall = cap_by_pin['CK']
+            d_rise, d_fall = cap_by_pin['D']
+            control = 'RST' if base == 'DFFR' else 'SET'
+            c_rise, c_fall = cap_by_pin[control]
             out += [
                 f'  cell ({cell}) {{',
-                '    area : 200 ;',
+                f'    area : {areas[cell]:.6f} ;',
                 '    cell_leakage_power : 1 ;',
                 '    pg_pin (VDD) { voltage_name : "VDD" ; pg_type : primary_power ; }',
                 '    pg_pin (GND) { voltage_name : "GND" ; pg_type : primary_ground ; }',
-                '    pin (CK) { direction : input ; clock : true ; capacitance : 0.1 ; }',
-                '    pin (D) { direction : input ; capacitance : 0.05 ; }',
+                '    pin (CK) {',
+                '      direction : input ;',
+                '      clock : true ;',
+                f'      capacitance : {(ck_rise + ck_fall) / 2.0:.6f} ;',
+                f'      rise_capacitance : {ck_rise:.6f} ;',
+                f'      fall_capacitance : {ck_fall:.6f} ;',
+                '    }',
+                '    pin (D) {',
+                '      direction : input ;',
+                f'      capacitance : {(d_rise + d_fall) / 2.0:.6f} ;',
+                f'      rise_capacitance : {d_rise:.6f} ;',
+                f'      fall_capacitance : {d_fall:.6f} ;',
+                '      timing () {',
+                '        related_pin : "CK" ;',
+                '        timing_type : setup_rising ;',
+                '        rise_constraint (constraint_template) {',
+                f'          values ({", ".join(setup_rise_tbl)});',
+                '        }',
+                '        fall_constraint (constraint_template) {',
+                f'          values ({", ".join(setup_fall_tbl)});',
+                '        }',
+                '      }',
+                '    }',
             ]
-            if base == 'DFFR':
-                out.append('    pin (RST) { direction : input ; capacitance : 0.05 ; }')
-            else:
-                out.append('    pin (SET) { direction : input ; capacitance : 0.05 ; }')
+            out += cap_line(control, 'input', c_rise, c_fall)
             out += [
                 '    pin (Q) {',
                 '      direction : output ;',
@@ -289,10 +561,10 @@ def main():
                 f'          values ({", ".join(fall_tbl)});',
                 '        }',
                 '        rise_transition (delay_template) {',
-                '          values ("1.0, 1.0, 1.0", "1.0, 1.0, 1.0", "1.0, 1.0, 1.0");',
+                f'          values ({", ".join(rtrans_tbl)});',
                 '        }',
                 '        fall_transition (delay_template) {',
-                '          values ("1.0, 1.0, 1.0", "1.0, 1.0, 1.0", "1.0, 1.0, 1.0");',
+                f'          values ({", ".join(ftrans_tbl)});',
                 '        }',
                 '      }',
                 '    }',
@@ -308,6 +580,8 @@ def main():
         # Use the correct electrical tie state for the selected input arc. A
         # positive-unate measurement with the wrong tie state is not a timing
         spi = extract_to_spice(str(EXTRACTED / (cell + '.extracted')))
+        cap_by_pin = characterize_input_caps(cell, base, spi)
+
         # Ngspice resolves the extracted subcircuit pins case-insensitively,
         # but external lowercase nodes keep the generated bench consistent
         # with the existing characterization and measure expressions.
@@ -348,21 +622,14 @@ def main():
             continue
 
         expr = FUNCS[base]
-        # all input pins used by the function (plus S for the mux)
-        inputs = sorted({p for p in re.findall(r'\b([A-DS])\b', expr) if p != 'Y'})
+        inputs = logic_inputs(base)
         body_fn = expr.split('=', 1)[1].strip() if '=' in expr else expr
         out.append(f'  cell ({cell}) {{')
-        out.append('    area : 100 ;')
+        out.append(f'    area : {areas[cell]:.6f} ;')
         out.append('    cell_leakage_power : 1 ;')
         for p in inputs:
-            out += [
-                f'    pin ({p}) {{',
-                '      direction : input ;',
-                '      capacitance : 0.05 ;',
-                '      rise_capacitance : 0.05 ;',
-                '      fall_capacitance : 0.05 ;',
-                '    }',
-            ]
+            rise_cap, fall_cap = cap_by_pin[p]
+            out += cap_line(p, 'input', rise_cap, fall_cap)
         out.append('    pin (Y) {')
         out.append('      direction : output ;')
         out.append(f'      function : "{body_fn}" ;')
@@ -392,7 +659,7 @@ def main():
 
     # Wire-tie cells (constant outputs) - minimal Liberty entries.
     out.append('  cell (TIEHI) {')
-    out.append('    area : 50 ;')
+    out.append(f'    area : {areas["TIEHI"]:.6f} ;')
     out.append('    pg_pin (VDD) {')
     out.append('      voltage_name : "VDD" ;')
     out.append('      pg_type : primary_power ;')
@@ -404,7 +671,7 @@ def main():
     out.append('    pin (HI) { direction : output ; function : "1" ; capacitance : 0.05 ; }')
     out.append('  }')
     out.append('  cell (TIELO) {')
-    out.append('    area : 50 ;')
+    out.append(f'    area : {areas["TIELO"]:.6f} ;')
     out.append('    pg_pin (VDD) {')
     out.append('      voltage_name : "VDD" ;')
     out.append('      pg_type : primary_power ;')

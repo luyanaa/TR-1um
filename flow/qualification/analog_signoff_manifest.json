@@ -101,6 +101,26 @@
       "path": "../scripts/signoff/run_pvt_sta.py",
       "classification": "reference"
     },
+    "variation_analysis_runner": {
+      "path": "../scripts/analysis/run_variation_analysis.py",
+      "classification": "reference"
+    },
+    "variation_analysis_contract": {
+      "path": "variation_analysis_contract.json",
+      "classification": "reference"
+    },
+    "variation_analysis_report": {
+      "path": "reports/variation-analysis/variation_analysis.json",
+      "classification": "reference"
+    },
+    "rc_timing_sensitivity_runner": {
+      "path": "../scripts/analysis/rc_sensitivity.py",
+      "classification": "reference"
+    },
+    "rc_timing_sensitivity_report": {
+      "path": "reports/variation-analysis/rc_timing_sensitivity_alu8.json",
+      "classification": "reference"
+    },
     "pdn_emir_contract": {
       "path": "pdn_emir_contract.json",
       "classification": "engineering_only"
@@ -234,22 +254,55 @@
       "evidence": [
         "../scripts/signoff/run_pvt_sta.py",
         "../scripts/signoff/audit_temperature_models.py",
+        "../scripts/signoff/run_temperature_validation.py",
         "temperature_model_contract.json",
+        "reports/temperature-validation/temperature_validation.json",
         "../librelane_override/librelane/scripts/openroad/sta/corner.tcl",
         "../designs/tr1um_counter/config.yaml"
       ],
-      "rationale": "The reusable runner now enforces the stated -40..85 degC operating range, the 25..150 degC RS characterization range, endpoint temperature coverage, and qualified low-temperature RS extrapolation before execution. The model audit finds BSIM3 MOS temperature coefficients, explicit F_RR temperature dependence, but no temper term in F_RS and nominal-only CSIO; the design remains engineering-only without low-temperature evidence, process-qualified slow/fast Liberty, complete analog SDC coverage, and a bundled multi-corner report."
+      "rationale": "The temperature validation now checks every declared MOS, resistor, capacitor, and diode model against the narrowed 27..85 degC release range, the documented 25/27 degC reference distinction, and a 27..150 degC characterization sweep. Ngspice probes pass for PMOS/NMOS/MPE/MNE, F_RR, F_RS, DN, and DP; below-25 RS extrapolation is not needed. F_RS and the checked-in CSIO source are explicit nominal-only warnings; CSIO is audited statically without claiming a measured capacitance temperature coefficient. The temperature report is PASS_WITH_WARNINGS; this stage remains engineering-only because process-qualified slow/fast Liberty, complete analog SDC coverage, and a bundled multi-corner STA report remain absent."
+    },
+    "variation_analysis": {
+      "status": "pass",
+      "evidence": [
+        "../scripts/analysis/run_variation_analysis.py",
+        "../scripts/analysis/rc_sensitivity.py",
+        "variation_analysis_contract.json",
+        "reports/variation-analysis/variation_analysis.json",
+        "reports/variation-analysis/rc_timing_sensitivity_alu8.json",
+        "reports/pdn-emir/pdn_emir.json",
+        "../../libs.tech/spice/models/models_IP62_mos_v2.lib",
+        "../../libs.tech/spice/models/models_IP62_res_v5.lib",
+        "../designs/tr1um_alu8/runs/audit-pr1-final2/final/spef/tr1um_alu8..spef",
+        "../pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access/lib/TR-1um_stdcell_access_typ_5p0V_25C.lib"
+      ],
+      "limits": [
+        "All declared compact-model PVT, pseudo-Monte Carlo, local sensitivity, and ALU8 RC timing execution cases must pass."
+      ],
+      "warnings": [
+        "Reference-only FF/SS/FS/SF modifiers, Monte Carlo distributions, and timing sensitivity are accepted with warnings because no official sources exist."
+      ],
+      "rationale": "Reference-only variation evidence is complete: 30 compact-model PVT cases, 64 seeded Monte Carlo samples, one-factor sensitivity, and 20 ALU8 RC timing samples all execute successfully. The declared boundaries are warnings, not blockers; the separate PDN/EM/IR closure TODO remains unchanged."
     },
     "pdn_emir": {
       "status": "engineering_only",
       "evidence": [
         "pdn_emir_contract.json",
         "tr1um_electrical_limits.json",
+        "reports/pdn-emir/pdn_emir.json",
+        "reports/pdn-emir/uart_connected_power_pdn_probe.txt",
         "../scripts/signoff/check_pdn_contract.py",
-        "../align_macro/CMC_S_NMOS_B_X1_Y1.gds",
+        "../scripts/signoff/run_pdn_emir_report.py",
+        "../pdk_root/TR-1um/libs.tech/librelane/rc_estimate.json",
+        "../designs/tr1um_mixed_counter/runs/gc-diode-repair13/47-odb-cellfrequencytables/tr1um_mixed_counter.def",
+        "../designs/tr1um_mixed_counter/runs/gc-diode-repair13/49-klayout-streamout/tr1um_mixed_counter.gnd_bridge.gds",
+        "../designs/tr1um_mixed_counter/runs/gc-diode-repair13/38-openroad-stamidpnr-3/power.rpt",
+        "../designs/tr1um_counter/runs/pdn-emir-v1r1/51-openroad-irdropreport/openroad-irdropreport.log",
+        "../designs/tr1um_alu8/runs/pdn-audit-alu8-v2/flow.log",
+        "../designs/tr1um_uarttx_big/runs/audit-pr1-uart-vdd40/connected_power/tr1um_uarttx_big.connected_power.def",
         "../designs/tr1um_mixed_counter/config_access.yaml"
       ],
-      "rationale": "The fail-closed contract correctly classifies powered PDN analysis as not applicable to the ground-only CMC leaf. The checker now requires central electrical limits plus measured M1/M2, step, and TC contact current evidence for any powered contract. The required return-path review remains engineering-only because no resistance or current-envelope result is bundled; no EM/IR closure is claimed."
+      "rationale": "The report records an engineering-only M2 GND bridge estimate of 8.912 ohm nominal with a 4.456..13.368 ohm RC sensitivity band, based on 891.2 um Manhattan length and 3.0 um width. The canonical DEF has no GND route; the bridge exists only in the post-streamout GDS. The nominal power report is leakage-only (2.4 nA at 5 V), not a worst-case current envelope. The digital inventory covers 11 designs; all keep RUN_PDN false and substitute OpenROAD.IRDropReport. An ALU8 PDN enablement fails PSM-0025/0038/0039/0069, and the UART connected-power probe fails PSM-0038/0039/0069. No numeric qualified IR-drop, ground-bounce, EM, or current-density closure is claimed."
     },
     "post_layout_sim": {
       "status": "blocked",

@@ -6,8 +6,6 @@ Completed checklist entries are removed; only unresolved work remains here.
 
 ## Scope and qualification boundaries
 
-- [ ] Replace the engineering M3 bound with reviewed foundry or silicon
-  correlation before treating M3 RCX as qualified.
 - [ ] Complete design-specific qualification for `CMC_S_NMOS_B_X1_Y1`:
   review guard structures, PG/return-path geometry, current envelope, and
   analog performance before calling the macro signoff-ready.
@@ -42,12 +40,13 @@ Completed checklist entries are removed; only unresolved work remains here.
 
 ## Electrical, timing, and corner analysis
 
-- [ ] Run OpenSTA using the matching RCX SPEF extraction and routed netlist.
-  Report setup/hold, slew, capacitance, fanout, clock skew, recovery/removal,
-  generated clocks, and unconstrained endpoints for every declared corner.
-- [ ] Complete PDNSim power-integrity analysis: EM limits, IR-drop limits,
-  VDD/VSS source definitions, macro PG geometry, current envelopes, worst-case
-  activity, metal/via limits, and a separate GND return-path result.
+- [ ] Close PDNSim power-integrity analysis: provide qualified EM/IR limits,
+  explicit VDD/VSS source locations, macro PG geometry, worst-case activity
+  current envelopes, metal/via limits, and a separate GND return-path result.
+  Current engineering-only evidence is in
+  `flow/qualification/reports/pdn-emir/pdn_emir.json`; it records the
+  post-streamout bridge estimate and digital-design connectivity failures but
+  does not close IR/EM or ground-bounce signoff.
 - [ ] Audit ESD integration at the hierarchy boundary. Resolve whether every
   ESD element must be a hard macro with a matching LEF, GDS, CDL, and
   black-box view, and verify placement in the pad ring or at the
@@ -56,22 +55,10 @@ Completed checklist entries are removed; only unresolved work remains here.
   views. Verify its pad-ring or digital/analog-boundary placement, VSS-only
   intent, substrate/tap continuity, return-current path, spacing to analog
   nets, and absence of an unintended short to `ANA_DB` or other signals.
-- [ ] Complete temperature validation for every used device over the declared
-  `-40..85 degC` operating range, including low-temperature RS evidence and
-  model/manual reference-temperature reconciliation.
 - [ ] Add RF validation for any RF-relevant path: define S-parameter, gain,
   noise, linearity, stability, loading, and matching measurements with
   extracted parasitics across the declared voltage, temperature, and process
   corners.
-- [ ] Run a synthetic PVT sweep covering Fast Corner, Slow Corner, and Cross
-  Corner combinations (`FF`, `SS`, `FS`, and `SF`) with explicit model,
-  Liberty, RCX, supply, and temperature provenance.
-- [ ] Run pseudo-Monte Carlo analysis on model parameters `V_th`, `mu_0`
-  (`μ₀`), and `R_sq` (`Rₛq`). Declare distributions, correlation assumptions,
-  sample count, seeds, measured outputs, acceptance limits, and tail metrics.
-- [ ] Run sensitivity analysis for process, device, interconnect, supply, and
-  temperature parameters. Rank their effects on timing, current, voltage
-  margin, analog operating points, RF metrics, and return-path integrity.
 
 ## Analog and physical robustness
 

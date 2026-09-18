@@ -1,0 +1,18 @@
+UART connected-power PDNSim probe
+=================================
+
+Input artifacts:
+- flow/designs/tr1um_uarttx_big/runs/audit-pr1-uart-vdd40/connected_power/TR-1um_core_tech.lef
+- flow/designs/tr1um_uarttx_big/runs/audit-pr1-uart-vdd40/connected_power/TR-1um_core_routing.lef
+- flow/designs/tr1um_uarttx_big/runs/audit-pr1-uart-vdd40/connected_power/tr1um_uarttx_big.macro.lef
+- flow/designs/tr1um_uarttx_big/runs/audit-pr1-uart-vdd40/connected_power/tr1um_uarttx_big.connected_power.def
+
+OpenROAD probe:
+  set_pdnsim_net_voltage -net VDD -voltage 5
+  analyze_power_grid -net VDD -voltage_file /tmp/uart-vdd.csv
+
+Observed input load: 4 pins, 110 components, 2 special nets, and 127 signal nets.
+Observed PDNSim diagnostics: PSM-0038 (unconnected VDD shapes), PSM-0039 (unconnected VDD instances), and PSM-0069 (check connectivity failed on VDD).
+Result: FAIL. No numeric IR-drop result is accepted.
+
+This probe is engineering evidence for connectivity debugging only. It is not EM/IR signoff.

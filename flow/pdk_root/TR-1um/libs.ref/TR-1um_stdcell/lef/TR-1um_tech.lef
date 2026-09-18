@@ -26,6 +26,8 @@ END M1
 LAYER V1
   TYPE CUT ;
   SPACING 1.5 ;
+  RESISTANCE 1.000 ;
+  # Engineering nominal via resistance; sensitivity range is 0.5..2.0 ohm.
 END V1
 LAYER M2
   TYPE ROUTING ;

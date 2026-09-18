@@ -1,0 +1,325 @@
+{
+  "bridge_estimate": {
+    "basis": "R = sheet resistance * Manhattan length / bridge width; engineering sensitivity only",
+    "layer": "M2",
+    "length_um": 891.2,
+    "nominal_resistance_ohm": 8.912,
+    "relative_spread": 0.5,
+    "segments": [
+      {
+        "length_um": 43.2,
+        "nominal_resistance_ohm": 0.432
+      },
+      {
+        "length_um": 383.4,
+        "nominal_resistance_ohm": 3.8339999999999996
+      },
+      {
+        "length_um": 237.6,
+        "nominal_resistance_ohm": 2.376
+      },
+      {
+        "length_um": 141.4,
+        "nominal_resistance_ohm": 1.414
+      },
+      {
+        "length_um": 21.6,
+        "nominal_resistance_ohm": 0.216
+      },
+      {
+        "length_um": 7.0,
+        "nominal_resistance_ohm": 0.06999999999999999
+      },
+      {
+        "length_um": 23.4,
+        "nominal_resistance_ohm": 0.23399999999999999
+      },
+      {
+        "length_um": 30.0,
+        "nominal_resistance_ohm": 0.3
+      },
+      {
+        "length_um": 3.6,
+        "nominal_resistance_ohm": 0.036
+      }
+    ],
+    "sensitivity_band_ohm": [
+      4.456,
+      13.368000000000002
+    ],
+    "sheet_resistance_ohm_per_square": 0.03,
+    "width_um": 3.0
+  },
+  "canonical_def_observation": {
+    "database_microns": 1000,
+    "has_routed_geometry": false,
+    "note": "The post-streamout GDS bridge is not serialized into this pre-bridge DEF.",
+    "route_record_count": 0,
+    "specialnet_present": true
+  },
+  "design": "tr1um_mixed_counter",
+  "digital_design_inventory": [
+    {
+      "config": "flow/designs/tr1um_alu8/config_access.yaml",
+      "design": "tr1um_alu8",
+      "irdrop_step_substituted": true,
+      "pdn_step_enabled_by_default": false,
+      "run_irdrop_report": null,
+      "run_pdn": false
+    },
+    {
+      "config": "flow/designs/tr1um_busdecode/config_access.yaml",
+      "design": "tr1um_busdecode",
+      "irdrop_step_substituted": true,
+      "pdn_step_enabled_by_default": false,
+      "run_irdrop_report": null,
+      "run_pdn": false
+    },
+    {
+      "config": "flow/designs/tr1um_crc8/config_access.yaml",
+      "design": "tr1um_crc8",
+      "irdrop_step_substituted": true,
+      "pdn_step_enabled_by_default": false,
+      "run_irdrop_report": null,
+      "run_pdn": false
+    },
+    {
+      "config": "flow/designs/tr1um_fifo4/config_access.yaml",
+      "design": "tr1um_fifo4",
+      "irdrop_step_substituted": true,
+      "pdn_step_enabled_by_default": false,
+      "run_irdrop_report": null,
+      "run_pdn": false
+    },
+    {
+      "config": "flow/designs/tr1um_fsm_lock/config_access.yaml",
+      "design": "tr1um_fsm_lock",
+      "irdrop_step_substituted": true,
+      "pdn_step_enabled_by_default": false,
+      "run_irdrop_report": null,
+      "run_pdn": false
+    },
+    {
+      "config": "flow/designs/tr1um_irqctrl/config_access.yaml",
+      "design": "tr1um_irqctrl",
+      "irdrop_step_substituted": true,
+      "pdn_step_enabled_by_default": false,
+      "run_irdrop_report": null,
+      "run_pdn": false
+    },
+    {
+      "config": "flow/designs/tr1um_popcount8/config_access.yaml",
+      "design": "tr1um_popcount8",
+      "irdrop_step_substituted": true,
+      "pdn_step_enabled_by_default": false,
+      "run_irdrop_report": null,
+      "run_pdn": false
+    },
+    {
+      "config": "flow/designs/tr1um_pwm4/config_access.yaml",
+      "design": "tr1um_pwm4",
+      "irdrop_step_substituted": true,
+      "pdn_step_enabled_by_default": false,
+      "run_irdrop_report": null,
+      "run_pdn": false
+    },
+    {
+      "config": "flow/designs/tr1um_regfile4x4/config_access.yaml",
+      "design": "tr1um_regfile4x4",
+      "irdrop_step_substituted": true,
+      "pdn_step_enabled_by_default": false,
+      "run_irdrop_report": null,
+      "run_pdn": false
+    },
+    {
+      "config": "flow/designs/tr1um_spitx/config_access.yaml",
+      "design": "tr1um_spitx",
+      "irdrop_step_substituted": true,
+      "pdn_step_enabled_by_default": false,
+      "run_irdrop_report": null,
+      "run_pdn": false
+    },
+    {
+      "config": "flow/designs/tr1um_uarttx_big/config_access.yaml",
+      "design": "tr1um_uarttx_big",
+      "irdrop_step_substituted": true,
+      "pdn_step_enabled_by_default": false,
+      "run_irdrop_report": null,
+      "run_pdn": false
+    }
+  ],
+  "digital_pdn_experiments": {
+    "tr1um_alu8_enabled_pdn": {
+      "contains_numeric_ir_result": false,
+      "error_codes": [
+        "PSM-0025",
+        "PSM-0038",
+        "PSM-0039",
+        "PSM-0069"
+      ],
+      "status": "FAIL",
+      "vsrc_warning": true
+    },
+    "tr1um_uarttx_big_connected_power": {
+      "basis": "Saved OpenROAD probe note for the connected-power DEF; no numeric IR-drop result is accepted.",
+      "error_codes": [
+        "PSM-0038",
+        "PSM-0039",
+        "PSM-0069"
+      ],
+      "evidence": "flow/qualification/reports/pdn-emir/uart_connected_power_pdn_probe.txt",
+      "status": "FAIL"
+    }
+  },
+  "errors": [],
+  "generated_by": "flow/scripts/signoff/run_pdn_emir_report.py",
+  "inputs": {
+    "canonical_bridge_gds": {
+      "exists": true,
+      "label": "canonical_bridge_gds",
+      "path": "flow/designs/tr1um_mixed_counter/runs/gc-diode-repair13/49-klayout-streamout/tr1um_mixed_counter.gnd_bridge.gds",
+      "size_bytes": 84230
+    },
+    "canonical_def": {
+      "exists": true,
+      "label": "canonical_def",
+      "path": "flow/designs/tr1um_mixed_counter/runs/gc-diode-repair13/47-odb-cellfrequencytables/tr1um_mixed_counter.def",
+      "size_bytes": 19316
+    },
+    "canonical_power_report": {
+      "exists": true,
+      "label": "canonical_power_report",
+      "path": "flow/designs/tr1um_mixed_counter/runs/gc-diode-repair13/38-openroad-stamidpnr-3/power.rpt",
+      "size_bytes": 1292
+    },
+    "digital_alu8_pdn_log": {
+      "exists": true,
+      "label": "digital_alu8_pdn_log",
+      "path": "flow/designs/tr1um_alu8/runs/pdn-audit-alu8-v2/flow.log",
+      "size_bytes": 54576
+    },
+    "digital_design_root": {
+      "exists": true,
+      "label": "digital_design_root",
+      "path": "flow/designs"
+    },
+    "digital_uart_connected_power_def": {
+      "exists": true,
+      "label": "digital_uart_connected_power_def",
+      "path": "flow/designs/tr1um_uarttx_big/runs/audit-pr1-uart-vdd40/connected_power/tr1um_uarttx_big.connected_power.def",
+      "size_bytes": 149946
+    },
+    "digital_uart_connected_power_log": {
+      "exists": true,
+      "label": "digital_uart_connected_power_log",
+      "path": "flow/designs/tr1um_uarttx_big/runs/audit-pr1-uart-vdd40/connected_power/openroad.log",
+      "size_bytes": 23115
+    },
+    "digital_uart_pdn_probe_note": {
+      "exists": true,
+      "label": "digital_uart_pdn_probe_note",
+      "path": "flow/qualification/reports/pdn-emir/uart_connected_power_pdn_probe.txt",
+      "size_bytes": 996
+    },
+    "electrical_limits": {
+      "exists": true,
+      "label": "electrical_limits",
+      "path": "flow/qualification/tr1um_electrical_limits.json",
+      "size_bytes": 3446
+    },
+    "powered_pdn_experiment_log": {
+      "exists": true,
+      "label": "powered_pdn_experiment_log",
+      "path": "flow/designs/tr1um_counter/runs/pdn-emir-v1r1/51-openroad-irdropreport/openroad-irdropreport.log",
+      "size_bytes": 3711
+    },
+    "rc_model": {
+      "exists": true,
+      "label": "rc_model",
+      "path": "flow/pdk_root/TR-1um/libs.tech/librelane/rc_estimate.json",
+      "size_bytes": 3768
+    }
+  },
+  "limitations": [
+    "The analog leaf has no VDD pin or powered macro PG geometry, so powered PDNSim is not applicable to that leaf.",
+    "The canonical mixed-counter DEF predates the post-streamout GND bridge; the bridge is evidenced by GDS geometry and estimated resistance only.",
+    "The nominal leakage result is not a worst-case switching/current envelope and cannot establish ground bounce or EM margin.",
+    "The available powered-core and UART connected-power PDNSim probes fail connectivity checks; no numeric IR-drop result is accepted as closure.",
+    "The electrical limits and via resistance are engineering estimates, not foundry-qualified limits or parasitic extraction."
+  ],
+  "nominal_power_observation": {
+    "basis": "nominal OpenROAD static-power observation; not a worst-case activity envelope",
+    "internal_power_w": 0.0,
+    "leakage_power_w": 1.2e-08,
+    "static_leakage_current_mA": 2.4e-06,
+    "switching_power_w": 0.0,
+    "total_power_w": 1.2e-08,
+    "voltage_v": 5.0
+  },
+  "powered_pdn_experiment": {
+    "contains_numeric_ir_result": false,
+    "error_codes": [
+      "PSM-0038",
+      "PSM-0039",
+      "PSM-0069"
+    ],
+    "status": "FAIL",
+    "vsrc_warning": false
+  },
+  "reference_limits": {
+    "interconnect_limits": {
+      "contacts": {
+        "TC": {
+          "basis": "per contact; instantaneous value is a separate upper bound",
+          "instantaneous_max_current_a_per_contact": 0.0078,
+          "max_current_a_per_contact": 0.00078,
+          "reference_size_um": 1.4
+        }
+      },
+      "metal": {
+        "M1": {
+          "basis": "continuous wiring current",
+          "current_density_a_per_um": 0.00045,
+          "max_current_a": 0.0009,
+          "reference_width_um": 2.0
+        },
+        "M2": {
+          "basis": "continuous wiring current",
+          "current_density_a_per_um": 0.0012333333333333335,
+          "max_current_a": 0.0037,
+          "reference_width_um": 3.0
+        }
+      },
+      "steps": {
+        "M1": {
+          "basis": "M1 current at a step/discontinuity",
+          "j_max_step_coverage_a_per_um": 0.00025,
+          "max_current_a": 0.0005,
+          "reference_width_um": 2.0
+        }
+      }
+    },
+    "qualification_boundary": "Manual limits are design constraints, not a silicon-qualified operating envelope.",
+    "source": {
+      "manual_path": "../../openIP62/IP62/Technology/doc/OS00_\u30ea\u30d5\u30a1\u30ec\u30f3\u30b9\u30de\u30cb\u30e5\u30a2\u30eb_rev1.1.pdf",
+      "manual_revision": "rev1.1",
+      "pages": {
+        "capacitance_characteristics": 10,
+        "device_maxima": 7,
+        "resistance_characteristics": 9,
+        "wiring_current": 17
+      },
+      "tables": [
+        "I-2-2",
+        "I-2-4",
+        "I-2-5",
+        "I-3-1",
+        "I-3-3"
+      ]
+    },
+    "status": "engineering_only"
+  },
+  "schema_version": 1,
+  "scope": "ground_return_only",
+  "status": "ENGINEERING_ONLY"
+}

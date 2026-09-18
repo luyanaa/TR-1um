@@ -7,7 +7,7 @@ Flow utilities are grouped by purpose under `flow/scripts/`:
 - `access/`: IP62 BEOL access-library generation and qualification.
 - `cells/`: immutable source-cell view preparation and qualification.
 - `signoff/`: MPW framing, pre-checks, DRC/LVS/MDP checks, and tapeout gates.
-- `analysis/`: RC estimation and bounded RC sensitivity analysis.
+- `analysis/`: RC estimation, PVT/model variation, and bounded sensitivity analysis.
 
 The three top-level LibreLane launchers share setup and argument handling from
 `flow/scripts/common/librelane.sh`; they differ only in the selected standard
@@ -713,6 +713,34 @@ connections, plus an internal macro PG grid/landing contract; adding a fake VDD
 pin is not acceptable. M3 is not used or planned because it is unavailable for
 fabrication in this process.
 
+### Digital-design PDN comparison
+
+The same review was applied to the other digital designs rather than
+assuming that the analog leaf's ground-only classification generalized to
+them. The generated report inventories 11 `config_access.yaml` files:
+`tr1um_alu8`, `tr1um_busdecode`, `tr1um_crc8`, `tr1um_fifo4`,
+`tr1um_fsm_lock`, `tr1um_irqctrl`, `tr1um_popcount8`, `tr1um_pwm4`,
+`tr1um_regfile4x4`, `tr1um_spitx`, and `tr1um_uarttx_big`. Every one keeps
+`RUN_PDN: false` and substitutes `OpenROAD.IRDropReport`; completed standard
+flow runs therefore do not constitute PDN/IR evidence.
+
+Two representative powered experiments were exercised:
+
+- Forcing PDN and IRDropReport on `tr1um_alu8` generated the grid but reported
+  `PSM-0025` at grid generation and `PSM-0038`/`PSM-0039` followed by
+  `PSM-0069` during IR analysis. The probe explicitly set
+  `PDN_ENABLE_GLOBAL_CONNECTIONS`, `SCL_POWER_PINS: [VDD]`, and
+  `SCL_GROUND_PINS: [GND]`; the GeneratePDN log still reports zero global
+  connections and no accepted numeric IR result. It also warns that
+  `VSRC_LOC_FILES` is absent.
+- The UART `connected_power` experiment creates explicit VDD/GND special-net
+  routes and is useful as a routing artifact, but a direct VDD PDNSim probe
+  reports `PSM-0038`, `PSM-0039`, and `PSM-0069`. It is not EM/IR signoff.
+
+The durable evidence is
+`flow/qualification/reports/pdn-emir/pdn_emir.json` and
+`flow/qualification/reports/pdn-emir/uart_connected_power_pdn_probe.txt`.
+
 
 ## Regression and MPW-template integration
 
@@ -878,11 +906,16 @@ The remaining LibreLane warnings are classified as follows:
   defined. LibreLane therefore skips this policy checker. Total and maximum
   routed wire lengths remain reported in `metrics.json`; no arbitrary limit is
   being invented to silence the warning.
-- **IR drop:** no public foundry V1 resistance or qualified power-current model
-  is available. The repository retains an engineering estimate only. For a
-  first-order DC estimate, use `R = R_sheet * L / W` per metal segment, add
-  via/contact resistances when known, solve the PDN resistor network, and report
-  `V_drop = I * R`. This is a sensitivity model, not tapeout signoff.
+- **IR drop / EM:** no public foundry V1 resistance or qualified
+  power-current model is available. The checked-in report at
+  `flow/qualification/reports/pdn-emir/pdn_emir.json` therefore records
+  engineering evidence only: the post-streamout M2 GND bridge is 891.2 um
+  long and 3.0 um wide, giving 8.912 ohm nominal under the repository RC
+  estimate and a 4.456..13.368 ohm sensitivity band. The canonical DEF has
+  no GND route because the bridge is GDS-only. A first-order DC estimate uses
+  `R = R_sheet * L / W` per metal segment, adds via/contact resistances when
+  known, solves the PDN resistor network, and reports `V_drop = I * R`. This
+  is a sensitivity model, not tapeout signoff.
 - **Magic DRC:** intentionally disabled. KLayout is the active TR-1um drawing
   and IP62 mask rule engine; the checked-in Magic technology is diagnostic-only
   and is not claimed as an independent signoff deck.
@@ -1235,12 +1268,23 @@ rate, not a validated maximum operating clock frequency.
 
 | Design | Max cell IOPATH delay (ns) | Reciprocal delay (MHz) | RTL | Strict | Slow |
 | --- | ---: | ---: | :---: | :---: | :---: |
-| `tr1um_alu8` | 8.635 | 115.808 | PASS | FAIL | PASS |
-| `tr1um_fifo4` | 10.913 | 91.634 | PASS | FAIL | PASS |
-| `tr1um_irqctrl` | 8.805 | 113.572 | PASS | FAIL | PASS |
-| `tr1um_spitx` | 9.232 | 108.319 | PASS | FAIL | PASS |
-| `tr1um_busdecode` | 9.873 | 101.286 | PASS | FAIL | PASS |
-| `tr1um_uarttx_big` | 10.707 | 93.397 | PASS | PASS | PASS |
+| `tr1um_alu8` | 8.365 | 119.546 | PASS | FAIL | PASS |
+| `tr1um_fifo4` | 12.349 | 80.978 | PASS | FAIL | PASS |
+| `tr1um_irqctrl` | 8.918 | 112.133 | PASS | FAIL | PASS |
+| `tr1um_spitx` | 9.948 | 100.523 | PASS | FAIL | PASS |
+| `tr1um_busdecode` | 10.309 | 97.003 | PASS | FAIL | PASS |
+| `tr1um_uarttx_big` | 12.504 | 79.974 | PASS | PASS | PASS |
+
+The audited Liberty inputs come from
+`flow/char/char_liberty.py`: cell area is LEF `SIZE` width times height,
+all 70 standard-cell input pins have rising/falling effective input-charge
+measurements from ngspice, and combinational/DFF delay and output-transition
+tables are SPICE-derived. DFF setup uses a 5% clock-to-Q push-out criterion
+over the 0.5/1.0/2.0 ns slew grid. No hold arcs are emitted because the
+extracted DFFR cell showed no positive hold push-out at the search
+resolution. DFFS input charge is physical, but its CK-to-Q timing remains on
+the DFFR electrical path until the extracted SET polarity is reconciled with
+the Verilog contract.
 
 The reciprocal rates above use the largest annotated cell `IOPATH` delay in
 each generated SDF. They must not be used as signoff clock targets without
@@ -1258,12 +1302,12 @@ parentheses:
 
 | Design | Input -> output (combinational) | Reg -> reg | Input -> reg | Reg -> output |
 | --- | ---: | ---: | ---: | ---: |
-| `tr1um_alu8` | n/a | n/a | 24.516 MHz (40.790 ns) | 115.794 MHz (8.636 ns) |
-| `tr1um_fifo4` | n/a | 43.917 MHz (22.770 ns) | 76.336 MHz (13.100 ns) | 47.985 MHz (20.840 ns) |
-| `tr1um_irqctrl` | 106.349 MHz (9.403 ns) | 58.997 MHz (16.950 ns) | 98.717 MHz (10.130 ns) | 65.531 MHz (15.260 ns) |
-| `tr1um_spitx` | n/a | 39.604 MHz (25.250 ns) | 76.453 MHz (13.080 ns) | 67.659 MHz (14.780 ns) |
-| `tr1um_busdecode` | n/a | n/a | 500.000 MHz (2.000 ns) | 67.204 MHz (14.880 ns) |
-| `tr1um_uarttx_big` | n/a | 36.684 MHz (27.260 ns) | n/a | 34.400 MHz (29.070 ns) |
+| `tr1um_alu8` | n/a | n/a | 21.400 MHz (46.730 ns) | 119.531 MHz (8.366 ns) |
+| `tr1um_fifo4` | n/a | 37.608 MHz (26.590 ns) | 62.500 MHz (16.000 ns) | 42.230 MHz (23.680 ns) |
+| `tr1um_irqctrl` | 100.990 MHz (9.902 ns) | 56.370 MHz (17.740 ns) | 92.081 MHz (10.860 ns) | 63.532 MHz (15.740 ns) |
+| `tr1um_spitx` | n/a | 36.778 MHz (27.190 ns) | 67.797 MHz (14.750 ns) | 58.207 MHz (17.180 ns) |
+| `tr1um_busdecode` | n/a | n/a | 500.000 MHz (2.000 ns) | 64.309 MHz (15.550 ns) |
+| `tr1um_uarttx_big` | n/a | 33.422 MHz (29.920 ns) | n/a | 31.279 MHz (31.970 ns) |
 
 The frequency calculation is `f_MHz = 1000 / t_ns`. The reported path delay
 is the endpoint data arrival measured from the OpenSTA launch edge: input
@@ -1274,11 +1318,12 @@ logic segment. `n/a` means OpenSTA found no path in that class; it is not a
 zero-delay or infinite-frequency result.
 
 Only `reg -> reg` is a synchronous-clock candidate. These are reciprocal
-path-rate estimates, not signoff Fmax values: the current engineering timing
-library does not provide a complete setup/hold characterization, and this
-calculation does not add setup, hold, skew, or uncertainty margins. The
-`input -> reg`, `reg -> output`, and combinational rates are interface or
-throughput indicators rather than independent clock limits.
+path-rate estimates, not signoff Fmax values: the engineering timing library
+now includes measured setup push-out constraints but does not include hold
+arcs, complete clock modeling, or qualified parasitics. This calculation does
+not add setup, hold, skew, or uncertainty margins. The `input -> reg`,
+`reg -> output`, and combinational rates are interface or throughput
+indicators rather than independent clock limits.
 
 Native top-level KLayout DRC is intentionally removed from the tapeout scope;
 the native branch remains a reference diagnostic only.
@@ -1317,22 +1362,36 @@ design-specific analog evidence is absent. It must not be changed to
 
 ### Temperature and model scope
 
-The analog contract uses the stated product ranges:
+The temperature release contract intentionally narrows the validated scope to
+`27..85 degC`. This is a release-scope change; it does not establish that the
+original `-40..85 degC` product requirement is safe.
 
 | Quantity | Declared range |
 |---|---:|
-| Operating temperature | `-40..85 degC` |
+| Release operating temperature | `27..85 degC` |
 | RS characterization range | `25..150 degC` |
+| Manual MOS device guarantee | `-40..150 degC` |
 
-The RS range is not silently treated as coverage of the lower operating
-range. The PVT runner requires operating-temperature endpoint corners and
-requires explicit qualified extrapolation evidence when the operating range
-extends outside the RS characterization range:
+The model/manual reference-temperature distinction is explicit:
+
+- `27 degC` is the model `tnom` and the reference temperature in the manual's
+  SPICE model table.
+- `25 degC` is retained only as the manual device-characteristic measurement
+  condition.
+- The audit rejects a source model whose numeric `tnom` does not match `27
+  degC`; it does not silently normalize the `25`/`27 degC` distinction.
+
+Run the static audit and the model-level temperature sweep as follows:
 
 ```bash
 python3 flow/scripts/signoff/audit_temperature_models.py \
   --contract flow/qualification/temperature_model_contract.json \
   --output /tmp/tr1um-temperature-model-audit.json
+
+python3 flow/scripts/signoff/run_temperature_validation.py \
+  --contract flow/qualification/temperature_model_contract.json \
+  --output flow/qualification/reports/temperature-validation/temperature_validation.json \
+  --ngspice ngspice
 
 python3 flow/scripts/signoff/run_pvt_sta.py \
   --manifest <pvt_manifest.json> \
@@ -1340,34 +1399,113 @@ python3 flow/scripts/signoff/run_pvt_sta.py \
   --sta-bin <opensta>
 ```
 
-The checked-in audit records these model facts, without treating simulator
-hooks as qualification:
+The checked-in temperature report sweeps `27`, `85`, and `150 degC`. The
+release-range checks are `27..85 degC`; `150 degC` is included only to exercise
+the documented upper model-characterization endpoint. The RS contract is now
+`not_needed` for below-25 degC extrapolation because the release range is
+inside the declared `25..150 degC` RS characterization range.
 
-- the BSIM3 MOS models contain `tnom=27`, `ute`, `kt1`, and `kt2`;
-- `F_RR` contains an explicit `(temper-tnom)` temperature expression;
-- `F_RS` contains `tnom` but no `temper` term;
-- `m_CSIO` is nominal-only (`tnom`);
-- diode temperature behavior is implicit through `tnom`/`xti`.
+The static audit covers `PMOS_mst`, `NMOS_mst`, `MPE_mst`, `MNE_mst`, `F_RR`,
+`F_RS`, `m_CSIO`, `DN`, and `DP`. The ngspice probes pass for all executable
+models: 12 MOS probes, 15 F_RR probes, 36 F_RS probes, and 6 diode probes.
+The report records no low-temperature RS comparison because it is outside the
+27..85 degC release scope.
 
-The audited source files are:
-`libs.tech/spice/models/models_IP62_mos_v2.lib`,
-`libs.tech/spice/models/models_IP62_res_v5.lib`,
-`libs.tech/spice/models/models_IP62_cap_v5p1.lib`, and
-`libs.tech/spice/models/models_IP62_diode_v2.lib`. The extracted model text is
-the machine-readable source; the manual figures are supporting characterization
-evidence, not a replacement for missing low-temperature coefficients.
+`F_RS` remains `nominal_only`: the source has `tnom=27` but no `temper` term.
+Its 27/85/150 degC probes execute successfully, but this is not evidence of a
+measured RS temperature coefficient. The narrowed range removes the below-25
+extrapolation requirement; the contract records the nominal-only behavior as a
+warning rather than a release blocker.
 
-The audit remains incomplete because the model declarations do not establish
-qualified `-40 degC` behavior for every used device. The reference manual
-`OS00_リファレンスマニュアル_rev1.1.pdf` Section I.2.7 and Table II-1-1
-provide temperature-characteristic material as figures and list model
-extraction ranges around `27..150 degC`; the product contract above remains
-the controlling `-40..85 degC` requirement. The 25-vs-27 degC reference
-temperature discrepancy is recorded rather than normalized away. The layout
-guide does not provide machine-readable coefficients that can replace those
-figures. Digitizing the figures or obtaining qualified coefficients, then
-adding low-temperature RS evidence, is required before temperature-dependent
-RC/PEX or analog performance can be signoff evidence.
+`m_CSIO` is handled the same way under an explicit `temperature_policy:
+warning_only` contract entry. The checked-in source declares
+`.model m_CSIO C tnom=27`, but has no `TC1`/`TC2` or other machine-readable
+temperature law, and the C2 expression is a Spectre-style behavioral
+capacitance dependent on geometry and voltage. Ngspice documents that
+capacitor temperature behavior requires `TC1`/`TC2`; their absence is not
+evidence that the physical capacitance temperature coefficient is zero:
+
+- [ngspice capacitor syntax](https://nmg.gitlab.io/ngspice-manual/circuitelementsandmodels/elementarydevices/capacitors.html)
+- [ngspice semiconductor capacitor model](https://nmg.gitlab.io/ngspice-manual/circuitelementsandmodels/elementarydevices/semiconductorcapacitormodel_c.html)
+- [MOS capacitor zero-temperature-coefficient reference](https://iopscience.iop.org/article/10.1143/JJAP.30.917)
+
+The temperature report is now `PASS_WITH_WARNINGS`, not `ENGINEERING_ONLY`.
+The warnings are explicit: F_RS and CSIO are nominal-only, and CSIO is
+audited statically because the checked-in source is Spectre-style. This does
+not claim a measured CSIO temperature coefficient. A separate repository issue
+also reports numerical convergence risk in the C2 square-root expression near
+`v(minus,sub) = -0.61/-0.71 V`: [F_CSIO ngspice issue #96](https://github.com/OpenSUSI/TR-1um/issues/96).
+That is a runtime robustness warning, separate from temperature qualification.
+
+### PVT, pseudo-Monte Carlo, and sensitivity analysis
+
+The variation contract at
+`flow/qualification/variation_analysis_contract.json` drives
+`flow/scripts/analysis/run_variation_analysis.py`. It uses real ngspice
+executions for a compact-model probe. A complete execution is reported as
+`PASS_WITH_WARNINGS`: `execution_status` remains `PASS`, while the declared
+reference-only boundaries are warnings rather than blockers.
+
+```bash
+python3 flow/scripts/analysis/run_variation_analysis.py \
+  --contract flow/qualification/variation_analysis_contract.json \
+  --output flow/qualification/reports/variation-analysis/variation_analysis.json \
+  --ngspice ngspice
+```
+The reference report runs:
+
+- 30 PVT cases: `TT`, `FF`, `SS`, `FS`, and `SF` crossed with
+  `4.5/5.0/5.5 V` and `27/85 degC`.
+- 64 seeded pseudo-Monte Carlo samples for `V_th`, `mu_0`, and `R_sq`
+  proxies, using reference-only bounded normal distributions and an explicit
+  independent correlation assumption.
+- One-factor-at-a-time low/nominal/high sensitivity for device, interconnect,
+  supply, and temperature parameters, plus the existing GND-return bridge
+  estimate. These are reference-only local effects.
+
+For routed timing sensitivity, run the existing SPEF perturbation in the
+LibreLane development shell so the shell-provided `sta` is used:
+
+```bash
+cd "$HOME/Documents/librelane"
+nix-shell --run 'cd "$HOME/Documents/TR-1um" && python3 flow/scripts/analysis/rc_sensitivity.py \
+  --spef flow/designs/tr1um_alu8/runs/audit-pr1-final2/final/spef/tr1um_alu8..spef \
+  --lib flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell_access/lib/TR-1um_stdcell_access_typ_5p0V_25C.lib \
+  --netlist flow/designs/tr1um_alu8/runs/audit-pr1-final2/final/pnl/tr1um_alu8.pnl.v \
+  --sdc flow/designs/tr1um_alu8/constraints.sdc \
+  --top tr1um_alu8 \
+  --sta sta \
+  --n 20 \
+  --seed 20260905 \
+  --out /tmp/tr1um-alu8-rc-sensitivity-nix \
+  --json-out flow/qualification/reports/variation-analysis/rc_timing_sensitivity_alu8.json'
+```
+
+The checked-in timing report has 20/20 finite OpenSTA WNS results with no
+negative samples. It is accepted as a reference-only warning: a nominal-corner
+RC perturbation screen that does not provide process-qualified Liberty corners,
+analog operating points, RF metrics, or signoff timing closure.
+
+Each timing-sensitivity sample reports `r_factor`, `c_factor`,
+`critical_path_delay_ns`, and `wns`. The report also emits
+`delta_t_r_ns` for the R-only perturbation, `delta_t_c_ns` for the C-only
+perturbation, `delta_t_rc_ns` for the coupled perturbation, and
+`delta_t_interaction_ns` for the residual RC interaction. All deltas are
+relative to the unscaled nominal SPEF baseline.
+`critical_path_delay_ns`, `wns`, and all delta fields are reported in ns;
+`wns_ns` is an explicit alias of `wns`.
+
+The process corners are synthetic reference modifiers: threshold shifts, `u0`
+scales, and `F_RS` resistance scaling. No official FF/SS/FS/SF model cards
+exist for this reference flow, so these are accepted warnings. The report is
+`PASS_WITH_WARNINGS` when all declared probe executions pass. The GND-return
+result is a first-order `I_leak * R_bridge` sensitivity using the existing
+leakage-only PDN observation; it does not close the PDNSim/EM/IR TODO or
+establish ground-bounce margin.
+
+The sensitivity ranking is local and one-factor-at-a-time. It is not a
+multivariate worst-case analysis and does not replace qualified timing,
+analog-performance, mismatch, EM, or IR evidence.
 
 ### TR-1um electrical-limit contract
 
@@ -1611,11 +1749,15 @@ width remains mandatory, so this engineering screen cannot waive it. The
 generic IR-drop/current-density/via limits remain contract-owned alongside
 these process-specific checks.
 
-The checked-in `pdn_emir_contract.json` is still a ground-only
-`engineering_only` contract with no numeric return-path result, and
-`post_layout_sim_manifest.json` is still blocked with zero cases. These
-classifications are intentional: adding the machine-readable limits and
-gates does not claim EM/IR or analog simulation closure.
+The checked-in `pdn_emir_contract.json` remains a ground-only
+`engineering_only` contract, but the evidence is now explicit in
+`reports/pdn-emir/pdn_emir.json`: it records the bridge estimate, the
+leakage-only nominal power observation, the powered-core PDNSim failure, and
+the 11-design digital inventory. The report deliberately does not claim a
+numeric return-path, IR-drop, ground-bounce, electromigration, or
+current-density result. `post_layout_sim_manifest.json` remains blocked with
+zero cases. These classifications are intentional: machine-readable limits
+and connectivity diagnostics are not EM/IR or analog simulation closure.
 
 ### Analog robustness contracts
 

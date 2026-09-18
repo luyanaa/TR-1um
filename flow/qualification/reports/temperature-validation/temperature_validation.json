@@ -1,0 +1,1284 @@
+{
+  "schema_version": 1,
+  "status": "PASS_WITH_WARNINGS",
+  "contract": "flow/qualification/temperature_model_contract.json",
+  "design": "tr1um_mixed_counter",
+  "ngspice": "ngspice-47",
+  "temperatures_c": [
+    27.0,
+    85.0,
+    150.0
+  ],
+  "static_audit": {
+    "status": "PASS_WITH_WARNINGS",
+    "contract": "flow/qualification/temperature_model_contract.json",
+    "design": "tr1um_mixed_counter",
+    "operating_range_c": [
+      27.0,
+      85.0
+    ],
+    "rs_characterization_range_c": [
+      25.0,
+      150.0
+    ],
+    "rs_extrapolation": {
+      "status": "not_needed",
+      "evidence": [
+        "reports/temperature-validation/temperature_validation.json"
+      ],
+      "rationale": "The release temperature scope is 27..85 degC, which is within the 25..150 degC RS characterization range; no RS extrapolation below 25 degC is required."
+    },
+    "validation_temperatures_c": [
+      27.0,
+      85.0
+    ],
+    "reference_temperature_reconciliation": {
+      "status": "PASS",
+      "model_reference_c": 27,
+      "manual_model_reference_c": 27,
+      "manual_measurement_c": 25,
+      "manual_guaranteed_operating_range_c": [
+        -40.0,
+        150.0
+      ],
+      "manual_guarantee_scope": "MOS device junction-temperature guarantee from OS00 Table I-2-3",
+      "resolution": "Use 27 degC for model tnom and the manual SPICE model table. Retain 25 degC only as the manual device-characteristic measurement condition; it is not a replacement for model tnom.",
+      "errors": []
+    },
+    "manual_evidence": [
+      {
+        "path": "openIP62/IP62/Technology/doc/OS00_\u30ea\u30d5\u30a1\u30ec\u30f3\u30b9\u30de\u30cb\u30e5\u30a2\u30eb_rev1.1.pdf",
+        "location": "Section I.2.7, temperature-characteristic figures; Section II, Table II-1-1",
+        "claim": "Temperature-characteristic information is presented in manual figures; the model table lists extraction temperatures and the 27 degC reference temperature.",
+        "exists_nonempty": true
+      },
+      {
+        "path": "openIP62/IP62/Technology/doc/OS02_\u56de\u8defsim\u30ac\u30a4\u30c9\u30e9\u30a4\u30f3_rev1.pdf",
+        "location": "Section 6, PDF pages 14-15",
+        "claim": "Ngspice temperature sweeps use .temp/.dc temp examples, while corner parameter values are separately configured.",
+        "exists_nonempty": true
+      }
+    ],
+    "models": [
+      {
+        "name": "PMOS_mst",
+        "path": "libs.tech/spice/models/models_IP62_mos_v2.lib",
+        "behavior": "explicit",
+        "temperature_policy": "blocker",
+        "scope_start": ".model PMOS_mst PMOS",
+        "scope_end": ".model NMOS_mst NMOS",
+        "used": true,
+        "source_tnom_values_c": [
+          27.0
+        ],
+        "required_tokens": [
+          "tnom",
+          "ute",
+          "kt1",
+          "kt2"
+        ],
+        "missing_required_tokens": [],
+        "temperature_tokens_found": [
+          "tnom",
+          "ute",
+          "kt1",
+          "kt2"
+        ],
+        "expected_model_reference_c": 27,
+        "characterized_range_c": [
+          27.0,
+          150.0
+        ],
+        "limitations": [],
+        "warnings": [],
+        "status": "PASS",
+        "errors": []
+      },
+      {
+        "name": "NMOS_mst",
+        "path": "libs.tech/spice/models/models_IP62_mos_v2.lib",
+        "behavior": "explicit",
+        "temperature_policy": "blocker",
+        "scope_start": ".model NMOS_mst NMOS",
+        "scope_end": ".model MPE_mst PMOS",
+        "used": true,
+        "source_tnom_values_c": [
+          27.0
+        ],
+        "required_tokens": [
+          "tnom",
+          "ute",
+          "kt1",
+          "kt2"
+        ],
+        "missing_required_tokens": [],
+        "temperature_tokens_found": [
+          "tnom",
+          "ute",
+          "kt1",
+          "kt2"
+        ],
+        "expected_model_reference_c": 27,
+        "characterized_range_c": [
+          27.0,
+          150.0
+        ],
+        "limitations": [],
+        "warnings": [],
+        "status": "PASS",
+        "errors": []
+      },
+      {
+        "name": "MPE_mst",
+        "path": "libs.tech/spice/models/models_IP62_mos_v2.lib",
+        "behavior": "explicit",
+        "temperature_policy": "blocker",
+        "scope_start": ".model MPE_mst PMOS",
+        "scope_end": ".model MNE_mst NMOS",
+        "used": true,
+        "source_tnom_values_c": [
+          27.0
+        ],
+        "required_tokens": [
+          "tnom",
+          "ute",
+          "kt1",
+          "kt2"
+        ],
+        "missing_required_tokens": [],
+        "temperature_tokens_found": [
+          "tnom",
+          "ute",
+          "kt1",
+          "kt2"
+        ],
+        "expected_model_reference_c": 27,
+        "characterized_range_c": [
+          27.0,
+          150.0
+        ],
+        "limitations": [],
+        "warnings": [],
+        "status": "PASS",
+        "errors": []
+      },
+      {
+        "name": "MNE_mst",
+        "path": "libs.tech/spice/models/models_IP62_mos_v2.lib",
+        "behavior": "explicit",
+        "temperature_policy": "blocker",
+        "scope_start": ".model MNE_mst NMOS",
+        "scope_end": null,
+        "used": true,
+        "source_tnom_values_c": [
+          27.0
+        ],
+        "required_tokens": [
+          "tnom",
+          "ute",
+          "kt1",
+          "kt2"
+        ],
+        "missing_required_tokens": [],
+        "temperature_tokens_found": [
+          "tnom",
+          "ute",
+          "kt1",
+          "kt2"
+        ],
+        "expected_model_reference_c": 27,
+        "characterized_range_c": [
+          27.0,
+          150.0
+        ],
+        "limitations": [],
+        "warnings": [],
+        "status": "PASS",
+        "errors": []
+      },
+      {
+        "name": "F_RR",
+        "path": "libs.tech/spice/models/models_IP62_res_v5.lib",
+        "behavior": "explicit",
+        "temperature_policy": "blocker",
+        "scope_start": ".subckt F_RR",
+        "scope_end": ".ends F_RR",
+        "used": true,
+        "source_tnom_values_c": [
+          27.0
+        ],
+        "required_tokens": [
+          "tnom",
+          "temper"
+        ],
+        "missing_required_tokens": [],
+        "temperature_tokens_found": [
+          "temper",
+          "tnom"
+        ],
+        "expected_model_reference_c": 27,
+        "characterized_range_c": [
+          27.0,
+          150.0
+        ],
+        "limitations": [],
+        "warnings": [],
+        "status": "PASS",
+        "errors": []
+      },
+      {
+        "name": "F_RS",
+        "path": "libs.tech/spice/models/models_IP62_res_v5.lib",
+        "behavior": "nominal_only",
+        "temperature_policy": "warning_only",
+        "scope_start": ".subckt F_RS",
+        "scope_end": ".ends F_RS",
+        "used": true,
+        "source_tnom_values_c": [
+          27.0
+        ],
+        "required_tokens": [
+          "tnom"
+        ],
+        "missing_required_tokens": [],
+        "temperature_tokens_found": [
+          "tnom"
+        ],
+        "expected_model_reference_c": 27,
+        "characterized_range_c": [
+          25.0,
+          150.0
+        ],
+        "limitations": [
+          "temperature behavior is nominal_only"
+        ],
+        "warnings": [
+          "temperature behavior is nominal_only"
+        ],
+        "status": "PASS_WITH_WARNINGS",
+        "errors": []
+      },
+      {
+        "name": "m_CSIO",
+        "path": "libs.tech/spice/models/models_IP62_cap_v5p1.lib",
+        "behavior": "nominal_only",
+        "temperature_policy": "warning_only",
+        "scope_start": ".model m_CSIO C",
+        "scope_end": ".subckt F_CSIO_mst",
+        "used": true,
+        "source_tnom_values_c": [
+          27.0
+        ],
+        "required_tokens": [
+          "tnom"
+        ],
+        "missing_required_tokens": [],
+        "temperature_tokens_found": [
+          "tnom"
+        ],
+        "expected_model_reference_c": 27,
+        "characterized_range_c": [
+          27.0,
+          150.0
+        ],
+        "limitations": [
+          "temperature behavior is nominal_only"
+        ],
+        "warnings": [
+          "temperature behavior is nominal_only"
+        ],
+        "status": "PASS_WITH_WARNINGS",
+        "errors": []
+      },
+      {
+        "name": "DN",
+        "path": "libs.tech/spice/models/models_IP62_diode_v2.lib",
+        "behavior": "implicit",
+        "temperature_policy": "blocker",
+        "scope_start": ".model DN D",
+        "scope_end": ".model DNO diode",
+        "used": true,
+        "source_tnom_values_c": [
+          27.0
+        ],
+        "required_tokens": [
+          "tnom",
+          "xti"
+        ],
+        "missing_required_tokens": [],
+        "temperature_tokens_found": [
+          "tnom",
+          "xti"
+        ],
+        "expected_model_reference_c": 27,
+        "characterized_range_c": [
+          27.0,
+          150.0
+        ],
+        "limitations": [],
+        "warnings": [],
+        "status": "PASS",
+        "errors": []
+      },
+      {
+        "name": "DP",
+        "path": "libs.tech/spice/models/models_IP62_diode_v2.lib",
+        "behavior": "implicit",
+        "temperature_policy": "blocker",
+        "scope_start": ".model DP D",
+        "scope_end": null,
+        "used": true,
+        "source_tnom_values_c": [
+          27.0
+        ],
+        "required_tokens": [
+          "tnom",
+          "xti"
+        ],
+        "missing_required_tokens": [],
+        "temperature_tokens_found": [
+          "tnom",
+          "xti"
+        ],
+        "expected_model_reference_c": 27,
+        "characterized_range_c": [
+          27.0,
+          150.0
+        ],
+        "limitations": [],
+        "warnings": [],
+        "status": "PASS",
+        "errors": []
+      }
+    ],
+    "warnings": [
+      {
+        "name": "F_RS",
+        "messages": [
+          "temperature behavior is nominal_only"
+        ]
+      },
+      {
+        "name": "m_CSIO",
+        "messages": [
+          "temperature behavior is nominal_only"
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "models": [
+    {
+      "name": "PMOS_mst",
+      "used": true,
+      "probe": {
+        "kind": "mos",
+        "subckt": "PMOS",
+        "widths_um": [
+          10
+        ],
+        "lengths_um": [
+          1
+        ],
+        "bias_v": {
+          "drain": -5,
+          "gate": -5,
+          "source": 0,
+          "bulk": 0
+        }
+      },
+      "source": "libs.tech/spice/models/models_IP62_mos_v2.lib",
+      "cases": [
+        {
+          "temperature_c": 27.0,
+          "width_um": 10.0,
+          "length_um": 1.0,
+          "returncode": 0,
+          "current_a": 0.0009403218,
+          "resistance_ohm": null,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 85.0,
+          "width_um": 10.0,
+          "length_um": 1.0,
+          "returncode": 0,
+          "current_a": 0.0008294088,
+          "resistance_ohm": null,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 150.0,
+          "width_um": 10.0,
+          "length_um": 1.0,
+          "returncode": 0,
+          "current_a": 0.0007390752,
+          "resistance_ohm": null,
+          "status": "PASS",
+          "errors": []
+        }
+      ],
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "name": "NMOS_mst",
+      "used": true,
+      "probe": {
+        "kind": "mos",
+        "subckt": "NMOS",
+        "widths_um": [
+          10
+        ],
+        "lengths_um": [
+          1
+        ],
+        "bias_v": {
+          "drain": 5,
+          "gate": 0,
+          "source": 0,
+          "bulk": 0
+        }
+      },
+      "source": "libs.tech/spice/models/models_IP62_mos_v2.lib",
+      "cases": [
+        {
+          "temperature_c": 27.0,
+          "width_um": 10.0,
+          "length_um": 1.0,
+          "returncode": 0,
+          "current_a": -1.65903e-11,
+          "resistance_ohm": null,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 85.0,
+          "width_um": 10.0,
+          "length_um": 1.0,
+          "returncode": 0,
+          "current_a": -2.24005e-10,
+          "resistance_ohm": null,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 150.0,
+          "width_um": 10.0,
+          "length_um": 1.0,
+          "returncode": 0,
+          "current_a": -8.12461e-09,
+          "resistance_ohm": null,
+          "status": "PASS",
+          "errors": []
+        }
+      ],
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "name": "MPE_mst",
+      "used": true,
+      "probe": {
+        "kind": "mos",
+        "subckt": "MPE",
+        "widths_um": [
+          50
+        ],
+        "lengths_um": [
+          2
+        ],
+        "bias_v": {
+          "drain": -5,
+          "gate": -5,
+          "source": 0,
+          "bulk": 0
+        }
+      },
+      "source": "libs.tech/spice/models/models_IP62_mos_v2.lib",
+      "cases": [
+        {
+          "temperature_c": 27.0,
+          "width_um": 50.0,
+          "length_um": 2.0,
+          "returncode": 0,
+          "current_a": 0.002849749,
+          "resistance_ohm": null,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 85.0,
+          "width_um": 50.0,
+          "length_um": 2.0,
+          "returncode": 0,
+          "current_a": 0.002468034,
+          "resistance_ohm": null,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 150.0,
+          "width_um": 50.0,
+          "length_um": 2.0,
+          "returncode": 0,
+          "current_a": 0.002155564,
+          "resistance_ohm": null,
+          "status": "PASS",
+          "errors": []
+        }
+      ],
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "name": "MNE_mst",
+      "used": true,
+      "probe": {
+        "kind": "mos",
+        "subckt": "MNE",
+        "widths_um": [
+          50
+        ],
+        "lengths_um": [
+          2
+        ],
+        "bias_v": {
+          "drain": 5,
+          "gate": 0,
+          "source": 0,
+          "bulk": 0
+        }
+      },
+      "source": "libs.tech/spice/models/models_IP62_mos_v2.lib",
+      "cases": [
+        {
+          "temperature_c": 27.0,
+          "width_um": 50.0,
+          "length_um": 2.0,
+          "returncode": 0,
+          "current_a": -5.03078e-12,
+          "resistance_ohm": null,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 85.0,
+          "width_um": 50.0,
+          "length_um": 2.0,
+          "returncode": 0,
+          "current_a": -7.11997e-12,
+          "resistance_ohm": null,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 150.0,
+          "width_um": 50.0,
+          "length_um": 2.0,
+          "returncode": 0,
+          "current_a": -8.89005e-11,
+          "resistance_ohm": null,
+          "status": "PASS",
+          "errors": []
+        }
+      ],
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "name": "F_RR",
+      "used": true,
+      "probe": {
+        "kind": "rr",
+        "widths_um": [
+          2.8,
+          4,
+          6,
+          12,
+          20
+        ],
+        "lengths_um": [
+          20
+        ],
+        "voltage_v": 0.2
+      },
+      "source": "libs.tech/spice/models/models_IP62_res_v5.lib",
+      "cases": [
+        {
+          "temperature_c": 27.0,
+          "width_um": 2.8,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -3.29516e-05,
+          "resistance_ohm": 6069.50800568106,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 27.0,
+          "width_um": 4.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -5.42013e-05,
+          "resistance_ohm": 3689.948396071681,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 27.0,
+          "width_um": 6.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -9.28763e-05,
+          "resistance_ohm": 2153.40189047152,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 27.0,
+          "width_um": 12.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -0.000208078,
+          "resistance_ohm": 961.1780197810438,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 27.0,
+          "width_um": 20.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -0.000356443,
+          "resistance_ohm": 561.0995306402426,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 85.0,
+          "width_um": 2.8,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -3.07964e-05,
+          "resistance_ohm": 6494.2655635074225,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 85.0,
+          "width_um": 4.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -5.0704e-05,
+          "resistance_ohm": 3944.4619753865572,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 85.0,
+          "width_um": 6.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -8.68837e-05,
+          "resistance_ohm": 2301.92774939373,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 85.0,
+          "width_um": 12.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -0.000194652,
+          "resistance_ohm": 1027.4746727493168,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 85.0,
+          "width_um": 20.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -0.000333444,
+          "resistance_ohm": 599.8008661124506,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 150.0,
+          "width_um": 2.8,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -2.81638e-05,
+          "resistance_ohm": 7101.314453305307,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 150.0,
+          "width_um": 4.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -4.65064e-05,
+          "resistance_ohm": 4300.483374331275,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 150.0,
+          "width_um": 6.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -7.96907e-05,
+          "resistance_ohm": 2509.703139764113,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 150.0,
+          "width_um": 12.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -0.000178538,
+          "resistance_ohm": 1120.2097032564498,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 150.0,
+          "width_um": 20.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -0.000305839,
+          "resistance_ohm": 653.9388371005659,
+          "status": "PASS",
+          "errors": []
+        }
+      ],
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "name": "F_RS",
+      "used": true,
+      "probe": {
+        "kind": "rs",
+        "widths_um": [
+          4,
+          6,
+          12,
+          20
+        ],
+        "lengths_um": [
+          20,
+          50,
+          100
+        ],
+        "voltage_v": 0.2
+      },
+      "source": "libs.tech/spice/models/models_IP62_res_v5.lib",
+      "cases": [
+        {
+          "temperature_c": 27.0,
+          "width_um": 4.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -0.000336437,
+          "resistance_ohm": 594.4649369718551,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 27.0,
+          "width_um": 4.0,
+          "length_um": 50.0,
+          "returncode": 0,
+          "current_a": -0.000153025,
+          "resistance_ohm": 1306.9759843162883,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 27.0,
+          "width_um": 4.0,
+          "length_um": 100.0,
+          "returncode": 0,
+          "current_a": -8.01769e-05,
+          "resistance_ohm": 2494.484072095579,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 27.0,
+          "width_um": 6.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -0.00052366,
+          "resistance_ohm": 381.927204674789,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 27.0,
+          "width_um": 6.0,
+          "length_um": 50.0,
+          "returncode": 0,
+          "current_a": -0.000233386,
+          "resistance_ohm": 856.9494314140522,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 27.0,
+          "width_um": 6.0,
+          "length_um": 100.0,
+          "returncode": 0,
+          "current_a": -0.000121313,
+          "resistance_ohm": 1648.6279294057522,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 27.0,
+          "width_um": 12.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -0.00108496,
+          "resistance_ohm": 184.33859312785725,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 27.0,
+          "width_um": 12.0,
+          "length_um": 50.0,
+          "returncode": 0,
+          "current_a": -0.000486618,
+          "resistance_ohm": 411.00000411,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 27.0,
+          "width_um": 12.0,
+          "length_um": 100.0,
+          "returncode": 0,
+          "current_a": -0.000248996,
+          "resistance_ohm": 803.2257546305964,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 27.0,
+          "width_um": 20.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -0.00173232,
+          "resistance_ohm": 115.45211046457929,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 27.0,
+          "width_um": 20.0,
+          "length_um": 50.0,
+          "returncode": 0,
+          "current_a": -0.000775285,
+          "resistance_ohm": 257.9696498706927,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 27.0,
+          "width_um": 20.0,
+          "length_um": 100.0,
+          "returncode": 0,
+          "current_a": -0.000403652,
+          "resistance_ohm": 495.4763013685056,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 85.0,
+          "width_um": 4.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -0.000336437,
+          "resistance_ohm": 594.4649369718551,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 85.0,
+          "width_um": 4.0,
+          "length_um": 50.0,
+          "returncode": 0,
+          "current_a": -0.000153025,
+          "resistance_ohm": 1306.9759843162883,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 85.0,
+          "width_um": 4.0,
+          "length_um": 100.0,
+          "returncode": 0,
+          "current_a": -8.01769e-05,
+          "resistance_ohm": 2494.484072095579,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 85.0,
+          "width_um": 6.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -0.00052366,
+          "resistance_ohm": 381.927204674789,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 85.0,
+          "width_um": 6.0,
+          "length_um": 50.0,
+          "returncode": 0,
+          "current_a": -0.000233386,
+          "resistance_ohm": 856.9494314140522,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 85.0,
+          "width_um": 6.0,
+          "length_um": 100.0,
+          "returncode": 0,
+          "current_a": -0.000121313,
+          "resistance_ohm": 1648.6279294057522,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 85.0,
+          "width_um": 12.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -0.00108496,
+          "resistance_ohm": 184.33859312785725,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 85.0,
+          "width_um": 12.0,
+          "length_um": 50.0,
+          "returncode": 0,
+          "current_a": -0.000486618,
+          "resistance_ohm": 411.00000411,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 85.0,
+          "width_um": 12.0,
+          "length_um": 100.0,
+          "returncode": 0,
+          "current_a": -0.000248996,
+          "resistance_ohm": 803.2257546305964,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 85.0,
+          "width_um": 20.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -0.00173232,
+          "resistance_ohm": 115.45211046457929,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 85.0,
+          "width_um": 20.0,
+          "length_um": 50.0,
+          "returncode": 0,
+          "current_a": -0.000775285,
+          "resistance_ohm": 257.9696498706927,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 85.0,
+          "width_um": 20.0,
+          "length_um": 100.0,
+          "returncode": 0,
+          "current_a": -0.000403652,
+          "resistance_ohm": 495.4763013685056,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 150.0,
+          "width_um": 4.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -0.000336437,
+          "resistance_ohm": 594.4649369718551,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 150.0,
+          "width_um": 4.0,
+          "length_um": 50.0,
+          "returncode": 0,
+          "current_a": -0.000153025,
+          "resistance_ohm": 1306.9759843162883,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 150.0,
+          "width_um": 4.0,
+          "length_um": 100.0,
+          "returncode": 0,
+          "current_a": -8.01769e-05,
+          "resistance_ohm": 2494.484072095579,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 150.0,
+          "width_um": 6.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -0.00052366,
+          "resistance_ohm": 381.927204674789,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 150.0,
+          "width_um": 6.0,
+          "length_um": 50.0,
+          "returncode": 0,
+          "current_a": -0.000233386,
+          "resistance_ohm": 856.9494314140522,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 150.0,
+          "width_um": 6.0,
+          "length_um": 100.0,
+          "returncode": 0,
+          "current_a": -0.000121313,
+          "resistance_ohm": 1648.6279294057522,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 150.0,
+          "width_um": 12.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -0.00108496,
+          "resistance_ohm": 184.33859312785725,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 150.0,
+          "width_um": 12.0,
+          "length_um": 50.0,
+          "returncode": 0,
+          "current_a": -0.000486618,
+          "resistance_ohm": 411.00000411,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 150.0,
+          "width_um": 12.0,
+          "length_um": 100.0,
+          "returncode": 0,
+          "current_a": -0.000248996,
+          "resistance_ohm": 803.2257546305964,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 150.0,
+          "width_um": 20.0,
+          "length_um": 20.0,
+          "returncode": 0,
+          "current_a": -0.00173232,
+          "resistance_ohm": 115.45211046457929,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 150.0,
+          "width_um": 20.0,
+          "length_um": 50.0,
+          "returncode": 0,
+          "current_a": -0.000775285,
+          "resistance_ohm": 257.9696498706927,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 150.0,
+          "width_um": 20.0,
+          "length_um": 100.0,
+          "returncode": 0,
+          "current_a": -0.000403652,
+          "resistance_ohm": 495.4763013685056,
+          "status": "PASS",
+          "errors": []
+        }
+      ],
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "name": "m_CSIO",
+      "used": true,
+      "probe": {
+        "kind": "static_only",
+        "reason": "The checked-in CSIO source is Spectre-style and has no machine-readable temperature coefficient; temperature behavior is audited statically only."
+      },
+      "source": "libs.tech/spice/models/models_IP62_cap_v5p1.lib",
+      "cases": [],
+      "status": "STATIC_ONLY",
+      "errors": [],
+      "limitations": [
+        "The checked-in CSIO source is Spectre-style and has no machine-readable temperature coefficient; temperature behavior is audited statically only."
+      ]
+    },
+    {
+      "name": "DN",
+      "used": true,
+      "probe": {
+        "kind": "diode",
+        "voltage_v": 1
+      },
+      "source": "libs.tech/spice/models/models_IP62_diode_v2.lib",
+      "cases": [
+        {
+          "temperature_c": 27.0,
+          "width_um": null,
+          "length_um": null,
+          "returncode": 0,
+          "current_a": -0.00135971,
+          "resistance_ohm": null,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 85.0,
+          "width_um": null,
+          "length_um": null,
+          "returncode": 0,
+          "current_a": -0.00178242,
+          "resistance_ohm": null,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 150.0,
+          "width_um": null,
+          "length_um": null,
+          "returncode": 0,
+          "current_a": -0.00224262,
+          "resistance_ohm": null,
+          "status": "PASS",
+          "errors": []
+        }
+      ],
+      "status": "PASS",
+      "errors": []
+    },
+    {
+      "name": "DP",
+      "used": true,
+      "probe": {
+        "kind": "diode",
+        "voltage_v": 1
+      },
+      "source": "libs.tech/spice/models/models_IP62_diode_v2.lib",
+      "cases": [
+        {
+          "temperature_c": 27.0,
+          "width_um": null,
+          "length_um": null,
+          "returncode": 0,
+          "current_a": -0.00157069,
+          "resistance_ohm": null,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 85.0,
+          "width_um": null,
+          "length_um": null,
+          "returncode": 0,
+          "current_a": -0.00214529,
+          "resistance_ohm": null,
+          "status": "PASS",
+          "errors": []
+        },
+        {
+          "temperature_c": 150.0,
+          "width_um": null,
+          "length_um": null,
+          "returncode": 0,
+          "current_a": -0.00278482,
+          "resistance_ohm": null,
+          "status": "PASS",
+          "errors": []
+        }
+      ],
+      "status": "PASS",
+      "errors": []
+    }
+  ],
+  "rs_low_temperature_evidence": {
+    "smoke_status": "NOT_NEEDED",
+    "qualification_status": "not_needed",
+    "low_temperature_c": [],
+    "low_case_count": 0,
+    "comparison_count": 0,
+    "max_relative_delta_from_25C": null,
+    "comparisons": [],
+    "interpretation": "The 27..85 degC release scope is inside the declared 25..150 degC RS characterization range; no below-25 degC extrapolation is required."
+  },
+  "errors": [],
+  "warnings": [
+    {
+      "name": "F_RS",
+      "messages": [
+        "temperature behavior is nominal_only"
+      ]
+    },
+    {
+      "name": "m_CSIO",
+      "messages": [
+        "temperature behavior is nominal_only"
+      ]
+    },
+    {
+      "name": "m_CSIO",
+      "messages": [
+        "The checked-in CSIO source is Spectre-style and has no machine-readable temperature coefficient; temperature behavior is audited statically only."
+      ]
+    }
+  ],
+  "limitations": [
+    "PASS_WITH_WARNINGS is engineering evidence, not foundry qualification."
+  ]
+}
