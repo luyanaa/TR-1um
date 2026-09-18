@@ -20,10 +20,11 @@ DESIGN_NAME: tr1um_counter
 VERILOG_FILES: dir::src/tr1um_counter.v
 
 CLOCK_PORT: clk
-# NOTE: the Liberty delay tables are placeholder characterization data (cell delays
-# on the order of hundreds of ns), so this smoke test uses a relaxed 5us clock.
-# Re-tighten once TR-1um Liberty characterization is redone.
-CLOCK_PERIOD: 5000   # ns; ~200 kHz smoke-test clock for placeholder timing
+# The active Liberty is SPICE-characterized on a 0.5/1/2/5/10/15/20 ns
+# input-transition grid with 0.1/0.5/2.0 pF loads. Keep this smoke test's
+# relaxed 5 us clock while the engineering library remains outside signoff
+# timing scope.
+CLOCK_PERIOD: 5000   # ns; ~200 kHz smoke-test clock
 PNR_SDC_FILE: dir::constraints.sdc
 SIGNOFF_SDC_FILE: dir::constraints.sdc
 FALLBACK_SDC: dir::constraints.sdc

@@ -389,14 +389,14 @@ IDs and excluding the unresolved Cat-5 `GC.AN` fixture:
 | Cat-1 | 25 | 25 | 0 |
 | Cat-2 | 67 | 67 | 0 |
 | Cat-3 | 65 | 65 | 0 |
-| Cat-4 | 46 | 24 | 22 |
+| Cat-4 | 79 | 78 | 1 |
 | Cat-5 | 47 | 0 | 47 |
 | Cat-6 | 50 | 27 | 23 |
 | Cat-7 | 39 | 0 | 39 |
 | Cat-8 | 60 | 30 | 30 |
-| **Total** | **399** | **238** | **161** |
+| **Total** | **432** | **292** | **140** |
 
-This is not a clean regression result. The 161 failures remain review items;
+This is not a clean regression result. The 140 failures remain review items;
 they are not converted into waivers by the parity manifest.
 
 ### LVS source/manual/runset parity
@@ -1268,23 +1268,42 @@ rate, not a validated maximum operating clock frequency.
 
 | Design | Max cell IOPATH delay (ns) | Reciprocal delay (MHz) | RTL | Strict | Slow |
 | --- | ---: | ---: | :---: | :---: | :---: |
-| `tr1um_alu8` | 8.365 | 119.546 | PASS | FAIL | PASS |
-| `tr1um_fifo4` | 12.349 | 80.978 | PASS | FAIL | PASS |
-| `tr1um_irqctrl` | 8.918 | 112.133 | PASS | FAIL | PASS |
-| `tr1um_spitx` | 9.948 | 100.523 | PASS | FAIL | PASS |
-| `tr1um_busdecode` | 10.309 | 97.003 | PASS | FAIL | PASS |
-| `tr1um_uarttx_big` | 12.504 | 79.974 | PASS | PASS | PASS |
+| `tr1um_alu8` | 8.809 | 113.520 | PASS | FAIL | PASS |
+| `tr1um_fifo4` | 12.381 | 80.769 | PASS | FAIL | PASS |
+| `tr1um_irqctrl` | 8.949 | 111.744 | PASS | FAIL | PASS |
+| `tr1um_spitx` | 9.980 | 100.200 | PASS | PASS | PASS |
+| `tr1um_busdecode` | 10.341 | 96.702 | PASS | FAIL | PASS |
+| `tr1um_uarttx_big` | 12.535 | 79.777 | PASS | PASS | PASS |
+
+The table and OpenSTA check metrics below come from the refreshed six-case
+post-layout run after the seven-point Liberty regeneration. The complete
+physical-flow regression was not rerun.
 
 The audited Liberty inputs come from
 `flow/char/char_liberty.py`: cell area is LEF `SIZE` width times height,
 all 70 standard-cell input pins have rising/falling effective input-charge
-measurements from ngspice, and combinational/DFF delay and output-transition
-tables are SPICE-derived. DFF setup uses a 5% clock-to-Q push-out criterion
-over the 0.5/1.0/2.0 ns slew grid. No hold arcs are emitted because the
-extracted DFFR cell showed no positive hold push-out at the search
-resolution. DFFS input charge is physical, but its CK-to-Q timing remains on
-the DFFR electrical path until the extracted SET polarity is reconciled with
-the Verilog contract.
+measurements from ngspice, and every standard-cell NLDM delay/transition
+table uses the SPICE-derived 0.5/1/2/5/10/15/20 ns input-transition by
+0.1/0.5/2.0 pF load grid. DFF setup, hold, recovery, and removal use 5%
+clock-to-Q push-out searches. DFFR and DFFS CK-to-Q timing use their own
+extracted electrical paths; the extracted DFFS SET path is active-low and is
+encoded with Liberty `preset_polarity : "N"`.
+
+OpenSTA check metrics from the same refreshed run are:
+
+| Design | Setup WNS (ns) | Setup TNS (ns) | Hold WNS (ns) | Hold TNS (ns) | Max slew violations | Max cap violations | Max fanout violations |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| `tr1um_alu8` | 4941.348 | 0.000 | 4.965 | 0.000 | 0 | 0 | 1 |
+| `tr1um_fifo4` | 4964.451 | 0.000 | 2.443 | 0.000 | 0 | 0 | 1 |
+| `tr1um_irqctrl` | 4976.812 | 0.000 | 3.022 | 0.000 | 0 | 0 | 0 |
+| `tr1um_spitx` | 4966.370 | 0.000 | 2.443 | 0.000 | 0 | 0 | 0 |
+| `tr1um_busdecode` | 4979.434 | 0.000 | 0.000 | 0.000 | 0 | 0 | 0 |
+| `tr1um_uarttx_big` | 4960.505 | 0.000 | 7.737 | 0.000 | 0 | 0 | 2 |
+
+WNS/TNS are OpenSTA `worst_slack` and `total_negative_slack` for max
+(setup) and min (hold) paths, in ns. Slew, capacitance, and fanout columns
+count violating rows from `report_check_types`; the extra fanout column
+explains the remaining nonzero design-rule violations.
 
 The reciprocal rates above use the largest annotated cell `IOPATH` delay in
 each generated SDF. They must not be used as signoff clock targets without
@@ -1302,12 +1321,12 @@ parentheses:
 
 | Design | Input -> output (combinational) | Reg -> reg | Input -> reg | Reg -> output |
 | --- | ---: | ---: | ---: | ---: |
-| `tr1um_alu8` | n/a | n/a | 21.400 MHz (46.730 ns) | 119.531 MHz (8.366 ns) |
-| `tr1um_fifo4` | n/a | 37.608 MHz (26.590 ns) | 62.500 MHz (16.000 ns) | 42.230 MHz (23.680 ns) |
-| `tr1um_irqctrl` | 100.990 MHz (9.902 ns) | 56.370 MHz (17.740 ns) | 92.081 MHz (10.860 ns) | 63.532 MHz (15.740 ns) |
-| `tr1um_spitx` | n/a | 36.778 MHz (27.190 ns) | 67.797 MHz (14.750 ns) | 58.207 MHz (17.180 ns) |
-| `tr1um_busdecode` | n/a | n/a | 500.000 MHz (2.000 ns) | 64.309 MHz (15.550 ns) |
-| `tr1um_uarttx_big` | n/a | 33.422 MHz (29.920 ns) | n/a | 31.279 MHz (31.970 ns) |
+| `tr1um_alu8` | n/a | n/a | 18.406 MHz (54.330 ns) | 113.507 MHz (8.810 ns) |
+| `tr1um_fifo4` | n/a | 32.103 MHz (31.150 ns) | 54.171 MHz (18.460 ns) | 38.880 MHz (25.720 ns) |
+| `tr1um_irqctrl` | 99.010 MHz (10.100 ns) | 53.191 MHz (18.800 ns) | 86.207 MHz (11.600 ns) | 60.976 MHz (16.400 ns) |
+| `tr1um_spitx` | n/a | 34.235 MHz (29.210 ns) | 60.864 MHz (16.430 ns) | 54.171 MHz (18.460 ns) |
+| `tr1um_busdecode` | n/a | n/a | 500.000 MHz (2.000 ns) | 60.350 MHz (16.570 ns) |
+| `tr1um_uarttx_big` | n/a | 31.192 MHz (32.060 ns) | n/a | 28.169 MHz (35.500 ns) |
 
 The frequency calculation is `f_MHz = 1000 / t_ns`. The reported path delay
 is the endpoint data arrival measured from the OpenSTA launch edge: input
@@ -1319,11 +1338,11 @@ zero-delay or infinite-frequency result.
 
 Only `reg -> reg` is a synchronous-clock candidate. These are reciprocal
 path-rate estimates, not signoff Fmax values: the engineering timing library
-now includes measured setup push-out constraints but does not include hold
-arcs, complete clock modeling, or qualified parasitics. This calculation does
-not add setup, hold, skew, or uncertainty margins. The `input -> reg`,
-`reg -> output`, and combinational rates are interface or throughput
-indicators rather than independent clock limits.
+now includes measured setup, hold, recovery, and removal push-out constraints,
+but does not include complete clock modeling or qualified parasitics. This
+calculation does not add setup, hold, skew, or uncertainty margins. The
+`input -> reg`, `reg -> output`, and combinational rates are interface or
+throughput indicators rather than independent clock limits.
 
 Native top-level KLayout DRC is intentionally removed from the tapeout scope;
 the native branch remains a reference diagnostic only.

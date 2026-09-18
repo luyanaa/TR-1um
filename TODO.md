@@ -16,19 +16,12 @@ Completed checklist entries are removed; only unresolved work remains here.
 ## DRC, LVS, and top-level coverage
 
 - [ ] Reconcile the DRC regression baseline after syncing upstream PR #18 from
-  `OpenSUSI/TR-1um_DRC_Regression_TEST`. The inventory is now 432 cases. The
-  checked-in report set covers 393 cases: 149 remain mismatched (Cat-1: 4,
-  Cat-4: 6, Cat-5: 47, Cat-6: 23, Cat-7: 39, Cat-8: 30), and 39 newly added
-  Cat-4 cases still need a KLayout run. Do not mask or waive these results;
-  rerun the complete regression in a KLayout environment before changing the
-  baseline or claiming clean DRC coverage.
-
-## IP62 errata carry-over
-
-- [ ] Resolve the `CSIO` PCell off-grid `CONT` erratum. The generator now
-  clamps and snaps supported dimensions to the 50 nm grid, but the required
-  KLayout DRC demonstration is still blocked because the local KLayout/pya
-  runtime is unavailable.
+  `OpenSUSI/TR-1um_DRC_Regression_TEST`. The complete LibreLane nix-shell run
+  now covers all 432 cases and reports 292 passes and 140 baseline failures:
+  Cat-1 25 passed/0 failed, Cat-2 67/0, Cat-3 65/0, Cat-4 78/1,
+  Cat-5 0/47, Cat-6 27/23, Cat-7 0/39, and Cat-8 30/30. Do not mask or
+  waive these results; the remaining failures stay review items until the
+  active runset and fixture expectations are reconciled.
 
 ## Electrical, timing, and corner analysis
 
