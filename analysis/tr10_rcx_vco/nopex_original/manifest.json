@@ -1,0 +1,63 @@
+{
+  "status": "original_model_no_pex_reference",
+  "source_repository": "https://github.com/ishi-kai/OpenRule1umPDK_setupEDA",
+  "source_commit": "f8862f775cad",
+  "source_commit_date": "2024-09-26",
+  "source_commit_note": "Initial ISHI-KAI TR10 model snapshot; retains nchor1ex/pchor1ex names.",
+  "model_files": {
+    "mos": "models/mos.f8862f775cad.lib",
+    "passive": "models/passive.f8862f775cad.lib"
+  },
+  "source_vco_netlist": "../inputs/vco.sim.control.named.sp",
+  "netlist_transform": {
+    "device_model_map": {
+      "PMOS": "pchor1ex",
+      "NMOS": "nchor1ex"
+    },
+    "pex": false,
+    "poly_cap": {
+      "model": "poly_cap",
+      "cox_fF_per_um2": 3.06,
+      "W_um": 20.0,
+      "L_um": 20.0,
+      "cap_per_stage_pF": 1.224,
+      "stage_count": 7,
+      "total_ring_cap_pF": 8.568
+    }
+  },
+  "original_testbench": {
+    "vdd_V": 5.0,
+    "vctrl_V": 5.0,
+    "transient": "1n 200u uic",
+    "output_load": "none"
+  },
+  "results": {
+    "original_vctrl_5V": {
+      "frequency_Hz": null,
+      "period_s": null,
+      "vout_min_V": 1.23983e-6,
+      "vout_max_V": 1.23983e-6,
+      "interpretation": "No measurable oscillation in the original no-PEX model at VCTRL=5 V."
+    },
+    "control_sweep": [
+      {"vctrl_V": 1.0, "frequency_Hz": 132640.0},
+      {"vctrl_V": 1.25, "frequency_Hz": 384070.0},
+      {"vctrl_V": 2.5, "frequency_Hz": 1136930.0},
+      {"vctrl_V": 3.0, "frequency_Hz": 553600.0},
+      {"vctrl_V": 3.25, "frequency_Hz": 295259.0},
+      {"vctrl_V": 3.5, "frequency_Hz": 98734.1},
+      {"vctrl_V": 3.6, "frequency_Hz": 51097.9},
+      {"vctrl_V": 3.75, "frequency_Hz": null},
+      {"vctrl_V": 5.0, "frequency_Hz": null}
+    ],
+    "cap_representation_check": {
+      "poly_cap_W20_L20_frequency_Hz_at_VCTRL_3p5": 98734.1,
+      "explicit_1p224pF_frequency_Hz_at_VCTRL_3p5": 98734.1
+    }
+  },
+  "conclusion": {
+    "target_100kHz": "Reproduced approximately at VCTRL=3.5 V without PEX and without a ring-capacitance multiplier.",
+    "original_5V_control": "Not reproduced; the original no-PEX model does not oscillate at VCTRL=5 V.",
+    "k_C_ring_8": "Withdraw as a physical capacitor calibration. It is not needed by this original-model/no-PEX reference and likely absorbed model-version/control-point/PEX differences."
+  }
+}

@@ -1,0 +1,90 @@
+
+Note: No compatibility mode selected!
+
+Warning: redefinition of .subckt f_csio_mst, ignored
+Warning: redefinition of .subckt f_csio, ignored
+Warning: redefinition of .subckt pmos, ignored
+Warning: redefinition of .subckt nmos, ignored
+Warning: redefinition of .subckt mpe, ignored
+Warning: redefinition of .subckt mne, ignored
+Warning: redefinition of .subckt f_rr, ignored
+Warning: redefinition of .subckt f_rs_base, ignored
+Warning: redefinition of .subckt f_rs, ignored
+
+Circuit: * tr10-1 converted vco post controlled simulation
+
+Warning: Value of resistor r.xu.xpex_tr1um.rpex784 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex785 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex786 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex787 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex788 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex789 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex790 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex791 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex792 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex793 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex794 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex795 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex796 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex797 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex798 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex799 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex800 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex801 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex802 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex803 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex804 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex805 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex806 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex807 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex808 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex809 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex810 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex811 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex812 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex813 is too small, set to 1.000000e-12
+Warning : IC on non-existent node - p2, ignored
+   Please check line .ic v(p2)=0 v(p3)=5 v(p4)=0 v(p5)=5 v(p6)=0 v(p7)=5 v(p8)=0 v(p18)=0 v(out)=0
+
+Warning : IC on non-existent node - p3, ignored
+   Please check line .ic v(p2)=0 v(p3)=5 v(p4)=0 v(p5)=5 v(p6)=0 v(p7)=5 v(p8)=0 v(p18)=0 v(out)=0
+
+Warning : IC on non-existent node - p4, ignored
+   Please check line .ic v(p2)=0 v(p3)=5 v(p4)=0 v(p5)=5 v(p6)=0 v(p7)=5 v(p8)=0 v(p18)=0 v(out)=0
+
+Warning : IC on non-existent node - p5, ignored
+   Please check line .ic v(p2)=0 v(p3)=5 v(p4)=0 v(p5)=5 v(p6)=0 v(p7)=5 v(p8)=0 v(p18)=0 v(out)=0
+
+Warning : IC on non-existent node - p6, ignored
+   Please check line .ic v(p2)=0 v(p3)=5 v(p4)=0 v(p5)=5 v(p6)=0 v(p7)=5 v(p8)=0 v(p18)=0 v(out)=0
+
+Warning : IC on non-existent node - p7, ignored
+   Please check line .ic v(p2)=0 v(p3)=5 v(p4)=0 v(p5)=5 v(p6)=0 v(p7)=5 v(p8)=0 v(p18)=0 v(out)=0
+
+Warning : IC on non-existent node - p8, ignored
+   Please check line .ic v(p2)=0 v(p3)=5 v(p4)=0 v(p5)=5 v(p6)=0 v(p7)=5 v(p8)=0 v(p18)=0 v(out)=0
+
+Warning : IC on non-existent node - p18, ignored
+   Please check line .ic v(p2)=0 v(p3)=5 v(p4)=0 v(p5)=5 v(p6)=0 v(p7)=5 v(p8)=0 v(p18)=0 v(out)=0
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+Operating point simulation skipped by 'uic',
+  now using transient initial conditions.
+
+No. of Data Rows : 63
+doAnalyses: TRAN:  Timestep too small; time = 5.32734e-12, timestep = 1.25e-18: trouble with node "vctrlp#branch"
+
+
+run simulation(s) aborted
+
+Total analysis time (seconds) = 0.271711
+
+Total elapsed time (seconds) = 0.287 
+
+Total DRAM available = 8192.000 MB.
+DRAM currently available = 1913.438 MB.
+Maximum ngspice program size =   12.484 MB.
+Current ngspice program size =   12.484 MB.
+

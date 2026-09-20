@@ -1,0 +1,66 @@
+{
+  "status": "historical_mos_plus_engineering_pex_sensitivity",
+  "purpose": "Test whether adding the checked-in distributed parasitic network to the original-model VCTRL=3.5 V reference reproduces 33 kHz operation while making 100 kHz unavailable.",
+  "base_reference": {
+    "deck": "../vco.nopex.sp",
+    "model_commit": "ishi-kai/OpenRule1umPDK_setupEDA@f8862f775cad",
+    "vdd_V": 5.0,
+    "vctrl_V": 3.5,
+    "no_pex_frequency_Hz": 98734.1,
+    "intentional_cap_per_stage_pF": 1.224
+  },
+  "pex_source": {
+    "deck": "../../remediated/vco/vco.post.sp",
+    "network_subckt": "tr1um_parasitics",
+    "base_cpex_total_pF": 1.5298769065,
+    "cpex_entries": 309,
+    "ground_cpex_entries": 60,
+    "rpex_values": "unchanged",
+    "cleg_values": "unchanged"
+  },
+  "hybrid_construction": {
+    "device_models": "historical nchor1ex/pchor1ex",
+    "device_geometry": "original source-level VCO netlist",
+    "parasitic_scaling": "CPEX only; RPEX unchanged",
+    "substrate_node_primary": "P30 (the VCO VSS pin)",
+    "substrate_node_emitted_variant": "VSS (as emitted by the existing post-layout deck)",
+    "builder": "build_experiment.py"
+  },
+  "vctrl_3p5_cpex_scale_sweep": [
+    {"cpex_scale": 0, "total_cpex_pF": 0.0, "frequency_Hz": 98739.6, "vout_min_V": -3.10080e-05, "vout_max_V": 5.00137},
+    {"cpex_scale": 1, "total_cpex_pF": 1.5298769065, "frequency_Hz": 95750.7, "period_s": 1.04438e-05, "vout_min_V": -1.26433e-04, "vout_max_V": 5.00377},
+    {"cpex_scale": 2, "total_cpex_pF": 3.059753813, "frequency_Hz": 93285.3, "period_s": 1.07198e-05},
+    {"cpex_scale": 4, "total_cpex_pF": 6.119507626, "frequency_Hz": 89775.4, "period_s": 1.11389e-05},
+    {"cpex_scale": 8, "total_cpex_pF": 12.239015252, "frequency_Hz": 84641.6, "period_s": 1.18145e-05},
+    {"cpex_scale": 16, "total_cpex_pF": 24.478030504, "frequency_Hz": 76825.8, "period_s": 1.30165e-05},
+    {"cpex_scale": 32, "total_cpex_pF": 48.956061008, "frequency_Hz": 65586.9, "period_s": 1.52469e-05},
+    {"cpex_scale": 64, "total_cpex_pF": 97.912122016, "frequency_Hz": 50554.9, "period_s": 1.97805e-05},
+    {"cpex_scale": 128, "total_cpex_pF": 195.824244032, "frequency_Hz": null, "vout_min_V": -1.17692e-03, "vout_max_V": 4.96854e-03, "interpretation": "startup/output collapse; no valid oscillation"},
+    {"cpex_scale": 256, "total_cpex_pF": 391.648488064, "frequency_Hz": null, "vout_min_V": -6.81500e-04, "vout_max_V": 2.38605e-03, "interpretation": "startup/output collapse; no valid oscillation"}
+  ],
+  "control_boundary_at_cpex_scale_1": [
+    {"vctrl_V": 3.45, "frequency_Hz": 125903.0},
+    {"vctrl_V": 3.48, "frequency_Hz": 107273.0},
+    {"vctrl_V": 3.49, "frequency_Hz": 101420.0},
+    {"vctrl_V": 3.50, "frequency_Hz": 95750.7},
+    {"vctrl_V": 3.52, "frequency_Hz": 84985.1}
+  ],
+  "substrate_connection_check": {
+    "P30_frequency_Hz": 95750.7,
+    "emitted_VSS_frequency_Hz": 95999.3,
+    "interpretation": "The emitted-VSS versus VCO-P30 ambiguity changes the result by about 0.26%, not enough to explain 33 kHz."
+  },
+  "conclusion": {
+    "actual_pex_scale_1": "The checked-in engineering PEX shifts 98.7341 kHz to 95.7507 kHz at VCTRL=3.5 V; it does not produce 33 kHz.",
+    "100k_behavior": "100 kHz remains operational: VCTRL=3.49 V gives 101.420 kHz with the same scale-1 PEX.",
+    "33k_behavior": "No stable 33 kHz point was produced by scaling the existing CPEX network; scale=64 is 50.5549 kHz and scale=128 loses oscillation.",
+    "interpretation": "The observed 33 kHz versus 100 kHz behavior is not explained by this engineering PEX network alone. Do not convert the required unsupported CPEX scaling into a physical calibration."
+  },
+  "limitations": [
+    "The PEX network is an engineering estimate, not foundry-qualified RCX.",
+    "The source parasitic model has no lateral-coupling calibration.",
+    "The hybrid deliberately combines historical ISHI-KAI MOS/passive models with the current repaired PEX network.",
+    "No pad, bondwire, board, probe, or explicit output-load topology is included.",
+    "The scale sweep is a sensitivity experiment, not a claim that the extracted CPEX values should be multiplied."
+  ]
+}

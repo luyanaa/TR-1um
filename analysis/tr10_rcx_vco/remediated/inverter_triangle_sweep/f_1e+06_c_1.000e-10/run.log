@@ -1,0 +1,80 @@
+
+Note: No compatibility mode selected!
+
+
+Circuit: * tr10 inverter triangle-drive/load reproduction surrogate
+
+Warning : voltage source vtri has non-increasing PWL time points.
+Warning : voltage source vtri has non-increasing PWL time points.
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+vdd                                          5
+in                                           0
+out                                          5
+vtri#branch                                  0
+vdd#branch                        -5.10017e-10
+
+
+No. of Data Rows : 1523
+
+  Measurements for Transient Analysis
+
+
+Error: measure  trise  trig(TRIG) : out of interval
+ .meas tran trise trig v(out) val=0.83 rise=2 targ v(out) val=4.17 rise=2 failed!
+
+
+Error: measure  tfall  trig(TRIG) : out of interval
+ .meas tran tfall trig v(out) val=4.17 fall=2 targ v(out) val=0.83 fall=2 failed!
+
+vout_min            =  1.48724e+00 at=  2.75300e-06
+vout_max            =  4.14831e+00 at=  1.24100e-06
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+vdd                                          5
+in                                           0
+out                                          5
+vtri#branch                                  0
+vdd#branch                        -5.10017e-10
+
+
+No. of Data Rows : 1523
+
+  Measurements for Transient Analysis
+
+
+Error: measure  trise  trig(TRIG) : out of interval
+ .meas tran trise trig v(out) val=0.83 rise=2 targ v(out) val=4.17 rise=2 failed!
+
+
+Error: measure  tfall  trig(TRIG) : out of interval
+ .meas tran tfall trig v(out) val=4.17 fall=2 targ v(out) val=0.83 fall=2 failed!
+
+vout_min            =  1.48724e+00 at=  2.75300e-06
+vout_max            =  4.14831e+00 at=  1.24100e-06
+
+
+Total analysis time (seconds) = 0.016202
+
+Total elapsed time (seconds) = 0.026 
+
+Total DRAM available = 8192.000 MB.
+DRAM currently available = 2116.781 MB.
+Maximum ngspice program size =   10.594 MB.
+Current ngspice program size =   10.594 MB.
+

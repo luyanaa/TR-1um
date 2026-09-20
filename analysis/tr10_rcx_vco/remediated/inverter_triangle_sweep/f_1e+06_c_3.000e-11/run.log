@@ -1,0 +1,68 @@
+
+Note: No compatibility mode selected!
+
+
+Circuit: * tr10 inverter triangle-drive/load reproduction surrogate
+
+Warning : voltage source vtri has non-increasing PWL time points.
+Warning : voltage source vtri has non-increasing PWL time points.
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+vdd                                          5
+in                                           0
+out                                          5
+vtri#branch                                  0
+vdd#branch                        -5.10017e-10
+
+
+No. of Data Rows : 1523
+
+  Measurements for Transient Analysis
+
+vout_min            =  1.41380e-01 at=  2.66900e-06
+vout_max            =  4.79601e+00 at=  1.18300e-06
+trise               =  2.01750e-07 targ=  2.04133e-06 trig=  1.83958e-06
+tfall               =  1.88558e-07 targ=  1.52049e-06 trig=  1.33193e-06
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+vdd                                          5
+in                                           0
+out                                          5
+vtri#branch                                  0
+vdd#branch                        -5.10017e-10
+
+
+No. of Data Rows : 1523
+
+  Measurements for Transient Analysis
+
+vout_min            =  1.41380e-01 at=  2.66900e-06
+vout_max            =  4.79601e+00 at=  1.18300e-06
+trise               =  2.01750e-07 targ=  2.04133e-06 trig=  1.83958e-06
+tfall               =  1.88558e-07 targ=  1.52049e-06 trig=  1.33193e-06
+
+
+Total analysis time (seconds) = 0.015291
+
+Total elapsed time (seconds) = 0.029 
+
+Total DRAM available = 8192.000 MB.
+DRAM currently available = 2116.781 MB.
+Maximum ngspice program size =   10.625 MB.
+Current ngspice program size =   10.625 MB.
+

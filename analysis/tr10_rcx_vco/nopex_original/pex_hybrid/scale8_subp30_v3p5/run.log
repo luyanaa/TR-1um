@@ -1,0 +1,33 @@
+
+Note: No compatibility mode selected!
+
+
+Circuit: * historical ishi-kai mos/passive models plus distributed engineering pex.
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+Operating point simulation skipped by 'uic',
+  now using transient initial conditions.
+
+No. of Data Rows : 400023
+
+  Measurements for Transient Analysis
+
+t1                  =   9.17241e-05
+t2                  =   1.03539e-04
+period              =  1.18145e-05
+freq                =  8.46416e+04
+vout_min            =  -5.76704e-04 at=  1.38704e-04
+vout_max            =  5.00934e+00 at=  8.34991e-05
+
+
+Total analysis time (seconds) = 116.931
+
+Total elapsed time (seconds) = 116.952 
+
+Total DRAM available = 8192.000 MB.
+DRAM currently available = 2095.047 MB.
+Maximum ngspice program size =   23.344 MB.
+Current ngspice program size =   21.281 MB.
+

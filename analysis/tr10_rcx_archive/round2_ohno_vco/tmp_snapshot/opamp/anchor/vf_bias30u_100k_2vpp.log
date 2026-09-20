@@ -1,0 +1,117 @@
+
+Note: No compatibility mode selected!
+
+Warning: redefinition of .subckt f_csio_mst, ignored
+Warning: redefinition of .subckt f_csio, ignored
+Warning: redefinition of .subckt pmos, ignored
+Warning: redefinition of .subckt nmos, ignored
+Warning: redefinition of .subckt mpe, ignored
+Warning: redefinition of .subckt mne, ignored
+Warning: redefinition of .subckt f_rr, ignored
+Warning: redefinition of .subckt f_rs_base, ignored
+Warning: redefinition of .subckt f_rs, ignored
+
+Circuit: * ohno quantitative anchor: follower, bias=3e-05, f=100000, amp=1
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+Note: Starting dynamic gmin stepping
+Note: Dynamic gmin stepping completed
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+pwr_src                                      5
+pwr                                    4.99965
+bias                                   3.96706
+sig                                        2.5
+inp                                        2.5
+out                                    2.49997
+inn                                    2.49997
+xu.p5                                   1.0023
+xu.p3                                  2.37843
+xu.p2                                   1.0023
+xu.p6                                  3.31174
+xu.p4                                  1.01117
+xu.p8                                  1.01125
+xu.p10:56                                  2.5
+xu.p10:59                                  2.5
+xu.p11:62                              2.49997
+xu.p11:65                              2.49997
+xu.p12:68                                    0
+xu.p12:71                                    0
+xu.p1:2                                3.96706
+xu.p1:5                                3.96706
+xu.p2:11                                1.0023
+xu.p2:8                                 1.0023
+xu.p3:14                               2.37843
+xu.p3:17                               2.37843
+xu.p4:20                               1.01117
+xu.p4:23                               1.01117
+xu.p5:26                                1.0023
+xu.p5:29                                1.0023
+xu.p6:32                               3.31174
+xu.p6:35                               3.31174
+xu.p7:38                               2.49997
+xu.p7:41                               2.49997
+xu.p8:44                               1.01125
+xu.p8:47                               1.01125
+xu.p9:50                               4.99965
+xu.p9:53                               4.99965
+xu.p10:54                                  2.5
+xu.p5:24                                1.0023
+xu.p6:30                               3.31174
+xu.p11:60                              2.49997
+xu.p8:42                               1.01125
+xu.p12:66                                    0
+xu.p4:18                               1.01117
+xu.p1:0                                3.96706
+xu.p3:12                               2.37843
+xu.p7:36                               2.49997
+xu.p9:48                               4.99965
+xu.p2:10                                1.0023
+xu.p1:1                                3.96706
+xu.p1:3                                3.96706
+xu.p1:4                                3.96706
+xu.p2:6                                 1.0023
+xu.p2:7                                 1.0023
+xu.p2:9                                 1.0023
+xu.p3:13                               2.37843
+xu.p3:15                               2.37843
+xu.p3:16                               2.37843
+xu.p4:19                               1.01117
+xu.p4:21                               1.01117
+xu.p4:22                               1.01117
+xu.p5:25                                1.0023
+xu.p5:27                                1.0023
+xu.p5:28                                1.0023
+xu.p6:31                               3.31174
+xu.p6:33                               3.31174
+xu.p6:34                               3.31174
+xu.p7:37                               2.49997
+xu.p7:39                               2.49997
+xu.p7:40                               2.49997
+xu.p8:43                               1.01125
+xu.p8:45                               1.01125
+xu.p8:46                               1.01125
+xu.p9:49                               4.99965
+xu.p9:51                               4.99965
+xu.p9:52                               4.99965
+xu.p10:55                                  2.5
+xu.p10:57                                  2.5
+xu.p10:58                                  2.5
+xu.p11:61                              2.49997
+xu.p11:63                              2.49997
+xu.p11:64                              2.49997
+xu.p12:67                                    0
+xu.p12:69                                    0
+xu.p12:70                                    0
+vsig#branch                        1.47882e-13
+vdd_src#branch                    -0.000345152
+
+
+No. of Data Rows : 3208
+Note: Simulation executed from .control section 

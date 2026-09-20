@@ -34,6 +34,10 @@ DEFAULT_RC = ROOT / "pdk_root/TR-1um/libs.tech/librelane/rc_estimate.json"
 DEFAULT_MODEL = Path(__file__).with_name("tr1um_parasitic_model.json")
 DEFAULT_RR_MODEL = ROOT.parent / "libs.tech/spice/models/models_IP62_res_v5.lib"
 DEFAULT_LEF_DIR = ROOT / "pdk_root/TR-1um/libs.ref/TR-1um_stdcell/lef"
+# Zero-ohm terminal attachments are topological aliases.  SPICE cannot
+# represent an ideal resistor in this emitted network, so use an explicit
+# numerical floor that is negligible against the smallest physical edge.
+DEFAULT_TERMINAL_ATTACHMENT_RESISTANCE_OHM = 1.0e-6
 
 # GDS drawing-layer numbers from libs.tech/klayout/tech/drc/00_Layers.drc.
 GDS_LAYERS = {
@@ -166,6 +170,7 @@ class RouteTopology:
     connections: dict[str, list[DefConnection]]
     terminal_attachments: dict[str, tuple[str, str]]
     anchor_nodes: dict[str, str]
+    terminal_attachment_resistance_ohm: float
 
 
 
@@ -830,6 +835,7 @@ def build_route_topology(
     vias: list[Via],
     connections: dict[str, list[DefConnection]],
     rc: dict[str, Any],
+    terminal_attachment_resistance_ohm: float,
 ) -> RouteTopology:
     node_coordinates: dict[str, tuple[str, float, float]] = {}
     coordinate_nodes: dict[tuple[str, str, float, float], str] = {}
@@ -1023,9 +1029,9 @@ def build_route_topology(
                     net,
                     terminal,
                     target,
-                    0.0,
+                    terminal_attachment_resistance_ohm,
                     "terminal_attachment",
-                    "zero-ohm attachment to nearest routed graph node",
+                    "numerical floor for zero-ohm attachment to nearest routed graph node",
                     terminal=terminal,
                     x_um=connection.location_um[0] if connection.location_um else None,
                     y_um=connection.location_um[1] if connection.location_um else None,
@@ -1043,6 +1049,7 @@ def build_route_topology(
         dict(connections),
         terminal_attachments,
         anchor_nodes,
+        terminal_attachment_resistance_ohm,
     )
 
 
@@ -1062,7 +1069,22 @@ def add_route_network(
     model: dict[str, Any],
 ) -> RouteTopology:
     layers = {entry["layer"]: entry for entry in rc.get("layers", []) + rc.get("reserved_layers", [])}
-    topology = build_route_topology(network, segments, vias, connections, rc)
+    numerics = model.get("numerics", {})
+    terminal_attachment_resistance_ohm = finite_positive(
+        numerics.get(
+            "terminal_attachment_resistance_ohm",
+            DEFAULT_TERMINAL_ATTACHMENT_RESISTANCE_OHM,
+        ),
+        "numerics.terminal_attachment_resistance_ohm",
+    )
+    topology = build_route_topology(
+        network,
+        segments,
+        vias,
+        connections,
+        rc,
+        terminal_attachment_resistance_ohm,
+    )
     for net in set(net_lengths) | set(connections):
         topology.anchor_nodes.setdefault(net, network.anchor_for_net(net))
     for record in topology.edge_records:
@@ -1587,18 +1609,36 @@ def parse_extracted_devices(path: Path) -> list[Device]:
         if len(tokens) < 3:
             continue
         instance = tokens[0]
-        model_index = next((index for index, token in enumerate(tokens[1:], 1) if token.upper() in {"F_RS", "F_RR", "PMOS", "NMOS", "MPE", "MNE"}), None)
+        device_nodes = {
+            "F_CSIO": 3,
+            "F_RS": 2,
+            "F_RR": 3,
+            "DP": 2,
+            "DN": 2,
+            "PMOS": 4,
+            "NMOS": 4,
+            "NMOSE": 4,
+            "MPE": 4,
+            "MNE": 4,
+        }
+        model_index = next(
+            (
+                index
+                for index, token in enumerate(tokens[1:], 1)
+                if token.upper() in device_nodes
+            ),
+            None,
+        )
         if model_index is None:
             continue
         model = tokens[model_index].upper()
-        node_count = 3 if model == "F_RR" else 2 if model == "F_RS" else 4
+        node_count = device_nodes[model]
         if model_index < node_count:
             continue
         nodes = tuple(tokens[1 : 1 + node_count])
         width_um = _parameter_value(tokens[model_index + 1 :], "W")
         length_um = _parameter_value(tokens[model_index + 1 :], "L")
-        if model in {"F_RS", "F_RR", "PMOS", "NMOS", "MPE", "MNE"}:
-            devices.append(Device(model, instance, subckt_stack[-1], nodes, width_um, length_um, line_number))
+        devices.append(Device(model, instance, subckt_stack[-1], nodes, width_um, length_um, line_number))
     return devices
 
 
@@ -1800,6 +1840,20 @@ def add_device_network(
                 record["materialized_in_spef"] = True
             elif include_device_caps and not eligible_top:
                 warn_nested("F_RS", device)
+        elif device.model in {"F_CSIO", "DP", "DN"}:
+            record.update(
+                {
+                    "kind": device.model,
+                    "ownership": "extracted device retained in ledger; no engineering materialization rule is declared",
+                }
+            )
+            if eligible_top and include_device_caps:
+                warnings.append(
+                    f"{device.subckt}/{device.instance}: {device.model} is extracted but has no "
+                    "declared RC materialization rule; compact/device model remains authoritative"
+                )
+            elif not eligible_top:
+                warn_nested(device.model, device)
         else:
             if device.width_um is None:
                 warnings.append(f"{device.subckt}/{device.instance}: {device.model} missing W; overlap capacitance omitted")
@@ -2066,7 +2120,20 @@ def main() -> int:
             "terminal_attachment_count": sum(
                 1 for record in network.resistor_records if record["kind"] == "terminal_attachment"
             ),
+            "terminal_attachment_resistance_ohm": topology.terminal_attachment_resistance_ohm,
             "connection_count": sum(len(entries) for entries in connections.values()),
+            "anchor_nodes": {net: node for net, node in sorted(topology.anchor_nodes.items())},
+            "nodes_by_net": {
+                net: sorted(nodes) for net, nodes in sorted(topology.nodes_by_net.items())
+            },
+            "node_coordinates": {
+                node: {"layer": values[0], "x_um": values[1], "y_um": values[2]}
+                for node, values in sorted(topology.node_coordinates.items())
+            },
+            "terminal_attachments": {
+                terminal: {"net": values[0], "node": values[1]}
+                for terminal, values in sorted(topology.terminal_attachments.items())
+            },
         },
         "gds": gds_summary,
         "summary": summarize(network, segments, devices, warnings),

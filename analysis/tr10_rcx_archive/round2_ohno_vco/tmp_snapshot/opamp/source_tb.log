@@ -1,0 +1,11 @@
+
+Note: No compatibility mode selected!
+
+
+Circuit: * tr10-2 shuntaroohno source-level smoke deck
+
+Error on line 14 or its substitute:
+  g.xu.xc1.x1.gc2 xu.xc1.x1.c2_int1 0 0 out   1.000000000000000e+00    e9
+  unknown parameter (e9) 
+    Simulation interrupted due to error!
+

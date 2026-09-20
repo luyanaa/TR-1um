@@ -1,0 +1,13 @@
+* TR-1um IP62 OS00-calibrated engineering model manifest.
+* Original model files remain unchanged; select this manifest explicitly.
+.parameters vthMP = 0
+.parameters vthMN = 0
+.parameters vthMPE = 0
+.parameters vthMNE = 0
+.parameters magRR = 1
+.parameters magRS = 1
+.parameters magCSIO = 1
+.include models_IP62_cap_os00_calibrated.lib
+.include models_IP62_diode_os00_calibrated.lib
+.include models_IP62_mos_os00_calibrated.lib
+.include models_IP62_res_os00_calibrated.lib

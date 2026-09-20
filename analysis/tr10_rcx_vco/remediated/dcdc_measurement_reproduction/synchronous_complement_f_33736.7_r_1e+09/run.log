@@ -1,0 +1,46 @@
+
+Note: No compatibility mode selected!
+
+
+Circuit: * tr10-1 dcdc schematic-level surrogate.
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+Operating point simulation skipped by 'uic',
+  now using transient initial conditions.
+
+No. of Data Rows : 60228
+
+  Measurements for Transient Analysis
+
+vout_final          =  8.24494e-07
+vout_min            =  -6.98352e-05 at=  3.26056e-04
+vout_max            =  3.67168e+00 at=  3.40885e-04
+iin_avg             =  -1.24594e-05 from=  2.96413e-04 to=  5.92827e-04
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+Operating point simulation skipped by 'uic',
+  now using transient initial conditions.
+
+No. of Data Rows : 60228
+
+  Measurements for Transient Analysis
+
+vout_final          =  8.24494e-07
+vout_min            =  -6.98352e-05 at=  3.26056e-04
+vout_max            =  3.67168e+00 at=  3.40885e-04
+iin_avg             =  -1.24594e-05 from=  2.96413e-04 to=  5.92827e-04
+
+
+Total analysis time (seconds) = 0.597411
+
+Total elapsed time (seconds) = 0.607 
+
+Total DRAM available = 8192.000 MB.
+DRAM currently available = 2552.250 MB.
+Maximum ngspice program size =   17.875 MB.
+Current ngspice program size =   17.875 MB.
+

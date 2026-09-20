@@ -32,7 +32,7 @@ C {MP.sym} 80 -600 0 0 {name=XM1 model=PMOS w=3.4u l=1u m=1 as=0 ad=0 ps=0 pd=0 
 C {devices/code.sym} 60 -280 0 0 {name=TR-1um_MODELS
 only_toplevel=true
 format="tcleval( @value )"
-value=".include $::LIB/ip62_models"
+value=".include $::LIB/ip62_models_calibrated"
 spice_ignore=false}
 C {MN.sym} 80 -440 0 0 {name=XM2 model=NMOS w=3.4u l=1u m=1 as=0 ad=0 ps=0 pd=0 nrd=0 nrs=0}
 C {CSIO.sym} 340 -630 0 0 {name=XC1

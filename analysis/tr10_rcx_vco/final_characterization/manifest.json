@@ -1,0 +1,167 @@
+{
+  "schema": 1,
+  "status": "completed_engineering_characterization",
+  "purpose": "Bounded TR10-1 VCO/DCDC characterization using recovered OpenRule1um source artifacts, measured VCO clock points, and an explicit TR-1um device-name/model conversion.",
+  "provenance": {
+    "source_project_root": "/tmp/TR10-1/member_project/DCDC_DOWN",
+    "source_schematic": "/tmp/TR10-1/member_project/DCDC_DOWN/xschem/dcdc_down_full_tb.sch",
+    "source_netlist_generated_by": "xschem 3.4.7 from CACE nix-shell",
+    "xschem_command": "nix-shell --run 'xschem -n -s -r -x -q --rcfile /tmp/tr10-xschem/xschemrc -o /tmp/tr10-xschem/out-final -N dcdc_down_full_tb /tmp/TR10-1/member_project/DCDC_DOWN/xschem/dcdc_down_full_tb.sch'",
+    "xschem_working_directory": "/Users/yanlu/Documents/cace",
+    "generated_netlist": "analysis/tr10_rcx_vco/final_characterization/openrule1um_dcdc/dcdc_down_full_tb.xschem.sp",
+    "clean_netlist": "analysis/tr10_rcx_vco/final_characterization/openrule1um_dcdc/dcdc_down_full_tb.clean.sp",
+    "generated_netlist_sha256": "d3f572dcfa6f9273cdc3a4ba901ae59f80f03a22b862120c02e7775d9d3f0a36",
+    "runner": "analysis/tr10_rcx_vco/run_final_openrule_dcdc_characterization.py",
+    "raw_results": "analysis/tr10_rcx_vco/final_characterization/openrule1um_dcdc/results.json",
+    "simulator": "ngspice-47"
+  },
+  "measurement_evidence": {
+    "raw_image_root": "/tmp/TR10-1/images",
+    "vco_waveforms": [
+      {
+        "vctrl_V": 0.5,
+        "image": "/tmp/TR10-1/images/2024_dcdc_down_vco_0_5v.png",
+        "cursor_delta_s": 0.6052,
+        "frequency_Hz": 1.652357852,
+        "frequency_evidence": "WaveForms cursor annotation: 1/DeltaX=1.652357852 Hz"
+      },
+      {
+        "vctrl_V": 2.5,
+        "image": "/tmp/TR10-1/images/2024_dcdc_down_vco_2_5v.png",
+        "cursor_delta_s": 49.58e-6,
+        "frequency_Hz": 20170.90997,
+        "frequency_evidence": "WaveForms cursor annotation: 1/DeltaX=20.17090997 kHz"
+      },
+      {
+        "vctrl_V": 5.0,
+        "image": "/tmp/TR10-1/images/2024_dcdc_down_vco_5_0v.png",
+        "cursor_delta_s": 29.64e-6,
+        "frequency_Hz": 33736.669,
+        "frequency_evidence": "WaveForms cursor annotation: 1/DeltaX=33.736669 kHz"
+      }
+    ],
+    "bench_context_images": [
+      "/tmp/TR10-1/images/2024_dcdc_down_vco_tb.jpg",
+      "/tmp/TR10-1/images/2024_dcdc_down_tb.jpg",
+      "/tmp/TR10-1/images/measure_setup.jpg"
+    ],
+    "additional_dcdc_images": [
+      "/tmp/TR10-1/member_project/DCDC_DOWN/images/xschem_full.png",
+      "/tmp/TR10-1/member_project/DCDC_DOWN/images/xschem_full_ngspice.png",
+      "/tmp/TR10-1/member_project/DCDC_DOWN/DCDC_down/slide1.png",
+      "/tmp/TR10-1/member_project/DCDC_DOWN/DCDC_down/slide2.png",
+      "/tmp/TR10-1/member_project/DCDC_DOWN/DCDC_down/slide3.png"
+    ]
+  },
+  "conversion_contract": {
+    "legacy_pdk": "OpenRule1um",
+    "current_pdk": "TR-1um",
+    "legacy_model_files": [
+      "/tmp/tr10-xschem/lib/TR10/mos.lib",
+      "/tmp/tr10-xschem/lib/TR10/passive.lib",
+      "/tmp/tr10-xschem/lib/TR10/diode.lib"
+    ],
+    "current_model_file": "flow/char/fixed_models.sp",
+    "legacy_device_mapping": {
+      "nchor1ex": "NMOS",
+      "pchor1ex": "PMOS",
+      "geometry_policy": "Preserve W/L from the recovered source deck"
+    },
+    "evaluation_modes": [
+      {
+        "name": "openrule1um_source",
+        "meaning": "Historical source-level reference using the original nchor1ex/pchor1ex models"
+      },
+      {
+        "name": "tr1um_mapped",
+        "meaning": "Engineering conversion using current TR-1um NMOS/PMOS wrappers; not foundry-qualified PDK migration"
+      }
+    ],
+    "source_topology": {
+      "vin_V": 12.0,
+      "vdd_V": 5.0,
+      "inductor_H": 100e-9,
+      "output_cap_F": 100e-12,
+      "devices": {
+        "M1": {"model": "nchor1ex", "W_um": 40.0, "L_um": 1.0},
+        "M2": {"model": "nchor1ex", "W_um": 40.0, "L_um": 3.0},
+        "M3": {"model": "nchor1ex", "W_um": 40.0, "L_um": 3.0}
+      },
+      "diode_in_checked_in_source": false,
+      "older_slide_conflict": "slide2.png shows a diode and 10-ohm load resistor, but the checked-in dcdc_down_full_tb source/netlist contains no diode instance; neither was silently added."
+    }
+  },
+  "sweep": {
+    "result_rows": 40,
+    "model_sets": ["openrule1um_source", "tr1um_mapped"],
+    "clock_points": [
+      {"label": "measured_vctrl_0p5V", "vctrl_V": 0.5, "frequency_Hz": 1.652357852},
+      {"label": "measured_vctrl_2p5V", "vctrl_V": 2.5, "frequency_Hz": 20170.90997},
+      {"label": "measured_vctrl_5p0V", "vctrl_V": 5.0, "frequency_Hz": 33736.669},
+      {"label": "xschem_external_clock", "vctrl_V": null, "frequency_Hz": 90000.0}
+    ],
+    "loads_ohm": [10.0, 1000.0, 10000.0, 1000000.0, 1000000000.0],
+    "metrics": [
+      "Vout final/tail mean/min/max/ripple",
+      "input current and input power",
+      "output power",
+      "efficiency when delivered input power is positive"
+    ],
+    "result_artifact": "analysis/tr10_rcx_vco/final_characterization/openrule1um_dcdc/results.json"
+  },
+  "key_results": {
+    "integrated_openrule1um_source_vctrl_5V": {
+      "vco_output_frequency_Hz": 1605772.9458843663,
+      "dcdc_vout_tail_avg_V": 3.5052104754318556,
+      "dcdc_vout_tail_ripple_V": 0.004681880000000138,
+      "dcdc_vout_final_V": 3.50758582,
+      "sample_count": 301845,
+      "interpretation": "The recovered legacy integrated source runs, but its simulated VCO is approximately 1.606 MHz at VCTRL=5 V, not the 33.736669 kHz silicon measurement; use external-clock rows for DCDC separation."
+    },
+    "external_clock_at_measured_5V": {
+      "openrule1um_source": [
+        {"load_ohm": 10.0, "vout_tail_avg_V": 0.3678659403, "vout_tail_ripple_V": 0.000006194, "efficiency_percent": 3.06555},
+        {"load_ohm": 1000.0, "vout_tail_avg_V": 2.591312309, "vout_tail_ripple_V": 0.00000693, "efficiency_percent": 21.59427},
+        {"load_ohm": 10000.0, "vout_tail_avg_V": 3.064124566, "vout_tail_ripple_V": 0.00000383, "efficiency_percent": 25.53437},
+        {"load_ohm": 1000000.0, "vout_tail_avg_V": 3.353477349, "vout_tail_ripple_V": 0.04506692, "efficiency_percent": 24.62806},
+        {"load_ohm": 1000000000.0, "vout_tail_avg_V": 3.507649572, "vout_tail_ripple_V": 0.00765911, "efficiency_percent": 1.27695}
+      ],
+      "tr1um_mapped": [
+        {"load_ohm": 10.0, "vout_tail_avg_V": 0.479098, "vout_tail_ripple_V": 0.000001, "efficiency_percent": 3.992},
+        {"load_ohm": 1000.0, "vout_tail_avg_V": 2.710182, "vout_tail_ripple_V": 0.000006, "efficiency_percent": 22.585},
+        {"load_ohm": 10000.0, "vout_tail_avg_V": 3.153712, "vout_tail_ripple_V": 0.000005, "efficiency_percent": 26.281},
+        {"load_ohm": 1000000.0, "vout_tail_avg_V": 3.511596, "vout_tail_ripple_V": 0.087531, "efficiency_percent": 23.401},
+        {"load_ohm": 1000000000.0, "vout_tail_avg_V": 3.761631, "vout_tail_ripple_V": 0.015577, "efficiency_percent": 0.736}
+      ],
+      "interpretation": "At the measured 33.736669 kHz clock, both model sets produce approximately 3.06–3.15 V into 10 kOhm and approximately 3.35–3.51 V into 1 MOhm; the converted TR-1um model is an engineering comparison, not a silicon match."
+    },
+    "frequency_and_load_boundary": [
+      "At 1.652357852 Hz, Vout is effectively zero through 1 MOhm; only the 1 GOhm case charges to approximately 0.34–0.38 V and is not a useful loaded operating point.",
+      "At 20.17090997 kHz, 10–10 kOhm loads remain in discontinuous/high-ripple operation; 1 MOhm reaches approximately 2.75–2.89 V.",
+      "At 33.736669 kHz, 10 kOhm and lighter loads reach approximately 3.06–3.15 V, while 10-ohm loading collapses to approximately 0.37–0.48 V.",
+      "At 90 kHz, the exact source topology reaches approximately 3.30–3.46 V into 1 MOhm, but remains below approximately 1.72 V into 10 kOhm."
+    ],
+    "model_conversion_delta": "The TR-1um mapped rows differ materially from the OpenRule1um reference, generally increasing Vout at the measured clock points; this is expected from model/PDK conversion uncertainty and is not evidence of a foundry-equivalent migration."
+  },
+  "current_tr1um_vco_reference": {
+    "manifest": "analysis/tr10_rcx_vco/manifest.json",
+    "status": "engineering_estimate_not_foundry_qualified",
+    "baseline_postlayout_frequency_Hz": 713915.0,
+    "baseline_prelayout_frequency_Hz": 745178.0,
+    "frequency_shift_vs_prelayout_percent": -4.1954,
+    "coupling_sensitivity_Hz": {
+      "k_c_coupling_0.8": 717519.0,
+      "k_c_coupling_1.0": 713916.0,
+      "k_c_coupling_1.2": 709765.0
+    },
+    "comparability_note": "This converted/RCX VCO reference is not a calibrated reproduction of the 33.736669 kHz TR10-1 silicon point and must not be used to infer the DCDC VCO's silicon parameters."
+  },
+  "limitations": [
+    "The recovered DCDC source uses the legacy OpenRule1um PDK; the TR-1um rows are explicit device-name/model substitution only.",
+    "No foundry-qualified analog LVS, RCX, or silicon-calibrated compact-model migration was available for OpenRule1um to TR-1um.",
+    "The DCDC sweep injects measured/external clock waveforms; it does not calibrate or validate the VCO model.",
+    "No package, bondwire, board parasitic, oscilloscope probe, ESR, or inductor DCR model is included.",
+    "The source/netlist has no diode instance despite an older slide image showing one; that topology conflict remains unresolved.",
+    "A positive efficiency is not reported when the simulated source current indicates net power delivery back into the input source."
+  ]
+}

@@ -1,0 +1,134 @@
+
+Note: No compatibility mode selected!
+
+Warning: redefinition of .subckt f_csio_mst, ignored
+Warning: redefinition of .subckt f_csio, ignored
+Warning: redefinition of .subckt pmos, ignored
+Warning: redefinition of .subckt nmos, ignored
+Warning: redefinition of .subckt mpe, ignored
+Warning: redefinition of .subckt mne, ignored
+Warning: redefinition of .subckt f_rr, ignored
+Warning: redefinition of .subckt f_rs_base, ignored
+Warning: redefinition of .subckt f_rs, ignored
+
+Circuit: * tr10-2 shuntaro opamp voltage follower post
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+Note: Starting dynamic gmin stepping
+Note: Dynamic gmin stepping completed
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+pwr_src                                      5
+pwr                                    4.99986
+bias                                    4.0967
+sig                                        2.5
+inp                                        2.5
+out                                    2.49998
+inn                                    2.49998
+xu.p5                                 0.903449
+xu.p3                                  2.15114
+xu.p2                                 0.903449
+xu.p6                                   3.2346
+xu.p4                                 0.911901
+xu.p8                                 0.912041
+xu.p10:56                                  2.5
+xu.p10:59                                  2.5
+xu.p11:62                              2.49998
+xu.p11:65                              2.49998
+xu.p12:68                                    0
+xu.p12:71                                    0
+xu.p1:2                                 4.0967
+xu.p1:5                                 4.0967
+xu.p2:11                              0.903449
+xu.p2:8                               0.903449
+xu.p3:14                               2.15114
+xu.p3:17                               2.15114
+xu.p4:20                              0.911901
+xu.p4:23                              0.911901
+xu.p5:26                              0.903449
+xu.p5:29                              0.903449
+xu.p6:32                                3.2346
+xu.p6:35                                3.2346
+xu.p7:38                               2.49998
+xu.p7:41                               2.49998
+xu.p8:44                              0.912041
+xu.p8:47                              0.912041
+xu.p9:50                               4.99986
+xu.p9:53                               4.99986
+xu.p10:54                                  2.5
+xu.p5:24                              0.903449
+xu.p6:30                                3.2346
+xu.p11:60                              2.49998
+xu.p8:42                              0.912041
+xu.p12:66                                    0
+xu.p4:18                              0.911901
+xu.p1:0                                 4.0967
+xu.p3:12                               2.15114
+xu.p7:36                               2.49998
+xu.p9:48                               4.99986
+xu.p2:10                              0.903449
+xu.p1:1                                 4.0967
+xu.p1:3                                 4.0967
+xu.p1:4                                 4.0967
+xu.p2:6                               0.903449
+xu.p2:7                               0.903449
+xu.p2:9                               0.903449
+xu.p3:13                               2.15114
+xu.p3:15                               2.15114
+xu.p3:16                               2.15114
+xu.p4:19                              0.911901
+xu.p4:21                              0.911901
+xu.p4:22                              0.911901
+xu.p5:25                              0.903449
+xu.p5:27                              0.903449
+xu.p5:28                              0.903449
+xu.p6:31                                3.2346
+xu.p6:33                                3.2346
+xu.p6:34                                3.2346
+xu.p7:37                               2.49998
+xu.p7:39                               2.49998
+xu.p7:40                               2.49998
+xu.p8:43                              0.912041
+xu.p8:45                              0.912041
+xu.p8:46                              0.912041
+xu.p9:49                               4.99986
+xu.p9:51                               4.99986
+xu.p9:52                               4.99986
+xu.p10:55                                  2.5
+xu.p10:57                                  2.5
+xu.p10:58                                  2.5
+xu.p11:61                              2.49998
+xu.p11:63                              2.49998
+xu.p11:64                              2.49998
+xu.p12:67                                    0
+xu.p12:69                                    0
+xu.p12:70                                    0
+vsig#branch                        1.47882e-13
+vdd_src#branch                    -0.000137039
+
+
+No. of Data Rows : 1608
+
+  Measurements for Transient Analysis
+
+vmax                =  3.50369e+00 at=  2.81425e-05
+vmin                =  1.49757e+00 at=  8.44550e-05
+vpp                 =  2.00612e+00
+imax                =  -1.19015e-04 at=  2.57675e-05
+
+
+Total analysis time (seconds) = 0.053126
+
+Total elapsed time (seconds) = 0.077 
+
+Total DRAM available = 8192.000 MB.
+DRAM currently available = 1750.125 MB.
+Maximum ngspice program size =   11.391 MB.
+Current ngspice program size =   11.391 MB.
+

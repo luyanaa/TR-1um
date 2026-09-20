@@ -210,14 +210,24 @@ if [ -z "${RCX_COMMAND:-}" ]; then
   if [ -f "$REPORT_DIR/$TOP.extracted" ]; then
     RCX_EXTRACTED_ENV=" RCX_EXTRACTED=$(printf '%q' "$REPORT_DIR/$TOP.extracted")"
   fi
-  RCX_COMMAND="RCX_GDS=$(printf '%q' "$GDS_ABS") RCX_DEF=$(printf '%q' "$RCX_DEF_PATH") RCX_OUT=$(printf '%q' "$RCX_OUT_PATH") RCX_TOP=$(printf '%q' "$TOP")${RCX_EXTRACTED_ENV} bash $(printf '%q' "$ROOT/flow/signoff/run_estimated_rcx.sh")"
+  RCX_REFERENCE_ENV=" RCX_REFERENCE_NETLIST=$(printf '%q' "$NETLIST_ABS")"
+  RCX_COMMAND="RCX_GDS=$(printf '%q' "$GDS_ABS") RCX_DEF=$(printf '%q' "$RCX_DEF_PATH") RCX_OUT=$(printf '%q' "$RCX_OUT_PATH") RCX_TOP=$(printf '%q' "$TOP")${RCX_EXTRACTED_ENV}${RCX_REFERENCE_ENV} bash $(printf '%q' "$ROOT/flow/signoff/run_estimated_rcx.sh")"
+fi
+if [ -z "${RCX_COMMAND:-}" ]; then
+  echo "ERROR: RCX command construction failed" >&2
+  exit 14
 fi
 bash -lc "$RCX_COMMAND" 2>&1 | tee "$REPORT_DIR/rcx.log"
 [ -s "$RCX_OUT_PATH" ] || { echo "ERROR: RCX SPEF missing or empty: $RCX_OUT_PATH" >&2; exit 14; }
 if [ "$RCX_DEFAULT_COMMAND" = 1 ]; then
   RCX_BASE="${RCX_OUT_PATH%.spef}"
   [ -s "${RCX_BASE}.parasitics.json" ] || { echo "ERROR: RCX parasitic ledger missing or empty: ${RCX_BASE}.parasitics.json" >&2; exit 14; }
-[ -s "${RCX_BASE}.pex.sp" ] || { echo "ERROR: RCX distributed RC sidecar missing or empty: ${RCX_BASE}.pex.sp" >&2; exit 14; }
+  [ -s "${RCX_BASE}.pex.sp" ] || { echo "ERROR: RCX distributed RC sidecar missing or empty: ${RCX_BASE}.pex.sp" >&2; exit 14; }
+  [ -s "${RCX_BASE}.interconnect.sp" ] || { echo "ERROR: RCX interconnect sidecar missing or empty: ${RCX_BASE}.interconnect.sp" >&2; exit 14; }
+  if [ "${RCX_MERGE_POSTLAYOUT:-1}" != 0 ]; then
+    [ -s "${RCX_BASE}.postlayout.sp" ] || { echo "ERROR: RCX merged post-layout SPICE missing or empty: ${RCX_BASE}.postlayout.sp" >&2; exit 14; }
+    [ -s "${RCX_BASE}.pex_manifest.json" ] || { echo "ERROR: RCX PEX manifest missing or empty: ${RCX_BASE}.pex_manifest.json" >&2; exit 14; }
+  fi
 fi
 if [ -n "$SIGNOFF_MANIFEST_ABS" ]; then
   echo "==> Analog signoff manifest"

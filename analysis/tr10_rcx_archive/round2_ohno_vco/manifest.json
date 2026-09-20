@@ -1,0 +1,58 @@
+{
+  "archive": "round2_ohno_vco",
+  "created_utc": "2026-09-20T04:45:18Z",
+  "purpose": "Repository backup of the prior Ohno joint-confounder and TR10-1 VCO preparation artifacts before VCO remediation.",
+  "sources": {
+    "ohno": [
+      "/tmp/tr10-rcx/opamp/rcx_joint",
+      "/tmp/tr10-rcx/opamp/rcx_sweep",
+      "/tmp/tr10-rcx/opamp/rcx_cfine",
+      "/tmp/tr10-rcx/opamp/rcx_components"
+    ],
+    "vco": [
+      "/tmp/tr10-rcx/converted/rcx/reduced/vco_crosscheck",
+      "/tmp/tr10-rcx/converted/rcx/reduced/vco.parasitics.json",
+      "/tmp/tr10-rcx/converted/rcx/reduced/vco.post.sp",
+      "/tmp/tr10-rcx/converted/rcx/reduced/vco.post.tb.sp",
+      "/tmp/tr10-rcx/converted/rcx/reduced/vco.pex.sp",
+      "/tmp/tr10-rcx/converted/rcx/reduced/vco.post.baseline.log",
+      "/tmp/tr10-rcx/converted/rcx/vco.control.pre.log",
+      "/tmp/tr10-rcx/converted/rcx/vco.control.pre.tb.sp",
+      "/tmp/tr10-rcx/converted/rcx/vco.control.post.log",
+      "/tmp/tr10-rcx/converted/rcx/vco.control.post.tb.sp"
+    ],
+    "helpers": [
+      "/tmp/run_ohno_anchor_sweep.py",
+      "/tmp/run_ohno_rcx_sweep.py",
+      "/tmp/run_ohno_rcx_cfine.py",
+      "/tmp/run_ohno_rcx_components.py",
+      "/tmp/run_ohno_joint_sweep.py",
+      "/tmp/prepare_tr10_vco_crosscheck.py"
+    ]
+  },
+  "contents": {
+    "ohno_joint_rows": 225,
+    "ohno_joint_grid": {
+      "k_c_coupling": [0.8, 1.0, 1.2],
+      "fixture_pF": [50.0, 70.0, 100.0, 130.0, 150.0],
+      "bias_uA": [11.5, 11.65, 11.8]
+    },
+    "vco_crosscheck_factors": [0.8, 1.0, 1.2],
+    "vco_cpex_total": 369,
+    "vco_coupling_entries": 309,
+    "vco_ground_entries": 60,
+    "vco_reference_frequency_Hz": 745178.0,
+    "vco_reference_period_s": 1.34196e-06
+  },
+  "status": {
+    "ohno_joint_sweep": "completed",
+    "vco_factor_decks": "prepared_only",
+    "vco_postlayout_frequency": "not_obtained; baseline log stopped at transient initialization after tiny-RPEX warnings"
+  },
+  "repo_copy": "analysis/tr10_rcx_archive/round2_ohno_vco",
+  "complete_tmp_snapshot": {
+    "source": "/tmp/tr10-rcx (prior experiment tree; current-session remediated outputs excluded)",
+    "repo_copy": "analysis/tr10_rcx_archive/round2_ohno_vco/tmp_snapshot",
+    "approx_size": "35M"
+  }
+}

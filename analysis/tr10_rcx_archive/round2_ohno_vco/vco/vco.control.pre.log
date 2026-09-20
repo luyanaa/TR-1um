@@ -1,0 +1,55 @@
+
+Note: No compatibility mode selected!
+
+
+Circuit: * tr10-1 converted vco pre controlled simulation
+
+Warning : IC on non-existent node - p2, ignored
+   Please check line .ic v(p2)=0 v(p3)=5 v(p4)=0 v(p5)=5 v(p6)=0 v(p7)=5 v(p8)=0 v(p18)=0 v(out)=0
+
+Warning : IC on non-existent node - p3, ignored
+   Please check line .ic v(p2)=0 v(p3)=5 v(p4)=0 v(p5)=5 v(p6)=0 v(p7)=5 v(p8)=0 v(p18)=0 v(out)=0
+
+Warning : IC on non-existent node - p4, ignored
+   Please check line .ic v(p2)=0 v(p3)=5 v(p4)=0 v(p5)=5 v(p6)=0 v(p7)=5 v(p8)=0 v(p18)=0 v(out)=0
+
+Warning : IC on non-existent node - p5, ignored
+   Please check line .ic v(p2)=0 v(p3)=5 v(p4)=0 v(p5)=5 v(p6)=0 v(p7)=5 v(p8)=0 v(p18)=0 v(out)=0
+
+Warning : IC on non-existent node - p6, ignored
+   Please check line .ic v(p2)=0 v(p3)=5 v(p4)=0 v(p5)=5 v(p6)=0 v(p7)=5 v(p8)=0 v(p18)=0 v(out)=0
+
+Warning : IC on non-existent node - p7, ignored
+   Please check line .ic v(p2)=0 v(p3)=5 v(p4)=0 v(p5)=5 v(p6)=0 v(p7)=5 v(p8)=0 v(p18)=0 v(out)=0
+
+Warning : IC on non-existent node - p8, ignored
+   Please check line .ic v(p2)=0 v(p3)=5 v(p4)=0 v(p5)=5 v(p6)=0 v(p7)=5 v(p8)=0 v(p18)=0 v(out)=0
+
+Warning : IC on non-existent node - p18, ignored
+   Please check line .ic v(p2)=0 v(p3)=5 v(p4)=0 v(p5)=5 v(p6)=0 v(p7)=5 v(p8)=0 v(p18)=0 v(out)=0
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+Operating point simulation skipped by 'uic',
+  now using transient initial conditions.
+
+No. of Data Rows : 435937
+
+  Measurements for Transient Analysis
+
+t1                  =   1.25511e-05
+t2                  =   1.38930e-05
+period              =  1.34196e-06
+freq                =  7.45178e+05
+
+
+Total analysis time (seconds) = 45.1457
+
+Total elapsed time (seconds) = 45.182 
+
+Total DRAM available = 8192.000 MB.
+DRAM currently available = 1908.000 MB.
+Maximum ngspice program size =   21.234 MB.
+Current ngspice program size =   21.234 MB.
+

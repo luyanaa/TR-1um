@@ -1,0 +1,28 @@
+
+Note: No compatibility mode selected!
+
+
+Circuit: * tr10-1 dcdc exact source topology with external measured clock.
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+vin                                         12
+vdd                                          5
+net2                                         0
+net1                                0.00263448
+vout                                0.00263448
+l1#branch                          2.63448e-09
+vclk#branch                                  0
+vdd_src#branch                               0
+vin_src#branch                    -2.65852e-09
+
+
+No. of Data Rows : 294203
+Note: Simulation executed from .control section 

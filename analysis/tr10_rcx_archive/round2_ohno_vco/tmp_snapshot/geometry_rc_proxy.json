@@ -1,0 +1,162 @@
+{
+  "model": {
+    "schema": 1,
+    "status": "engineering_estimate_not_foundry_qualified",
+    "units": {
+      "length": "um",
+      "resistance": "ohm",
+      "capacitance": "pF"
+    },
+    "source_basis": [
+      {
+        "path": "openIP62/IP62/Technology/doc/OS00_\u30ea\u30d5\u30a1\u30ec\u30f3\u30b9\u30de\u30cb\u30e5\u30a2\u30eb_rev1.1.pdf",
+        "location": "pages 5 and 37-41",
+        "fact": "The open manual lists parasitic extraction as unavailable and does not provide a metal RC/PEX deck."
+      },
+      {
+        "path": "/Users/yanlu/Documents/TR-1um/flow/pdk_root/TR-1um/libs.ref/TR-1um_stdcell/lef/TR-1um_tech.lef",
+        "location": "M1/M2 and any declared reserved routing-layer statements",
+        "fact": "The selected technology LEF supplies sheet resistance, area capacitance, edge capacitance, and nominal routing widths for its active and declared reserved routing layers."
+      }
+    ],
+    "method": {
+      "resistance": "wire R = sheet_resistance * length / actual DEF route width; nominal per_um is the widthless-route fallback",
+      "capacitance": "wire C = length * (area_capacitance * actual DEF route width + 2 * edge_capacitance); nominal per_um is the widthless-route fallback",
+      "topology": "the extractor splits routed segments at endpoints, vias, and located DEF/LEF terminals and emits distributed RC edges",
+      "vertical_overlap": "adjacent-metal overlap is modeled separately by the extractor from route bounding boxes",
+      "sheet_resistance_relative_spread": 0.5,
+      "capacitance_relative_spread": 0.5,
+      "spread_interpretation": "engineering sensitivity band, not a confidence interval"
+    },
+    "layers": [
+      {
+        "layer": "M1",
+        "width_um": 1.8,
+        "sheet_resistance_ohm_per_square": 0.05,
+        "capacitance_area_pf_per_um2": 3.5e-05,
+        "edge_capacitance_pf_per_um": 5e-05,
+        "resistance_ohm_per_um": 0.02777777777777778,
+        "capacitance_pf_per_um": 0.000163,
+        "capacitance_ff_per_um": 0.163,
+        "resistance_range_ohm_per_um": [
+          0.01388888888888889,
+          0.04166666666666667
+        ],
+        "capacitance_range_ff_per_um": [
+          0.0815,
+          0.2445
+        ]
+      },
+      {
+        "layer": "M2",
+        "width_um": 3.0,
+        "sheet_resistance_ohm_per_square": 0.03,
+        "capacitance_area_pf_per_um2": 1.75e-05,
+        "edge_capacitance_pf_per_um": 5e-05,
+        "resistance_ohm_per_um": 0.01,
+        "capacitance_pf_per_um": 0.0001525,
+        "capacitance_ff_per_um": 0.1525,
+        "resistance_range_ohm_per_um": [
+          0.005,
+          0.015
+        ],
+        "capacitance_range_ff_per_um": [
+          0.07625,
+          0.22875
+        ]
+      }
+    ],
+    "reserved_layers": [
+      {
+        "layer": "M3",
+        "width_um": 3.0,
+        "sheet_resistance_ohm_per_square": 0.03,
+        "capacitance_area_pf_per_um2": 2e-05,
+        "edge_capacitance_pf_per_um": 5e-05,
+        "resistance_ohm_per_um": 0.01,
+        "capacitance_pf_per_um": 0.00016,
+        "capacitance_ff_per_um": 0.16,
+        "resistance_range_ohm_per_um": [
+          0.005,
+          0.015
+        ],
+        "capacitance_range_ff_per_um": [
+          0.08,
+          0.24
+        ]
+      }
+    ],
+    "via": {
+      "layer": "V1",
+      "nominal_resistance_ohm": 1.0,
+      "range_ohm": [
+        0.5,
+        2.0
+      ],
+      "basis": "No via resistance is published; nominal 1 ohm is an explicit local interconnect estimate for sensitivity analysis."
+    },
+    "digital_flow_policy": {
+      "routing_layers": [
+        "M1",
+        "M2"
+      ],
+      "reserved_routing_layers": [
+        "M3"
+      ],
+      "m3": "reserved_not_used_by_current_digital_router",
+      "def_policy": "Reject routed DEF geometry on any layer outside routing_layers.",
+      "timing_use": "Use nominal values for estimated RCX; evaluate the stated bands with sensitivity analysis.",
+      "tapeout_status": "not signoff-qualified without foundry RC/PEX correlation."
+    }
+  },
+  "geometry": {
+    "TR10-1 VCO": {
+      "gds": "/tmp/TR10-1/member_project/DCDC_DOWN/klayout/vco.gds",
+      "dbu": 0.1,
+      "M1_area_um2": 11969.7,
+      "M2_area_um2": 2166.6,
+      "M1_perimeter_um": 18062.6,
+      "M2_perimeter_um": 4387.2,
+      "M1_equiv_length_um": 6649.833333333334,
+      "M2_equiv_length_um": 722.1999999999999,
+      "M1_R_ohm": 184.7175925925926,
+      "M2_R_ohm": 7.2219999999999995,
+      "M1_C_fF": 1083.9228333333335,
+      "M2_C_fF": 110.1355,
+      "R_nominal_sum_ohm": 191.93959259259262,
+      "C_nominal_sum_fF": 1194.0583333333336,
+      "R_sensitivity_ohm": [
+        95.96979629629631,
+        287.909388888889
+      ],
+      "C_sensitivity_fF": [
+        597.0291666666668,
+        1791.0875
+      ]
+    },
+    "TR10-2 OPAMP ShuntaroOhno": {
+      "gds": "/tmp/TR10-2/member_project/OPAMP/ShuntaroOhno/klayout/opamp.gds",
+      "dbu": 0.1,
+      "M1_area_um2": 66634.88,
+      "M2_area_um2": 15587.98,
+      "M1_perimeter_um": 65443.6,
+      "M2_perimeter_um": 10448.6,
+      "M1_equiv_length_um": 37019.37777777778,
+      "M2_equiv_length_um": 5195.993333333333,
+      "M1_R_ohm": 1028.316049382716,
+      "M2_R_ohm": 51.95993333333333,
+      "M1_C_fF": 6034.158577777778,
+      "M2_C_fF": 792.3889833333333,
+      "R_nominal_sum_ohm": 1080.2759827160494,
+      "C_nominal_sum_fF": 6826.5475611111115,
+      "R_sensitivity_ohm": [
+        540.1379913580247,
+        1620.4139740740743
+      ],
+      "C_sensitivity_fF": [
+        3413.2737805555557,
+        10239.821341666666
+      ]
+    }
+  }
+}

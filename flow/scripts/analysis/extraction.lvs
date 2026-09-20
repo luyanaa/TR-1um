@@ -1,0 +1,215 @@
+# TR-1um extraction-only KLayout runset.
+#
+# This is intentionally separate from the ordinary DRC/LVS runset.  It performs
+# net-only physical extraction and exports an engineering DEF bridge for the
+# analysis scripts.  It does not modify the source GDS or the PDK runsets.
+#
+# The Python driver stages this file beside the PDK drc/lvs collateral so the
+# relative %include paths below remain valid for any compatible TR-1um checkout.
+
+if $run_mode == 'flat'
+    puts("Setting running mode => flat")
+    flat
+else
+    puts("Setting running mode => deep")
+    deep
+end
+
+if $input
+    if $top_cell
+        source($input, $top_cell)
+    else
+        source($input)
+    end
+end
+
+if $netlist_only
+    NET_ONLY = true
+else
+    NET_ONLY = false
+end
+
+if $report
+    report_lvs($report)
+else
+    report_lvs
+end
+
+if $ignore_top_ports_mismatch
+    IGNORE_TOP_PORTS_MISMATCH = true
+else
+    IGNORE_TOP_PORTS_MISMATCH = false
+end
+
+# PDK extraction collateral.  This list deliberately mirrors the active
+# TR-1um extraction order without changing the normal run.lvs entry point.
+# %include ../drc/00_Layers.drc
+# %include ../drc/02_Device.drc
+# %include 01_Extract.lvs
+# %include 03_Combiner.lvs
+# %include 02_Extract.lvs
+# %include 04_Custom.lvs
+# %include 05_Compare.lvs
+
+require 'json'
+
+l2n = _l2n_object
+layout = source.layout
+top_circuit = netlist.circuit_by_name(source.cell_name)
+m1_idx = l2n.layer_of(M1.data)
+m2_idx = l2n.layer_of(M2.data)
+v1_idx = l2n.layer_of(V1.data)
+
+net_records = []
+all_boxes = []
+used_def_names = {}
+
+def extraction_def_name(logical_name, used_def_names)
+  base = logical_name.to_s.gsub(',', '|').gsub(/[^A-Za-z0-9_$|]/, '_')
+  base = 'GDS_UNNAMED' if base.empty?
+  base = "N_#{base}" if base[0] =~ /[0-9]/
+  candidate = base
+  suffix = 1
+  while used_def_names[candidate]
+    suffix += 1
+    candidate = "#{base}_#{suffix}"
+  end
+  used_def_names[candidate] = true
+  candidate
+end
+
+top_circuit.each_net do |net|
+  logical_name = net.expanded_name.to_s
+  logical_name = net.name.to_s if logical_name.empty?
+  logical_name = 'GDS_UNNAMED' if logical_name.empty?
+  def_name = extraction_def_name(logical_name, used_def_names)
+  polygons = []
+  [[m1_idx, 'M1'], [m2_idx, 'M2'], [v1_idx, 'V1']].each do |layer_idx, layer_name|
+    region = l2n.polygons_of_net(net, layer_idx)
+    region.each do |poly|
+      box = poly.bbox
+      next if box.right <= box.left || box.top <= box.bottom
+      polygons << {layer: layer_name, box: box}
+      all_boxes << box
+    end
+  end
+  net_records << {name: def_name, logical_name: logical_name, polygons: polygons}
+end
+
+raise 'extraction.lvs found no M1/M2/V1 polygons' if all_boxes.empty?
+
+scale = layout.dbu * 1000.0
+to_def = lambda { |value| (value * scale).round }
+width_def = lambda do |record|
+  box = record[:box]
+  [1, ([box.right - box.left, box.top - box.bottom].min * scale).round].max
+end
+points_for = lambda do |record|
+  box = record[:box]
+  if (box.right - box.left) >= (box.top - box.bottom)
+    [to_def.call(box.left), to_def.call(box.right), to_def.call((box.bottom + box.top) / 2.0), true]
+  else
+    [to_def.call((box.left + box.right) / 2.0), to_def.call(box.bottom), to_def.call(box.top), false]
+  end
+end
+
+all_bbox = [
+  all_boxes.map { |box| box.left }.min,
+  all_boxes.map { |box| box.bottom }.min,
+  all_boxes.map { |box| box.right }.max,
+  all_boxes.map { |box| box.top }.max
+]
+
+def_path = $bridge_def
+manifest_path = $bridge_manifest
+raise 'bridge_def and bridge_manifest runtime variables are required' unless def_path && manifest_path
+
+design_name = source.cell_name.to_s
+net_records_by_logical_name = {}
+net_records.each do |net|
+  net_records_by_logical_name[net[:logical_name].to_s] = net
+end
+top_port_logical_names = []
+top_circuit.each_pin do |pin|
+  pin_net = top_circuit.net_for_pin(pin)
+  logical_name = pin_net.expanded_name.to_s
+  logical_name = pin_net.name.to_s if logical_name.empty?
+  top_port_logical_names << logical_name unless top_port_logical_names.include?(logical_name)
+end
+named_pins = top_port_logical_names.map { |logical_name| net_records_by_logical_name[logical_name] }.compact
+
+File.open(def_path, 'w') do |file|
+  file.puts('VERSION 5.8 ;')
+  file.puts('DIVIDERCHAR "/" ;')
+  file.puts('BUSBITCHARS "[]" ;')
+  file.puts("DESIGN #{design_name} ;")
+  file.puts('UNITS DISTANCE MICRONS 1000 ;')
+  file.puts("DIEAREA ( #{to_def.call(all_bbox[0])} #{to_def.call(all_bbox[1])} ) ( #{to_def.call(all_bbox[2])} #{to_def.call(all_bbox[3])} ) ;")
+  file.puts("PINS #{named_pins.length} ;")
+  named_pins.sort_by { |net| net[:name] }.each do |net|
+    pin_record = net[:polygons].find { |polygon| polygon[:layer] == 'M2' } || net[:polygons].find { |polygon| polygon[:layer] == 'M1' } || net[:polygons].first
+    box = pin_record[:box]
+    x = to_def.call((box.left + box.right) / 2.0)
+    y = to_def.call((box.bottom + box.top) / 2.0)
+    file.puts("- #{net[:name]} + NET #{net[:name]} + DIRECTION INOUT + PLACED ( #{x} #{y} ) N ;")
+  end
+  file.puts('END PINS')
+  file.puts('COMPONENTS 0 ;')
+  file.puts('END COMPONENTS')
+  file.puts("NETS #{net_records.length} ;")
+  net_records.sort_by { |net| net[:name] }.each do |net|
+    file.puts("- #{net[:name]}")
+    net[:polygons].each do |record|
+      if record[:layer] == 'M1' || record[:layer] == 'M2'
+        x1, a, b, horizontal = points_for.call(record)
+        if horizontal
+          next if x1 == a
+          file.puts("  + ROUTED #{record[:layer]} #{width_def.call(record)} ( #{x1} #{b} ) ( #{a} #{b} )")
+        else
+          next if a == b
+          file.puts("  + ROUTED #{record[:layer]} #{width_def.call(record)} ( #{x1} #{a} ) ( #{x1} #{b} )")
+        end
+      else
+        x = to_def.call((record[:box].left + record[:box].right) / 2.0)
+        y = to_def.call((record[:box].bottom + record[:box].top) / 2.0)
+        file.puts("  + ROUTED M1 #{width_def.call(record)} ( #{x} #{y} ) M1M2_V1")
+      end
+    end
+    file.puts(' ;')
+  end
+  file.puts('END NETS')
+
+  # The analysis parser consumes these top-port records to attach zero-ohm
+  # aliases.  Keeping them in SPECIALNETS avoids pretending that a polygon
+  # centerline is a real routed component pin.
+  file.puts("SPECIALNETS #{named_pins.length} ;")
+  named_pins.sort_by { |net| net[:name] }.each do |net|
+    file.puts("- #{net[:name]} ( PIN #{net[:name]} ) ;")
+  end
+  file.puts('END SPECIALNETS')
+  file.puts('END DESIGN')
+end
+
+manifest = {
+  schema: 3,
+  source_gds: $input,
+  source_runset: $runset_source,
+  top_circuit: top_circuit.name.to_s,
+  method: 'KLayout LVS LayoutVsSchematic.polygons_of_net for exact top-circuit M1/V1/M2 connectivity; polygon bboxes are projected to DEF centerlines for the engineering RC estimator',
+  layer_indices: {M1: m1_idx, V1: v1_idx, M2: m2_idx},
+  net_count: net_records.length,
+  polygon_count: net_records.map { |net| net[:polygons].length }.sum,
+  named_pins: named_pins.map { |net| net[:name] },
+  pin_connection_records: named_pins.length,
+  nets: net_records.map do |net|
+    {
+      name: net[:name],
+      logical_name: net[:logical_name],
+      polygon_count: net[:polygons].length,
+      layers: net[:polygons].map { |polygon| polygon[:layer] }.uniq.sort
+    }
+  end
+}
+File.write(manifest_path, JSON.pretty_generate(manifest))
+puts("DBG_EXTRACTION_DEF=#{def_path} nets=#{net_records.length} polygons=#{manifest[:polygon_count]} pins=#{named_pins.length}")
+puts("DBG_EXTRACTION_MANIFEST=#{manifest_path}")

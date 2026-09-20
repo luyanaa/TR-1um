@@ -1,0 +1,69 @@
+{
+  "base_postlayout_spice": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/vco/vco.post.sp",
+  "base_testbench": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/vco/vco.canonical.tb.sp",
+  "cpex_counts": {
+    "base_total_pf": 1.5298769065000093,
+    "coupling_entries": 309,
+    "cpex_total": 369,
+    "ground_entries": 60,
+    "ground_net": "VSS"
+  },
+  "design": "TR10-1 VCO",
+  "factor_definition": "scale only non-ground CPEX coupling entries; preserve ground CPEX entries, device hierarchy, and RPEX",
+  "factors": [
+    0.8,
+    1.0,
+    1.2
+  ],
+  "limitations": [
+    "engineering-estimate PEX, not foundry-qualified RCX",
+    "coupling sensitivity does not replace extraction uncertainty or lateral-coupling calibration"
+  ],
+  "variants": [
+    {
+      "k_c_coupling": 0.8,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/vco/coupling_crosscheck/k0.8/vco.canonical.log",
+      "measurements": {
+        "data_rows": 2670,
+        "frequency_Hz": 717519.0,
+        "period_s": 1.39369e-06,
+        "vout_max_V": 5.02077,
+        "vout_min_V": -0.0118687
+      },
+      "postlayout_spice": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/vco/coupling_crosscheck/k0.8/vco.post.sp",
+      "returncode": 0,
+      "status": "ran",
+      "testbench": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/vco/coupling_crosscheck/k0.8/vco.canonical.tb.sp"
+    },
+    {
+      "k_c_coupling": 1.0,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/vco/coupling_crosscheck/k1/vco.canonical.log",
+      "measurements": {
+        "data_rows": 2657,
+        "frequency_Hz": 713916.0,
+        "period_s": 1.40072e-06,
+        "vout_max_V": 5.02435,
+        "vout_min_V": -0.0125585
+      },
+      "postlayout_spice": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/vco/coupling_crosscheck/k1/vco.post.sp",
+      "returncode": 0,
+      "status": "ran",
+      "testbench": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/vco/coupling_crosscheck/k1/vco.canonical.tb.sp"
+    },
+    {
+      "k_c_coupling": 1.2,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/vco/coupling_crosscheck/k1.2/vco.canonical.log",
+      "measurements": {
+        "data_rows": 2664,
+        "frequency_Hz": 709765.0,
+        "period_s": 1.40892e-06,
+        "vout_max_V": 5.02158,
+        "vout_min_V": -0.013024
+      },
+      "postlayout_spice": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/vco/coupling_crosscheck/k1.2/vco.post.sp",
+      "returncode": 0,
+      "status": "ran",
+      "testbench": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/vco/coupling_crosscheck/k1.2/vco.canonical.tb.sp"
+    }
+  ]
+}

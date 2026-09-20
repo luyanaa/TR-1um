@@ -1,0 +1,66 @@
+
+Note: No compatibility mode selected!
+
+
+Circuit: * tr10 inverter frequency/load reproduction surrogate
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+vdd                                          5
+in                                           0
+out                                          5
+vin#branch                                   0
+vdd#branch                        -5.10017e-10
+
+
+No. of Data Rows : 1562
+
+  Measurements for Transient Analysis
+
+vout_min            =  -2.62631e-01 at=  1.51481e-06
+vout_max            =  5.41207e+00 at=  2.00554e-06
+trise               =  1.28500e-08 targ=  1.53438e-06 trig=  1.52153e-06
+tfall               =  1.05656e-08 targ=  1.02246e-06 trig=  1.01189e-06
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+vdd                                          5
+in                                           0
+out                                          5
+vin#branch                                   0
+vdd#branch                        -5.10017e-10
+
+
+No. of Data Rows : 1562
+
+  Measurements for Transient Analysis
+
+vout_min            =  -2.62631e-01 at=  1.51481e-06
+vout_max            =  5.41207e+00 at=  2.00554e-06
+trise               =  1.28500e-08 targ=  1.53438e-06 trig=  1.52153e-06
+tfall               =  1.05656e-08 targ=  1.02246e-06 trig=  1.01189e-06
+
+
+Total analysis time (seconds) = 0.01389
+
+Total elapsed time (seconds) = 0.023 
+
+Total DRAM available = 8192.000 MB.
+DRAM currently available = 1674.641 MB.
+Maximum ngspice program size =   10.625 MB.
+Current ngspice program size =   10.625 MB.
+

@@ -1,0 +1,280 @@
+{
+  "schema": 1,
+  "status": "engineering_estimate_not_foundry_qualified",
+  "merge_status": "merged",
+  "architecture": {
+    "physical_truth": "final GDS",
+    "device_extraction": "KLayout LVS netlist-only extraction",
+    "interconnect_extraction": "DEF route graph plus optional GDS overlap engineering estimate",
+    "merge_boundary": "selected top-level subcircuit; nested cell/device definitions preserved"
+  },
+  "ownership": {
+    "compact_models": "intrinsic MOS, F_RR, and other device-model terms remain model-owned unless explicitly materialized by the RC ledger",
+    "interconnect": "distributed wire/via resistance, node-ground capacitance, and coupling capacitors are owned by tr1um_parasitics",
+    "hierarchy": "nested KLayout cells remain intact; only selected-top direct devices and reference-mapped instances are rewritten",
+    "simulation_normalization": "KLayout MOS prefixes become subcircuit calls and LVS-only diode area/perimeter parameters are removed"
+  },
+  "inputs": {
+    "gds": "/private/tmp/tr10-rcx/converted/vco.tr1um.gds",
+    "def": "/private/tmp/tr10-rcx/converted/vco.synthetic.def",
+    "extracted_spice": "/private/tmp/tr10-rcx/converted/extracted/vco.sim.control.named.sp",
+    "interconnect_spice": "/private/tmp/tr10-rcx/remediated/vco/vco.pex.sp",
+    "parasitics_json": "/private/tmp/tr10-rcx/remediated/vco/vco.parasitics.json",
+    "model_manifest": "/Users/yanlu/Documents/TR-1um/libs.tech/spice/models/ip62_models_calibrated",
+    "reference_netlist": null,
+    "node_map": null
+  },
+  "outputs": {
+    "devices_spice": "/private/tmp/tr10-rcx/remediated/vco/vco.devices.sp",
+    "devices_json": "/private/tmp/tr10-rcx/remediated/vco/vco.devices.json",
+    "interconnect_spice": "/private/tmp/tr10-rcx/remediated/vco/vco.pex.sp",
+    "postlayout_spice": "/private/tmp/tr10-rcx/remediated/vco/vco.post.sp",
+    "manifest": "/private/tmp/tr10-rcx/remediated/vco/vco.merge.json"
+  },
+  "hierarchy": {
+    "top_subckt": "VCO",
+    "top_ports": [
+      "P19",
+      "P28",
+      "P29",
+      "P1",
+      "P30",
+      "P17",
+      "P22"
+    ],
+    "reference_subckt": null,
+    "top_level_device_count": 80,
+    "simulation_normalized_device_count": 80,
+    "unresolved_top_level_devices": 0,
+    "reference_mapped_instances": 0,
+    "unresolved_reference_instances": 0,
+    "shared_top_nodes": [
+      "P1",
+      "P10",
+      "P11",
+      "P12",
+      "P13",
+      "P14",
+      "P15",
+      "P16",
+      "P17",
+      "P18",
+      "P19",
+      "P2",
+      "P20",
+      "P21",
+      "P22",
+      "P23",
+      "P24",
+      "P25",
+      "P26",
+      "P27",
+      "P28",
+      "P29",
+      "P3",
+      "P30",
+      "P4",
+      "P5",
+      "P6",
+      "P7",
+      "P8",
+      "P9",
+      "VSS"
+    ],
+    "mapped_interconnect_nodes": [
+      "P1",
+      "P10",
+      "P11",
+      "P12",
+      "P13",
+      "P14",
+      "P15",
+      "P16",
+      "P17",
+      "P18",
+      "P19",
+      "P2",
+      "P20",
+      "P21",
+      "P22",
+      "P23",
+      "P24",
+      "P25",
+      "P26",
+      "P27",
+      "P28",
+      "P29",
+      "P3",
+      "P30",
+      "P4",
+      "P5",
+      "P6",
+      "P7",
+      "P8",
+      "P9"
+    ]
+  },
+  "mapping": {
+    "unique_node_mappings": 30,
+    "mapped_terminal_count": 320,
+    "total_top_level_terminal_count": 320,
+    "methods": [
+      "shared_logical_net"
+    ],
+    "physical_node_aliases": {},
+    "alias_conflicts": {},
+    "records": [
+      {
+        "logical_node": "P1",
+        "mapped_node": "P1",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P10",
+        "mapped_node": "P10",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P11",
+        "mapped_node": "P11",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P12",
+        "mapped_node": "P12",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P13",
+        "mapped_node": "P13",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P14",
+        "mapped_node": "P14",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P15",
+        "mapped_node": "P15",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P16",
+        "mapped_node": "P16",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P17",
+        "mapped_node": "P17",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P18",
+        "mapped_node": "P18",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P19",
+        "mapped_node": "P19",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P2",
+        "mapped_node": "P2",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P20",
+        "mapped_node": "P20",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P21",
+        "mapped_node": "P21",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P22",
+        "mapped_node": "P22",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P23",
+        "mapped_node": "P23",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P24",
+        "mapped_node": "P24",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P25",
+        "mapped_node": "P25",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P26",
+        "mapped_node": "P26",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P27",
+        "mapped_node": "P27",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P28",
+        "mapped_node": "P28",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P29",
+        "mapped_node": "P29",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P3",
+        "mapped_node": "P3",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P30",
+        "mapped_node": "P30",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P4",
+        "mapped_node": "P4",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P5",
+        "mapped_node": "P5",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P6",
+        "mapped_node": "P6",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P7",
+        "mapped_node": "P7",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P8",
+        "mapped_node": "P8",
+        "method": "shared_logical_net"
+      },
+      {
+        "logical_node": "P9",
+        "mapped_node": "P9",
+        "method": "shared_logical_net"
+      }
+    ]
+  },
+  "warnings": []
+}

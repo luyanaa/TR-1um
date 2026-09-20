@@ -1,0 +1,26 @@
+{
+  "design": "TR10-1 DCDC_DOWN surrogate",
+  "purpose": "One-off check of 1 Mohm measurement resistance and added output capacitance",
+  "topology": "high_side_only",
+  "frequencies_Hz": [90000.0, 33736.669, 20170.91],
+  "resistive_load_ohm": 1000000.0,
+  "base_output_cap_F": 1e-10,
+  "resistive_load_rows": [
+    {"frequency_Hz": 90000.0, "vout_final_V": 3.3263, "vout_min_V": 3.3263, "vout_max_V": 3.52129, "iin_avg_A": -3.38083e-06},
+    {"frequency_Hz": 33736.669, "vout_final_V": 3.03681, "vout_min_V": 3.03681, "vout_max_V": 3.52601, "iin_avg_A": -3.37694e-06},
+    {"frequency_Hz": 20170.91, "vout_final_V": 2.74952, "vout_min_V": 2.74952, "vout_max_V": 3.52607, "iin_avg_A": -3.28667e-06}
+  ],
+  "added_capacitance_rows": [
+    {"output_cap_F": 1.1e-10, "frequency_Hz": 90000.0, "vout_final_V": 3.34233, "vout_min_V": 3.34233, "vout_max_V": 3.52003, "iin_avg_A": -3.38457e-06},
+    {"output_cap_F": 1.1e-10, "frequency_Hz": 33736.669, "vout_final_V": 3.07816, "vout_min_V": 3.07816, "vout_max_V": 3.52596, "iin_avg_A": -3.39205e-06},
+    {"output_cap_F": 1.1e-10, "frequency_Hz": 20170.91, "vout_final_V": 2.81223, "vout_min_V": 2.81223, "vout_max_V": 3.52607, "iin_avg_A": -3.30606e-06},
+    {"output_cap_F": 1.2e-10, "frequency_Hz": 90000.0, "vout_final_V": 3.35552, "vout_min_V": 3.35552, "vout_max_V": 3.51874, "iin_avg_A": -3.38694e-06},
+    {"output_cap_F": 1.2e-10, "frequency_Hz": 33736.669, "vout_final_V": 3.11304, "vout_min_V": 3.11304, "vout_max_V": 3.52588, "iin_avg_A": -3.40408e-06},
+    {"output_cap_F": 1.2e-10, "frequency_Hz": 20170.91, "vout_final_V": 2.8656, "vout_min_V": 2.8656, "vout_max_V": 3.52607, "iin_avg_A": -3.3233e-06}
+  ],
+  "limitations": [
+    "uses the same calibrated-model surrogate as dcdc_measurement_reproduction/manifest.json",
+    "does not reproduce the missing original mos.lib/passive.lib/diode.lib wrappers or fabricated board",
+    "does not model probe input capacitance, ESR/DCR, contact resistance, or package parasitics"
+  ]
+}

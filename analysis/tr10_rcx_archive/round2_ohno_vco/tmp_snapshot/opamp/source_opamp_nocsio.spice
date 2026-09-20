@@ -1,0 +1,35 @@
+** sch_path: /mnt/c/Data/OneDrive/MyDocuments/Community/ISHIKAI/shuttle/TR10/202509/OPAMP/opamp_ShuntaroOhno/opamp_ShuntaroOhno/xschem/opamp.sch
+.subckt opamp vinp vinn ib out vdd vss
+*.PININFO vinp:I vinn:I out:O vdd:B vss:B ib:B
+X1 vinp vinn net2 vdd vss ib diff
+X2 net2 ib out vdd vss cs
+XM9 net1 ib vdd vdd PMOS w=120u l=3u as=0 ad=0 ps=0 pd=0 nrd=0 nrs=0 m=1
+XM12 net3 net1 net2 vss NMOS w=30u l=3u as=0 ad=0 ps=0 pd=0 nrd=0 nrs=0 m=1
+XM8 ib ib vdd vdd PMOS w=90u l=3u as=0 ad=0 ps=0 pd=0 nrd=0 nrs=0 m=1
+XM10 net1 net1 net4 vss NMOS w=60u l=3u as=0 ad=0 ps=0 pd=0 nrd=0 nrs=0 m=1
+XM11 net4 net4 vss vss NMOS w=60u l=3u as=0 ad=0 ps=0 pd=0 nrd=0 nrs=0 m=1
+C1 net3 out 8.856p
+.ends
+
+* expanding   symbol:  diff.sym # of pins=6
+** sym_path: /mnt/c/Data/OneDrive/MyDocuments/Community/ISHIKAI/shuttle/TR10/202509/OPAMP/opamp_ShuntaroOhno/opamp_ShuntaroOhno/xschem/diff.sym
+** sch_path: /mnt/c/Data/OneDrive/MyDocuments/Community/ISHIKAI/shuttle/TR10/202509/OPAMP/opamp_ShuntaroOhno/opamp_ShuntaroOhno/xschem/diff.sch
+.subckt diff vinp vinn out vdd vss vb
+*.PININFO vinn:I vinp:I vb:I out:O vdd:B vss:B
+XM5 net2 vb vdd vdd PMOS w=240u l=3u as=0 ad=0 ps=0 pd=0 nrd=0 nrs=0 m=1
+XM1 net1 vinn net2 net2 PMOS w=720u l=3u as=0 ad=0 ps=0 pd=0 nrd=0 nrs=0 m=1
+XM2 out vinp net2 net2 PMOS w=720u l=3u as=0 ad=0 ps=0 pd=0 nrd=0 nrs=0 m=1
+XM3 net1 net1 vss vss NMOS w=60u l=3u as=0 ad=0 ps=0 pd=0 nrd=0 nrs=0 m=1
+XM4 out net1 vss vss NMOS w=60u l=3u as=0 ad=0 ps=0 pd=0 nrd=0 nrs=0 m=1
+.ends
+
+
+* expanding   symbol:  cs.sym # of pins=5
+** sym_path: /mnt/c/Data/OneDrive/MyDocuments/Community/ISHIKAI/shuttle/TR10/202509/OPAMP/opamp_ShuntaroOhno/opamp_ShuntaroOhno/xschem/cs.sym
+** sch_path: /mnt/c/Data/OneDrive/MyDocuments/Community/ISHIKAI/shuttle/TR10/202509/OPAMP/opamp_ShuntaroOhno/opamp_ShuntaroOhno/xschem/cs.sch
+.subckt cs vin vb out vdd vss
+*.PININFO vb:I vin:I out:O vss:B vdd:B
+XM6 out vb vdd vdd PMOS w=540u l=3u as=0 ad=0 ps=0 pd=0 nrd=0 nrs=0 m=1
+XM7 out vin vss vss NMOS w=270u l=3u as=0 ad=0 ps=0 pd=0 nrd=0 nrs=0 m=1
+.ends
+

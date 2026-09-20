@@ -1,0 +1,11 @@
+
+Note: No compatibility mode selected!
+
+
+Circuit: * tr10-1 dcdc schematic-level surrogate.
+
+Error on line 7 or its substitute:
+  m1 sw clk vin 0 nmos w=40u l=1u
+could not find a valid modelname
+    Simulation interrupted due to error!
+

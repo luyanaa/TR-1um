@@ -157,6 +157,34 @@
       "path": "../../libs.tech/spice/models/models_IP62_diode_v2.lib",
       "classification": "reference"
     },
+    "os00_model_calibration": {
+      "path": "os00_model_calibration.json",
+      "classification": "engineering_only"
+    },
+    "calibrated_spice_manifest": {
+      "path": "../../libs.tech/spice/models/ip62_models_calibrated",
+      "classification": "engineering_only"
+    },
+    "calibrated_resistor_model": {
+      "path": "../../libs.tech/spice/models/models_IP62_res_os00_calibrated.lib",
+      "classification": "engineering_only"
+    },
+    "calibrated_capacitor_model": {
+      "path": "../../libs.tech/spice/models/models_IP62_cap_os00_calibrated.lib",
+      "classification": "engineering_only"
+    },
+    "calibrated_diode_model": {
+      "path": "../../libs.tech/spice/models/models_IP62_diode_os00_calibrated.lib",
+      "classification": "engineering_only"
+    },
+    "calibrated_mos_model": {
+      "path": "../../libs.tech/spice/models/models_IP62_mos_os00_calibrated.lib",
+      "classification": "engineering_only"
+    },
+    "os00_calibration_report": {
+      "path": "reports/os00-model-calibration/model_calibration.json",
+      "classification": "engineering_only"
+    },
     "crosstalk_checker": {
       "path": "../scripts/signoff/check_crosstalk.py",
       "classification": "reference"
@@ -260,7 +288,7 @@
         "../librelane_override/librelane/scripts/openroad/sta/corner.tcl",
         "../designs/tr1um_counter/config.yaml"
       ],
-      "rationale": "The temperature validation now checks every declared MOS, resistor, capacitor, and diode model against the narrowed 27..85 degC release range, the documented 25/27 degC reference distinction, and a 27..150 degC characterization sweep. Ngspice probes pass for PMOS/NMOS/MPE/MNE, F_RR, F_RS, DN, and DP; below-25 RS extrapolation is not needed. F_RS and the checked-in CSIO source are explicit nominal-only warnings; CSIO is audited statically without claiming a measured capacitance temperature coefficient. The temperature report is PASS_WITH_WARNINGS; this stage remains engineering-only because process-qualified slow/fast Liberty, complete analog SDC coverage, and a bundled multi-corner STA report remain absent."
+      "rationale": "The temperature validation checks the active OS00 overlay set across the narrowed 27..85 degC release range and the 27..150 degC characterization sweep. Ngspice probes pass for PMOS/NMOS/MPE/MNE, F_RR, F_RS, DN, and DP. F_RS and DP use engineering fits; CSIO uses a plain-ngspice C(V)/C(T) overlay but remains static-only in the runner because no capacitance probe is implemented. The report is ENGINEERING_ONLY; process-qualified slow/fast Liberty, complete analog SDC coverage, raw model data, and a bundled multi-corner STA report remain absent."
     },
     "variation_analysis": {
       "status": "pass",

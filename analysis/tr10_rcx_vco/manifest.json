@@ -1,0 +1,99 @@
+{
+  "schema": 1,
+  "status": "engineering_estimate_not_foundry_qualified",
+  "purpose": "Repaired source-level VCO post-layout transient and coupling-capacitance sensitivity cross-check.",
+  "previous_round_backup": "analysis/tr10_rcx_archive/round2_ohno_vco/manifest.json",
+  "source_changes": [
+    {
+      "path": "flow/scripts/analysis/extract_tr1um_parasitics.py",
+      "change": "Replace emitted zero-ohm terminal-attachment RPEX edges with a configured numerical floor and record it in the topology ledger."
+    },
+    {
+      "path": "flow/scripts/analysis/tr1um_parasitic_model.json",
+      "change": "Declare terminal_attachment_resistance_ohm=1e-6 with explicit non-physical numerical-floor basis."
+    }
+  ],
+  "inputs": {
+    "def": "analysis/tr10_rcx_vco/inputs/vco.synthetic.def",
+    "gds": "analysis/tr10_rcx_vco/inputs/vco.tr1um.gds",
+    "extracted_spice": "analysis/tr10_rcx_vco/inputs/vco.sim.control.named.sp",
+    "parasitic_model": "analysis/tr10_rcx_vco/inputs/tr1um_parasitic_model_no_lateral.json",
+    "compact_models": "libs.tech/spice/models/ip62_models_calibrated",
+    "reduced_model_basis": "tr1um_parasitic_model_no_lateral.json"
+  },
+  "artifacts": {
+    "directory": "analysis/tr10_rcx_vco/remediated/vco",
+    "canonical_testbench": "analysis/tr10_rcx_vco/remediated/vco/vco.canonical.tb.sp",
+    "baseline_log": "analysis/tr10_rcx_vco/remediated/vco/vco.canonical.log",
+    "parasitic_ledger": "analysis/tr10_rcx_vco/remediated/vco/vco.parasitics.json",
+    "postlayout_spice": "analysis/tr10_rcx_vco/remediated/vco/vco.post.sp",
+    "coupling_manifest": "analysis/tr10_rcx_vco/remediated/vco/coupling_crosscheck/manifest.json",
+    "coupling_runner": "analysis/tr10_rcx_vco/run_coupling_crosscheck.py"
+  },
+  "numerical_repair": {
+    "terminal_attachment_count": 30,
+    "terminal_attachment_resistance_ohm": 1.0e-6,
+    "floor_source": "extractor default for the archived no-lateral snapshot; the checked-in model-configured path was independently verified",
+    "zero_ohm_rpex_after_repair": 0
+  },
+  "baseline": {
+    "transient": "10n 25u uic",
+    "data_rows": 2657,
+    "period_s": 1.40073e-6,
+    "frequency_Hz": 713915.0,
+    "vout_min_V": -0.0125662,
+    "vout_max_V": 5.02434,
+    "prelayout_reference_period_s": 1.34196e-6,
+    "prelayout_reference_frequency_Hz": 745178.0,
+    "frequency_shift_vs_prelayout_percent": -4.1954
+  },
+  "coupling_crosscheck": {
+    "ground_net": "VSS",
+    "cpex_total": 369,
+    "ground_entries": 60,
+    "coupling_entries": 309,
+    "factors": [0.8, 1.0, 1.2],
+    "results": [
+      {
+        "k_c_coupling": 0.8,
+        "frequency_Hz": 717519.0,
+        "period_s": 1.39369e-6,
+        "vout_min_V": -0.0118687,
+        "vout_max_V": 5.02077,
+        "data_rows": 2670
+      },
+      {
+        "k_c_coupling": 1.0,
+        "frequency_Hz": 713916.0,
+        "period_s": 1.40072e-6,
+        "vout_min_V": -0.0125585,
+        "vout_max_V": 5.02435,
+        "data_rows": 2657
+      },
+      {
+        "k_c_coupling": 1.2,
+        "frequency_Hz": 709765.0,
+        "period_s": 1.40892e-6,
+        "vout_min_V": -0.013024,
+        "vout_max_V": 5.02158,
+        "data_rows": 2664
+      }
+    ]
+  },
+  "reverse_inference_status": {
+    "status": "blocked_for_quantitative_silicon_inference",
+    "supported_claim": "The repaired deck supports bounded engineering sensitivity of simulated oscillation frequency to selected CPEX coupling factors.",
+    "blocked_claim": "The simulated frequency cannot uniquely identify silicon coupling, device, or foundry-RCX parameters.",
+    "blocking_evidence": [
+      "The RCX and no-lateral model are engineering estimates rather than foundry-qualified extraction.",
+      "Compact-model ownership and analog LVS-clean VCO views are not silicon calibrated.",
+      "The cross-check changes only selected CPEX coupling entries and is not a full uncertainty decomposition."
+    ]
+  },
+  "limitations": [
+    "The RCX remains an engineering estimate, not foundry-qualified extraction.",
+    "The cross-check uses the reduced no-lateral parasitic model; it does not calibrate lateral coupling.",
+    "Compact-model ownership and analog LVS views are not a silicon-calibrated VCO model.",
+    "The simulated post-layout frequency is not a reverse-inferred silicon parameter."
+  ]
+}

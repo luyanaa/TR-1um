@@ -1,0 +1,33 @@
+
+Note: No compatibility mode selected!
+
+
+Circuit: * tr-1um canonical vco post-layout transient testbench.
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+Operating point simulation skipped by 'uic',
+  now using transient initial conditions.
+
+No. of Data Rows : 2607
+
+  Measurements for Transient Analysis
+
+t1                  =   1.23790e-05
+t2                  =   1.42790e-05
+period              =  1.90000e-06
+freq                =  5.26315e+05
+vout_min            =  -2.30517e-03 at=  1.33233e-05
+vout_max            =  5.00984e+00 at=  2.37962e-05
+
+
+Total analysis time (seconds) = 0.953655
+
+Total elapsed time (seconds) = 0.970 
+
+Total DRAM available = 8192.000 MB.
+DRAM currently available = 2554.938 MB.
+Maximum ngspice program size =   11.859 MB.
+Current ngspice program size =   11.859 MB.
+

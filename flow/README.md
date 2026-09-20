@@ -525,10 +525,38 @@ to `flow/scripts/analysis/extract_tr1um_parasitics.py`. The extractor reads
 explicit DEF route widths (using the nominal LEF width only for widthless
 routes), resolves DEF/LEF pin connections, splits each routed segment at
 endpoints, vias, and located terminals, and emits a distributed SPEF. It also
-emits two sidecars beside the SPEF: `<base>.parasitics.json` (the source,
-geometry, width, node, and resistor-edge ledger) and `<base>.pex.sp` (the
-distributed RC network for an analog deck). DEF coordinate extension fields
-are not vias.
+emits these sidecars beside the SPEF:
+
+| Sidecar | Ownership |
+|---|---|
+| `<base>.interconnect.sp` | distributed `tr1um_parasitics` wire/via/coupling network |
+| `<base>.pex.sp` | compatibility copy of the distributed RC sidecar |
+| `<base>.parasitics.json` | geometry, topology, node-anchor, and ownership ledger |
+| `<base>.extracted` | KLayout GDS netlist-only device hierarchy when auto-extracted |
+| `<base>.extraction.log` | KLayout extraction log when auto-extracted |
+| `<base>.devices.sp` | simulation-facing device hierarchy when post-layout merge is enabled |
+| `<base>.devices.json` | device-terminal and reference-net mapping ledger |
+| `<base>.postlayout.sp` | merged device hierarchy plus in-top distributed RC instance |
+| `<base>.pex_manifest.json` | merge status, ownership boundary, and unresolved hierarchy |
+
+When `RCX_EXTRACTED` is not supplied, the wrapper invokes the active KLayout
+LVS runset in netlist-only mode against the final GDS before it runs the RC
+extractor. `flow/scripts/analysis/build_postlayout_spice.py` then inserts the
+distributed network into the selected extracted top subcircuit. Direct device
+terminals map through the JSON route anchors; an optional
+`RCX_REFERENCE_NETLIST` or `RCX_NET_MAP` supplies an explicit mapping when GDS
+labels do not preserve routed DEF names. Nested cell definitions remain
+hierarchical. A merge that cannot prove every selected-top connection fails
+closed unless `RCX_ALLOW_PARTIAL_MERGE=1`; a partial merge is marked in the
+manifest and is not a qualified post-layout deck.
+
+The generated simulation-facing copy normalizes KLayout's extracted MOS/diode
+element spellings to the compact-model contract (`X... PMOS/NMOS` and
+`D... DP/DN`) and removes LVS-only diode area/perimeter parameters. Compact
+models retain ownership of intrinsic device behavior; the distributed
+`tr1um_parasitics` instance owns wire/via resistance, node-ground capacitance,
+and coupling capacitors. The digital DEF/SPEF path is preserved by setting
+`RCX_MERGE_POSTLAYOUT=0`; its SPEF and interconnect sidecars are still emitted.
 
 The generated engineering network includes width-aware same-net wire
 capacitance, distributed sheet-resistance edges, explicit V1 resistor edges,
@@ -541,15 +569,6 @@ compact-model formula, and GC/MOS gate-to-AP/AN overlap terms from the BSIM3
 `cgsl`/`cgdl` values. SPEF `*CONN` records carry DEF ports and placed-cell
 pin directions/cell types; zero-ohm terminal attachments connect those
 physical terminals to the nearest routed graph node.
-Only device terms whose terminals resolve to the selected top-level routed
-nets are materialized in SPEF/SPICE; nested KLayout devices remain in the
-ledger with a bounded warning rather than being assigned to an unrelated net.
-The coefficients and provenance are explicit in
-`flow/scripts/analysis/tr1um_parasitic_model.json`; no value is presented as
-foundry-qualified. `run_tr1um_signoff.sh` passes the KLayout extracted SPICE
-view to RCX automatically. Set `RCX_INCLUDE_DEVICE_CAPS=0` when the analog
-compact models already own the RR/GC terms and the generated network is used
-only for wire coupling.
 
 The extractor rejects unsupported routed layers and via types instead of
 silently dropping them. This is useful for engineering sensitivity/timing
@@ -629,17 +648,17 @@ Direct evidence from the repaired run and framed wrapper (`RC=0`):
 | Framed LVS (strict contract) | Netlists match |
 | MDP | generated |
 | IP62 mask DRC | 0 hard items |
-| RCX | DEF-derived SPEF, 20 nets (engineering estimate, not foundry-qualified) |
+| RCX | DEF/GDS-derived distributed SPEF plus PEX sidecars (engineering estimate, not foundry-qualified) |
 
 The contract generator is
 `flow/scripts/signoff/build_strict_mixed_contract.py`; it never copies the
 routed layout's topology (the earlier `build_mixed_extracted_contract.py`
 extraction-echo contract is deprecated and kept only for debugging). The
 RCX recipe `flow/signoff/run_estimated_rcx.sh` derives a distributed
-SPEF/RC network from routed DEF geometry, adds optional GDS vertical-overlap
-and extracted-device terms, and writes distributed RC/SPICE and ledger
-sidecars; the status remains an explicit engineering estimate because no
-foundry RC/PEX deck exists for TR-1um.
+SPEF/RC network from routed DEF geometry, adds GDS vertical-overlap and
+KLayout-extracted device terms, and emits the interconnect/device/post-layout
+SPICE views plus their ledgers. The merge status is explicit in
+`<base>.pex_manifest.json`; no foundry RC/PEX deck exists for TR-1um.
 
 The macro GND issue is fixed by a reproducible post-streamout bridge in
 `flow/scripts/signoff/add_gnd_bridge.py`, integrated into the overridden
@@ -1101,9 +1120,12 @@ DRC errors.
 
 The full wrapper reaches the RC/PEX stage without an environment override.
 `flow/signoff/run_estimated_rcx.sh` produces the repository's deterministic
-DEF/GDS-derived distributed SPEF, distributed RC/SPICE network, and
-ledger. A real foundry RC/PEX deck is unavailable; this estimate is explicitly
-not foundry-qualified. `RCX_COMMAND` remains an optional override for a
+DEF/GDS-derived distributed SPEF, distributed RC/interconnect SPICE, the
+KLayout GDS-extracted hierarchy, and the merged post-layout SPICE/JSON
+manifests. A real foundry RC/PEX deck is unavailable; this estimate is
+explicitly not foundry-qualified. Unresolved GDS-to-reference hierarchy is
+reported as `partial_hierarchy` and is fail-closed unless the caller opts into
+`RCX_ALLOW_PARTIAL_MERGE=1`. `RCX_COMMAND` remains an optional override for a
 separately qualified extractor.
 The macro GND problem is fixed by the physical GND bridge integrated into
 KLayout streamout. It is not a checker-classification waiver: the bridge is
@@ -1430,31 +1452,29 @@ models: 12 MOS probes, 15 F_RR probes, 36 F_RS probes, and 6 diode probes.
 The report records no low-temperature RS comparison because it is outside the
 27..85 degC release scope.
 
-`F_RS` remains `nominal_only`: the source has `tnom=27` but no `temper` term.
-Its 27/85/150 degC probes execute successfully, but this is not evidence of a
-measured RS temperature coefficient. The narrowed range removes the below-25
-extrapolation requirement; the contract records the nominal-only behavior as a
-warning rather than a release blocker.
+The active checked-in model set is the explicit OS00 engineering overlay
+manifest at `libs.tech/spice/models/ip62_models_calibrated`; the original
+PDK model files remain unchanged. `F_RS` is wrapped around the original
+equation with a fitted correction for the systematic RS resistance offset and
+temperature trend visible in the digitized OS00 figure. `DP` uses a fitted
+`IS`/`XTI` pair for the systematic high-temperature forward-current residual.
+These fits are engineering-only because the manual exposes raster figures,
+not raw measurement tables.
 
-`m_CSIO` is handled the same way under an explicit `temperature_policy:
-warning_only` contract entry. The checked-in source declares
-`.model m_CSIO C tnom=27`, but has no `TC1`/`TC2` or other machine-readable
-temperature law, and the C2 expression is a Spectre-style behavioral
-capacitance dependent on geometry and voltage. Ngspice documents that
-capacitor temperature behavior requires `TC1`/`TC2`; their absence is not
-evidence that the physical capacitance temperature coefficient is zero:
+`m_CSIO` is calibrated in the overlay with a plain ngspice capacitor for the
+plate term, retaining the geometry-dependent substrate term and adding the
+digitized C(V)/C(T) slopes. The temperature runner treats it as static-only
+because it has no capacitance probe; direct AC smoke probes cover the
+engineering C(V)/C(T) behavior. The calibrated MOS file is a syntax-only copy
+that closes the original PMOS/PMOSg terminator typo; MOS electrical parameters
+remain unfit and retain sign-off margin treatment.
 
-- [ngspice capacitor syntax](https://nmg.gitlab.io/ngspice-manual/circuitelementsandmodels/elementarydevices/capacitors.html)
-- [ngspice semiconductor capacitor model](https://nmg.gitlab.io/ngspice-manual/circuitelementsandmodels/elementarydevices/semiconductorcapacitormodel_c.html)
-- [MOS capacitor zero-temperature-coefficient reference](https://iopscience.iop.org/article/10.1143/JJAP.30.917)
-
-The temperature report is now `PASS_WITH_WARNINGS`, not `ENGINEERING_ONLY`.
-The warnings are explicit: F_RS and CSIO are nominal-only, and CSIO is
-audited statically because the checked-in source is Spectre-style. This does
-not claim a measured CSIO temperature coefficient. A separate repository issue
-also reports numerical convergence risk in the C2 square-root expression near
-`v(minus,sub) = -0.61/-0.71 V`: [F_CSIO ngspice issue #96](https://github.com/OpenSUSI/TR-1um/issues/96).
-That is a runtime robustness warning, separate from temperature qualification.
+The temperature report is `ENGINEERING_ONLY`, not foundry qualification. The
+remaining warnings are explicit: CSIO needs a dedicated capacitance probe and
+raw C(V)/C(T) data before qualification. A separate repository issue also
+reports numerical convergence risk in the original C2 square-root expression;
+the calibrated overlay avoids that Spectre-style expression in the active
+ngspice path: [F_CSIO ngspice issue #96](https://github.com/OpenSUSI/TR-1um/issues/96).
 
 ### PVT, pseudo-Monte Carlo, and sensitivity analysis
 

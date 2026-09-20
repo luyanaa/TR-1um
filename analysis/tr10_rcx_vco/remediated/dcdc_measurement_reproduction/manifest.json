@@ -1,0 +1,269 @@
+{
+  "design": "TR10-1 DCDC_DOWN",
+  "inductor_H": 1e-07,
+  "limitations": [
+    "surrogate topology because original mos.lib/passive.lib/diode.lib and Xschem netlist are not present in the extracted project",
+    "no package/bondwire/board/probe/load models",
+    "not a claim that the surrogate is the exact fabricated netlist"
+  ],
+  "output_cap_F": 1e-10,
+  "rows": [
+    {
+      "clock_frequency_Hz": 90000.0,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/high_side_only_f_90000_r_1e+09/run.sp",
+      "load_ohm": 1000000000.0,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/high_side_only_f_90000_r_1e+09/run.log",
+      "measurements": {
+        "iin_avg": -2.65417e-08,
+        "vout_final": 3.86994,
+        "vout_max": 3.8756,
+        "vout_min": 3.82466
+      },
+      "returncode": 0,
+      "topology": "high_side_only"
+    },
+    {
+      "clock_frequency_Hz": 90000.0,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/high_side_only_f_90000_r_10000/run.sp",
+      "load_ohm": 10000,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/high_side_only_f_90000_r_10000/run.log",
+      "measurements": {
+        "iin_avg": -0.000182344,
+        "vout_final": 0.0127248,
+        "vout_max": 3.16868,
+        "vout_min": 0.0127248
+      },
+      "returncode": 0,
+      "topology": "high_side_only"
+    },
+    {
+      "clock_frequency_Hz": 90000.0,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/high_side_only_f_90000_r_1000/run.sp",
+      "load_ohm": 1000,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/high_side_only_f_90000_r_1000/run.log",
+      "measurements": {
+        "iin_avg": -0.0013722,
+        "vout_final": 2.78225e-06,
+        "vout_max": 2.75834,
+        "vout_min": 2.78225e-06
+      },
+      "returncode": 0,
+      "topology": "high_side_only"
+    },
+    {
+      "clock_frequency_Hz": 33736.669,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/high_side_only_f_33736.7_r_1e+09/run.sp",
+      "load_ohm": 1000000000.0,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/high_side_only_f_33736.7_r_1e+09/run.log",
+      "measurements": {
+        "iin_avg": -2.29472e-08,
+        "vout_final": 3.88047,
+        "vout_max": 3.88658,
+        "vout_min": 3.83479
+      },
+      "returncode": 0,
+      "topology": "high_side_only"
+    },
+    {
+      "clock_frequency_Hz": 33736.669,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/high_side_only_f_33736.7_r_10000/run.sp",
+      "load_ohm": 10000,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/high_side_only_f_33736.7_r_10000/run.log",
+      "measurements": {
+        "iin_avg": -0.000168991,
+        "vout_final": 2.90751e-05,
+        "vout_max": 3.16868,
+        "vout_min": 2.90751e-05
+      },
+      "returncode": 0,
+      "topology": "high_side_only"
+    },
+    {
+      "clock_frequency_Hz": 33736.669,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/high_side_only_f_33736.7_r_1000/run.sp",
+      "load_ohm": 1000,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/high_side_only_f_33736.7_r_1000/run.log",
+      "measurements": {
+        "iin_avg": -0.00138794,
+        "vout_final": 2.78225e-06,
+        "vout_max": 2.75812,
+        "vout_min": 2.78225e-06
+      },
+      "returncode": 0,
+      "topology": "high_side_only"
+    },
+    {
+      "clock_frequency_Hz": 20170.91,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/high_side_only_f_20170.9_r_1e+09/run.sp",
+      "load_ohm": 1000000000.0,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/high_side_only_f_20170.9_r_1e+09/run.log",
+      "measurements": {
+        "iin_avg": -1.57929e-08,
+        "vout_final": 3.91006,
+        "vout_max": 3.91665,
+        "vout_min": 3.86891
+      },
+      "returncode": 0,
+      "topology": "high_side_only"
+    },
+    {
+      "clock_frequency_Hz": 20170.91,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/high_side_only_f_20170.9_r_10000/run.sp",
+      "load_ohm": 10000,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/high_side_only_f_20170.9_r_10000/run.log",
+      "measurements": {
+        "iin_avg": -0.000164751,
+        "vout_final": 2.78081e-05,
+        "vout_max": 3.16868,
+        "vout_min": 2.78081e-05
+      },
+      "returncode": 0,
+      "topology": "high_side_only"
+    },
+    {
+      "clock_frequency_Hz": 20170.91,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/high_side_only_f_20170.9_r_1000/run.sp",
+      "load_ohm": 1000,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/high_side_only_f_20170.9_r_1000/run.log",
+      "measurements": {
+        "iin_avg": -0.00138423,
+        "vout_final": 2.78225e-06,
+        "vout_max": 2.75835,
+        "vout_min": 2.78225e-06
+      },
+      "returncode": 0,
+      "topology": "high_side_only"
+    },
+    {
+      "clock_frequency_Hz": 90000.0,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/synchronous_complement_f_90000_r_1e+09/run.sp",
+      "load_ohm": 1000000000.0,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/synchronous_complement_f_90000_r_1e+09/run.log",
+      "measurements": {
+        "iin_avg": -3.18355e-05,
+        "vout_final": 8.24494e-07,
+        "vout_max": 3.59777,
+        "vout_min": -7.01137e-05
+      },
+      "returncode": 0,
+      "topology": "synchronous_complement"
+    },
+    {
+      "clock_frequency_Hz": 90000.0,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/synchronous_complement_f_90000_r_10000/run.sp",
+      "load_ohm": 10000,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/synchronous_complement_f_90000_r_10000/run.log",
+      "measurements": {
+        "iin_avg": -0.000182795,
+        "vout_final": 8.00766e-07,
+        "vout_max": 3.16868,
+        "vout_min": -7.02253e-05
+      },
+      "returncode": 0,
+      "topology": "synchronous_complement"
+    },
+    {
+      "clock_frequency_Hz": 90000.0,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/synchronous_complement_f_90000_r_1000/run.sp",
+      "load_ohm": 1000,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/synchronous_complement_f_90000_r_1000/run.log",
+      "measurements": {
+        "iin_avg": -0.00137252,
+        "vout_final": 6.36025e-07,
+        "vout_max": 2.75833,
+        "vout_min": -7.47407e-05
+      },
+      "returncode": 0,
+      "topology": "synchronous_complement"
+    },
+    {
+      "clock_frequency_Hz": 33736.669,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/synchronous_complement_f_33736.7_r_1e+09/run.sp",
+      "load_ohm": 1000000000.0,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/synchronous_complement_f_33736.7_r_1e+09/run.log",
+      "measurements": {
+        "iin_avg": -1.24594e-05,
+        "vout_final": 8.24494e-07,
+        "vout_max": 3.67168,
+        "vout_min": -6.98352e-05
+      },
+      "returncode": 0,
+      "topology": "synchronous_complement"
+    },
+    {
+      "clock_frequency_Hz": 33736.669,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/synchronous_complement_f_33736.7_r_10000/run.sp",
+      "load_ohm": 10000,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/synchronous_complement_f_33736.7_r_10000/run.log",
+      "measurements": {
+        "iin_avg": -0.000169143,
+        "vout_final": 8.00766e-07,
+        "vout_max": 3.16868,
+        "vout_min": -7.43799e-05
+      },
+      "returncode": 0,
+      "topology": "synchronous_complement"
+    },
+    {
+      "clock_frequency_Hz": 33736.669,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/synchronous_complement_f_33736.7_r_1000/run.sp",
+      "load_ohm": 1000,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/synchronous_complement_f_33736.7_r_1000/run.log",
+      "measurements": {
+        "iin_avg": -0.00138805,
+        "vout_final": 6.36025e-07,
+        "vout_max": 2.75829,
+        "vout_min": -7.03276e-05
+      },
+      "returncode": 0,
+      "topology": "synchronous_complement"
+    },
+    {
+      "clock_frequency_Hz": 20170.91,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/synchronous_complement_f_20170.9_r_1e+09/run.sp",
+      "load_ohm": 1000000000.0,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/synchronous_complement_f_20170.9_r_1e+09/run.log",
+      "measurements": {
+        "iin_avg": -7.52392e-06,
+        "vout_final": 8.24494e-07,
+        "vout_max": 3.71059,
+        "vout_min": -7.35667e-05
+      },
+      "returncode": 0,
+      "topology": "synchronous_complement"
+    },
+    {
+      "clock_frequency_Hz": 20170.91,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/synchronous_complement_f_20170.9_r_10000/run.sp",
+      "load_ohm": 10000,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/synchronous_complement_f_20170.9_r_10000/run.log",
+      "measurements": {
+        "iin_avg": -0.000164836,
+        "vout_final": 8.00766e-07,
+        "vout_max": 3.16868,
+        "vout_min": -7.56738e-05
+      },
+      "returncode": 0,
+      "topology": "synchronous_complement"
+    },
+    {
+      "clock_frequency_Hz": 20170.91,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/synchronous_complement_f_20170.9_r_1000/run.sp",
+      "load_ohm": 1000,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/dcdc_measurement_reproduction/synchronous_complement_f_20170.9_r_1000/run.log",
+      "measurements": {
+        "iin_avg": -0.0013843,
+        "vout_final": 6.36025e-07,
+        "vout_max": 2.75833,
+        "vout_min": -7.05233e-05
+      },
+      "returncode": 0,
+      "topology": "synchronous_complement"
+    }
+  ],
+  "source_testbench_frequencies_Hz": {
+    "measured_vco_at_2.5V": 20170.91,
+    "measured_vco_at_5V": 33736.669,
+    "xschem_external_clock": 90000.0
+  }
+}

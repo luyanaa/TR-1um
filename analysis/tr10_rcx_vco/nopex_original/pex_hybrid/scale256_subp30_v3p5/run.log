@@ -1,0 +1,54 @@
+
+Note: No compatibility mode selected!
+
+
+Circuit: * historical ishi-kai mos/passive models plus distributed engineering pex.
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+Operating point simulation skipped by 'uic',
+  now using transient initial conditions.
+
+No. of Data Rows : 600034
+
+  Measurements for Transient Analysis
+
+
+Error: measure  t1  when(WHEN) : out of interval
+ .meas tran t1 when v(out)=2.5 rise=8 failed!
+
+
+Error: measure  t2  when(WHEN) : out of interval
+ .meas tran t2 when v(out)=2.5 rise=9 failed!
+
+Error in netlist line no. 786, new internal line no. 15:
+
+Undefined parameter [t2]
+Error in netlist line no. 786, new internal line no. 15:
+
+ Expression err: t2-t1}
+Error in netlist line no. 786, new internal line no. 15:
+
+Cannot compute substitute
+period              =   failed
+Error in netlist line no. 787, new internal line no. 16:
+
+Undefined parameter [period]
+Error in netlist line no. 787, new internal line no. 16:
+
+Cannot compute substitute
+freq                =   failed
+vout_min            =  -6.81500e-04 at=  5.96591e-05
+vout_max            =  2.38605e-03 at=  6.31001e-05
+
+
+Total analysis time (seconds) = 124.592
+
+Total elapsed time (seconds) = 124.609 
+
+Total DRAM available = 8192.000 MB.
+DRAM currently available = 2147.766 MB.
+Maximum ngspice program size =   29.578 MB.
+Current ngspice program size =   29.578 MB.
+

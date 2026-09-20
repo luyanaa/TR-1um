@@ -1,0 +1,50 @@
+
+Note: No compatibility mode selected!
+
+Warning: redefinition of .subckt f_csio_mst, ignored
+Warning: redefinition of .subckt f_csio, ignored
+Warning: redefinition of .subckt pmos, ignored
+Warning: redefinition of .subckt nmos, ignored
+Warning: redefinition of .subckt mpe, ignored
+Warning: redefinition of .subckt mne, ignored
+Warning: redefinition of .subckt f_rr, ignored
+Warning: redefinition of .subckt f_rs_base, ignored
+Warning: redefinition of .subckt f_rs, ignored
+
+Circuit: * tr10-1 converted vco stabilized post simulation
+
+Warning: Value of resistor r.xu.xpex_tr1um.rpex520 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex521 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex522 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex523 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex524 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex525 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex526 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex527 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex528 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex529 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex530 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex531 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex532 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex533 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex534 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex535 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex536 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex537 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex538 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex539 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex540 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex541 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex542 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex543 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex544 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex545 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex546 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex547 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex548 is too small, set to 1.000000e-12
+Warning: Value of resistor r.xu.xpex_tr1um.rpex549 is too small, set to 1.000000e-12
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+Operating point simulation skipped by 'uic',
+  now using transient initial conditions.

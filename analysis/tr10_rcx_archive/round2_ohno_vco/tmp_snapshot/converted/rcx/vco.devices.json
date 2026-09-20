@@ -1,0 +1,3775 @@
+{
+  "schema": 1,
+  "status": "engineering_estimate_not_foundry_qualified",
+  "top_subckt": "VCO",
+  "source_extracted_spice": "/private/tmp/tr10-rcx/converted/extracted/vco.sim.named.sp",
+  "outputs": {
+    "devices_spice": "/private/tmp/tr10-rcx/converted/rcx/vco.devices.sp",
+    "postlayout_spice": "/private/tmp/tr10-rcx/converted/rcx/vco.postlayout.sp"
+  },
+  "device_count": 80,
+  "simulation_normalized_device_count": 80,
+  "mapped_terminal_count": 320,
+  "devices": [
+    {
+      "instance": "M$1",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P28",
+        "P22",
+        "P22",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P28",
+        "P22",
+        "P22",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$2",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P22",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P22",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$3",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P27",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P27",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P27",
+          "mapped_node": "P27",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$4",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P28",
+        "P22",
+        "P27",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P28",
+        "P22",
+        "P27",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P27",
+          "mapped_node": "P27",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$5",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P27",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P27",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P27",
+          "mapped_node": "P27",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$6",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P28",
+        "P22",
+        "P27",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P28",
+        "P22",
+        "P27",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P27",
+          "mapped_node": "P27",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$7",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P26",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P26",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P26",
+          "mapped_node": "P26",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$8",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P28",
+        "P22",
+        "P26",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P28",
+        "P22",
+        "P26",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P26",
+          "mapped_node": "P26",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$9",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P26",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P26",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P26",
+          "mapped_node": "P26",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$10",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P28",
+        "P22",
+        "P26",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P28",
+        "P22",
+        "P26",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P26",
+          "mapped_node": "P26",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$11",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P21",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P21",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P21",
+          "mapped_node": "P21",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$12",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P28",
+        "P22",
+        "P21",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P28",
+        "P22",
+        "P21",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P21",
+          "mapped_node": "P21",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$13",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P21",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P21",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P21",
+          "mapped_node": "P21",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$14",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P28",
+        "P22",
+        "P21",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P28",
+        "P22",
+        "P21",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P21",
+          "mapped_node": "P21",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$15",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P24",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P24",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P24",
+          "mapped_node": "P24",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$16",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P28",
+        "P22",
+        "P24",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P28",
+        "P22",
+        "P24",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P24",
+          "mapped_node": "P24",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$17",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P24",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P24",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P24",
+          "mapped_node": "P24",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$18",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P28",
+        "P22",
+        "P24",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P28",
+        "P22",
+        "P24",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P24",
+          "mapped_node": "P24",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$19",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P4",
+        "P3",
+        "P24",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P4",
+        "P3",
+        "P24",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P4",
+          "mapped_node": "P4",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P3",
+          "mapped_node": "P3",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P24",
+          "mapped_node": "P24",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$20",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P23",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P23",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P23",
+          "mapped_node": "P23",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$21",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P28",
+        "P22",
+        "P23",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P28",
+        "P22",
+        "P23",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P23",
+          "mapped_node": "P23",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$22",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P23",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P23",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P23",
+          "mapped_node": "P23",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$23",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P28",
+        "P22",
+        "P23",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P28",
+        "P22",
+        "P23",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P23",
+          "mapped_node": "P23",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$24",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P25",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P25",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P25",
+          "mapped_node": "P25",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$25",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P28",
+        "P22",
+        "P25",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P28",
+        "P22",
+        "P25",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P25",
+          "mapped_node": "P25",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$26",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P25",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P25",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P25",
+          "mapped_node": "P25",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$27",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P28",
+        "P22",
+        "P25",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P28",
+        "P22",
+        "P25",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P25",
+          "mapped_node": "P25",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$28",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P19",
+        "P18",
+        "P28",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P19",
+        "P18",
+        "P28",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P19",
+          "mapped_node": "P19",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P18",
+          "mapped_node": "P18",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$29",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P20",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P20",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P20",
+          "mapped_node": "P20",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$30",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P28",
+        "P22",
+        "P20",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P28",
+        "P22",
+        "P20",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P20",
+          "mapped_node": "P20",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$31",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P20",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P20",
+        "P22",
+        "P28",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P20",
+          "mapped_node": "P20",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$32",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P28",
+        "P22",
+        "P20",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P28",
+        "P22",
+        "P20",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P20",
+          "mapped_node": "P20",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$33",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P18",
+        "P8",
+        "P28",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P18",
+        "P8",
+        "P28",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P18",
+          "mapped_node": "P18",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P8",
+          "mapped_node": "P8",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P28",
+          "mapped_node": "P28",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$34",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P7",
+        "P6",
+        "P26",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P7",
+        "P6",
+        "P26",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P7",
+          "mapped_node": "P7",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P6",
+          "mapped_node": "P6",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P26",
+          "mapped_node": "P26",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$35",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P6",
+        "P5",
+        "P21",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P6",
+        "P5",
+        "P21",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P6",
+          "mapped_node": "P6",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P5",
+          "mapped_node": "P5",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P21",
+          "mapped_node": "P21",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$36",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P5",
+        "P4",
+        "P25",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P5",
+        "P4",
+        "P25",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P5",
+          "mapped_node": "P5",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P4",
+          "mapped_node": "P4",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P25",
+          "mapped_node": "P25",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$37",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P8",
+        "P7",
+        "P27",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P8",
+        "P7",
+        "P27",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P8",
+          "mapped_node": "P8",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P7",
+          "mapped_node": "P7",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P27",
+          "mapped_node": "P27",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$38",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P2",
+        "P8",
+        "P20",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P2",
+        "P8",
+        "P20",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P2",
+          "mapped_node": "P2",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P8",
+          "mapped_node": "P8",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P20",
+          "mapped_node": "P20",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$39",
+      "model": "PMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P3",
+        "P2",
+        "P23",
+        "P29"
+      ],
+      "mapped_nodes": [
+        "P3",
+        "P2",
+        "P23",
+        "P29"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P3",
+          "mapped_node": "P3",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P2",
+          "mapped_node": "P2",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P23",
+          "mapped_node": "P23",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P29",
+          "mapped_node": "P29",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$40",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P9",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P9",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P9",
+          "mapped_node": "P9",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$41",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P1",
+        "P17",
+        "P9",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P1",
+        "P17",
+        "P9",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P9",
+          "mapped_node": "P9",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$42",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P10",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P10",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P10",
+          "mapped_node": "P10",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$43",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P1",
+        "P17",
+        "P10",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P1",
+        "P17",
+        "P10",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P10",
+          "mapped_node": "P10",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$44",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P10",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P10",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P10",
+          "mapped_node": "P10",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$45",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P1",
+        "P17",
+        "P10",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P1",
+        "P17",
+        "P10",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P10",
+          "mapped_node": "P10",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$46",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P11",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P11",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P11",
+          "mapped_node": "P11",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$47",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P1",
+        "P17",
+        "P11",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P1",
+        "P17",
+        "P11",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P11",
+          "mapped_node": "P11",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$48",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P11",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P11",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P11",
+          "mapped_node": "P11",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$49",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P1",
+        "P17",
+        "P11",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P1",
+        "P17",
+        "P11",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P11",
+          "mapped_node": "P11",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$50",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P12",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P12",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P12",
+          "mapped_node": "P12",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$51",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P1",
+        "P17",
+        "P12",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P1",
+        "P17",
+        "P12",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P12",
+          "mapped_node": "P12",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$52",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P12",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P12",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P12",
+          "mapped_node": "P12",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$53",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P1",
+        "P17",
+        "P12",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P1",
+        "P17",
+        "P12",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P12",
+          "mapped_node": "P12",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$54",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P13",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P13",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P13",
+          "mapped_node": "P13",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$55",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P1",
+        "P17",
+        "P13",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P1",
+        "P17",
+        "P13",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P13",
+          "mapped_node": "P13",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$56",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P13",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P13",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P13",
+          "mapped_node": "P13",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$57",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P1",
+        "P17",
+        "P13",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P1",
+        "P17",
+        "P13",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P13",
+          "mapped_node": "P13",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$58",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P14",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P14",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P14",
+          "mapped_node": "P14",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$59",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P1",
+        "P17",
+        "P14",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P1",
+        "P17",
+        "P14",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P14",
+          "mapped_node": "P14",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$60",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P14",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P14",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P14",
+          "mapped_node": "P14",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$61",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P1",
+        "P17",
+        "P14",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P1",
+        "P17",
+        "P14",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P14",
+          "mapped_node": "P14",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$62",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P15",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P15",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P15",
+          "mapped_node": "P15",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$63",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P1",
+        "P17",
+        "P15",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P1",
+        "P17",
+        "P15",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P15",
+          "mapped_node": "P15",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$64",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P15",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P15",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P15",
+          "mapped_node": "P15",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$65",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P1",
+        "P17",
+        "P15",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P1",
+        "P17",
+        "P15",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P15",
+          "mapped_node": "P15",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$66",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P16",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P16",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P16",
+          "mapped_node": "P16",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$67",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P1",
+        "P17",
+        "P16",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P1",
+        "P17",
+        "P16",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P16",
+          "mapped_node": "P16",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$68",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P16",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P16",
+        "P17",
+        "P1",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P16",
+          "mapped_node": "P16",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$69",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P1",
+        "P17",
+        "P16",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P1",
+        "P17",
+        "P16",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P17",
+          "mapped_node": "P17",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P16",
+          "mapped_node": "P16",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$70",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P22",
+        "P22",
+        "P9",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P22",
+        "P22",
+        "P9",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P9",
+          "mapped_node": "P9",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$71",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P9",
+        "P22",
+        "P22",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P9",
+        "P22",
+        "P22",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P9",
+          "mapped_node": "P9",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P22",
+          "mapped_node": "P22",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$72",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P2",
+        "P8",
+        "P10",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P2",
+        "P8",
+        "P10",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P2",
+          "mapped_node": "P2",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P8",
+          "mapped_node": "P8",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P10",
+          "mapped_node": "P10",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$73",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P3",
+        "P2",
+        "P11",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P3",
+        "P2",
+        "P11",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P3",
+          "mapped_node": "P3",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P2",
+          "mapped_node": "P2",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P11",
+          "mapped_node": "P11",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$74",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P4",
+        "P3",
+        "P12",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P4",
+        "P3",
+        "P12",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P4",
+          "mapped_node": "P4",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P3",
+          "mapped_node": "P3",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P12",
+          "mapped_node": "P12",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$75",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P5",
+        "P4",
+        "P13",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P5",
+        "P4",
+        "P13",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P5",
+          "mapped_node": "P5",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P4",
+          "mapped_node": "P4",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P13",
+          "mapped_node": "P13",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$76",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P6",
+        "P5",
+        "P14",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P6",
+        "P5",
+        "P14",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P6",
+          "mapped_node": "P6",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P5",
+          "mapped_node": "P5",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P14",
+          "mapped_node": "P14",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$77",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P7",
+        "P6",
+        "P15",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P7",
+        "P6",
+        "P15",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P7",
+          "mapped_node": "P7",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P6",
+          "mapped_node": "P6",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P15",
+          "mapped_node": "P15",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$78",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P8",
+        "P7",
+        "P16",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P8",
+        "P7",
+        "P16",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P8",
+          "mapped_node": "P8",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P7",
+          "mapped_node": "P7",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P16",
+          "mapped_node": "P16",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$79",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P18",
+        "P8",
+        "P1",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P18",
+        "P8",
+        "P1",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P18",
+          "mapped_node": "P18",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P8",
+          "mapped_node": "P8",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    },
+    {
+      "instance": "M$80",
+      "model": "NMOS",
+      "subckt": "VCO",
+      "kind": "top_level_device",
+      "original_nodes": [
+        "P19",
+        "P18",
+        "P1",
+        "P30"
+      ],
+      "mapped_nodes": [
+        "P19",
+        "P18",
+        "P1",
+        "P30"
+      ],
+      "terminals": [
+        {
+          "terminal_index": 1,
+          "logical_node": "P19",
+          "mapped_node": "P19",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 2,
+          "logical_node": "P18",
+          "mapped_node": "P18",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 3,
+          "logical_node": "P1",
+          "mapped_node": "P1",
+          "method": "shared_logical_net"
+        },
+        {
+          "terminal_index": 4,
+          "logical_node": "P30",
+          "mapped_node": "P30",
+          "method": "shared_logical_net"
+        }
+      ],
+      "status": "mapped"
+    }
+  ],
+  "terminal_mappings": [
+    {
+      "logical_node": "P1",
+      "mapped_node": "P1",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P10",
+      "mapped_node": "P10",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P11",
+      "mapped_node": "P11",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P12",
+      "mapped_node": "P12",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P13",
+      "mapped_node": "P13",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P14",
+      "mapped_node": "P14",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P15",
+      "mapped_node": "P15",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P16",
+      "mapped_node": "P16",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P17",
+      "mapped_node": "P17",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P18",
+      "mapped_node": "P18",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P19",
+      "mapped_node": "P19",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P2",
+      "mapped_node": "P2",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P20",
+      "mapped_node": "P20",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P21",
+      "mapped_node": "P21",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P22",
+      "mapped_node": "P22",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P23",
+      "mapped_node": "P23",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P24",
+      "mapped_node": "P24",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P25",
+      "mapped_node": "P25",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P26",
+      "mapped_node": "P26",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P27",
+      "mapped_node": "P27",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P28",
+      "mapped_node": "P28",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P29",
+      "mapped_node": "P29",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P3",
+      "mapped_node": "P3",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P30",
+      "mapped_node": "P30",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P4",
+      "mapped_node": "P4",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P5",
+      "mapped_node": "P5",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P6",
+      "mapped_node": "P6",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P7",
+      "mapped_node": "P7",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P8",
+      "mapped_node": "P8",
+      "method": "shared_logical_net"
+    },
+    {
+      "logical_node": "P9",
+      "mapped_node": "P9",
+      "method": "shared_logical_net"
+    }
+  ],
+  "reference_mapping": {
+    "source": null,
+    "selected_subckt": null,
+    "records": []
+  },
+  "physical_node_aliases": {},
+  "alias_conflicts": {},
+  "warnings": []
+}

@@ -1,0 +1,39 @@
+
+Note: No compatibility mode selected!
+
+Warning: redefinition of .subckt f_csio_mst, ignored
+Warning: redefinition of .subckt f_csio, ignored
+Warning: redefinition of .subckt pmos, ignored
+Warning: redefinition of .subckt nmos, ignored
+Warning: redefinition of .subckt mpe, ignored
+Warning: redefinition of .subckt mne, ignored
+Warning: redefinition of .subckt f_rr, ignored
+Warning: redefinition of .subckt f_rs_base, ignored
+Warning: redefinition of .subckt f_rs, ignored
+
+Circuit: * tr10-2 shuntaro opamp post ac simulation
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+Warning: can't parse 'vm': ignored
+Warning: can't parse 'vp': ignored
+
+No. of Data Rows : 101
+
+  Measurements for AC Analysis
+
+gain1k              =  2.88094e+03
+ugf                 =   1.57805e+06
+phase_2m            =  -2.95454e+00
+
+
+Total analysis time (seconds) = 0.001549
+
+Total elapsed time (seconds) = 0.009 
+
+Total DRAM available = 8192.000 MB.
+DRAM currently available = 1921.844 MB.
+Maximum ngspice program size =   12.656 MB.
+Current ngspice program size =   12.656 MB.
+

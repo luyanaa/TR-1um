@@ -1,0 +1,54 @@
+
+Note: No compatibility mode selected!
+
+
+Circuit: * tr-1um canonical vco post-layout transient testbench.
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+Operating point simulation skipped by 'uic',
+  now using transient initial conditions.
+
+No. of Data Rows : 2534
+
+  Measurements for Transient Analysis
+
+
+Error: measure  t1  when(WHEN) : out of interval
+ .meas tran t1 when v(out)=2.5 rise=8 failed!
+
+
+Error: measure  t2  when(WHEN) : out of interval
+ .meas tran t2 when v(out)=2.5 rise=9 failed!
+
+Error in netlist line no. 1009, new internal line no. 19:
+
+Undefined parameter [t2]
+Error in netlist line no. 1009, new internal line no. 19:
+
+ Expression err: t2-t1}
+Error in netlist line no. 1009, new internal line no. 19:
+
+Cannot compute substitute
+period              =   failed
+Error in netlist line no. 1010, new internal line no. 20:
+
+Undefined parameter [period]
+Error in netlist line no. 1010, new internal line no. 20:
+
+Cannot compute substitute
+freq                =   failed
+vout_min            =  -4.71505e-04 at=  2.19994e-05
+vout_max            =  5.00112e+00 at=  1.87433e-05
+
+
+Total analysis time (seconds) = 0.899821
+
+Total elapsed time (seconds) = 0.917 
+
+Total DRAM available = 8192.000 MB.
+DRAM currently available = 2561.781 MB.
+Maximum ngspice program size =   11.906 MB.
+Current ngspice program size =   11.906 MB.
+

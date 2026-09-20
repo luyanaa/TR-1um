@@ -1,0 +1,337 @@
+{
+  "design": "TR10-1 inverter",
+  "frequencies_Hz": [
+    1000.0,
+    500000.0,
+    1000000.0
+  ],
+  "limitations": [
+    "surrogate schematic-level inverter; no pad, bondwire, board, probe, source-generator model",
+    "measurement pictures provide no raw voltage waveform or probe capacitance value"
+  ],
+  "load_capacitance_F": [
+    1e-13,
+    5e-13,
+    1e-12,
+    2e-12,
+    5e-12,
+    1e-11,
+    1.5e-11,
+    3e-11
+  ],
+  "model": "hiro-ogawa inverter dimensions Wp=60um/L=10um, Wn=20um/L=10um; calibrated TR-1um MOS models",
+  "rows": [
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1000_c_1.000e-13/run.sp",
+      "frequency_Hz": 1000.0,
+      "load_cap_F": 1e-13,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1000_c_1.000e-13/run.log",
+      "measurements": {
+        "tfall": 8.77993e-07,
+        "trise": 8.60546e-07,
+        "vout_max": 5.00167,
+        "vout_min": -0.000244929
+      },
+      "returncode": 0
+    },
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1000_c_5.000e-13/run.sp",
+      "frequency_Hz": 1000.0,
+      "load_cap_F": 5e-13,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1000_c_5.000e-13/run.log",
+      "measurements": {
+        "tfall": 8.31546e-07,
+        "trise": 7.98802e-07,
+        "vout_max": 5.00075,
+        "vout_min": -0.000245489
+      },
+      "returncode": 0
+    },
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1000_c_1.000e-12/run.sp",
+      "frequency_Hz": 1000.0,
+      "load_cap_F": 1e-12,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1000_c_1.000e-12/run.log",
+      "measurements": {
+        "tfall": 8.33795e-07,
+        "trise": 9.30358e-07,
+        "vout_max": 5.00075,
+        "vout_min": -0.00024617
+      },
+      "returncode": 0
+    },
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1000_c_2.000e-12/run.sp",
+      "frequency_Hz": 1000.0,
+      "load_cap_F": 2e-12,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1000_c_2.000e-12/run.log",
+      "measurements": {
+        "tfall": 8.49389e-07,
+        "trise": 7.633e-07,
+        "vout_max": 5.00075,
+        "vout_min": -0.000247471
+      },
+      "returncode": 0
+    },
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1000_c_5.000e-12/run.sp",
+      "frequency_Hz": 1000.0,
+      "load_cap_F": 5e-12,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1000_c_5.000e-12/run.log",
+      "measurements": {
+        "tfall": 1.09009e-06,
+        "trise": 8.16191e-07,
+        "vout_max": 5.00075,
+        "vout_min": -0.000250919
+      },
+      "returncode": 0
+    },
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1000_c_1.000e-11/run.sp",
+      "frequency_Hz": 1000.0,
+      "load_cap_F": 1e-11,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1000_c_1.000e-11/run.log",
+      "measurements": {
+        "tfall": 9.07966e-07,
+        "trise": 1.28646e-06,
+        "vout_max": 5.00076,
+        "vout_min": -0.000255324
+      },
+      "returncode": 0
+    },
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1000_c_1.500e-11/run.sp",
+      "frequency_Hz": 1000.0,
+      "load_cap_F": 1.5e-11,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1000_c_1.500e-11/run.log",
+      "measurements": {
+        "tfall": 1.00648e-06,
+        "trise": 9.8966e-07,
+        "vout_max": 5.00077,
+        "vout_min": -0.000257079
+      },
+      "returncode": 0
+    },
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1000_c_3.000e-11/run.sp",
+      "frequency_Hz": 1000.0,
+      "load_cap_F": 3e-11,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1000_c_3.000e-11/run.log",
+      "measurements": {
+        "tfall": 1.54155e-06,
+        "trise": 1.47554e-06,
+        "vout_max": 5.00203,
+        "vout_min": -0.000251847
+      },
+      "returncode": 0
+    },
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_500000_c_1.000e-13/run.sp",
+      "frequency_Hz": 500000.0,
+      "load_cap_F": 1e-13,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_500000_c_1.000e-13/run.log",
+      "measurements": {
+        "tfall": 4.71228e-09,
+        "trise": 6.70232e-09,
+        "vout_max": 5.39329,
+        "vout_min": -0.254702
+      },
+      "returncode": 0
+    },
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_500000_c_5.000e-13/run.sp",
+      "frequency_Hz": 500000.0,
+      "load_cap_F": 5e-13,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_500000_c_5.000e-13/run.log",
+      "measurements": {
+        "tfall": 5.3802e-09,
+        "trise": 7.69685e-09,
+        "vout_max": 5.35126,
+        "vout_min": -0.226307
+      },
+      "returncode": 0
+    },
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_500000_c_1.000e-12/run.sp",
+      "frequency_Hz": 500000.0,
+      "load_cap_F": 1e-12,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_500000_c_1.000e-12/run.log",
+      "measurements": {
+        "tfall": 7.09231e-09,
+        "trise": 9.44717e-09,
+        "vout_max": 5.31891,
+        "vout_min": -0.199193
+      },
+      "returncode": 0
+    },
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_500000_c_2.000e-12/run.sp",
+      "frequency_Hz": 500000.0,
+      "load_cap_F": 2e-12,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_500000_c_2.000e-12/run.log",
+      "measurements": {
+        "tfall": 1.08764e-08,
+        "trise": 1.36996e-08,
+        "vout_max": 5.26079,
+        "vout_min": -0.155441
+      },
+      "returncode": 0
+    },
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_500000_c_5.000e-12/run.sp",
+      "frequency_Hz": 500000.0,
+      "load_cap_F": 5e-12,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_500000_c_5.000e-12/run.log",
+      "measurements": {
+        "tfall": 2.40317e-08,
+        "trise": 2.79191e-08,
+        "vout_max": 5.15639,
+        "vout_min": -0.0932331
+      },
+      "returncode": 0
+    },
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_500000_c_1.000e-11/run.sp",
+      "frequency_Hz": 500000.0,
+      "load_cap_F": 1e-11,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_500000_c_1.000e-11/run.log",
+      "measurements": {
+        "tfall": 4.61978e-08,
+        "trise": 5.29146e-08,
+        "vout_max": 5.09472,
+        "vout_min": -0.0567308
+      },
+      "returncode": 0
+    },
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_500000_c_1.500e-11/run.sp",
+      "frequency_Hz": 500000.0,
+      "load_cap_F": 1.5e-11,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_500000_c_1.500e-11/run.log",
+      "measurements": {
+        "tfall": 6.84216e-08,
+        "trise": 7.78369e-08,
+        "vout_max": 5.06877,
+        "vout_min": -0.0403067
+      },
+      "returncode": 0
+    },
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_500000_c_3.000e-11/run.sp",
+      "frequency_Hz": 500000.0,
+      "load_cap_F": 3e-11,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_500000_c_3.000e-11/run.log",
+      "measurements": {
+        "tfall": 1.35187e-07,
+        "trise": 1.52855e-07,
+        "vout_max": 5.03975,
+        "vout_min": -0.0214754
+      },
+      "returncode": 0
+    },
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1e+06_c_1.000e-13/run.sp",
+      "frequency_Hz": 1000000.0,
+      "load_cap_F": 1e-13,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1e+06_c_1.000e-13/run.log",
+      "measurements": {
+        "tfall": 2.47318e-09,
+        "trise": 3.94117e-09,
+        "vout_max": 5.58141,
+        "vout_min": -0.501989
+      },
+      "returncode": 0
+    },
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1e+06_c_5.000e-13/run.sp",
+      "frequency_Hz": 1000000.0,
+      "load_cap_F": 5e-13,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1e+06_c_5.000e-13/run.log",
+      "measurements": {
+        "tfall": 3.93549e-09,
+        "trise": 5.45081e-09,
+        "vout_max": 5.5653,
+        "vout_min": -0.431559
+      },
+      "returncode": 0
+    },
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1e+06_c_1.000e-12/run.sp",
+      "frequency_Hz": 1000000.0,
+      "load_cap_F": 1e-12,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1e+06_c_1.000e-12/run.log",
+      "measurements": {
+        "tfall": 6.16165e-09,
+        "trise": 7.89676e-09,
+        "vout_max": 5.52678,
+        "vout_min": -0.357927
+      },
+      "returncode": 0
+    },
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1e+06_c_2.000e-12/run.sp",
+      "frequency_Hz": 1000000.0,
+      "load_cap_F": 2e-12,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1e+06_c_2.000e-12/run.log",
+      "measurements": {
+        "tfall": 1.05656e-08,
+        "trise": 1.285e-08,
+        "vout_max": 5.41207,
+        "vout_min": -0.262631
+      },
+      "returncode": 0
+    },
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1e+06_c_5.000e-12/run.sp",
+      "frequency_Hz": 1000000.0,
+      "load_cap_F": 5e-12,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1e+06_c_5.000e-12/run.log",
+      "measurements": {
+        "tfall": 2.38723e-08,
+        "trise": 2.78275e-08,
+        "vout_max": 5.2433,
+        "vout_min": -0.143733
+      },
+      "returncode": 0
+    },
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1e+06_c_1.000e-11/run.sp",
+      "frequency_Hz": 1000000.0,
+      "load_cap_F": 1e-11,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1e+06_c_1.000e-11/run.log",
+      "measurements": {
+        "tfall": 4.6092e-08,
+        "trise": 5.28085e-08,
+        "vout_max": 5.14313,
+        "vout_min": -0.0818516
+      },
+      "returncode": 0
+    },
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1e+06_c_1.500e-11/run.sp",
+      "frequency_Hz": 1000000.0,
+      "load_cap_F": 1.5e-11,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1e+06_c_1.500e-11/run.log",
+      "measurements": {
+        "tfall": 6.83518e-08,
+        "trise": 7.78058e-08,
+        "vout_max": 5.10035,
+        "vout_min": -0.0570012
+      },
+      "returncode": 0
+    },
+    {
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1e+06_c_3.000e-11/run.sp",
+      "frequency_Hz": 1000000.0,
+      "load_cap_F": 3e-11,
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/inverter_measurement_sweep/f_1e+06_c_3.000e-11/run.log",
+      "measurements": {
+        "tfall": 1.35151e-07,
+        "trise": 1.52821e-07,
+        "vout_max": 5.04308,
+        "vout_min": -0.0280029
+      },
+      "returncode": 0
+    }
+  ]
+}

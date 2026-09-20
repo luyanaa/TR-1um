@@ -1,0 +1,90 @@
+{
+  "controls_V": 2.5,
+  "design": "TR10-1 VCO",
+  "limitations": [
+    "engineering-estimate RCX",
+    "node selection is a sensitivity experiment",
+    "no pad/bondwire/board/probe topology"
+  ],
+  "purpose": "Bounded distributed shunt-capacitance sensitivity; each added capacitor is a deliberately broad internal-node loading surrogate, not a claim that a probe touches every node.",
+  "rows": [
+    {
+      "cap_each_F": 0.0,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/vco/distributed_cap_sweep/cap_each_0.000e00/run.sp",
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/vco/distributed_cap_sweep/cap_each_0.000e00/run.log",
+      "measurements": {
+        "freq": 713915.0,
+        "period": 1.40073e-06,
+        "vout_max": 5.02434,
+        "vout_min": -0.0125662
+      },
+      "nodes_loaded": "P2..P18 (17 internal ring nets)",
+      "returncode": 0
+    },
+    {
+      "cap_each_F": 1e-13,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/vco/distributed_cap_sweep/cap_each_1.000e-13/run.sp",
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/vco/distributed_cap_sweep/cap_each_1.000e-13/run.log",
+      "measurements": {
+        "freq": 665596.0,
+        "period": 1.50241e-06,
+        "vout_max": 5.01701,
+        "vout_min": -0.0102515
+      },
+      "nodes_loaded": "P2..P18 (17 internal ring nets)",
+      "returncode": 0
+    },
+    {
+      "cap_each_F": 5e-13,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/vco/distributed_cap_sweep/cap_each_5.000e-13/run.sp",
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/vco/distributed_cap_sweep/cap_each_5.000e-13/run.log",
+      "measurements": {
+        "freq": 526315.0,
+        "period": 1.9e-06,
+        "vout_max": 5.00984,
+        "vout_min": -0.00230517
+      },
+      "nodes_loaded": "P2..P18 (17 internal ring nets)",
+      "returncode": 0
+    },
+    {
+      "cap_each_F": 1e-12,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/vco/distributed_cap_sweep/cap_each_1.000e-12/run.sp",
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/vco/distributed_cap_sweep/cap_each_1.000e-12/run.log",
+      "measurements": {
+        "freq": 416903.0,
+        "period": 2.39864e-06,
+        "vout_max": 5.00398,
+        "vout_min": -0.0015794
+      },
+      "nodes_loaded": "P2..P18 (17 internal ring nets)",
+      "returncode": 0
+    },
+    {
+      "cap_each_F": 2e-12,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/vco/distributed_cap_sweep/cap_each_2.000e-12/run.sp",
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/vco/distributed_cap_sweep/cap_each_2.000e-12/run.log",
+      "measurements": {
+        "freq": null,
+        "period": null,
+        "vout_max": 5.00257,
+        "vout_min": -0.00101471
+      },
+      "nodes_loaded": "P2..P18 (17 internal ring nets)",
+      "returncode": 0
+    },
+    {
+      "cap_each_F": 5e-12,
+      "deck": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/vco/distributed_cap_sweep/cap_each_5.000e-12/run.sp",
+      "log": "/Users/yanlu/Documents/TR-1um/analysis/tr10_rcx_vco/remediated/vco/distributed_cap_sweep/cap_each_5.000e-12/run.log",
+      "measurements": {
+        "freq": null,
+        "period": null,
+        "vout_max": 5.00112,
+        "vout_min": -0.000471505
+      },
+      "nodes_loaded": "P2..P18 (17 internal ring nets)",
+      "returncode": 0
+    }
+  ]
+}

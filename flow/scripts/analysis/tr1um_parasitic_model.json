@@ -5,6 +5,10 @@
     "length": "um",
     "capacitance": "pF"
   },
+  "numerics": {
+    "terminal_attachment_resistance_ohm": 1.0e-6,
+    "basis": "SPICE numerical floor for a topological zero-ohm terminal attachment; not a physical interconnect resistance"
+  },
   "source_basis": [
     {
       "path": "openIP62/IP62/Technology/doc/OS00_リファレンスマニュアル_rev1.1.pdf",
